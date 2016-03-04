@@ -1,4 +1,12 @@
 ##
+# Project
+#
+
+## Build generated
+bin/
+proj.ios_mac/build/
+
+##
 # C++
 #
 
