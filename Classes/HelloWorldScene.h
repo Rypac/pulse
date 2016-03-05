@@ -10,5 +10,13 @@ public:
 
     void menuCloseCallback(cocos2d::Ref* pSender);
 
+    Node* nodeUnderTouch(cocos2d::Touch *touch);
+    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+
     CREATE_FUNC(HelloWorld);
+
+private:
+    cocos2d::Sprite* hitDetector = nullptr;
+    cocos2d::Label* hitDetectionLabel = nullptr;
 };
