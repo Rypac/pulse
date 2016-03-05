@@ -1,3 +1,6 @@
 [submodule "libs/gsl"]
 	path = libs/gsl
 	url = git@github.com:Microsoft/GSL.git
+[submodule "libs/rdl"]
+	path = libs/rdl
+	url = git@bitbucket.org:Rypac/rdl.git
