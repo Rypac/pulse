@@ -54,16 +54,6 @@ bool HelloWorld::init() {
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    label->setPosition(Vec2(frame.origin.x + frame.size.width / 2,
-                            frame.origin.y + frame.size.height - label->getContentSize().height));
-    this->addChild(label, 1);
-
-    hitDetectionLabel = Label::createWithTTF("Touch anywhere!", "fonts/Marker Felt.ttf", 20);
-    hitDetectionLabel->setPosition(Vec2(frame.origin.x + frame.size.width / 2,
-                                        1.2 * hitDetectionLabel->getContentSize().height));
-    this->addChild(hitDetectionLabel, 1);
-
     hitDetector = createHero();
     hitDetector->setPosition(centerOf(frame));
     this->addChild(hitDetector);
@@ -91,23 +81,15 @@ bool containsNode(const rdl::Vector<Node*>& nodes, const gsl::not_null<Node*> ta
 }
 
 bool HelloWorld::onTouchBegan(Touch* touch, Event* event) {
-    auto touchPosition = this->convertTouchToNodeSpace(touch);
-    const auto touchedNodes = nodesAtPosition(touchPosition);
-
-    if (containsNode(touchedNodes, hitDetector)) {
-        hitDetectionLabel->setColor(Color3B::GREEN);
-        hitDetectionLabel->setString("Ohhh, you touched me!");
-    } else {
-        hitDetectionLabel->setColor(Color3B::RED);
-        hitDetectionLabel->setString("Haha, missed me!");
+    auto heroBody = hitDetector->getPhysicsBody();
+    if (heroBody) {
+        heroBody->setVelocity(Vec2(0, 0));
+        heroBody->applyImpulse(Vec2(0, 100000));
     }
-
     return true;
 }
 
 void HelloWorld::onTouchEnded(Touch* touch, Event* event) {
-    hitDetectionLabel->setColor(Color3B::WHITE);
-    hitDetectionLabel->setString("Touch anywhere!");
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender) {

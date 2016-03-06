@@ -17,5 +17,4 @@ public:
 
 private:
     cocos2d::Sprite* hitDetector = nullptr;
-    cocos2d::Label* hitDetectionLabel = nullptr;
 };
