@@ -6,6 +6,9 @@
 bin/
 proj.ios_mac/build/
 
+## Cocos2d-x library files (these are HUGE!)
+cocos2d/
+
 ##
 # C++
 #
