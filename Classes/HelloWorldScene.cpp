@@ -8,9 +8,30 @@ USING_NS_CC;
 
 Scene* HelloWorld::createScene() {
     auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     auto layer = HelloWorld::create();
     scene->addChild(layer);
     return scene;
+}
+
+static inline Vec2 centerOf(Rect frame) {
+    return Vec2(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
+}
+
+gsl::owner<Node*> createSceneBorder(Rect frame) {
+    auto scene = Node::create();
+    auto borderPhysics = PhysicsBody::createEdgeBox(frame.size, PhysicsMaterial(0.1f, 1.0f, 0.0f));
+    scene->setPhysicsBody(borderPhysics);
+    scene->setPosition(centerOf(frame));
+    return scene;
+}
+
+gsl::owner<Sprite*> createHero() {
+    auto hero = Sprite::create("HelloWorld.png");
+    auto physicsBody = PhysicsBody::createBox(hero->getBoundingBox().size, PhysicsMaterial(0.1f, 1.0f, 0.0f));
+    physicsBody->setDynamic(true);
+    hero->addComponent(physicsBody);
+    return hero;
 }
 
 bool HelloWorld::init() {
@@ -26,8 +47,8 @@ bool HelloWorld::init() {
         "CloseSelected.png",
         CC_CALLBACK_1(HelloWorld::menuCloseCallback, this)
     );
-	closeItem->setPosition(Vec2(frame.origin.x + frame.size.width - closeItem->getContentSize().width / 2,
-                                frame.origin.y + closeItem->getContentSize().height/2));
+    closeItem->setPosition(Vec2(frame.origin.x + frame.size.width - closeItem->getContentSize().width / 2,
+                                frame.origin.y + closeItem->getContentSize().height / 2));
 
     auto menu = Menu::create(closeItem, NULL);
     menu->setPosition(Vec2::ZERO);
@@ -41,15 +62,14 @@ bool HelloWorld::init() {
     hitDetectionLabel = Label::createWithTTF("Touch anywhere!", "fonts/Marker Felt.ttf", 20);
     hitDetectionLabel->setPosition(Vec2(frame.origin.x + frame.size.width / 2,
                                         1.2 * hitDetectionLabel->getContentSize().height));
-    this->addChild(hitDetectionLabel);
+    this->addChild(hitDetectionLabel, 1);
 
-    hitDetector = Sprite::create("HelloWorld.png");
-    hitDetector->setPosition(Vec2(frame.size.width / 2 + frame.origin.x, frame.size.height / 2 + frame.origin.y));
+    hitDetector = createHero();
+    hitDetector->setPosition(centerOf(frame));
     this->addChild(hitDetector);
 
-    auto physicsBody = PhysicsBody::createBox(hitDetector->getContentSize(), PhysicsMaterial(0.1f, 1.0f, 0.0f));
-    physicsBody->setDynamic(false);
-    hitDetector->addComponent(physicsBody);
+    auto sceneBorder = createSceneBorder(frame);
+    this->addChild(sceneBorder);
 
     auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
