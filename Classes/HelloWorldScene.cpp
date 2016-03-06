@@ -1,5 +1,8 @@
 #include "HelloWorldScene.h"
-// #include <gsl/gsl.h>
+
+#include <gsl/gsl.h>
+#include <range/v3/all.hpp>
+#include <rdl/vector.hpp>
 
 USING_NS_CC;
 
@@ -56,47 +59,27 @@ bool HelloWorld::init() {
     return true;
 }
 
-Node* HelloWorld::nodeUnderTouch(cocos2d::Touch *touch) {
-    auto location = this->convertTouchToNodeSpace(touch);
+rdl::Vector<Node*> nodesAtPosition(Vec2 position) {
     auto scene = Director::getInstance()->getRunningScene();
-    auto shapes = scene->getPhysicsWorld()->getShapes(location);
-
-    for (auto& obj : shapes) {
-        auto node = obj->getBody()->getNode();
-        if (node == hitDetector) {
-            return node;
-        }
-    }
-    return nullptr;
+    auto shapes = scene->getPhysicsWorld()->getShapes(position);
+    auto shapeToNode = [](PhysicsShape* shape) -> Node* { return shape->getBody()->getNode(); };
+    return shapes | ranges::view::transform(shapeToNode);
 }
 
-// template<typename Collection, class T>
-// inline bool contains(const Collection& v, const T& x) {
-//     return end(v) != std::find(begin(v), end(v), x);
-// }
-//
-// template<typename Collection, typename Fn>
-// Collection map(Collection collection, Fn operation) {
-//     std::transform(collection.begin(), collection.end(), collection.begin(), operation);
-//     return collection;
-// }
-//
-// Vector<Node*> HelloWorld::nodesUnderTouch(cocos2d::Touch *touch) {
-//     auto location = this->convertTouchToNodeSpace(touch);
-//     auto scene = Director::getInstance()->getRunningScene();
-//     auto shapes = scene->getPhysicsWorld()->getShapes(location);
-//     return map(shapes, [](auto shape) { return shape->getBody()->getNode(); });
-// }
+bool containsNode(const rdl::Vector<Node*>& nodes, const gsl::not_null<Node*> targetNode) {
+    return ranges::any_of(nodes, [=](auto node) { return node == targetNode; });
+}
 
 bool HelloWorld::onTouchBegan(Touch* touch, Event* event) {
-    auto touchedNode = this->nodeUnderTouch(touch);
+    auto touchPosition = this->convertTouchToNodeSpace(touch);
+    const auto touchedNodes = nodesAtPosition(touchPosition);
 
-    if (touchedNode == hitDetector) {
+    if (containsNode(touchedNodes, hitDetector)) {
         hitDetectionLabel->setColor(Color3B::GREEN);
-        hitDetectionLabel->setString("Ohoo, U catch me!");
+        hitDetectionLabel->setString("Ohhh, you touched me!");
     } else {
         hitDetectionLabel->setColor(Color3B::RED);
-        hitDetectionLabel->setString("Haha, touch outside!");
+        hitDetectionLabel->setString("Haha, missed me!");
     }
 
     return true;

@@ -10,7 +10,6 @@ public:
 
     void menuCloseCallback(cocos2d::Ref* pSender);
 
-    Node* nodeUnderTouch(cocos2d::Touch *touch);
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
