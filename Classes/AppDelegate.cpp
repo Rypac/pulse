@@ -4,10 +4,10 @@
 USING_NS_CC;
 
 namespace DisplayResolution {
-    static const cocos2d::Size design = cocos2d::Size(480, 320);
-    static const cocos2d::Size small = cocos2d::Size(480, 320);
-    static const cocos2d::Size medium = cocos2d::Size(1024, 768);
-    static const cocos2d::Size large = cocos2d::Size(2048, 1536);
+    static const auto design = cocos2d::Size(480, 320);
+    static const auto small = cocos2d::Size(480, 320);
+    static const auto medium = cocos2d::Size(1024, 768);
+    static const auto large = cocos2d::Size(2048, 1536);
 }
 
 AppDelegate::AppDelegate() {}
