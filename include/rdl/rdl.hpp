@@ -32,8 +32,10 @@
 #include <rdl/list.hpp>
 #include <rdl/map.hpp>
 #include <rdl/optional.hpp>
+#include <rdl/pair.hpp>
 #include <rdl/queue.hpp>
 #include <rdl/set.hpp>
 #include <rdl/stack.hpp>
 #include <rdl/string.hpp>
+#include <rdl/tuple.hpp>
 #include <rdl/vector.hpp>
