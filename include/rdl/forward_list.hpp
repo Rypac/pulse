@@ -26,22 +26,9 @@
 
 #pragma once
 
-#include <list>
+#include <forward_list>
 
 namespace rdl { inline namespace v1 {
     template <typename T>
-    using List = std::list<T>;
+    using ForwardList = std::forward_list<T>;
 } }
-
-template <typename T>
-inline rdl::List<T> operator+(const rdl::List<T>& list1, const rdl::List<T>& list2) {
-    rdl::List<T> out{};
-    out.insert(out.end(), list1.begin(), list1.end());
-    out.insert(out.end(), list2.begin(), list2.end());
-    return out;
-}
-
-template <typename T>
-inline void operator+=(rdl::List<T>& list1, const rdl::List<T>& list2) {
-    list1.insert(list1.end(), list2.begin(), list2.end());
-}
