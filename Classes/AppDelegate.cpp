@@ -1,13 +1,15 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 
+#include <algorithm>
+
 USING_NS_CC;
 
 namespace DisplayResolution {
-    static const auto design = cocos2d::Size(480, 320);
-    static const auto small = cocos2d::Size(480, 320);
-    static const auto medium = cocos2d::Size(1024, 768);
-    static const auto large = cocos2d::Size(2048, 1536);
+    const auto Design = Size(480, 320);
+    const auto Small = Size(480, 320);
+    const auto Medium = Size(1024, 768);
+    const auto Large = Size(2048, 1536);
 }
 
 AppDelegate::AppDelegate() {}
@@ -23,21 +25,21 @@ static int register_all_packages() {
     return 0;
 }
 
-cocos2d::Size displayResolutionForFrame(Size frame) {
-    if (frame.height > DisplayResolution::medium.height) {
-        return DisplayResolution::large;
-    } else if (frame.height > DisplayResolution::small.height) {
-        return DisplayResolution::medium;
+Size displayResolutionForFrame(Size frame) {
+    if (frame.height > DisplayResolution::Medium.height) {
+        return DisplayResolution::Large;
+    } else if (frame.height > DisplayResolution::Small.height) {
+        return DisplayResolution::Medium;
     } else {
-        return DisplayResolution::small;
+        return DisplayResolution::Small;
     }
 }
 
 float contentScaleFactorForFrame(Size frame) {
     auto resolution = displayResolutionForFrame(frame);
-    auto scaledHeight = resolution.height / DisplayResolution::design.height;
-    auto scaledWidth = resolution.width / DisplayResolution::design.width;
-    return MIN(scaledHeight, scaledWidth);
+    auto scaledHeight = resolution.height / DisplayResolution::Design.height;
+    auto scaledWidth = resolution.width / DisplayResolution::Design.width;
+    return std::min(scaledHeight, scaledWidth);
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -51,7 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setDisplayStats(true);
     director->setAnimationInterval(1.0 / 60);
 
-    glview->setDesignResolutionSize(DisplayResolution::design.width, DisplayResolution::design.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(DisplayResolution::Design.width, DisplayResolution::Design.height, ResolutionPolicy::NO_BORDER);
     auto frame = glview->getFrameSize();
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
