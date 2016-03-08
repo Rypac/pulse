@@ -7,3 +7,6 @@
 [submodule "libs/meta"]
 	path = libs/meta
 	url = git@github.com:ericniebler/meta.git
+[submodule "libs/cpputils"]
+	path = libs/cpputils
+	url = git@bitbucket.org:Rypac/cpputils.git
