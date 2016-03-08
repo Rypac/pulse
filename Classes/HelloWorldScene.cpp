@@ -2,7 +2,7 @@
 
 #include <gsl/gsl.h>
 #include <range/v3/all.hpp>
-#include <rdl/vector.hpp>
+#include <vector>
 
 USING_NS_CC;
 
@@ -69,14 +69,14 @@ bool HelloWorld::init() {
     return true;
 }
 
-rdl::Vector<Node*> nodesAtPosition(Vec2 position) {
+std::vector<Node*> nodesAtPosition(Vec2 position) {
     auto scene = Director::getInstance()->getRunningScene();
     auto shapes = scene->getPhysicsWorld()->getShapes(position);
     auto shapeToNode = [](PhysicsShape* shape) -> Node* { return shape->getBody()->getNode(); };
     return shapes | ranges::view::transform(shapeToNode);
 }
 
-bool containsNode(const rdl::Vector<Node*>& nodes, const gsl::not_null<Node*> targetNode) {
+bool containsNode(const std::vector<Node*>& nodes, const gsl::not_null<Node*> targetNode) {
     return ranges::any_of(nodes, [=](auto node) { return node == targetNode; });
 }
 
