@@ -20,7 +20,7 @@ static inline Vec2 centerOf(Rect frame) {
 
 gsl::owner<Node*> createSceneBorder(Rect frame) {
     auto scene = Node::create();
-    auto borderPhysics = PhysicsBody::createEdgeBox(frame.size, PhysicsMaterial(0.1f, 1.0f, 0.0f));
+    auto borderPhysics = PhysicsBody::createEdgeBox(frame.size);
     scene->setPhysicsBody(borderPhysics);
     scene->setPosition(centerOf(frame));
     return scene;
@@ -28,7 +28,7 @@ gsl::owner<Node*> createSceneBorder(Rect frame) {
 
 gsl::owner<Sprite*> createHero() {
     auto hero = Sprite::create("HelloWorld.png");
-    auto physicsBody = PhysicsBody::createBox(hero->getBoundingBox().size, PhysicsMaterial(0.1f, 1.0f, 0.0f));
+    auto physicsBody = PhysicsBody::createBox(hero->getBoundingBox().size, PhysicsMaterial(0.5f, 0.5f, 0.0f));
     physicsBody->setDynamic(true);
     hero->addComponent(physicsBody);
     return hero;
@@ -84,7 +84,7 @@ bool HelloWorld::onTouchBegan(Touch* touch, Event* event) {
     auto heroBody = hitDetector->getPhysicsBody();
     if (heroBody) {
         heroBody->setVelocity(Vec2(0, 0));
-        heroBody->applyImpulse(Vec2(0, 100000));
+        heroBody->applyImpulse(Vec2(0, 400000));
     }
     return true;
 }
