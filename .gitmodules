@@ -1,9 +1,6 @@
 [submodule "libs/gsl"]
 	path = libs/gsl
 	url = git@github.com:Microsoft/GSL.git
-[submodule "libs/rdl"]
-	path = libs/rdl
-	url = git@bitbucket.org:Rypac/rdl.git
 [submodule "libs/range-v3"]
 	path = libs/range-v3
 	url = git@github.com:ericniebler/range-v3.git
