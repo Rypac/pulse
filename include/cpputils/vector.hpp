@@ -26,9 +26,26 @@
 
 #pragma once
 
-#include <queue>
+#include <vector>
 
-namespace rdl { inline namespace v1 {
-    template <typename T>
-    using Queue = std::queue<T>;
-} }
+template <typename T>
+inline std::vector<T> operator+(const std::vector<T>& vec1, const std::vector<T>& vec2) {
+    std::vector<T> out{};
+    out.reserve(vec1.size() + vec2.size());
+    out.insert(out.end(), vec1.begin(), vec1.end());
+    out.insert(out.end(), vec2.begin(), vec2.end());
+    return out;
+}
+
+template <typename T>
+inline void operator+=(std::vector<T>& vec1, const std::vector<T>& vec2) {
+    vec1.reserve(vec1.size() + vec2.size());
+    vec1.insert(vec1.end(), vec2.begin(), vec2.end());
+}
+
+template <typename T>
+inline std::vector<T> operator<<(const std::vector<T>& vec, const T& value) {
+    std::vector<T> out(vec);
+    out.emplace_back(value);
+    return out;
+}

@@ -26,9 +26,23 @@
 
 #pragma once
 
-#include <array>
+#include <deque>
 
-namespace rdl { inline namespace v1 {
-    template <typename T, std::size_t N>
-    using Array = std::array<T, N>;
-} }
+template <typename T>
+inline std::deque<T> operator+(const std::deque<T>& queue1, const std::deque<T>& queue2) {
+    std::deque<T> out(queue1);
+    out.insert(out.end(), queue2.begin(), queue2.end());
+    return out;
+}
+
+template <typename T>
+inline void operator+=(std::deque<T>& queue1, const std::deque<T>& queue2) {
+    queue1.insert(queue1.end(), queue2.begin(), queue2.end());
+}
+
+template <typename T>
+inline std::deque<T> operator<<(const std::deque<T>& queue, const T& value) {
+    std::deque<T> out(queue);
+    out.emplace_back(value);
+    return out;
+}

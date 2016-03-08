@@ -26,9 +26,24 @@
 
 #pragma once
 
-#include <map>
+#include <forward_list>
 
-namespace rdl { inline namespace v1 {
-    template <typename Key, typename Value>
-    using Map = std::map<Key, Value>;
-} }
+template <typename T>
+inline std::forward_list<T> operator+(const std::forward_list<T>& list1, const std::forward_list<T>& list2) {
+    std::forward_list<T> out1(list1);
+    std::forward_list<T> out2(list2);
+    out2.splice_after(out2.cbefore_begin(), out1);
+    return out2;
+}
+
+template <typename T>
+inline void operator+=(std::forward_list<T>& list1, const std::forward_list<T>& list2) {
+    std::forward_list<T> new_list(list2);
+    new_list.splice_after(new_list.cbefore_begin(), list1);
+    list1.swap(new_list);
+}
+
+template <typename T>
+inline std::forward_list<T> operator<<(const std::forward_list<T>& list, const T& value) {
+    return list + std::forward_list<T>{value};
+}

@@ -26,16 +26,8 @@
 
 #pragma once
 
-#include <experimental/optional>
-
-namespace rdl { inline namespace v1 {
-    template <typename T>
-    using Optional = std::experimental::optional<T>;
-
-    template <typename... Args>
-    constexpr auto Some(Args&&... args) {
-      return std::experimental::make_optional(std::forward<Args>(args)...);
-    }
-
-    constexpr auto None = std::experimental::nullopt;
-} }
+#include <cpputils/deque.hpp>
+#include <cpputils/forward_list.hpp>
+#include <cpputils/list.hpp>
+#include <cpputils/optional.hpp>
+#include <cpputils/vector.hpp>

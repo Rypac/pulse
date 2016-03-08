@@ -26,24 +26,23 @@
 
 #pragma once
 
-#include <vector>
-
-namespace rdl { inline namespace v1 {
-    template <typename T>
-    using Vector = std::vector<T>;
-} }
+#include <list>
 
 template <typename T>
-inline rdl::Vector<T> operator+(const rdl::Vector<T>& v1, const rdl::Vector<T>& v2) {
-    rdl::Vector<T> out{};
-    out.reserve(v1.size() + v2.size());
-    out.insert(out.end(), v1.begin(), v1.end());
-    out.insert(out.end(), v2.begin(), v2.end());
+inline std::list<T> operator+(const std::list<T>& list1, const std::list<T>& list2) {
+    std::list<T> out(list1);
+    out.insert(out.end(), list2.begin(), list2.end());
     return out;
 }
 
 template <typename T>
-inline void operator+=(rdl::Vector<T>& v1, const rdl::Vector<T>& v2) {
-    v1.reserve(v1.size() + v2.size());
-    v1.insert(v1.end(), v2.begin(), v2.end());
+inline void operator+=(std::list<T>& list1, const std::list<T>& list2) {
+    list1.insert(list1.end(), list2.begin(), list2.end());
+}
+
+template <typename T>
+inline std::list<T> operator<<(const std::list<T>& list, const T& value) {
+    std::list<T> out(list);
+    out.emplace_back(value);
+    return out;
 }
