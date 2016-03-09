@@ -34,6 +34,20 @@ gsl::owner<Sprite*> createHero() {
     return hero;
 }
 
+gsl::owner<Sprite*> createColumn(Rect sceneFrame) {
+    auto spriteFrame = Rect(0, 0, 50, sceneFrame.size.height);
+    auto column = Sprite::create();
+    column->setTextureRect(spriteFrame);
+    column->setColor(Color3B::BLUE);
+
+    auto physicsBody = PhysicsBody::createBox(column->getBoundingBox().size, PhysicsMaterial(0.1f, 0.0f, 0.0f));
+    physicsBody->setDynamic(true);
+    physicsBody->applyForce(Vec2(-50000, 0));
+    column->addComponent(physicsBody);
+
+    return column;
+}
+
 bool HelloWorld::init() {
     if (!Layer::init()) {
         return false;
@@ -54,9 +68,14 @@ bool HelloWorld::init() {
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    hitDetector = createHero();
-    hitDetector->setPosition(centerOf(frame));
-    this->addChild(hitDetector);
+    flappy = createHero();
+    flappy->setPosition(centerOf(frame));
+    this->addChild(flappy);
+
+    auto column = createColumn(frame);
+    column->setPosition(Vec2(frame.origin.x + frame.size.width - column->getContentSize().width / 2,
+                             frame.origin.y + frame.size.height - column->getContentSize().height / 2));
+    this->addChild(column);
 
     auto sceneBorder = createSceneBorder(frame);
     this->addChild(sceneBorder);
@@ -81,10 +100,10 @@ bool containsNode(const std::vector<Node*>& nodes, const gsl::not_null<Node*> ta
 }
 
 bool HelloWorld::onTouchBegan(Touch* touch, Event* event) {
-    auto heroBody = hitDetector->getPhysicsBody();
-    if (heroBody) {
-        heroBody->setVelocity(Vec2(0, 0));
-        heroBody->applyImpulse(Vec2(0, 400000));
+    auto flappyBody = flappy->getPhysicsBody();
+    if (flappyBody) {
+        flappyBody->setVelocity(Vec2(flappyBody->getVelocity().x, 0));
+        flappyBody->applyImpulse(Vec2(0, 400000));
     }
     return true;
 }

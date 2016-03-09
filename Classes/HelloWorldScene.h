@@ -16,5 +16,5 @@ public:
     CREATE_FUNC(HelloWorld);
 
 private:
-    cocos2d::Sprite* hitDetector = nullptr;
+    cocos2d::Sprite* flappy = nullptr;
 };
