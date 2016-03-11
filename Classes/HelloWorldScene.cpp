@@ -6,7 +6,10 @@
 
 USING_NS_CC;
 
-Scene* HelloWorld::createScene() {
+using gsl::owner;
+using gsl::not_null;
+
+owner<Scene*> HelloWorld::createScene() {
     auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     auto layer = HelloWorld::create();
@@ -18,7 +21,7 @@ static inline Vec2 centerOf(Rect frame) {
     return Vec2(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
 }
 
-gsl::owner<Node*> createSceneBorder(Rect frame) {
+owner<Node*> createSceneBorder(Rect frame) {
     auto scene = Node::create();
     auto borderPhysics = PhysicsBody::createEdgeBox(frame.size);
     scene->setPhysicsBody(borderPhysics);
@@ -26,15 +29,18 @@ gsl::owner<Node*> createSceneBorder(Rect frame) {
     return scene;
 }
 
-gsl::owner<Sprite*> createHero() {
-    auto hero = Sprite::create("HelloWorld.png");
-    auto physicsBody = PhysicsBody::createBox(hero->getBoundingBox().size, PhysicsMaterial(0.5f, 0.5f, 0.0f));
+owner<Sprite*> createFlappy() {
+    auto flappy = Sprite::create();
+    flappy->setTextureRect(Rect(0, 0, 30, 30));
+    flappy->setColor(Color3B::WHITE);
+
+    auto physicsBody = PhysicsBody::createBox(flappy->getBoundingBox().size, PhysicsMaterial(10.0f, 0.5f, 0.0f));
     physicsBody->setDynamic(true);
-    hero->addComponent(physicsBody);
-    return hero;
+    flappy->addComponent(physicsBody);
+    return flappy;
 }
 
-gsl::owner<Sprite*> createColumn(Rect sceneFrame) {
+owner<Sprite*> createColumn(Rect sceneFrame) {
     auto spriteFrame = Rect(0, 0, 50, sceneFrame.size.height);
     auto column = Sprite::create();
     column->setTextureRect(spriteFrame);
@@ -68,7 +74,7 @@ bool HelloWorld::init() {
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
 
-    flappy = createHero();
+    flappy = createFlappy();
     flappy->setPosition(centerOf(frame));
     this->addChild(flappy);
 
@@ -91,11 +97,11 @@ bool HelloWorld::init() {
 std::vector<Node*> nodesAtPosition(Vec2 position) {
     auto scene = Director::getInstance()->getRunningScene();
     auto shapes = scene->getPhysicsWorld()->getShapes(position);
-    auto shapeToNode = [](PhysicsShape* shape) -> Node* { return shape->getBody()->getNode(); };
-    return shapes | ranges::view::transform(shapeToNode);
+    auto toNode = [](auto shape) { return shape->getBody()->getNode(); };
+    return shapes | ranges::view::transform(toNode) | ranges::to_vector;
 }
 
-bool containsNode(const std::vector<Node*>& nodes, const gsl::not_null<Node*> targetNode) {
+bool containsNode(const std::vector<Node*>& nodes, const not_null<Node*> targetNode) {
     return ranges::any_of(nodes, [=](auto node) { return node == targetNode; });
 }
 
@@ -103,7 +109,7 @@ bool HelloWorld::onTouchBegan(Touch* touch, Event* event) {
     auto flappyBody = flappy->getPhysicsBody();
     if (flappyBody) {
         flappyBody->setVelocity(Vec2(flappyBody->getVelocity().x, 0));
-        flappyBody->applyImpulse(Vec2(0, 400000));
+        flappyBody->applyImpulse(Vec2(0, 1000000));
     }
     return true;
 }
