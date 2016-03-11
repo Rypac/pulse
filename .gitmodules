@@ -4,9 +4,6 @@
 [submodule "libs/range-v3"]
 	path = libs/range-v3
 	url = git@github.com:ericniebler/range-v3.git
-[submodule "libs/meta"]
-	path = libs/meta
-	url = git@github.com:ericniebler/meta.git
 [submodule "libs/cpputils"]
 	path = libs/cpputils
 	url = git@bitbucket.org:Rypac/cpputils.git
