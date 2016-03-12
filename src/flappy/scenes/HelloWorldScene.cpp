@@ -1,9 +1,7 @@
+#include <gsl/gsl.h>
+
 #include <flappy/scenes/HelloWorldScene.hpp>
 #include <flappy/utilities/geometry.hpp>
-
-#include <gsl/gsl.h>
-#include <range/v3/all.hpp>
-#include <vector>
 
 USING_NS_CC;
 
@@ -61,12 +59,9 @@ void HelloWorld::startColumnGenerator() {
 }
 
 bool HelloWorld::init() {
-    if (!Layer::init()) {
+    if (!GameScene::init()) {
         return false;
     }
-
-    auto director = Director::getInstance();
-    frame = Rect(director->getVisibleOrigin(), director->getVisibleSize());
 
     auto flappy = createFlappy();
     flappy->setPosition(centerOf(frame));
