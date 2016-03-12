@@ -2,6 +2,7 @@
 #include <flappy/sprites/Column.hpp>
 #include <flappy/sprites/FlappyBird.hpp>
 #include <flappy/utilities/Geometry.hpp>
+#include <flappy/utilities/Physics.hpp>
 #include <flappy/utilities/Random.hpp>
 
 using namespace cocos2d;
@@ -21,6 +22,8 @@ bool FlappyBirdScene::init() {
 
     addFlappy();
     generateColumns();
+    addTouchListeners();
+    scheduleUpdate();
 
     return true;
 }
@@ -56,4 +59,19 @@ void FlappyBirdScene::generateColumns() {
     auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
     auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
     runAction(infiniteColumnGenerator);
+}
+
+void FlappyBirdScene::update(float dt) {
+    flappy->update(dt);
+}
+
+void FlappyBirdScene::addTouchListeners() {
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(FlappyBirdScene::onTouchBegan, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
+    flappy->velocity.y = 800;
+    return true;
 }

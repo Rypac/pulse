@@ -9,8 +9,10 @@ public:
     CREATE_FUNC(FlappyBird);
 
     virtual bool init() override;
+    virtual void update(float dt) override;
 
-    cocos2d::Vec2 velocity{};
+    cocos2d::Vec2 velocity{0, 0};
+    cocos2d::Vec2 damping{0, 0.972};
 };
-    
+
 }

@@ -1,4 +1,5 @@
 #include <flappy/sprites/FlappyBird.hpp>
+#include <flappy/utilities/Physics.hpp>
 
 USING_NS_CC;
 using namespace flappy;
@@ -12,4 +13,16 @@ bool FlappyBird::init() {
     setColor(Color3B::WHITE);
 
     return true;
+}
+
+void FlappyBird::update(float dt) {
+    velocity.y += (physics::Gravity.y * dt);
+    velocity.y *= damping.y;
+    if (velocity.y < 0) {
+        velocity.y = 0;
+    }
+
+    auto upwardDistance = velocity.y * dt;
+    auto downwardDistance = physics::Gravity.y * dt;
+    setPositionY(getPositionY() + upwardDistance + downwardDistance);
 }
