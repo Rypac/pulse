@@ -32,11 +32,30 @@ void FlappyBirdScene::addFlappy() {
     addChild(flappy, 1);
 }
 
+int randomNumberBetween(int min, int max) {
+    std::random_device seed;
+    std::default_random_engine randomEngine(seed());
+    std::uniform_int_distribution<int> uniformDistribution(min, max);
+    return uniformDistribution(randomEngine);
+}
+
 void FlappyBirdScene::addColumn() {
-    auto column = Column::create(frame);
-    column->setPosition(rightOf(column->getContentSize(), frame));
-    column->runAction(column->actionSequence());
-    addChild(column);
+    const auto columnStartX = frame.size.width + Column::defaultWidth;
+    const auto bottomHeight = randomNumberBetween(0, frame.size.height - Column::gapHeight);
+    const auto topHeight = frame.size.height - Column::gapHeight - bottomHeight;
+
+    auto bottomColumn = Column::create(bottomHeight);
+    auto topColumn = Column::create(topHeight);
+
+    bottomColumn->setPosition(Vec2(columnStartX, 0));
+    topColumn->setPosition(Vec2(columnStartX, bottomHeight + Column::gapHeight));
+
+    const auto bottomColumnActions = bottomColumn->actionSequence();
+    const auto topColumnActions = topColumn->actionSequence();
+    bottomColumn->runAction(bottomColumnActions);
+    topColumn->runAction(topColumnActions);
+    addChild(bottomColumn);
+    addChild(topColumn);
 }
 
 void FlappyBirdScene::generateColumns() {

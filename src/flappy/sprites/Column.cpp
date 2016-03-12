@@ -14,16 +14,19 @@ bool Column::init() {
     return true;
 }
 
-Column* Column::create(Rect sceneFrame) {
-    auto columnFrame = Rect(0, 0, 50, sceneFrame.size.height);
+Column* Column::create(float height) {
+    return create(Rect(0, 0, defaultWidth, height));
+}
+
+Column* Column::create(Rect frame) {
     auto column = Column::create();
-    column->setTextureRect(columnFrame);
+    column->setTextureRect(frame);
     return column;
 }
 
-Sequence* Column::actionSequence() {
-    auto destination = Vec2(0 - getContentSize().width, 0);
-    auto moveToEdge = MoveTo::create(5, destination);
+Sequence* Column::actionSequence(float duration) {
+    auto destination = Vec2(0 - getContentSize().width, getPositionY());
+    auto moveToEdge = MoveTo::create(duration, destination);
     auto removeFromScene = RemoveSelf::create(true);
     return Sequence::create(moveToEdge, removeFromScene, nullptr);
 }
