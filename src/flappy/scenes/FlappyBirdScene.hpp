@@ -20,6 +20,7 @@ private:
     void addColumn();
     void generateColumns();
     void addTouchListeners();
+    void addKeyboardListeners();
 
     FlappyBird* flappy;
 };

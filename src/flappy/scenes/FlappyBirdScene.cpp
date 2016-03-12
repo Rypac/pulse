@@ -23,6 +23,7 @@ bool FlappyBirdScene::init() {
     addFlappy();
     generateColumns();
     addTouchListeners();
+    addKeyboardListeners();
     scheduleUpdate();
 
     return true;
@@ -68,6 +69,16 @@ void FlappyBirdScene::update(float dt) {
 void FlappyBirdScene::addTouchListeners() {
     auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(FlappyBirdScene::onTouchBegan, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+void FlappyBirdScene::addKeyboardListeners() {
+    auto listener = EventListenerKeyboard::create();
+    listener->onKeyPressed = [this](auto keycode, auto event) {
+        if (keycode == EventKeyboard::KeyCode::KEY_SPACE) {
+            GameScene::isScenePaused() ? GameScene::resumeScene() : GameScene::pauseScene();
+        }
+    };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
