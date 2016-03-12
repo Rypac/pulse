@@ -1,6 +1,6 @@
 #include <gsl/gsl.h>
 
-#include <flappy/scenes/HelloWorldScene.hpp>
+#include <flappy/scenes/FlappyBirdScene.hpp>
 #include <flappy/utilities/geometry.hpp>
 
 USING_NS_CC;
@@ -10,9 +10,9 @@ using geometry::rightOf;
 using gsl::owner;
 using gsl::not_null;
 
-owner<Scene*> HelloWorld::createScene() {
+owner<Scene*> GameScene::createScene() {
     auto scene = Scene::create();
-    auto layer = HelloWorld::create();
+    auto layer = FlappyBirdScene::create();
     scene->addChild(layer);
     return scene;
 }
@@ -50,7 +50,7 @@ void generateColumn(not_null<GameScene*> scene) {
     column->runAction(actions);
 }
 
-void HelloWorld::startColumnGenerator() {
+void FlappyBirdScene::startColumnGenerator() {
     auto delay = DelayTime::create(2);
     auto generateNewColumn = CallFunc::create([this]() { generateColumn(this); });
     auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
@@ -58,7 +58,7 @@ void HelloWorld::startColumnGenerator() {
     this->runAction(infiniteColumnGenerator);
 }
 
-bool HelloWorld::init() {
+bool FlappyBirdScene::init() {
     if (!GameScene::init()) {
         return false;
     }

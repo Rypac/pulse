@@ -1,5 +1,5 @@
 #include <flappy/AppDelegate.h>
-#include <flappy/scenes/HelloWorldScene.hpp>
+#include <flappy/scenes/FlappyBirdScene.hpp>
 
 #include <algorithm>
 
@@ -59,7 +59,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    auto scene = HelloWorld::createScene();
+    auto scene = FlappyBirdScene::createScene();
     director->runWithScene(scene);
 
     return true;
