@@ -3,6 +3,8 @@
 #include "cocos2d.h"
 #include <gsl/gsl.h>
 
+namespace flappy {
+
 class GameScene : public cocos2d::Layer {
 public:
     CREATE_FUNC(GameScene);
@@ -15,3 +17,5 @@ public:
 protected:
     cocos2d::Rect frame;
 };
+
+}

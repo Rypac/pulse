@@ -1,6 +1,6 @@
 #pragma once
 
-namespace geometry {
+namespace flappy { namespace geometry {
 
 using cocos2d::Rect;
 using cocos2d::Size;
@@ -22,4 +22,4 @@ static inline Vec2 rightOf(Size body, Rect frame) {
     return Vec2(x, y);
 }
 
-} // end geometry
+} }

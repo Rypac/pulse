@@ -61,6 +61,8 @@
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
+		819E295A1C93D4D700EA3D32 /* column.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29581C93D4D700EA3D32 /* column.cpp */; };
+		819E295B1C93D4D700EA3D32 /* column.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29581C93D4D700EA3D32 /* column.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -157,6 +159,8 @@
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		819E29531C93C69F00EA3D32 /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameScene.hpp; path = flappy/scenes/GameScene.hpp; sourceTree = "<group>"; };
 		819E29541C93C8AC00EA3D32 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = flappy/scenes/GameScene.cpp; sourceTree = "<group>"; };
+		819E29581C93D4D700EA3D32 /* column.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = column.cpp; path = flappy/sprites/column.cpp; sourceTree = "<group>"; };
+		819E29591C93D4D700EA3D32 /* column.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = column.hpp; path = flappy/sprites/column.hpp; sourceTree = "<group>"; };
 		819E39E41C93999E00E74D57 /* geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = geometry.hpp; path = flappy/utilities/geometry.hpp; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -302,8 +306,9 @@
 		46880B8319C43A87006E1F66 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				819E29521C93C60E00EA3D32 /* utilities */,
 				819E29511C93C60000EA3D32 /* scenes */,
+				819E29571C93D49600EA3D32 /* sprites */,
+				819E29521C93C60E00EA3D32 /* utilities */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 			);
@@ -375,6 +380,15 @@
 				819E39E41C93999E00E74D57 /* geometry.hpp */,
 			);
 			name = utilities;
+			sourceTree = "<group>";
+		};
+		819E29571C93D49600EA3D32 /* sprites */ = {
+			isa = PBXGroup;
+			children = (
+				819E29581C93D4D700EA3D32 /* column.cpp */,
+				819E29591C93D4D700EA3D32 /* column.hpp */,
+			);
+			name = sprites;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -522,6 +536,7 @@
 				46880B8A19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				819E295A1C93D4D700EA3D32 /* column.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
@@ -531,6 +546,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				819E295B1C93D4D700EA3D32 /* column.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,

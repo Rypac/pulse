@@ -1,8 +1,9 @@
 #pragma once
 
 #include "cocos2d.h"
-#include <gsl/gsl.h>
 #include <flappy/scenes/GameScene.hpp>
+
+namespace flappy {
 
 class FlappyBirdScene : public GameScene {
 public:
@@ -10,5 +11,10 @@ public:
 
     virtual bool init() override;
 
-    void startColumnGenerator();
+private:
+    void addFlappy();
+    void addColumn();
+    void generateColumns();
 };
+
+}

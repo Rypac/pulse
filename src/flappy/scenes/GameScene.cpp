@@ -1,6 +1,7 @@
 #include <flappy/scenes/GameScene.hpp>
 
 USING_NS_CC;
+using namespace flappy;
 
 bool GameScene::init() {
     if (!Layer::init()) {

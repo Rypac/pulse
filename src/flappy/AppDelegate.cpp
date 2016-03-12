@@ -4,10 +4,11 @@
 #include <algorithm>
 
 USING_NS_CC;
+using namespace flappy;
 
 namespace DisplayResolution {
-    const auto Design = Size(480, 320);
-    const auto Small = Size(480, 320);
+    const auto Design = Size(960, 640);
+    const auto Small = Size(960, 640);
     const auto Medium = Size(1024, 768);
     const auto Large = Size(2048, 1536);
 }
