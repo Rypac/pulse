@@ -1,10 +1,11 @@
 #include <flappy/scenes/FlappyBirdScene.hpp>
 #include <flappy/sprites/Column.hpp>
+#include <flappy/sprites/FlappyBird.hpp>
 #include <flappy/utilities/Geometry.hpp>
+#include <flappy/utilities/Random.hpp>
 
 using namespace cocos2d;
 using namespace flappy;
-using namespace geometry;
 
 Scene* GameScene::createScene() {
     auto scene = Scene::create();
@@ -25,23 +26,14 @@ bool FlappyBirdScene::init() {
 }
 
 void FlappyBirdScene::addFlappy() {
-    auto flappy = Sprite::create();
-    flappy->setTextureRect(Rect(0, 0, 30, 30));
-    flappy->setColor(Color3B::WHITE);
-    flappy->setPosition(centerOf(frame));
+    flappy = FlappyBird::create();
+    flappy->setPosition(geometry::centerOf(frame));
     addChild(flappy, 1);
-}
-
-int randomNumberBetween(int min, int max) {
-    std::random_device seed;
-    std::default_random_engine randomEngine(seed());
-    std::uniform_int_distribution<int> uniformDistribution(min, max);
-    return uniformDistribution(randomEngine);
 }
 
 void FlappyBirdScene::addColumn() {
     const auto columnStartX = frame.size.width + Column::defaultWidth;
-    const auto bottomHeight = randomNumberBetween(0, frame.size.height - Column::gapHeight);
+    const auto bottomHeight = random::between(0, frame.size.height - Column::gapHeight);
     const auto topHeight = frame.size.height - Column::gapHeight - bottomHeight;
 
     auto bottomColumn = Column::create(bottomHeight);

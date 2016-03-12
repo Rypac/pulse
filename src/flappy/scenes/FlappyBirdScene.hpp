@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include <flappy/scenes/GameScene.hpp>
+#include <flappy/sprites/FlappyBird.hpp>
 
 namespace flappy {
 
@@ -15,6 +16,8 @@ private:
     void addFlappy();
     void addColumn();
     void generateColumns();
+
+    FlappyBird* flappy;
 };
 
 }

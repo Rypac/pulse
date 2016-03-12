@@ -59,6 +59,8 @@
 		521A8EA919F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		521A8EAA19F11F5000D177D7 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 521A8EA819F11F5000D177D7 /* fonts */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
+		816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29581C93D4D700EA3D32 /* Column.cpp */; };
@@ -157,6 +159,9 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		521A8EA819F11F5000D177D7 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlappyBird.cpp; path = flappy/sprites/FlappyBird.cpp; sourceTree = "<group>"; };
+		816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FlappyBird.hpp; path = flappy/sprites/FlappyBird.hpp; sourceTree = "<group>"; };
+		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = flappy/utilities/Random.hpp; sourceTree = "<group>"; };
 		819E29531C93C69F00EA3D32 /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameScene.hpp; path = flappy/scenes/GameScene.hpp; sourceTree = "<group>"; };
 		819E29541C93C8AC00EA3D32 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = flappy/scenes/GameScene.cpp; sourceTree = "<group>"; };
 		819E29581C93D4D700EA3D32 /* Column.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Column.cpp; path = flappy/sprites/Column.cpp; sourceTree = "<group>"; };
@@ -378,6 +383,7 @@
 			isa = PBXGroup;
 			children = (
 				819E39E41C93999E00E74D57 /* Geometry.hpp */,
+				816908C61C9401E10073E4C6 /* Random.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";
@@ -387,6 +393,8 @@
 			children = (
 				819E29581C93D4D700EA3D32 /* Column.cpp */,
 				819E29591C93D4D700EA3D32 /* Column.hpp */,
+				816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */,
+				816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -536,6 +544,7 @@
 				46880B8A19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
@@ -548,6 +557,7 @@
 			files = (
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,

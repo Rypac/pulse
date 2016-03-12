@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cocos2d.h"
+
 namespace flappy { namespace geometry {
 
 using cocos2d::Rect;
