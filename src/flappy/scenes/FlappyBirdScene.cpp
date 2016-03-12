@@ -1,6 +1,6 @@
 #include <flappy/scenes/FlappyBirdScene.hpp>
-#include <flappy/sprites/column.hpp>
-#include <flappy/utilities/geometry.hpp>
+#include <flappy/sprites/Column.hpp>
+#include <flappy/utilities/Geometry.hpp>
 
 using namespace cocos2d;
 using namespace flappy;
@@ -44,5 +44,5 @@ void FlappyBirdScene::generateColumns() {
     auto generateNewColumn = CallFunc::create([this]() { this->addColumn(); });
     auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
     auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
-    this->runAction(infiniteColumnGenerator);
+    runAction(infiniteColumnGenerator);
 }

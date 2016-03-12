@@ -1,4 +1,4 @@
-#include <flappy/sprites/column.hpp>
+#include <flappy/sprites/Column.hpp>
 
 USING_NS_CC;
 using namespace flappy;
