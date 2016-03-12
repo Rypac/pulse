@@ -42,7 +42,8 @@ owner<Sequence*> actionSequenceForColumn(not_null<Sprite*> column) {
     return Sequence::create(moveToEdge, removeFromScene, nullptr);
 }
 
-void generateColumn(not_null<Layer*> scene, Rect frame) {
+void generateColumn(not_null<GameScene*> scene) {
+    auto frame = scene->getFrame();
     auto column = createColumn(frame);
     column->setPosition(rightOf(column->getContentSize(), frame));
     scene->addChild(column);
@@ -51,9 +52,9 @@ void generateColumn(not_null<Layer*> scene, Rect frame) {
     column->runAction(actions);
 }
 
-void HelloWorld::startColumnGenerator(Rect frame) {
+void HelloWorld::startColumnGenerator() {
     auto delay = DelayTime::create(2);
-    auto generateNewColumn = CallFunc::create([this, frame]() { generateColumn(this, frame); });
+    auto generateNewColumn = CallFunc::create([this]() { generateColumn(this); });
     auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
     auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
     this->runAction(infiniteColumnGenerator);
@@ -65,13 +66,13 @@ bool HelloWorld::init() {
     }
 
     auto director = Director::getInstance();
-    auto frame = Rect(director->getVisibleOrigin(), director->getVisibleSize());
+    frame = Rect(director->getVisibleOrigin(), director->getVisibleSize());
 
     auto flappy = createFlappy();
     flappy->setPosition(centerOf(frame));
     this->addChild(flappy, 1);
 
-    startColumnGenerator(frame);
+    startColumnGenerator();
 
     return true;
 }

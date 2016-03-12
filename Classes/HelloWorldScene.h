@@ -1,14 +1,14 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "GameScene.hpp"
 
-class HelloWorld : public cocos2d::Layer {
+class HelloWorld : public GameScene {
 public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
-
-    void startColumnGenerator(cocos2d::Rect frame);
+    void startColumnGenerator();
 
     CREATE_FUNC(HelloWorld);
 };
