@@ -1,4 +1,5 @@
 #include "HelloWorldScene.h"
+#include "geometry.hpp"
 
 #include <gsl/gsl.h>
 #include <range/v3/all.hpp>
@@ -6,26 +7,15 @@
 
 USING_NS_CC;
 
+using geometry::centerOf;
+using geometry::rightOf;
 using gsl::owner;
 using gsl::not_null;
 
 owner<Scene*> HelloWorld::createScene() {
-    auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    auto scene = Scene::create();
     auto layer = HelloWorld::create();
     scene->addChild(layer);
-    return scene;
-}
-
-static inline Vec2 centerOf(Rect frame) {
-    return Vec2(frame.origin.x + frame.size.width / 2, frame.origin.y + frame.size.height / 2);
-}
-
-owner<Node*> createSceneBorder(Rect frame) {
-    auto scene = Node::create();
-    auto borderPhysics = PhysicsBody::createEdgeBox(frame.size);
-    scene->setPhysicsBody(borderPhysics);
-    scene->setPosition(centerOf(frame));
     return scene;
 }
 
@@ -33,25 +23,40 @@ owner<Sprite*> createFlappy() {
     auto flappy = Sprite::create();
     flappy->setTextureRect(Rect(0, 0, 30, 30));
     flappy->setColor(Color3B::WHITE);
-
-    auto physicsBody = PhysicsBody::createBox(flappy->getBoundingBox().size, PhysicsMaterial(10.0f, 0.5f, 0.0f));
-    physicsBody->setDynamic(true);
-    flappy->addComponent(physicsBody);
     return flappy;
 }
 
 owner<Sprite*> createColumn(Rect sceneFrame) {
     auto spriteFrame = Rect(0, 0, 50, sceneFrame.size.height);
     auto column = Sprite::create();
+    column->setAnchorPoint(Vec2(0, 0));
     column->setTextureRect(spriteFrame);
     column->setColor(Color3B::BLUE);
-
-    auto physicsBody = PhysicsBody::createBox(column->getBoundingBox().size, PhysicsMaterial(0.1f, 0.0f, 0.0f));
-    physicsBody->setDynamic(true);
-    physicsBody->applyForce(Vec2(-50000, 0));
-    column->addComponent(physicsBody);
-
     return column;
+}
+
+owner<Sequence*> actionSequenceForColumn(not_null<Sprite*> column) {
+    auto destination = Vec2(0 - column->getContentSize().width, 0);
+    auto moveToEdge = MoveTo::create(5, destination);
+    auto removeFromScene = RemoveSelf::create(true);
+    return Sequence::create(moveToEdge, removeFromScene, nullptr);
+}
+
+void generateColumn(not_null<Layer*> scene, Rect frame) {
+    auto column = createColumn(frame);
+    column->setPosition(rightOf(column->getContentSize(), frame));
+    scene->addChild(column);
+
+    auto actions = actionSequenceForColumn(column);
+    column->runAction(actions);
+}
+
+void HelloWorld::startColumnGenerator(Rect frame) {
+    auto delay = DelayTime::create(2);
+    auto generateNewColumn = CallFunc::create([this, frame]() { generateColumn(this, frame); });
+    auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
+    auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
+    this->runAction(infiniteColumnGenerator);
 }
 
 bool HelloWorld::init() {
@@ -62,65 +67,11 @@ bool HelloWorld::init() {
     auto director = Director::getInstance();
     auto frame = Rect(director->getVisibleOrigin(), director->getVisibleSize());
 
-    auto closeItem = MenuItemImage::create(
-        "CloseNormal.png",
-        "CloseSelected.png",
-        CC_CALLBACK_1(HelloWorld::menuCloseCallback, this)
-    );
-    closeItem->setPosition(Vec2(frame.origin.x + frame.size.width - closeItem->getContentSize().width / 2,
-                                frame.origin.y + closeItem->getContentSize().height / 2));
-
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-
-    flappy = createFlappy();
+    auto flappy = createFlappy();
     flappy->setPosition(centerOf(frame));
-    this->addChild(flappy);
+    this->addChild(flappy, 1);
 
-    auto column = createColumn(frame);
-    column->setPosition(Vec2(frame.origin.x + frame.size.width - column->getContentSize().width / 2,
-                             frame.origin.y + frame.size.height - column->getContentSize().height / 2));
-    this->addChild(column);
-
-    auto sceneBorder = createSceneBorder(frame);
-    this->addChild(sceneBorder);
-
-    auto touchListener = EventListenerTouchOneByOne::create();
-    touchListener->onTouchBegan = CC_CALLBACK_2(HelloWorld::onTouchBegan, this);
-    touchListener->onTouchEnded = CC_CALLBACK_2(HelloWorld::onTouchEnded, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    startColumnGenerator(frame);
 
     return true;
-}
-
-std::vector<Node*> nodesAtPosition(Vec2 position) {
-    auto scene = Director::getInstance()->getRunningScene();
-    auto shapes = scene->getPhysicsWorld()->getShapes(position);
-    auto toNode = [](auto shape) { return shape->getBody()->getNode(); };
-    return shapes | ranges::view::transform(toNode) | ranges::to_vector;
-}
-
-bool containsNode(const std::vector<Node*>& nodes, const not_null<Node*> targetNode) {
-    return ranges::any_of(nodes, [=](auto node) { return node == targetNode; });
-}
-
-bool HelloWorld::onTouchBegan(Touch* touch, Event* event) {
-    auto flappyBody = flappy->getPhysicsBody();
-    if (flappyBody) {
-        flappyBody->setVelocity(Vec2(flappyBody->getVelocity().x, 0));
-        flappyBody->applyImpulse(Vec2(0, 1000000));
-    }
-    return true;
-}
-
-void HelloWorld::onTouchEnded(Touch* touch, Event* event) {
-}
-
-void HelloWorld::menuCloseCallback(Ref* pSender) {
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
 }

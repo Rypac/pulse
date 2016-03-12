@@ -8,13 +8,7 @@ public:
 
     virtual bool init();
 
-    void menuCloseCallback(cocos2d::Ref* pSender);
-
-    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    void startColumnGenerator(cocos2d::Rect frame);
 
     CREATE_FUNC(HelloWorld);
-
-private:
-    cocos2d::Sprite* flappy = nullptr;
 };
