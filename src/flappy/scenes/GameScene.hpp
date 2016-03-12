@@ -14,6 +14,10 @@ public:
 
     inline cocos2d::Rect getFrame() { return frame; };
 
+    bool isScenePaused();
+    void pauseScene();
+    void resumeScene();
+
 protected:
     cocos2d::Rect frame;
 };

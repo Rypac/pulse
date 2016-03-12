@@ -13,3 +13,15 @@ bool GameScene::init() {
 
     return true;
 }
+
+bool GameScene::isScenePaused() {
+    return Director::getInstance()->isPaused();
+}
+
+void GameScene::pauseScene() {
+    Director::getInstance()->pause();
+}
+
+void GameScene::resumeScene() {
+    Director::getInstance()->resume();
+}
