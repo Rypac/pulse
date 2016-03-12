@@ -40,24 +40,27 @@ set(PLATFORM_SPECIFIC_HEADERS
   proj.ios_mac/ios/AppController.h
 )
 
+set(SRC_DIR src/flappy)
+
 include_directories(
   /usr/local/include/GLFW
   /usr/include/GLFW
   ${COCOS2D_ROOT}/cocos
   ${COCOS2D_ROOT}/cocos/platform
   ${COCOS2D_ROOT}/cocos/audio/include/
-  Classes
+  ${SRC_DIR}
 )
 
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-  Classes/HelloWorldScene.cpp
+  ${SRC_DIR}/AppDelegate.cpp
+  ${SRC_DIR}/scenes/HelloWorldScene.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-  Classes/HelloWorldScene.h
+  ${SRC_DIR}/AppDelegate.h
+  ${SRC_DIR}/scenes/GameScene.hpp
+  ${SRC_DIR}/scenes/HelloWorldScene.hpp
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
@@ -70,6 +73,6 @@ set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${APP_BIN_DIR}")
 
 pre_build(${APP_NAME}
-  COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/Resources
-  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/Resources ${APP_BIN_DIR}/Resources
+  COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/resources
+  COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources ${APP_BIN_DIR}/resources
 )

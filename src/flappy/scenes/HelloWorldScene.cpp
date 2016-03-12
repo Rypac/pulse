@@ -1,5 +1,5 @@
-#include "HelloWorldScene.h"
-#include "geometry.hpp"
+#include <flappy/scenes/HelloWorldScene.hpp>
+#include <flappy/utilities/geometry.hpp>
 
 #include <gsl/gsl.h>
 #include <range/v3/all.hpp>

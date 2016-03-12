@@ -1,5 +1,5 @@
-#include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include <flappy/AppDelegate.h>
+#include <flappy/scenes/HelloWorldScene.hpp>
 
 #include <algorithm>
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "GameScene.hpp"
+#include <flappy/scenes/GameScene.hpp>
 
 class HelloWorld : public GameScene {
 public:
