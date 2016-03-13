@@ -1,7 +1,7 @@
 #include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/utilities/Physics.hpp"
 
-USING_NS_CC;
+using namespace cocos2d;
 using namespace flappy;
 
 bool FlappyBird::init() {

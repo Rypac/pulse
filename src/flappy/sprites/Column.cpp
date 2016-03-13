@@ -1,6 +1,6 @@
 #include "flappy/sprites/Column.hpp"
 
-USING_NS_CC;
+using namespace cocos2d;
 using namespace flappy;
 
 bool Column::init() {

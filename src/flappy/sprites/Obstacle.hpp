@@ -13,7 +13,7 @@ class Obstacle : public cocos2d::Sprite {
 
     virtual bool init() override;
 
-    using ObstacleCallback = std::function<void(const Obstacle*)>;
+    using ObstacleCallback = const std::function<void(Obstacle*)>;
     void runActions(ObstacleCallback onCompletion = nullptr);
 
     bool collidesWith(cocos2d::Rect frame) const;

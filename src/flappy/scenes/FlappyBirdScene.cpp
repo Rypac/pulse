@@ -1,3 +1,5 @@
+#include <range/v3/algorithm/for_each.hpp>
+
 #include "flappy/scenes/FlappyBirdScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/sprites/Obstacle.hpp"
@@ -28,13 +30,26 @@ bool FlappyBirdScene::init() {
     return true;
 }
 
+void FlappyBirdScene::reset() {
+    stopAllActions();
+    const auto removeObstacle = [this](auto obstacle) { removeChild(obstacle); };
+    ranges::for_each(passedObstacles, removeObstacle);
+    ranges::for_each(incomingObstacles, removeObstacle);
+    passedObstacles.clear();
+    incomingObstacles.clear();
+
+    score = 0;
+    flappy->setPosition(geometry::centerOf(frame));
+    generateObstacles();
+}
+
 void FlappyBirdScene::addFlappy() {
     flappy = FlappyBird::create();
     flappy->setPosition(geometry::centerOf(frame));
     addChild(flappy, 1);
 }
 
-Obstacle* FlappyBirdScene::generateObstacle() {
+Obstacle* FlappyBirdScene::generateObstacle() const {
     const auto maxColumnHeight = frame.size.height - Obstacle::gapHeight;
     const auto bottomHeight = random::between(0, maxColumnHeight);
     const auto topHeight = maxColumnHeight - bottomHeight;
@@ -45,7 +60,7 @@ Obstacle* FlappyBirdScene::generateObstacle() {
 }
 
 void FlappyBirdScene::addObstacle() {
-    const auto onCompletion = [this](const auto obstacle) { passedObstacles.pop_back(); };
+    const auto onCompletion = [this](auto obstacle) { passedObstacles.remove(obstacle); };
     const auto obstacle = generateObstacle();
     obstacle->runActions(onCompletion);
     addChild(obstacle);
@@ -60,7 +75,7 @@ void FlappyBirdScene::generateObstacles() {
     runAction(infiniteColumnGenerator);
 }
 
-std::optional<const Obstacle*> FlappyBirdScene::nearestObstacle() {
+std::optional<Obstacle*> FlappyBirdScene::nearestObstacle() const {
     return incomingObstacles.empty() ? std::nullopt : std::make_optional(incomingObstacles.front());
 }
 
@@ -76,8 +91,8 @@ void FlappyBirdScene::update(float dt) {
     const auto flappyFrame = flappy->getBoundingBox();
     if (obstacle->collidesWith(flappyFrame)) {
         log("Hit!");
-        score = 0;
         GameScene::pauseScene();
+        reset();
     } else if (obstacle->passedBy(flappyFrame)) {
         ++score;
         log("Score: %d", score);
