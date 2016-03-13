@@ -15,7 +15,14 @@ public:
 
     virtual bool init() override;
 
+    std::function<void(const Column&)> onActionsCompleted;
+
     cocos2d::Sequence* actionSequence(float duration = 5);
+
+    inline bool actionCompleted() { return actionComplete; };
+
+private:
+    bool actionComplete = false;
 };
 
 }

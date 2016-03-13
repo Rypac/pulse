@@ -28,5 +28,10 @@ Sequence* Column::actionSequence(float duration) {
     auto destination = Vec2(0 - getContentSize().width, getPositionY());
     auto moveToEdge = MoveTo::create(duration, destination);
     auto removeFromScene = RemoveSelf::create(true);
-    return Sequence::create(moveToEdge, removeFromScene, nullptr);
+    auto actionsCompleted = CallFunc::create([this]() {
+        if (onActionsCompleted) {
+            this->onActionsCompleted(*this);
+        }
+    });
+    return Sequence::create(moveToEdge, removeFromScene, actionsCompleted, nullptr);
 }

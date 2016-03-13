@@ -11,6 +11,7 @@ public:
 
     static gsl::owner<cocos2d::Scene*> createScene();
     virtual bool init() override;
+    virtual void reset() {};
 
     inline cocos2d::Rect getFrame() { return frame; };
 

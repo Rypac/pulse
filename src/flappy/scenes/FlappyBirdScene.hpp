@@ -1,8 +1,11 @@
 #pragma once
 
+#include <cpputils/optional.hpp>
+
 #include "cocos2d.h"
 #include "flappy/scenes/GameScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
+#include "flappy/sprites/Obstacle.hpp"
 
 namespace flappy {
 
@@ -15,14 +18,21 @@ public:
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
+    Obstacle generateObstacle();
+
 private:
     void addFlappy();
-    void addColumn();
-    void generateColumns();
+    void addObstacle();
+    void generateObstacles();
     void addTouchListeners();
     void addKeyboardListeners();
 
+    std::optional<Obstacle> nearestObstacle();
+
     FlappyBird* flappy;
+    std::list<Obstacle> passedObstacles;
+    std::list<Obstacle> incomingObstacles;
+    int score;
 };
 
 }
