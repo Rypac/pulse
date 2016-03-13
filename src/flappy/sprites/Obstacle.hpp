@@ -8,12 +8,13 @@
 namespace flappy {
 
 struct Obstacle {
+
   public:
     Obstacle() = delete;
     Obstacle(gsl::not_null<Column*> top, gsl::not_null<Column*> bottom) : top(top), bottom(bottom) {}
 
-    void runActions() const;
-    std::function<void(Obstacle)> onActionsCompleted;
+    using ObstacleCallback = std::function<void(Obstacle)>;
+    void runActions(ObstacleCallback onCompletion) const;
 
     bool collidesWith(cocos2d::Rect frame);
     bool passedBy(cocos2d::Rect frame);

@@ -2,11 +2,11 @@
 
 using namespace flappy;
 
-void Obstacle::runActions() const {
-    auto actionsCompleted = [this]() {
+void Obstacle::runActions(ObstacleCallback onCompletion) const {
+    auto actionsCompleted = [&]() {
         if (top->actionCompleted() && bottom->actionCompleted()) {
-            if (onActionsCompleted) {
-                onActionsCompleted(*this);
+            if (onCompletion) {
+                onCompletion(*this);
             }
         }
     };
@@ -20,11 +20,11 @@ void Obstacle::runActions() const {
 }
 
 bool Obstacle::collidesWith(cocos2d::Rect frame) {
-    return frame.intersectsRect(top->getBoundingBox()) ||
-           frame.intersectsRect(bottom->getBoundingBox());
+    return frame.intersectsRect(top->getBoundingBox())
+        || frame.intersectsRect(bottom->getBoundingBox());
 }
 
 bool Obstacle::passedBy(cocos2d::Rect frame) {
-    return frame.getMinX() > top->getBoundingBox().getMaxX() &&
-           frame.getMinX() > bottom->getBoundingBox().getMaxX();
+    return frame.getMinX() > top->getBoundingBox().getMaxX()
+        && frame.getMinX() > bottom->getBoundingBox().getMaxX();
 }

@@ -47,9 +47,9 @@ Obstacle FlappyBirdScene::generateObstacle() {
 }
 
 void FlappyBirdScene::addObstacle() {
+    auto onCompletion = [this](const auto& obstacle) { passedObstacles.pop_back(); };
     auto obstacle = generateObstacle();
-    obstacle.runActions();
-    obstacle.onActionsCompleted = [this](const auto& obstacle) { passedObstacles.pop_back(); };
+    obstacle.runActions(onCompletion);
     addChild(obstacle.bottom);
     addChild(obstacle.top);
     incomingObstacles.emplace_back(obstacle);
