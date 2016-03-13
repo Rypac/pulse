@@ -1,8 +1,8 @@
 #pragma once
 
 #include "cocos2d.h"
-#include <flappy/scenes/GameScene.hpp>
-#include <flappy/sprites/FlappyBird.hpp>
+#include "flappy/scenes/GameScene.hpp"
+#include "flappy/sprites/FlappyBird.hpp"
 
 namespace flappy {
 

@@ -1,9 +1,9 @@
-#include <flappy/scenes/FlappyBirdScene.hpp>
-#include <flappy/sprites/Column.hpp>
-#include <flappy/sprites/FlappyBird.hpp>
-#include <flappy/utilities/Geometry.hpp>
-#include <flappy/utilities/Physics.hpp>
-#include <flappy/utilities/Random.hpp>
+#include "flappy/scenes/FlappyBirdScene.hpp"
+#include "flappy/sprites/Column.hpp"
+#include "flappy/sprites/FlappyBird.hpp"
+#include "flappy/utilities/Geometry.hpp"
+#include "flappy/utilities/Physics.hpp"
+#include "flappy/utilities/Random.hpp"
 
 using namespace cocos2d;
 using namespace flappy;
@@ -83,6 +83,6 @@ void FlappyBirdScene::addKeyboardListeners() {
 }
 
 bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
-    flappy->velocity.y = 800;
+    flappy->velocity.y = 850;
     return true;
 }

@@ -1,5 +1,5 @@
-#include <flappy/sprites/FlappyBird.hpp>
-#include <flappy/utilities/Physics.hpp>
+#include "flappy/sprites/FlappyBird.hpp"
+#include "flappy/utilities/Physics.hpp"
 
 USING_NS_CC;
 using namespace flappy;
@@ -17,7 +17,7 @@ bool FlappyBird::init() {
 
 void FlappyBird::update(float dt) {
     velocity.y += (physics::Gravity.y * dt);
-    velocity.y *= damping.y;
+    velocity.y *= linearDamping.y;
     if (velocity.y < 0) {
         velocity.y = 0;
     }
