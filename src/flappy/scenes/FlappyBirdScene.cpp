@@ -1,9 +1,7 @@
 #include "flappy/scenes/FlappyBirdScene.hpp"
-#include "flappy/sprites/Column.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/sprites/Obstacle.hpp"
 #include "flappy/utilities/Geometry.hpp"
-#include "flappy/utilities/Physics.hpp"
 #include "flappy/utilities/Random.hpp"
 
 using namespace cocos2d;
@@ -36,34 +34,33 @@ void FlappyBirdScene::addFlappy() {
     addChild(flappy, 1);
 }
 
-Obstacle FlappyBirdScene::generateObstacle() {
-    const auto bottomHeight = random::between(0, frame.size.height - Column::gapHeight);
-    const auto topHeight = frame.size.height - Column::gapHeight - bottomHeight;
+Obstacle* FlappyBirdScene::generateObstacle() {
+    const auto maxColumnHeight = frame.size.height - Obstacle::gapHeight;
+    const auto bottomHeight = random::between(0, maxColumnHeight);
+    const auto topHeight = maxColumnHeight - bottomHeight;
 
-    const auto obstacle = Obstacle(Column::create(topHeight), Column::create(bottomHeight));
-    obstacle.bottom->setPosition(Vec2(frame.size.width + obstacle.bottom->getBoundingBox().size.width, 0));
-    obstacle.top->setPosition(Vec2(frame.size.width + obstacle.top->getBoundingBox().size.width, bottomHeight + Column::gapHeight));
+    const auto obstacle = Obstacle::create(topHeight, Obstacle::gapHeight, bottomHeight);
+    obstacle->setPosition(geometry::rightOf(obstacle->getContentSize(), frame));
     return obstacle;
 }
 
 void FlappyBirdScene::addObstacle() {
-    auto onCompletion = [this](const auto& obstacle) { passedObstacles.pop_back(); };
+    auto onCompletion = [this](const auto obstacle) { passedObstacles.pop_back(); };
     auto obstacle = generateObstacle();
-    obstacle.runActions(onCompletion);
-    addChild(obstacle.bottom);
-    addChild(obstacle.top);
+    obstacle->runActions(onCompletion);
+    addChild(obstacle);
     incomingObstacles.emplace_back(obstacle);
 }
 
 void FlappyBirdScene::generateObstacles() {
     auto delay = DelayTime::create(2);
-    auto generateNewColumn = CallFunc::create([this]() { this->addObstacle(); });
+    auto generateNewColumn = CallFunc::create([this]() { addObstacle(); });
     auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
     auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
     runAction(infiniteColumnGenerator);
 }
 
-std::optional<Obstacle> FlappyBirdScene::nearestObstacle() {
+std::optional<const Obstacle*> FlappyBirdScene::nearestObstacle() {
     return incomingObstacles.empty() ? std::nullopt : std::make_optional(incomingObstacles.front());
 }
 
@@ -77,11 +74,11 @@ void FlappyBirdScene::update(float dt) {
 
     auto obstacle = *possibleNearestObstacle;
     auto flappyFrame = flappy->getBoundingBox();
-    if (obstacle.collidesWith(flappyFrame)) {
+    if (obstacle->collidesWith(flappyFrame)) {
         log("Hit!");
         score = 0;
         GameScene::pauseScene();
-    } else if (obstacle.passedBy(flappyFrame)) {
+    } else if (obstacle->passedBy(flappyFrame)) {
         ++score;
         log("Score: %d", score);
         incomingObstacles.pop_front();

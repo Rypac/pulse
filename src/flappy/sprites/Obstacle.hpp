@@ -1,26 +1,29 @@
 #pragma once
 
-#include <gsl/gsl.h>
-
 #include "cocos2d.h"
 #include "flappy/sprites/Column.hpp"
 
 namespace flappy {
 
-struct Obstacle {
-
+class Obstacle : public cocos2d::Sprite {
   public:
-    Obstacle() = delete;
-    Obstacle(gsl::not_null<Column*> top, gsl::not_null<Column*> bottom) : top(top), bottom(bottom) {}
+    CREATE_FUNC(Obstacle);
+    static Obstacle* create(cocos2d::Size frame);
+    static Obstacle* create(float topCollumnHeight, float gapHeight, float bottomCollumnHeight);
 
-    using ObstacleCallback = std::function<void(Obstacle)>;
-    void runActions(ObstacleCallback onCompletion) const;
+    virtual bool init() override;
 
-    bool collidesWith(cocos2d::Rect frame);
-    bool passedBy(cocos2d::Rect frame);
+    using ObstacleCallback = std::function<void(const Obstacle*)>;
+    void runActions(ObstacleCallback onCompletion = nullptr);
 
-    const gsl::not_null<Column*> top;
-    const gsl::not_null<Column*> bottom;
+    bool collidesWith(cocos2d::Rect frame) const;
+    bool passedBy(cocos2d::Rect frame) const;
+
+    static const int gapHeight = 100;
+
+  private:
+    Column* top;
+    Column* bottom;
 };
 
 }

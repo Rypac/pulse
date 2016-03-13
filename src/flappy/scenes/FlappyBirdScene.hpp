@@ -18,7 +18,7 @@ public:
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
 
-    Obstacle generateObstacle();
+    Obstacle* generateObstacle();
 
 private:
     void addFlappy();
@@ -27,11 +27,11 @@ private:
     void addTouchListeners();
     void addKeyboardListeners();
 
-    std::optional<Obstacle> nearestObstacle();
+    std::optional<const Obstacle*> nearestObstacle();
 
     FlappyBird* flappy;
-    std::list<Obstacle> passedObstacles;
-    std::list<Obstacle> incomingObstacles;
+    std::list<const Obstacle*> passedObstacles;
+    std::list<const Obstacle*> incomingObstacles;
     int score;
 };
 
