@@ -45,18 +45,18 @@ Obstacle* FlappyBirdScene::generateObstacle() {
 }
 
 void FlappyBirdScene::addObstacle() {
-    auto onCompletion = [this](const auto obstacle) { passedObstacles.pop_back(); };
-    auto obstacle = generateObstacle();
+    const auto onCompletion = [this](const auto obstacle) { passedObstacles.pop_back(); };
+    const auto obstacle = generateObstacle();
     obstacle->runActions(onCompletion);
     addChild(obstacle);
     incomingObstacles.emplace_back(obstacle);
 }
 
 void FlappyBirdScene::generateObstacles() {
-    auto delay = DelayTime::create(2);
-    auto generateNewColumn = CallFunc::create([this]() { addObstacle(); });
-    auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
-    auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
+    const auto delay = DelayTime::create(2);
+    const auto generateNewColumn = CallFunc::create([this]() { addObstacle(); });
+    const auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
+    const auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
     runAction(infiniteColumnGenerator);
 }
 
@@ -72,8 +72,8 @@ void FlappyBirdScene::update(float dt) {
         return;
     }
 
-    auto obstacle = *possibleNearestObstacle;
-    auto flappyFrame = flappy->getBoundingBox();
+    const auto obstacle = *possibleNearestObstacle;
+    const auto flappyFrame = flappy->getBoundingBox();
     if (obstacle->collidesWith(flappyFrame)) {
         log("Hit!");
         score = 0;
@@ -87,13 +87,13 @@ void FlappyBirdScene::update(float dt) {
 }
 
 void FlappyBirdScene::addTouchListeners() {
-    auto listener = EventListenerTouchOneByOne::create();
+    const auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(FlappyBirdScene::onTouchBegan, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
 void FlappyBirdScene::addKeyboardListeners() {
-    auto listener = EventListenerKeyboard::create();
+    const auto listener = EventListenerKeyboard::create();
     listener->onKeyPressed = [this](auto keycode, auto event) {
         if (keycode == EventKeyboard::KeyCode::KEY_SPACE) {
             GameScene::isScenePaused() ? GameScene::resumeScene() : GameScene::pauseScene();

@@ -18,7 +18,7 @@ bool Obstacle::init() {
 }
 
 Obstacle* Obstacle::create(Size frame) {
-    auto obstacle = Obstacle::create();
+    const auto obstacle = Obstacle::create();
     obstacle->setContentSize(frame);
     return obstacle;
 }

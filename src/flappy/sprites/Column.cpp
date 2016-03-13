@@ -19,7 +19,7 @@ Column* Column::create(float height) {
 }
 
 Column* Column::create(Rect frame) {
-    auto column = Column::create();
+    const auto column = Column::create();
     column->setTextureRect(frame);
     return column;
 }
