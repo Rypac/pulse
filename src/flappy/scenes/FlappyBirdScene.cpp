@@ -1,3 +1,4 @@
+#include <string>
 #include <range/v3/algorithm/for_each.hpp>
 
 #include "flappy/scenes/FlappyBirdScene.hpp"

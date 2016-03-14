@@ -1,45 +1,11 @@
 obj/local/armeabi/objs-debug/cocos2dcpp_shared/__/__/__/src/flappy/scenes/FlappyBirdScene.o: \
  jni/../../../src/flappy/scenes/FlappyBirdScene.cpp \
- jni/../../../include/range/v3/algorithm/for_each.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/functional \
- jni/../../../include/range/v3/range_fwd.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/climits \
- jni/../../../include/meta/meta.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef \
- jni/../../../include/meta/meta_fwd.hpp \
- jni/../../../include/range/v3/detail/config.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cassert \
- jni/../../../include/range/v3/begin_end.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/iterator \
- jni/../../../include/range/v3/utility/static_const.hpp \
- jni/../../../include/range/v3/utility/dangling.hpp \
- jni/../../../include/range/v3/utility/tagged_pair.hpp \
- jni/../../../include/range/v3/utility/swap.hpp \
- jni/../../../include/range/v3/utility/move.hpp \
- jni/../../../include/range/v3/utility/associated_types.hpp \
- jni/../../../include/range/v3/utility/functional.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/memory \
- jni/../../../include/range/v3/utility/box.hpp \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/atomic \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cstdlib \
- jni/../../../include/range/v3/utility/get.hpp \
- jni/../../../include/range/v3/utility/concepts.hpp \
- jni/../../../include/range/v3/utility/common_type.hpp \
- jni/../../../include/range/v3/utility/nullptr_v.hpp \
- jni/../../../include/range/v3/utility/compressed_pair.hpp \
- jni/../../../include/range/v3/detail/disable_warnings.hpp \
- jni/../../../include/range/v3/detail/re_enable_warnings.hpp \
- jni/../../../include/range/v3/utility/iterator.hpp \
- jni/../../../include/range/v3/utility/iterator_traits.hpp \
- jni/../../../include/range/v3/utility/iterator_concepts.hpp \
- jni/../../../include/range/v3/utility/basic_iterator.hpp \
- jni/../../../include/range/v3/range_access.hpp \
- jni/../../../include/range/v3/range_traits.hpp \
- jni/../../../include/range/v3/range_concepts.hpp \
- jni/../../../include/range/v3/size.hpp \
+ /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm \
+ /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/sstream \
  jni/../../../src/flappy/scenes/FlappyBirdScene.hpp \
  jni/../../../include/cpputils/optional.hpp \
  /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/experimental/optional \
+ /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/stdexcept \
  /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/bits/enable_special_members.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../cocos2d.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../base/ccConfig.h \
@@ -58,15 +24,12 @@ obj/local/armeabi/objs-debug/cocos2dcpp_shared/__/__/__/src/flappy/scenes/Flappy
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../base/ccMacros.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../base/CCConsole.h \
  /Users/ryan.davis/Library/Android/ndk/platforms/android-19/arch-arm/usr/include/sys/select.h \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/vector \
  /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/map \
  /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/mutex \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../platform/CCStdC.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../platform/android/CCStdC-android.h \
- /Users/ryan.davis/Library/Android/ndk/platforms/android-19/arch-arm/usr/include/math.h \
+ /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cassert \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../base/ccRandom.h \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/random \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../2d/CCScene.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../2d/CCNode.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../base/CCProtocols.h \
@@ -375,7 +338,6 @@ obj/local/armeabi/objs-debug/cocos2dcpp_shared/__/__/__/src/flappy/scenes/Flappy
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCDictionary.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCArray.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCString.h \
- /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/sstream \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCDouble.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCFloat.h \
  /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCInteger.h \
@@ -391,85 +353,17 @@ obj/local/armeabi/objs-debug/cocos2dcpp_shared/__/__/__/src/flappy/scenes/Flappy
  jni/../../../src/flappy/utilities/Geometry.hpp \
  jni/../../../src/flappy/utilities/Random.hpp
 
-jni/../../../include/range/v3/algorithm/for_each.hpp:
+/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm:
 
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/functional:
-
-jni/../../../include/range/v3/range_fwd.hpp:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/climits:
-
-jni/../../../include/meta/meta.hpp:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cstddef:
-
-jni/../../../include/meta/meta_fwd.hpp:
-
-jni/../../../include/range/v3/detail/config.hpp:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cassert:
-
-jni/../../../include/range/v3/begin_end.hpp:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/iterator:
-
-jni/../../../include/range/v3/utility/static_const.hpp:
-
-jni/../../../include/range/v3/utility/dangling.hpp:
-
-jni/../../../include/range/v3/utility/tagged_pair.hpp:
-
-jni/../../../include/range/v3/utility/swap.hpp:
-
-jni/../../../include/range/v3/utility/move.hpp:
-
-jni/../../../include/range/v3/utility/associated_types.hpp:
-
-jni/../../../include/range/v3/utility/functional.hpp:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/memory:
-
-jni/../../../include/range/v3/utility/box.hpp:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/atomic:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cstdlib:
-
-jni/../../../include/range/v3/utility/get.hpp:
-
-jni/../../../include/range/v3/utility/concepts.hpp:
-
-jni/../../../include/range/v3/utility/common_type.hpp:
-
-jni/../../../include/range/v3/utility/nullptr_v.hpp:
-
-jni/../../../include/range/v3/utility/compressed_pair.hpp:
-
-jni/../../../include/range/v3/detail/disable_warnings.hpp:
-
-jni/../../../include/range/v3/detail/re_enable_warnings.hpp:
-
-jni/../../../include/range/v3/utility/iterator.hpp:
-
-jni/../../../include/range/v3/utility/iterator_traits.hpp:
-
-jni/../../../include/range/v3/utility/iterator_concepts.hpp:
-
-jni/../../../include/range/v3/utility/basic_iterator.hpp:
-
-jni/../../../include/range/v3/range_access.hpp:
-
-jni/../../../include/range/v3/range_traits.hpp:
-
-jni/../../../include/range/v3/range_concepts.hpp:
-
-jni/../../../include/range/v3/size.hpp:
+/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/sstream:
 
 jni/../../../src/flappy/scenes/FlappyBirdScene.hpp:
 
 jni/../../../include/cpputils/optional.hpp:
 
 /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/experimental/optional:
+
+/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/stdexcept:
 
 /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/bits/enable_special_members.h:
 
@@ -507,8 +401,6 @@ jni/../../../include/cpputils/optional.hpp:
 
 /Users/ryan.davis/Library/Android/ndk/platforms/android-19/arch-arm/usr/include/sys/select.h:
 
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/vector:
-
 /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/map:
 
 /Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/mutex:
@@ -517,13 +409,9 @@ jni/../../../include/cpputils/optional.hpp:
 
 /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../platform/android/CCStdC-android.h:
 
-/Users/ryan.davis/Library/Android/ndk/platforms/android-19/arch-arm/usr/include/math.h:
+/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/cassert:
 
 /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../base/ccRandom.h:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/random:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/algorithm:
 
 /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../2d/CCScene.h:
 
@@ -1140,8 +1028,6 @@ jni/../../../include/cpputils/optional.hpp:
 /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCArray.h:
 
 /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCString.h:
-
-/Users/ryan.davis/Library/Android/ndk/sources/cxx-stl/gnu-libstdc++/4.9/include/sstream:
 
 /Users/ryan.davis/Developer/projects/FlappyBird/proj.android-studio/../cocos2d/cocos/3d/../deprecated/CCDouble.h:
 
