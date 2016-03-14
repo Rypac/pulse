@@ -54,8 +54,8 @@ void FlappyBirdScene::clearScene() {
 
 void FlappyBirdScene::addMenuOptions() {
     const auto pauseItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(FlappyBirdScene::onMenuPause, this));
-    pauseItem->setAnchorPoint(Vec2(1.0, 0));
-    pauseItem->setPosition(Vec2(frame.origin.x + frame.size.width - 20, frame.origin.y + 20));
+    pauseItem->setAnchorPoint(Vec2(1.0, 1.0));
+    pauseItem->setPosition(Vec2(frame.origin.x + frame.size.width - 20, frame.origin.y + frame.size.height - 20));
     const auto menu = Menu::create(pauseItem, nullptr);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
