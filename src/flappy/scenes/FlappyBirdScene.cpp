@@ -10,8 +10,8 @@ using namespace cocos2d;
 using namespace flappy;
 
 Scene* GameScene::createScene() {
-    auto scene = Scene::create();
-    auto layer = FlappyBirdScene::create();
+    const auto scene = Scene::create();
+    const auto layer = FlappyBirdScene::create();
     scene->addChild(layer);
     return scene;
 }
@@ -117,7 +117,7 @@ void FlappyBirdScene::update(float dt) {
     if (obstacle->collidesWith(flappyFrame)) {
         GameScene::stopScene();
     } else if (obstacle->passedBy(flappyFrame)) {
-        gameState.score++;
+        gameState.addToScore();
         updateScore();
         incomingObstacles.pop_front();
         passedObstacles.emplace_back(obstacle);
@@ -125,7 +125,7 @@ void FlappyBirdScene::update(float dt) {
 }
 
 void FlappyBirdScene::updateScore() {
-    scoreLabel->setString("Score: " + std::to_string(gameState.score));
+    scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
 }
 
 void FlappyBirdScene::addTouchListeners() {

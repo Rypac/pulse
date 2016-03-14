@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cocos2d.h"
-#include <gsl/gsl.h>
 
 namespace flappy {
 
@@ -13,9 +12,8 @@ class GameScene : public cocos2d::Layer {
 
     CREATE_FUNC(GameScene);
 
-    static gsl::owner<cocos2d::Scene*> createScene();
+    static cocos2d::Scene* createScene();
     virtual bool init() override;
-
     virtual void initScene();
     virtual void clearScene();
     virtual void resetScene();
@@ -25,8 +23,8 @@ class GameScene : public cocos2d::Layer {
     void stopScene();
     void exitScene();
 
-    inline Status sceneStatus() { return status; }
-    inline cocos2d::Rect getFrame() { return frame; };
+    Status sceneStatus() const { return status; }
+    cocos2d::Rect getFrame() const { return frame; };
 
   protected:
     cocos2d::Rect frame;

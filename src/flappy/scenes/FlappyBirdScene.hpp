@@ -11,21 +11,18 @@
 namespace flappy {
 
 class FlappyBirdScene : public GameScene {
-public:
+  public:
     CREATE_FUNC(FlappyBirdScene);
 
     bool init() override;
-    void update(float) override;
-
     void initScene() override;
     void clearScene() override;
+    void update(float dt) override;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onMenuPause(cocos2d::Ref* menuItem);
 
-    Obstacle* generateObstacle() const;
-
-private:
+  private:
     void addMenuOptions();
     void addScoreLabel();
     void addFlappy();
@@ -34,13 +31,14 @@ private:
     void addTouchListeners();
     void updateScore();
 
+    Obstacle* generateObstacle() const;
     std::optional<Obstacle*> nearestObstacle() const;
 
     FlappyBird* flappy;
     cocos2d::Label* scoreLabel;
-    std::list<Obstacle*> passedObstacles{};
-    std::list<Obstacle*> incomingObstacles{};
-    GameState gameState{};
+    std::list<Obstacle*> passedObstacles;
+    std::list<Obstacle*> incomingObstacles;
+    GameState gameState;
 };
 
 }
