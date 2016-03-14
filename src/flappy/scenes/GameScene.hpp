@@ -6,20 +6,24 @@
 namespace flappy {
 
 class GameScene : public cocos2d::Layer {
-public:
+  public:
     CREATE_FUNC(GameScene);
 
     static gsl::owner<cocos2d::Scene*> createScene();
     virtual bool init() override;
-    virtual void reset() {};
 
-    inline cocos2d::Rect getFrame() { return frame; };
+    virtual void initScene() {};
+    virtual void clearScene() {};
+    virtual void resetScene();
 
     bool isScenePaused();
     void pauseScene();
     void resumeScene();
+    void exitScene();
 
-protected:
+    inline cocos2d::Rect getFrame() { return frame; };
+
+  protected:
     cocos2d::Rect frame;
 };
 

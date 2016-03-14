@@ -21,16 +21,23 @@ bool FlappyBirdScene::init() {
         return false;
     }
 
-    addFlappy();
-    generateObstacles();
+    addMenuOptions();
+    addScoreLabel();
     addTouchListeners();
-    addKeyboardListeners();
+    initScene();
     scheduleUpdate();
 
     return true;
 }
 
-void FlappyBirdScene::reset() {
+void FlappyBirdScene::initScene() {
+    gameState.status = GameState::Status::Running;
+    scoreLabel->setString("Score: " + std::to_string(gameState.score));
+    addFlappy();
+    generateObstacles();
+}
+
+void FlappyBirdScene::clearScene() {
     stopAllActions();
     const auto removeObstacle = [this](auto obstacle) { removeChild(obstacle); };
     ranges::for_each(passedObstacles, removeObstacle);
@@ -38,9 +45,24 @@ void FlappyBirdScene::reset() {
     passedObstacles.clear();
     incomingObstacles.clear();
 
-    score = 0;
-    flappy->setPosition(geometry::centerOf(frame));
-    generateObstacles();
+    removeChild(flappy);
+    gameState.reset();
+}
+
+void FlappyBirdScene::addMenuOptions() {
+    const auto pauseItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(FlappyBirdScene::onMenuPause, this));
+    pauseItem->setAnchorPoint(Vec2(1.0, 0));
+    pauseItem->setPosition(Vec2(frame.origin.x + frame.size.width - 20, frame.origin.y + 20));
+    const auto menu = Menu::create(pauseItem, nullptr);
+    menu->setPosition(Vec2::ZERO);
+    this->addChild(menu, 1);
+}
+
+void FlappyBirdScene::addScoreLabel() {
+    scoreLabel = Label::createWithSystemFont("", "Arial", 24);
+    scoreLabel->setAnchorPoint(Vec2(0, 1.0));
+    scoreLabel->setPosition(Vec2(frame.origin.x + 20, frame.origin.y + frame.size.height - 20));
+    this->addChild(scoreLabel, 1);
 }
 
 void FlappyBirdScene::addFlappy() {
@@ -90,12 +112,11 @@ void FlappyBirdScene::update(float dt) {
     const auto obstacle = *possibleNearestObstacle;
     const auto flappyFrame = flappy->getBoundingBox();
     if (obstacle->collidesWith(flappyFrame)) {
-        log("Hit!");
+        gameState.status = GameState::Status::Stopped;
         GameScene::pauseScene();
-        reset();
     } else if (obstacle->passedBy(flappyFrame)) {
-        ++score;
-        log("Score: %d", score);
+        gameState.score++;
+        scoreLabel->setString("Score: " + std::to_string(gameState.score));
         incomingObstacles.pop_front();
         passedObstacles.emplace_back(obstacle);
     }
@@ -107,17 +128,33 @@ void FlappyBirdScene::addTouchListeners() {
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
-void FlappyBirdScene::addKeyboardListeners() {
-    const auto listener = EventListenerKeyboard::create();
-    listener->onKeyPressed = [this](auto keycode, auto event) {
-        if (keycode == EventKeyboard::KeyCode::KEY_SPACE) {
-            GameScene::isScenePaused() ? GameScene::resumeScene() : GameScene::pauseScene();
-        }
-    };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
+    switch (gameState.status) {
+        case GameState::Status::Running:
+            flappy->velocity.y = 850;
+            return true;
+        case GameState::Status::Paused:
+            gameState.status = GameState::Status::Running;
+            GameScene::resumeScene();
+            return false;
+        case GameState::Status::Stopped:
+            GameScene::resetScene();
+            return false;
+    }
 }
 
-bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
-    flappy->velocity.y = 850;
-    return true;
+void FlappyBirdScene::onMenuPause(cocos2d::Ref* menuItem) {
+    switch (gameState.status) {
+        case GameState::Status::Running:
+            gameState.status = GameState::Status::Paused;
+            GameScene::pauseScene();
+            break;
+        case GameState::Status::Paused:
+            gameState.status = GameState::Status::Running;
+            GameScene::resumeScene();
+            break;
+        case GameState::Status::Stopped:
+            GameScene::exitScene();
+            break;
+    }
 }
