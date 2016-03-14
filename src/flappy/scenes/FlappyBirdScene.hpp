@@ -20,6 +20,7 @@ class FlappyBirdScene : public GameScene {
     void update(float dt) override;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     void onMenuPause(cocos2d::Ref* menuItem);
 
   private:
@@ -29,6 +30,7 @@ class FlappyBirdScene : public GameScene {
     void addObstacle();
     void generateObstacles();
     void addTouchListeners();
+    void addAccelerometerListeners();
     void updateScore();
 
     Obstacle* generateObstacle() const;

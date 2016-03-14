@@ -51,7 +51,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
     director->setAnimationInterval(1.0 / 60);
 
     glview->setDesignResolutionSize(DisplayResolution::Design.width, DisplayResolution::Design.height, ResolutionPolicy::NO_BORDER);
@@ -59,6 +59,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
     register_all_packages();
+
+    Device::setAccelerometerEnabled(true);
 
     auto scene = FlappyBirdScene::createScene();
     director->runWithScene(scene);

@@ -5,6 +5,7 @@
 #include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/sprites/Obstacle.hpp"
 #include "flappy/utilities/Geometry.hpp"
+#include "flappy/utilities/Physics.hpp"
 #include "flappy/utilities/Random.hpp"
 
 using namespace cocos2d;
@@ -25,8 +26,7 @@ bool FlappyBirdScene::init() {
     addMenuOptions();
     addScoreLabel();
     addTouchListeners();
-    initScene();
-    scheduleUpdate();
+    addAccelerometerListeners();
 
     return true;
 }
@@ -37,6 +37,7 @@ void FlappyBirdScene::initScene() {
     updateScore();
     addFlappy();
     generateObstacles();
+    scheduleUpdate();
 }
 
 void FlappyBirdScene::clearScene() {
@@ -127,7 +128,7 @@ void FlappyBirdScene::update(float dt) {
 }
 
 void FlappyBirdScene::updateScore() {
-    scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
+    scoreLabel->setString("Score: " + std::to_string(gameState.calibratedAccelerometerOffset()));
 }
 
 void FlappyBirdScene::addTouchListeners() {
@@ -136,10 +137,18 @@ void FlappyBirdScene::addTouchListeners() {
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
-bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
+void FlappyBirdScene::addAccelerometerListeners() {
+    const auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(FlappyBirdScene::onAccelerationDetected, this));
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
     switch (sceneStatus()) {
+        case GameScene::Status::Initialising:
+//            initScene();
+            return false;
         case GameScene::Status::Running:
-            flappy->velocity.y = 850;
+//            flappy->velocity.y = 850;
             return true;
         case GameScene::Status::Paused:
             GameScene::resumeScene();
@@ -150,8 +159,27 @@ bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     }
 }
 
-void FlappyBirdScene::onMenuPause(cocos2d::Ref* menuItem) {
+void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* event) {
     switch (sceneStatus()) {
+        case GameScene::Status::Initialising:
+            gameState.calibrateAccelerometer(acceleration->y);
+            initScene();
+            break;
+        case GameScene::Status::Running:
+            flappy->velocity.y = (acceleration->y - gameState.calibratedAccelerometerOffset()) * physics::AccelerometerScale;
+            break;
+        case GameScene::Status::Paused:
+            break;
+        case GameScene::Status::Stopped:
+            gameState.calibrateAccelerometer(acceleration->y);
+            break;
+    }
+}
+
+void FlappyBirdScene::onMenuPause(Ref* menuItem) {
+    switch (sceneStatus()) {
+        case GameScene::Status::Initialising:
+            break;
         case GameScene::Status::Running:
             GameScene::pauseScene();
             break;

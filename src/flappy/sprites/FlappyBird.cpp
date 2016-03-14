@@ -16,13 +16,13 @@ bool FlappyBird::init() {
 }
 
 void FlappyBird::update(float dt) {
-    velocity.y += (physics::Gravity.y * dt);
-    velocity.y *= linearDamping.y;
-    if (velocity.y < 0) {
-        velocity.y = 0;
-    }
+//    velocity.y += (physics::Gravity.y * dt);
+//    velocity.y *= linearDamping.y;
+//    if (velocity.y < 0) {
+//        velocity.y = 0;
+//    }
 
     auto upwardDistance = velocity.y * dt;
-    auto downwardDistance = physics::Gravity.y * dt;
+    auto downwardDistance = 0; // physics::Gravity.y * dt;
     setPositionY(getPositionY() + upwardDistance + downwardDistance);
 }
