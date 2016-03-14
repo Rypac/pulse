@@ -107,14 +107,15 @@ std::optional<Obstacle*> FlappyBirdScene::nearestObstacle() const {
 void FlappyBirdScene::update(float dt) {
     flappy->update(dt);
 
-    auto possibleNearestObstacle = nearestObstacle();
+    const auto possibleNearestObstacle = nearestObstacle();
     if (!possibleNearestObstacle) {
         return;
     }
 
     const auto obstacle = *possibleNearestObstacle;
     const auto flappyFrame = flappy->getBoundingBox();
-    if (obstacle->collidesWith(flappyFrame)) {
+    const auto flappyIsOnScreen = flappyFrame.intersectsRect(getFrame());
+    if (obstacle->collidesWith(flappyFrame) || !flappyIsOnScreen) {
         GameScene::stopScene();
     } else if (obstacle->passedBy(flappyFrame)) {
         gameState.addToScore();
