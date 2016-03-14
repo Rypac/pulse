@@ -31,13 +31,16 @@ bool FlappyBirdScene::init() {
 }
 
 void FlappyBirdScene::initScene() {
-    gameState.status = GameState::Status::Running;
-    scoreLabel->setString("Score: " + std::to_string(gameState.score));
+    GameScene::initScene();
+
+    updateScore();
     addFlappy();
     generateObstacles();
 }
 
 void FlappyBirdScene::clearScene() {
+    GameScene::clearScene();
+
     stopAllActions();
     const auto removeObstacle = [this](auto obstacle) { removeChild(obstacle); };
     ranges::for_each(passedObstacles, removeObstacle);
@@ -112,14 +115,17 @@ void FlappyBirdScene::update(float dt) {
     const auto obstacle = *possibleNearestObstacle;
     const auto flappyFrame = flappy->getBoundingBox();
     if (obstacle->collidesWith(flappyFrame)) {
-        gameState.status = GameState::Status::Stopped;
-        GameScene::pauseScene();
+        GameScene::stopScene();
     } else if (obstacle->passedBy(flappyFrame)) {
         gameState.score++;
-        scoreLabel->setString("Score: " + std::to_string(gameState.score));
+        updateScore();
         incomingObstacles.pop_front();
         passedObstacles.emplace_back(obstacle);
     }
+}
+
+void FlappyBirdScene::updateScore() {
+    scoreLabel->setString("Score: " + std::to_string(gameState.score));
 }
 
 void FlappyBirdScene::addTouchListeners() {
@@ -129,31 +135,28 @@ void FlappyBirdScene::addTouchListeners() {
 }
 
 bool FlappyBirdScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
-    switch (gameState.status) {
-        case GameState::Status::Running:
+    switch (sceneStatus()) {
+        case GameScene::Status::Running:
             flappy->velocity.y = 850;
             return true;
-        case GameState::Status::Paused:
-            gameState.status = GameState::Status::Running;
+        case GameScene::Status::Paused:
             GameScene::resumeScene();
             return false;
-        case GameState::Status::Stopped:
+        case GameScene::Status::Stopped:
             GameScene::resetScene();
             return false;
     }
 }
 
 void FlappyBirdScene::onMenuPause(cocos2d::Ref* menuItem) {
-    switch (gameState.status) {
-        case GameState::Status::Running:
-            gameState.status = GameState::Status::Paused;
+    switch (sceneStatus()) {
+        case GameScene::Status::Running:
             GameScene::pauseScene();
             break;
-        case GameState::Status::Paused:
-            gameState.status = GameState::Status::Running;
+        case GameScene::Status::Paused:
             GameScene::resumeScene();
             break;
-        case GameState::Status::Stopped:
+        case GameScene::Status::Stopped:
             GameScene::exitScene();
             break;
     }

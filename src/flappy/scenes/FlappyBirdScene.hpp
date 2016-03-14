@@ -32,6 +32,7 @@ private:
     void addObstacle();
     void generateObstacles();
     void addTouchListeners();
+    void updateScore();
 
     std::optional<Obstacle*> nearestObstacle() const;
 
