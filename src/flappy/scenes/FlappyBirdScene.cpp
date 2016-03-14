@@ -43,7 +43,7 @@ void FlappyBirdScene::clearScene() {
     GameScene::clearScene();
 
     stopAllActions();
-    const auto removeObstacle = [this](auto obstacle) { removeChild(obstacle); };
+    const auto removeObstacle = [this](auto obstacle) { this->removeChild(obstacle); };
     ranges::for_each(passedObstacles, removeObstacle);
     ranges::for_each(incomingObstacles, removeObstacle);
     passedObstacles.clear();
