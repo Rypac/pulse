@@ -60,8 +60,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    Device::setAccelerometerEnabled(true);
-
     auto scene = FlappyBirdScene::createScene();
     director->runWithScene(scene);
 

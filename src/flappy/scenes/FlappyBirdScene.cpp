@@ -7,6 +7,7 @@
 #include "flappy/utilities/Geometry.hpp"
 #include "flappy/utilities/Physics.hpp"
 #include "flappy/utilities/Random.hpp"
+#include "flappy/utilities/Rotation.hpp"
 
 using namespace cocos2d;
 using namespace flappy;
@@ -128,7 +129,7 @@ void FlappyBirdScene::update(float dt) {
 }
 
 void FlappyBirdScene::updateScore() {
-    scoreLabel->setString("Score: " + std::to_string(gameState.calibratedAccelerometerOffset()));
+    scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
 }
 
 void FlappyBirdScene::addTouchListeners() {
@@ -138,6 +139,8 @@ void FlappyBirdScene::addTouchListeners() {
 }
 
 void FlappyBirdScene::addAccelerometerListeners() {
+    Device::setAccelerometerEnabled(true);
+    Device::setAccelerometerInterval(1 / 30);
     const auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(FlappyBirdScene::onAccelerationDetected, this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
@@ -160,18 +163,19 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
 }
 
 void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* event) {
+    const auto currentAcceleration = Vec3(acceleration->x, acceleration->y, acceleration->z);
     switch (sceneStatus()) {
         case GameScene::Status::Initialising:
-            gameState.calibrateAccelerometer(acceleration->y);
+            gameState.calibrateAccelerometer(currentAcceleration);
             initScene();
             break;
         case GameScene::Status::Running:
-            flappy->velocity.y = (acceleration->y - gameState.calibratedAccelerometerOffset()) * physics::AccelerometerScale;
+            flappy->velocity.y = rotation::pitch(currentAcceleration, gameState.calibratedAccelerometerOffset()) * physics::AccelerometerScale;
             break;
         case GameScene::Status::Paused:
             break;
         case GameScene::Status::Stopped:
-            gameState.calibrateAccelerometer(acceleration->y);
+            gameState.calibrateAccelerometer(currentAcceleration);
             break;
     }
 }
