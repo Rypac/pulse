@@ -167,8 +167,9 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
             initScene();
             break;
         case GameScene::Status::Running: {
+            const auto roll = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
             const auto pitch = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
-            flappy->velocity.y = pitch * physics::AccelerometerScale;
+            flappy->velocity = Vec2(roll, pitch) * physics::AccelerometerScale;
         }
             break;
         case GameScene::Status::Paused:
