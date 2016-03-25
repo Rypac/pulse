@@ -148,11 +148,8 @@ void FlappyBirdScene::addAccelerometerListeners() {
 bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
     switch (sceneStatus()) {
         case GameScene::Status::Initialising:
-//            initScene();
-            return false;
         case GameScene::Status::Running:
-//            flappy->velocity.y = 850;
-            return true;
+            return false;
         case GameScene::Status::Paused:
             GameScene::resumeScene();
             return false;
@@ -166,16 +163,18 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
     const auto currentAcceleration = Vec3(acceleration->x, acceleration->y, acceleration->z);
     switch (sceneStatus()) {
         case GameScene::Status::Initialising:
-            gameState.calibrateAccelerometer(currentAcceleration);
+            gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
             initScene();
             break;
-        case GameScene::Status::Running:
-            flappy->velocity.y = rotation::pitch(currentAcceleration, gameState.calibratedAccelerometerOffset()) * physics::AccelerometerScale;
+        case GameScene::Status::Running: {
+            const auto pitch = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
+            flappy->velocity.y = pitch * physics::AccelerometerScale;
+        }
             break;
         case GameScene::Status::Paused:
             break;
         case GameScene::Status::Stopped:
-            gameState.calibrateAccelerometer(currentAcceleration);
+            gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
             break;
     }
 }
