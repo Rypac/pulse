@@ -12,7 +12,6 @@ public:
     virtual void update(float dt) override;
 
     cocos2d::Vec2 velocity{0, 0};
-    const cocos2d::Vec2 linearDamping{0, 0.972};
 };
 
 }
