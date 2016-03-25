@@ -1,5 +1,6 @@
 #include <string>
 #include <range/v3/algorithm/for_each.hpp>
+#include <range/v3/algorithm/any_of.hpp>
 
 #include "flappy/scenes/FlappyBirdScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
@@ -103,24 +104,47 @@ void FlappyBirdScene::generateObstacles() {
     runAction(infiniteColumnGenerator);
 }
 
-std::optional<Obstacle*> FlappyBirdScene::nearestObstacle() const {
+std::optional<Obstacle*> FlappyBirdScene::closestIncomingObstacle() const {
     return incomingObstacles.empty() ? std::nullopt : std::make_optional(incomingObstacles.front());
 }
 
 void FlappyBirdScene::update(float dt) {
     flappy->update(dt);
 
-    const auto possibleNearestObstacle = nearestObstacle();
+    if (collisionDetected()) {
+        GameScene::stopScene();
+    } else {
+        updateIncomingObstacles();
+    }
+}
+
+bool FlappyBirdScene::collisionDetected() const {
+    return collisionWithEnvironment()
+        || collisionWithObstacles(incomingObstacles)
+        || collisionWithObstacles(passedObstacles);
+}
+
+bool FlappyBirdScene::collisionWithEnvironment() const {
+    const auto flappyFrame = flappy->getBoundingBox();
+    const auto flappyIsOnScreen = flappyFrame.intersectsRect(getFrame());
+    return !flappyIsOnScreen;
+}
+
+bool FlappyBirdScene::collisionWithObstacles(const std::list<Obstacle*>& obstacles) const {
+    const auto flappyFrame = flappy->getBoundingBox();
+    return ranges::any_of(obstacles, [=](const auto& obstacle) {
+        return obstacle->collidesWith(flappyFrame);
+    });
+}
+
+void FlappyBirdScene::updateIncomingObstacles() {
+    const auto possibleNearestObstacle = closestIncomingObstacle();
     if (!possibleNearestObstacle) {
         return;
     }
 
     const auto obstacle = *possibleNearestObstacle;
-    const auto flappyFrame = flappy->getBoundingBox();
-    const auto flappyIsOnScreen = flappyFrame.intersectsRect(getFrame());
-    if (obstacle->collidesWith(flappyFrame) || !flappyIsOnScreen) {
-        GameScene::stopScene();
-    } else if (obstacle->passedBy(flappyFrame)) {
+    if (obstacle->passedBy(flappy->getBoundingBox())) {
         gameState.addToScore();
         updateScore();
         incomingObstacles.pop_front();
