@@ -70,6 +70,9 @@ project.xcworkspace
 *.hmap
 *.ipa
 
+# AppCode
+.idea/
+
 # CocoaPods
 #
 # We recommend against adding the Pods directory to your .gitignore. However
