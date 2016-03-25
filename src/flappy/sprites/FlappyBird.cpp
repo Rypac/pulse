@@ -1,5 +1,4 @@
 #include "flappy/sprites/FlappyBird.hpp"
-#include "flappy/utilities/Physics.hpp"
 
 using namespace cocos2d;
 using namespace flappy;
@@ -16,6 +15,5 @@ bool FlappyBird::init() {
 }
 
 void FlappyBird::update(float dt) {
-    const auto verticalDistance = velocity.y * dt;
-    setPositionY(getPositionY() + verticalDistance);
+    setPosition(getPosition() + velocity * dt);
 }
