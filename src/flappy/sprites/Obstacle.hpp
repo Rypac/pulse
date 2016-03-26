@@ -14,19 +14,24 @@ class Obstacle : public cocos2d::Sprite {
 
     virtual bool init() override;
 
+    Direction getDirection() const { return direction; };
+    cocos2d::Vec2 getDestination() const { return destination; };
+
     using ObstacleCallback = const std::function<void(Obstacle*)>;
-    void runActions(cocos2d::Rect world, ObstacleCallback onCompletion = nullptr);
+    void runActions(ObstacleCallback onCompletion = nullptr);
     void positionInWorld(cocos2d::Rect world);
 
-    cocos2d::Vec2 origin(cocos2d::Rect world) const;
-    cocos2d::Vec2 destination(cocos2d::Rect world) const;
     bool collidesWith(cocos2d::Rect frame) const;
     bool passedBy(cocos2d::Rect frame) const;
 
     static const int gapHeight = 100;
 
   private:
+    cocos2d::Vec2 originInWorld(cocos2d::Rect world) const;
+    cocos2d::Vec2 destinationInWorld(cocos2d::Rect world) const;
+
     Direction direction;
+    cocos2d::Vec2 destination;
     Column* top;
     Column* bottom;
 };

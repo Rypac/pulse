@@ -40,7 +40,12 @@ Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomC
     return obstacle;
 }
 
-Vec2 Obstacle::origin(Rect world) const {
+void Obstacle::positionInWorld(cocos2d::Rect world) {
+    setPosition(originInWorld(world));
+    destination = destinationInWorld(world);
+}
+
+Vec2 Obstacle::originInWorld(Rect world) const {
     const auto body = getBoundingBox();
     switch (direction) {
         case Direction::North: return Vec2{body.origin.x, world.origin.y - body.size.height};
@@ -50,7 +55,7 @@ Vec2 Obstacle::origin(Rect world) const {
     }
 }
 
-Vec2 Obstacle::destination(Rect world) const {
+Vec2 Obstacle::destinationInWorld(Rect world) const {
     const auto body = getBoundingBox();
     switch (direction) {
         case Direction::North: return Vec2{body.origin.x, world.origin.y + world.size.height + body.size.height};
@@ -60,8 +65,8 @@ Vec2 Obstacle::destination(Rect world) const {
     }
 }
 
-void Obstacle::runActions(Rect world, ObstacleCallback onCompletion) {
-    const auto moveToEdge = MoveTo::create(5, destination(world));
+void Obstacle::runActions(ObstacleCallback onCompletion) {
+    const auto moveToEdge = MoveTo::create(5, destination);
     const auto removeFromScene = RemoveSelf::create(true);
     const auto actionsCompleted = CallFunc::create([=]() {
         if (onCompletion) {
@@ -70,10 +75,6 @@ void Obstacle::runActions(Rect world, ObstacleCallback onCompletion) {
     });
     const auto actions = Sequence::create(moveToEdge, removeFromScene, actionsCompleted, nullptr);
     runAction(actions);
-}
-
-void Obstacle::positionInWorld(cocos2d::Rect world) {
-    setPosition(origin(world));
 }
 
 Rect frameInParentSpace(const Sprite* child, const Sprite* parent) {
