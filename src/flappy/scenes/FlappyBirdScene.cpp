@@ -7,7 +7,7 @@
 #include "flappy/sprites/Obstacle.hpp"
 #include "flappy/utilities/Geometry.hpp"
 #include "flappy/utilities/Physics.hpp"
-#include "flappy/utilities/Random.hpp"
+#include "flappy/generators/ObstacleGenerator.hpp"
 #include "flappy/utilities/Rotation.hpp"
 
 using namespace cocos2d;
@@ -78,19 +78,9 @@ void FlappyBirdScene::addFlappy() {
     addChild(flappy, 1);
 }
 
-Obstacle* FlappyBirdScene::generateObstacle() const {
-    const auto maxColumnHeight = frame.size.height - Obstacle::gapHeight;
-    const auto bottomHeight = random::between(0, maxColumnHeight);
-    const auto topHeight = maxColumnHeight - bottomHeight;
-
-    const auto obstacle = Obstacle::create(topHeight, Obstacle::gapHeight, bottomHeight);
-    obstacle->setPosition(geometry::rightOf(obstacle->getContentSize(), frame));
-    return obstacle;
-}
-
 void FlappyBirdScene::addObstacle() {
     const auto onCompletion = [this](auto obstacle) { passedObstacles.remove(obstacle); };
-    const auto obstacle = generateObstacle();
+    const auto obstacle = ObstacleGenerator{frame}.generate();
     obstacle->runActions(frame, onCompletion);
     addChild(obstacle);
     incomingObstacles.emplace_back(obstacle);

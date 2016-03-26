@@ -18,7 +18,8 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    $(SRC_PATH)/scenes/FlappyBirdScene.cpp \
                    $(SRC_PATH)/sprites/Column.cpp \
                    $(SRC_PATH)/sprites/FlappyBird.cpp \
-                   $(SRC_PATH)/sprites/Obstacle.cpp
+                   $(SRC_PATH)/sprites/Obstacle.cpp \
+                   $(SRC_PATH)/generators/ObstacleGenerator.cpp
 
 LOCAL_C_INCLUDES := $(ROOT_PATH)/src $(ROOT_PATH)/include
 

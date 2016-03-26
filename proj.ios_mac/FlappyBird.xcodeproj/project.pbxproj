@@ -48,6 +48,8 @@
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
+		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
+		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29581C93D4D700EA3D32 /* Column.cpp */; };
@@ -145,6 +147,9 @@
 		816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FlappyBird.hpp; path = flappy/sprites/FlappyBird.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = flappy/utilities/Random.hpp; sourceTree = "<group>"; };
 		816908C71C94040A0073E4C6 /* Physics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Physics.hpp; path = flappy/utilities/Physics.hpp; sourceTree = "<group>"; };
+		817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleGenerator.cpp; path = flappy/generators/ObstacleGenerator.cpp; sourceTree = "<group>"; };
+		817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleGenerator.hpp; path = flappy/generators/ObstacleGenerator.hpp; sourceTree = "<group>"; };
+		817B8A3F1CA639F2003BE291 /* Generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Generator.hpp; path = flappy/generators/Generator.hpp; sourceTree = "<group>"; };
 		81883C041CA6274A00AF5FD5 /* Direction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = flappy/utilities/Direction.hpp; sourceTree = "<group>"; };
 		819E29531C93C69F00EA3D32 /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameScene.hpp; path = flappy/scenes/GameScene.hpp; sourceTree = "<group>"; };
 		819E29541C93C8AC00EA3D32 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = flappy/scenes/GameScene.cpp; sourceTree = "<group>"; };
@@ -299,6 +304,7 @@
 		46880B8319C43A87006E1F66 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				817B8A3A1CA63942003BE291 /* generators */,
 				81EB56B91C96364200BE36A4 /* models */,
 				819E29511C93C60000EA3D32 /* scenes */,
 				819E29571C93D49600EA3D32 /* sprites */,
@@ -352,6 +358,16 @@
 			name = Icons;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		817B8A3A1CA63942003BE291 /* generators */ = {
+			isa = PBXGroup;
+			children = (
+				817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */,
+				817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */,
+				817B8A3F1CA639F2003BE291 /* Generator.hpp */,
+			);
+			name = generators;
+			sourceTree = "<group>";
 		};
 		819E29511C93C60000EA3D32 /* scenes */ = {
 			isa = PBXGroup;
@@ -537,6 +553,7 @@
 				46880B8A19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
@@ -551,6 +568,7 @@
 			files = (
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,

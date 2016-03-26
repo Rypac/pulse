@@ -38,7 +38,6 @@ class FlappyBirdScene : public GameScene {
     bool collisionWithEnvironment() const;
     bool collisionWithObstacles(const std::list<Obstacle*>& obstacles) const;
 
-    Obstacle* generateObstacle() const;
     std::optional<Obstacle*> closestIncomingObstacle() const;
 
     FlappyBird* flappy;
