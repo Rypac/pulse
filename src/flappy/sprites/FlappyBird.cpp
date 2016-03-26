@@ -8,7 +8,7 @@ bool FlappyBird::init() {
         return false;
     }
 
-    setTextureRect(Rect(0, 0, 30, 30));
+    setTextureRect(Rect{0, 0, 30, 30});
     setColor(Color3B::WHITE);
 
     return true;

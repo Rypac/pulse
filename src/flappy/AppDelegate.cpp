@@ -7,10 +7,10 @@ using namespace cocos2d;
 using namespace flappy;
 
 namespace DisplayResolution {
-    const auto Design = Size(960, 640);
-    const auto Small = Size(960, 640);
-    const auto Medium = Size(1024, 768);
-    const auto Large = Size(2048, 1536);
+    const auto Design = Size{960, 640};
+    const auto Small = Size{960, 640};
+    const auto Medium = Size{1024, 768};
+    const auto Large = Size{2048, 1536};
 }
 
 AppDelegate::AppDelegate() {}
@@ -37,9 +37,9 @@ Size displayResolutionForFrame(Size frame) {
 }
 
 float contentScaleFactorForFrame(Size frame) {
-    auto resolution = displayResolutionForFrame(frame);
-    auto scaledHeight = resolution.height / DisplayResolution::Design.height;
-    auto scaledWidth = resolution.width / DisplayResolution::Design.width;
+    const auto resolution = displayResolutionForFrame(frame);
+    const auto scaledHeight = resolution.height / DisplayResolution::Design.height;
+    const auto scaledWidth = resolution.width / DisplayResolution::Design.width;
     return std::min(scaledHeight, scaledWidth);
 }
 

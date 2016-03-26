@@ -4,7 +4,7 @@
 
 namespace flappy { namespace physics {
 
-static const auto Gravity = cocos2d::Vec2(0, -400);
+static const auto Gravity = cocos2d::Vec2{0, -400};
 static const auto AccelerometerScale = 1200;
 
 } }

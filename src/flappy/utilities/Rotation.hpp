@@ -33,7 +33,7 @@ inline float yaw(cocos2d::Vec3 point, cocos2d::Vec3 reference) {
 }
 
 inline cocos2d::Vec3 angle(cocos2d::Vec3 point) {
-    return cocos2d::Vec3(roll(point), pitch(point), yaw(point));
+    return cocos2d::Vec3{roll(point), pitch(point), yaw(point)};
 }
 
 } }

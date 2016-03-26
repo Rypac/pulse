@@ -9,7 +9,7 @@ bool GameScene::init() {
     }
 
     auto director = Director::getInstance();
-    frame = Rect(director->getVisibleOrigin(), director->getVisibleSize());
+    frame = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
     status = Status::Initialising;
 
     return true;

@@ -58,8 +58,8 @@ void FlappyBirdScene::clearScene() {
 
 void FlappyBirdScene::addMenuOptions() {
     const auto pauseItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(FlappyBirdScene::onMenuPause, this));
-    pauseItem->setAnchorPoint(Vec2(1.0, 1.0));
-    pauseItem->setPosition(Vec2(frame.origin.x + frame.size.width - 20, frame.origin.y + frame.size.height - 20));
+    pauseItem->setAnchorPoint(Vec2{1.0, 1.0});
+    pauseItem->setPosition(Vec2{frame.origin.x + frame.size.width - 20, frame.origin.y + frame.size.height - 20});
     const auto menu = Menu::create(pauseItem, nullptr);
     menu->setPosition(Vec2::ZERO);
     this->addChild(menu, 1);
@@ -67,8 +67,8 @@ void FlappyBirdScene::addMenuOptions() {
 
 void FlappyBirdScene::addScoreLabel() {
     scoreLabel = Label::createWithSystemFont("", "Arial", 24);
-    scoreLabel->setAnchorPoint(Vec2(0, 1.0));
-    scoreLabel->setPosition(Vec2(frame.origin.x + 20, frame.origin.y + frame.size.height - 20));
+    scoreLabel->setAnchorPoint(Vec2{0, 1.0});
+    scoreLabel->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
     this->addChild(scoreLabel, 1);
 }
 
@@ -193,9 +193,9 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
         case GameScene::Status::Running: {
             const auto roll = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
             const auto pitch = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
-            flappy->velocity = Vec2(roll, pitch) * physics::AccelerometerScale;
-        }
+            flappy->velocity = Vec2{roll, pitch} * physics::AccelerometerScale;
             break;
+        }
         case GameScene::Status::Paused:
             break;
         case GameScene::Status::Stopped:

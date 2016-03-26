@@ -12,7 +12,7 @@ bool Obstacle::init() {
     bottom = Column::create();
     addChild(top);
     addChild(bottom);
-    setAnchorPoint(Vec2(0, 0));
+    setAnchorPoint(Vec2{0, 0});
 
     return true;
 }
@@ -30,9 +30,9 @@ void setFrameForTextureSprite(Sprite* sprite, Rect frame) {
 }
 
 Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomColumnHeight) {
-    const auto obstacleSize = Size(Column::defaultWidth, topColumnHeight + gapHeight + bottomColumnHeight);
-    const auto bottomFrame = Rect(0, 0, obstacleSize.width, bottomColumnHeight);
-    const auto topFrame = Rect(0, bottomColumnHeight + gapHeight, obstacleSize.width, topColumnHeight);
+    const auto obstacleSize = Size{Column::defaultWidth, topColumnHeight + gapHeight + bottomColumnHeight};
+    const auto bottomFrame = Rect{0, 0, obstacleSize.width, bottomColumnHeight};
+    const auto topFrame = Rect{0, bottomColumnHeight + gapHeight, obstacleSize.width, topColumnHeight};
     const auto obstacle = Obstacle::create(obstacleSize);
     setFrameForTextureSprite(obstacle->bottom, bottomFrame);
     setFrameForTextureSprite(obstacle->top, topFrame);
@@ -40,7 +40,7 @@ Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomC
 }
 
 void Obstacle::runActions(ObstacleCallback onCompletion) {
-    const auto destination = Vec2(0 - getContentSize().width, getPositionY());
+    const auto destination = Vec2{0 - getContentSize().width, getPositionY()};
     const auto moveToEdge = MoveTo::create(5, destination);
     const auto removeFromScene = RemoveSelf::create(true);
     const auto actionsCompleted = CallFunc::create([=]() {

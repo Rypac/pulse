@@ -8,14 +8,14 @@ bool Column::init() {
         return false;
     }
 
-    setAnchorPoint(Vec2(0, 0));
+    setAnchorPoint(Vec2{0, 0});
     setColor(Color3B::BLUE);
 
     return true;
 }
 
 Column* Column::create(float height) {
-    return create(Rect(0, 0, defaultWidth, height));
+    return create(Rect{0, 0, defaultWidth, height});
 }
 
 Column* Column::create(Rect frame) {
