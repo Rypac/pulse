@@ -7,10 +7,10 @@ using namespace cocos2d;
 using namespace flappy;
 
 namespace DisplayResolution {
-    const auto Design = Size{960, 640};
-    const auto Small = Size{960, 640};
-    const auto Medium = Size{1024, 768};
-    const auto Large = Size{2048, 1536};
+    static const auto Design = Size{960, 640};
+    static const auto Small = Size{960, 640};
+    static const auto Medium = Size{1920, 1080};
+    static const auto Large = Size{2560, 1440};
 }
 
 AppDelegate::AppDelegate() {}
@@ -18,7 +18,7 @@ AppDelegate::AppDelegate() {}
 AppDelegate::~AppDelegate() {}
 
 void AppDelegate::initGLContextAttrs() {
-    GLContextAttrs glContextAttrs = {8, 8, 8, 8, 24, 8};
+    GLContextAttrs glContextAttrs{8, 8, 8, 8, 24, 8};
     GLView::setGLContextAttrs(glContextAttrs);
 }
 
@@ -55,12 +55,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     glview->setDesignResolutionSize(DisplayResolution::Design.width, DisplayResolution::Design.height, ResolutionPolicy::NO_BORDER);
-    auto frame = glview->getFrameSize();
+    const auto frame = glview->getFrameSize();
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
     register_all_packages();
 
-    auto scene = FlappyBirdScene::createScene();
+    const auto scene = FlappyBirdScene::createScene();
     director->runWithScene(scene);
 
     return true;
