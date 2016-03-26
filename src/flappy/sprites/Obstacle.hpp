@@ -16,7 +16,9 @@ class Obstacle : public cocos2d::Sprite {
 
     using ObstacleCallback = const std::function<void(Obstacle*)>;
     void runActions(cocos2d::Rect world, ObstacleCallback onCompletion = nullptr);
+    void positionInWorld(cocos2d::Rect world);
 
+    cocos2d::Vec2 origin(cocos2d::Rect world) const;
     cocos2d::Vec2 destination(cocos2d::Rect world) const;
     bool collidesWith(cocos2d::Rect frame) const;
     bool passedBy(cocos2d::Rect frame) const;

@@ -40,6 +40,16 @@ Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomC
     return obstacle;
 }
 
+Vec2 Obstacle::origin(Rect world) const {
+    const auto body = getBoundingBox();
+    switch (direction) {
+        case Direction::North: return Vec2{body.origin.x, world.origin.y - body.size.height};
+        case Direction::South: return Vec2{body.origin.x, world.origin.y + world.size.height + body.size.height};
+        case Direction::East: return Vec2{world.origin.x - body.size.width, body.origin.y};
+        case Direction::West: return Vec2{world.origin.x + world.size.width + body.size.width, body.origin.y};
+    }
+}
+
 Vec2 Obstacle::destination(Rect world) const {
     const auto body = getBoundingBox();
     switch (direction) {
@@ -60,6 +70,10 @@ void Obstacle::runActions(Rect world, ObstacleCallback onCompletion) {
     });
     const auto actions = Sequence::create(moveToEdge, removeFromScene, actionsCompleted, nullptr);
     runAction(actions);
+}
+
+void Obstacle::positionInWorld(cocos2d::Rect world) {
+    setPosition(origin(world));
 }
 
 Rect frameInParentSpace(const Sprite* child, const Sprite* parent) {
