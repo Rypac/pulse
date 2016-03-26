@@ -1,4 +1,5 @@
-#include "Obstacle.hpp"
+#include "flappy/sprites/Obstacle.hpp"
+#include "flappy/utilities/Geometry.hpp"
 
 using namespace cocos2d;
 using namespace flappy;
@@ -41,28 +42,9 @@ Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomC
 }
 
 void Obstacle::positionInWorld(cocos2d::Rect world) {
-    setPosition(originInWorld(world));
-    destination = destinationInWorld(world);
-}
-
-Vec2 Obstacle::originInWorld(Rect world) const {
     const auto body = getBoundingBox();
-    switch (direction) {
-        case Direction::North: return Vec2{body.origin.x, world.origin.y - body.size.height};
-        case Direction::South: return Vec2{body.origin.x, world.origin.y + world.size.height + body.size.height};
-        case Direction::East: return Vec2{world.origin.x - body.size.width, body.origin.y};
-        case Direction::West: return Vec2{world.origin.x + world.size.width + body.size.width, body.origin.y};
-    }
-}
-
-Vec2 Obstacle::destinationInWorld(Rect world) const {
-    const auto body = getBoundingBox();
-    switch (direction) {
-        case Direction::North: return Vec2{body.origin.x, world.origin.y + world.size.height + body.size.height};
-        case Direction::South: return Vec2{body.origin.x, world.origin.y - body.size.height};
-        case Direction::East: return Vec2{world.origin.x + world.size.width + body.size.width, body.origin.y};
-        case Direction::West: return Vec2{world.origin.x - body.size.width, body.origin.y};
-    }
+    setPosition(geometry::origin(body, world, direction));
+    destination = geometry::destination(body, world, direction);
 }
 
 void Obstacle::runActions(ObstacleCallback onCompletion) {

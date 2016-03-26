@@ -27,9 +27,6 @@ class Obstacle : public cocos2d::Sprite {
     static const int gapHeight = 100;
 
   private:
-    cocos2d::Vec2 originInWorld(cocos2d::Rect world) const;
-    cocos2d::Vec2 destinationInWorld(cocos2d::Rect world) const;
-
     Direction direction;
     cocos2d::Vec2 destination;
     Column* top;
