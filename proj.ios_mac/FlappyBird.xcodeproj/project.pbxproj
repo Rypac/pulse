@@ -145,6 +145,7 @@
 		816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FlappyBird.hpp; path = flappy/sprites/FlappyBird.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = flappy/utilities/Random.hpp; sourceTree = "<group>"; };
 		816908C71C94040A0073E4C6 /* Physics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Physics.hpp; path = flappy/utilities/Physics.hpp; sourceTree = "<group>"; };
+		81883C041CA6274A00AF5FD5 /* Direction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = flappy/utilities/Direction.hpp; sourceTree = "<group>"; };
 		819E29531C93C69F00EA3D32 /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameScene.hpp; path = flappy/scenes/GameScene.hpp; sourceTree = "<group>"; };
 		819E29541C93C8AC00EA3D32 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = flappy/scenes/GameScene.cpp; sourceTree = "<group>"; };
 		819E29581C93D4D700EA3D32 /* Column.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Column.cpp; path = flappy/sprites/Column.cpp; sourceTree = "<group>"; };
@@ -370,6 +371,7 @@
 				816908C61C9401E10073E4C6 /* Random.hpp */,
 				816908C71C94040A0073E4C6 /* Physics.hpp */,
 				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
+				81883C041CA6274A00AF5FD5 /* Direction.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";

@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "flappy/sprites/Column.hpp"
+#include "flappy/utilities/Direction.hpp"
 
 namespace flappy {
 
@@ -14,14 +15,16 @@ class Obstacle : public cocos2d::Sprite {
     virtual bool init() override;
 
     using ObstacleCallback = const std::function<void(Obstacle*)>;
-    void runActions(ObstacleCallback onCompletion = nullptr);
+    void runActions(cocos2d::Rect world, ObstacleCallback onCompletion = nullptr);
 
+    cocos2d::Vec2 destination(cocos2d::Rect world) const;
     bool collidesWith(cocos2d::Rect frame) const;
     bool passedBy(cocos2d::Rect frame) const;
 
     static const int gapHeight = 100;
 
   private:
+    Direction direction;
     Column* top;
     Column* bottom;
 };

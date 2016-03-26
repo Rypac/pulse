@@ -8,6 +8,7 @@ bool Obstacle::init() {
         return false;
     }
 
+    direction = Direction::West;
     top = Column::create();
     bottom = Column::create();
     addChild(top);
@@ -39,9 +40,18 @@ Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomC
     return obstacle;
 }
 
-void Obstacle::runActions(ObstacleCallback onCompletion) {
-    const auto destination = Vec2{0 - getContentSize().width, getPositionY()};
-    const auto moveToEdge = MoveTo::create(5, destination);
+Vec2 Obstacle::destination(Rect world) const {
+    const auto body = getBoundingBox();
+    switch (direction) {
+        case Direction::North: return Vec2{body.origin.x, world.origin.y + world.size.height + body.size.height};
+        case Direction::South: return Vec2{body.origin.x, world.origin.y - body.size.height};
+        case Direction::East: return Vec2{world.origin.x + world.size.width + body.size.width, body.origin.y};
+        case Direction::West: return Vec2{world.origin.x - body.size.width, body.origin.y};
+    }
+}
+
+void Obstacle::runActions(Rect world, ObstacleCallback onCompletion) {
+    const auto moveToEdge = MoveTo::create(5, destination(world));
     const auto removeFromScene = RemoveSelf::create(true);
     const auto actionsCompleted = CallFunc::create([=]() {
         if (onCompletion) {

@@ -91,7 +91,7 @@ Obstacle* FlappyBirdScene::generateObstacle() const {
 void FlappyBirdScene::addObstacle() {
     const auto onCompletion = [this](auto obstacle) { passedObstacles.remove(obstacle); };
     const auto obstacle = generateObstacle();
-    obstacle->runActions(onCompletion);
+    obstacle->runActions(frame, onCompletion);
     addChild(obstacle);
     incomingObstacles.emplace_back(obstacle);
 }
