@@ -1,25 +1,26 @@
 LOCAL_PATH := $(call my-dir)
+ROOT_PATH := $(LOCAL_PATH)/../../..
+SRC_PATH := ../../../src/flappy
 
 include $(CLEAR_VARS)
 
-$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d)
-$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d/external)
-$(call import-add-path,$(LOCAL_PATH)/../../../cocos2d/cocos)
+$(call import-add-path,$(ROOT_PATH)/cocos2d)
+$(call import-add-path,$(ROOT_PATH)/cocos2d/external)
+$(call import-add-path,$(ROOT_PATH)/cocos2d/cocos)
 
 LOCAL_MODULE := cocos2dcpp_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
-                   ../../../src/flappy/AppDelegate.cpp \
-                   ../../../src/flappy/scenes/GameScene.cpp \
-                   ../../../src/flappy/scenes/FlappyBirdScene.cpp \
-                   ../../../src/flappy/sprites/Column.cpp \
-                   ../../../src/flappy/sprites/FlappyBird.cpp \
-                   ../../../src/flappy/sprites/Obstacle.cpp
+                   $(SRC_PATH)/AppDelegate.cpp \
+                   $(SRC_PATH)/scenes/GameScene.cpp \
+                   $(SRC_PATH)/scenes/FlappyBirdScene.cpp \
+                   $(SRC_PATH)/sprites/Column.cpp \
+                   $(SRC_PATH)/sprites/FlappyBird.cpp \
+                   $(SRC_PATH)/sprites/Obstacle.cpp
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../../src/ \
-                    $(LOCAL_PATH)/../../../include
+LOCAL_C_INCLUDES := $(ROOT_PATH)/src $(ROOT_PATH)/include
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END
