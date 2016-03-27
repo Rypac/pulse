@@ -32,7 +32,7 @@ void setFrameForTextureSprite(Sprite* sprite, Rect frame) {
 }
 
 Obstacle* Obstacle::create(float topLength, float gapLength, float bottomLength, Direction direction) {
-    const auto obstacleSize = Size{Column::defaultWidth, topLength + gapLength + bottomLength};
+    const auto obstacleSize = Size{Column::defaultLength, topLength + gapLength + bottomLength};
     const auto bottomFrame = Rect{0, 0, obstacleSize.width, bottomLength};
     const auto topFrame = Rect{0, bottomLength + gapLength, obstacleSize.width, topLength};
     const auto obstacle = Obstacle::create(obstacleSize, direction);
