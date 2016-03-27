@@ -8,7 +8,6 @@ bool Column::init() {
         return false;
     }
 
-    setAnchorPoint(Vec2{0, 0});
     setColor(Color3B::BLUE);
 
     return true;

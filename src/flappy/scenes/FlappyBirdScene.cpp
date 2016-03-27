@@ -79,7 +79,7 @@ void FlappyBirdScene::addFlappy() {
 }
 
 void FlappyBirdScene::addObstacle() {
-    const auto onCompletion = [this](auto obstacle) { passedObstacles.remove(obstacle); };
+    const auto onCompletion = [this](auto obstacle) { incomingObstacles.remove(obstacle); };
     const auto obstacle = ObstacleGenerator{frame}.generate();
     obstacle->runActions(onCompletion);
     addChild(obstacle);
@@ -104,7 +104,7 @@ void FlappyBirdScene::update(float dt) {
     if (collisionDetected()) {
         GameScene::stopScene();
     } else {
-        updateIncomingObstacles();
+//        updateIncomingObstacles();
     }
 }
 
