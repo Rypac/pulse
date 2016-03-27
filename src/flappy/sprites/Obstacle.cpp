@@ -13,7 +13,6 @@ bool Obstacle::init() {
     bottom = Column::create();
     addChild(top);
     addChild(bottom);
-    setColor(Color3B::GREEN);
 
     return true;
 }
@@ -22,7 +21,6 @@ Obstacle* Obstacle::create(Size size, Direction direction) {
     const auto obstacle = Obstacle::create();
     obstacle->setPosition(0, 0);
     obstacle->setContentSize(size);
-    obstacle->setTextureRect(obstacle->getBoundingBox());
     obstacle->direction = direction;
     return obstacle;
 }
