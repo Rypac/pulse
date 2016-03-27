@@ -13,11 +13,11 @@ static inline Vec2 centerOf(Rect frame) {
 }
 
 static inline Vec2 alignedLeft(Rect body, Rect frame) {
-    return Vec2{frame.origin.x, body.origin.y};
+    return Vec2{frame.origin.x, frame.origin.y + frame.size.height - body.size.height};
 }
 
 static inline Vec2 alignedRight(Rect body, Rect frame) {
-    return Vec2{frame.origin.x + frame.size.width - body.size.width, body.origin.y};
+    return Vec2{frame.origin.x + frame.size.width - body.size.width, frame.origin.y + frame.size.height - body.size.height};
 }
 
 static inline Vec2 alignedTop(Rect body, Rect frame) {
@@ -29,11 +29,11 @@ static inline Vec2 alignedBottom(Rect body, Rect frame) {
 }
 
 static inline Vec2 leftOf(Rect body, Rect frame) {
-    return Vec2{frame.origin.x - body.size.width, body.origin.y};
+    return Vec2{frame.origin.x - body.size.width, frame.origin.y + frame.size.height - body.size.height};
 }
 
 static inline Vec2 rightOf(Rect body, Rect frame) {
-    return Vec2{frame.origin.x + frame.size.width + body.size.width, body.origin.y};
+    return Vec2{frame.origin.x + frame.size.width + body.size.width, frame.origin.y + frame.size.height - body.size.height};
 }
 
 static inline Vec2 above(Rect body, Rect frame) {
