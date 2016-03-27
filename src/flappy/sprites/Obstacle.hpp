@@ -9,8 +9,8 @@ namespace flappy {
 class Obstacle : public cocos2d::Sprite {
   public:
     CREATE_FUNC(Obstacle);
-    static Obstacle* create(cocos2d::Size frame);
-    static Obstacle* create(float topCollumnHeight, float gapHeight, float bottomCollumnHeight);
+    static Obstacle* create(cocos2d::Size frame, Direction direction);
+    static Obstacle* create(float topColumnLength, float gapLength, float bottomLength, Direction direction);
 
     virtual bool init() override;
 
@@ -24,7 +24,7 @@ class Obstacle : public cocos2d::Sprite {
     bool collidesWith(cocos2d::Rect frame) const;
     bool passedBy(cocos2d::Rect frame) const;
 
-    static const int gapHeight = 100;
+    static const int gapLength = 100;
 
   private:
     Direction direction;

@@ -15,7 +15,7 @@ bool Column::init() {
 }
 
 Column* Column::create(float height) {
-    return create(Rect{0, 0, defaultWidth, height});
+    return create(Rect{0, 0, defaultLength, height});
 }
 
 Column* Column::create(Rect frame) {

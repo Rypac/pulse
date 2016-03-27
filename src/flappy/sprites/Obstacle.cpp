@@ -9,7 +9,6 @@ bool Obstacle::init() {
         return false;
     }
 
-    direction = Direction::West;
     top = Column::create();
     bottom = Column::create();
     addChild(top);
@@ -19,9 +18,10 @@ bool Obstacle::init() {
     return true;
 }
 
-Obstacle* Obstacle::create(Size frame) {
+Obstacle* Obstacle::create(Size frame, Direction direction) {
     const auto obstacle = Obstacle::create();
     obstacle->setContentSize(frame);
+    obstacle->direction = direction;
     return obstacle;
 }
 
@@ -31,11 +31,11 @@ void setFrameForTextureSprite(Sprite* sprite, Rect frame) {
     sprite->setTextureRect(frame);
 }
 
-Obstacle* Obstacle::create(float topColumnHeight, float gapHeight, float bottomColumnHeight) {
-    const auto obstacleSize = Size{Column::defaultWidth, topColumnHeight + gapHeight + bottomColumnHeight};
-    const auto bottomFrame = Rect{0, 0, obstacleSize.width, bottomColumnHeight};
-    const auto topFrame = Rect{0, bottomColumnHeight + gapHeight, obstacleSize.width, topColumnHeight};
-    const auto obstacle = Obstacle::create(obstacleSize);
+Obstacle* Obstacle::create(float topLength, float gapLength, float bottomLength, Direction direction) {
+    const auto obstacleSize = Size{Column::defaultWidth, topLength + gapLength + bottomLength};
+    const auto bottomFrame = Rect{0, 0, obstacleSize.width, bottomLength};
+    const auto topFrame = Rect{0, bottomLength + gapLength, obstacleSize.width, topLength};
+    const auto obstacle = Obstacle::create(obstacleSize, direction);
     setFrameForTextureSprite(obstacle->bottom, bottomFrame);
     setFrameForTextureSprite(obstacle->top, topFrame);
     return obstacle;

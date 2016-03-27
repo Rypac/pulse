@@ -12,7 +12,7 @@ class Column : public cocos2d::Sprite {
 
     virtual bool init() override;
 
-    static const int defaultWidth = 50;
+    constexpr static const float defaultLength{50.0};
 };
 
 }

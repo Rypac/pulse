@@ -4,10 +4,11 @@
 using namespace flappy;
 
 Obstacle* ObstacleGenerator::generate() const {
-    const auto maxColumnHeight = world.size.height - Obstacle::gapHeight;
-    const auto bottomHeight = random::between(0, maxColumnHeight);
-    const auto topHeight = maxColumnHeight - bottomHeight;
-    const auto obstacle = Obstacle::create(topHeight, Obstacle::gapHeight, bottomHeight);
+    const auto direction = Direction::West;
+    const auto maxColumnLength = world.size.height - Obstacle::gapLength;
+    const auto bottomLength = random::between(0, maxColumnLength);
+    const auto topLength = maxColumnLength - bottomLength;
+    const auto obstacle = Obstacle::create(topLength, Obstacle::gapLength, bottomLength, direction);
     obstacle->positionInWorld(world);
     return obstacle;
 }
