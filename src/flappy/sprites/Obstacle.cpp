@@ -20,24 +20,17 @@ bool Obstacle::init() {
 
 Obstacle* Obstacle::create(Size size, Direction direction) {
     const auto obstacle = Obstacle::create();
+    obstacle->setPosition(0, 0);
     obstacle->setContentSize(size);
+    obstacle->setTextureRect(obstacle->getBoundingBox());
     obstacle->direction = direction;
     return obstacle;
 }
 
-Vec2 relativePosition(const Vec2& position, const Size& size, const Vec2& anchorPoint) {
-    return Vec2{position.x + size.width * anchorPoint.x, position.y + size.height * anchorPoint.y};
-}
-
-Rect relativeRect(const Rect& frame, const Vec2& anchorPoint) {
-    return Rect{relativePosition(frame.origin, frame.size, anchorPoint), frame.size};
-}
-
-void setFrameForTextureSprite(Sprite* sprite, Rect frame) {
-    frame = relativeRect(frame, sprite->getAnchorPoint());
-    sprite->setPosition(frame.origin);
-    sprite->setContentSize(frame.size);
-    sprite->setTextureRect(frame);
+void setFrameForTextureSprite(Sprite* sprite, Vec2 position, Size size) {
+    sprite->setPosition(position);
+    sprite->setContentSize(size);
+    sprite->setTextureRect(sprite->getBoundingBox());
 }
 
 void setRotationForDirection(Obstacle* obstacle) {
@@ -48,22 +41,23 @@ void setRotationForDirection(Obstacle* obstacle) {
 
 Obstacle* Obstacle::create(float topLength, float gapLength, float bottomLength, Direction direction) {
     const auto obstacleSize = Size{Column::defaultLength, topLength + gapLength + bottomLength};
-    const auto bottomFrame = Rect{0, 0, obstacleSize.width, bottomLength};
-    const auto topFrame = Rect{0, bottomLength + gapLength, obstacleSize.width, topLength};
     const auto obstacle = Obstacle::create(obstacleSize, direction);
-    obstacle->setTextureRect(obstacle->getBoundingBox());
-    setFrameForTextureSprite(obstacle->bottom, bottomFrame);
-    setFrameForTextureSprite(obstacle->top, topFrame);
+
+    const auto bottomSize = Size{obstacleSize.width, bottomLength};
+    const auto topSize = Size{obstacleSize.width, topLength};
+    const auto bottomPosition = Vec2{bottomSize.width / 2, bottomSize.height / 2};
+    const auto topPosition = Vec2{topSize.width / 2, bottomLength + gapLength + topSize.height / 2};
+
+    setFrameForTextureSprite(obstacle->bottom, bottomPosition, bottomSize);
+    setFrameForTextureSprite(obstacle->top, topPosition, topSize);
     setRotationForDirection(obstacle);
     return obstacle;
 }
 
-void Obstacle::positionInWorld(cocos2d::Rect world) {
+void Obstacle::positionInWorld(Rect world) {
     const auto body = getBoundingBox();
-    const auto origin = geometry::origin(body, world, direction);
-    const auto final = geometry::destination(body, world, direction);
-    setPosition(relativePosition(origin, body.size, getAnchorPoint()));
-    destination = relativePosition(final, body.size, getAnchorPoint());
+    setPosition(geometry::origin(body, world, direction));
+    destination = geometry::destination(body, world, direction);
 }
 
 void Obstacle::runActions(ObstacleCallback onCompletion) {
@@ -79,7 +73,7 @@ void Obstacle::runActions(ObstacleCallback onCompletion) {
 }
 
 Vec2 worldPosition(const Node& node) {
-    return node.getParent()->convertToWorldSpace(node.getPosition());
+    return node.getParent()->convertToWorldSpace(node.getBoundingBox().origin);
 }
 
 Rect worldRect(const Node& node) {
