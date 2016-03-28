@@ -140,7 +140,7 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
         case GameScene::Status::Initialising:
             return false;
         case GameScene::Status::Running:
-            gameState.getTimeScale().setPlayer(0.9);
+            gameState.getTimeScale().setPlayer(0.4);
             gameState.getTimeScale().setEnvironment(0.3);
             updateSceneTimeScale();
             return true;
