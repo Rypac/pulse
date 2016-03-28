@@ -188,10 +188,12 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
 
 bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
     if (physics_body::collision::heroAndObstacle(contact)) {
-        GameScene::stopScene();
+        const auto obstacle = *physics_body::nodeInContact(contact, physics_body::isObstacle);
+        handleObstacleCollision(static_cast<Obstacle*>(obstacle));
     } else if (physics_body::collision::heroAndPath(contact)) {
-        gameState.addToScore();
-        updateScore();
+        const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
+        const auto obstacle = static_cast<Obstacle*>(path->getParent());
+        handlePassedObstacle(obstacle);
     }
     return false;
 }
@@ -214,4 +216,17 @@ void FlappyBirdScene::onMenuPause(Ref* menuItem) {
             GameScene::exitScene();
             break;
     }
+}
+
+void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
+    GameScene::stopScene();
+}
+
+void FlappyBirdScene::handlePassedObstacle(Obstacle* obstacle) {
+    gameState.addToScore();
+    updateScore();
+    ranges::for_each(obstacle->getChildren(), [](const auto node) {
+        physics_body::stopCollisions(node->getPhysicsBody());
+    });
+    obstacle->runDefeatedActions([this](auto obstacle) { obstacles.remove(obstacle); });
 }

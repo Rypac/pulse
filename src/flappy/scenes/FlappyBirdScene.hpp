@@ -35,6 +35,9 @@ class FlappyBirdScene : public GameScene {
     void updateScore();
     void updateSceneTimeScale();
 
+    void handleObstacleCollision(Obstacle* obstacle);
+    void handlePassedObstacle(Obstacle* obstacle);
+
     FlappyBird* flappy;
     cocos2d::Label* scoreLabel;
     std::list<Obstacle*> obstacles;

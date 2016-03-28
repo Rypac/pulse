@@ -79,7 +79,7 @@ void Obstacle::positionInWorld(Rect world) {
 }
 
 void Obstacle::runActions(ObstacleCallback onCompletion) {
-    const auto moveToEdge = MoveTo::create(3, destination);
+    const auto moveToEdge = MoveTo::create(3.5, destination);
     const auto removeFromScene = RemoveSelf::create(true);
     const auto actionsCompleted = CallFunc::create([=]() {
         if (onCompletion) {
@@ -87,5 +87,18 @@ void Obstacle::runActions(ObstacleCallback onCompletion) {
         }
     });
     const auto actions = Sequence::create(moveToEdge, removeFromScene, actionsCompleted, nullptr);
+    runAction(actions);
+}
+
+void Obstacle::runDefeatedActions(ObstacleCallback onCompletion) {
+    setCascadeOpacityEnabled(true);
+    const auto fadeOut = FadeOut::create(0.5);
+    const auto removeFromScene = RemoveSelf::create(true);
+    const auto actionsCompleted = CallFunc::create([=]() {
+        if (onCompletion) {
+            onCompletion(this);
+        }
+    });
+    const auto actions = Sequence::create(fadeOut, removeFromScene, actionsCompleted, nullptr);
     runAction(actions);
 }

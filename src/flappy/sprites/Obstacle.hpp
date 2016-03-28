@@ -19,6 +19,7 @@ class Obstacle : public cocos2d::Sprite {
 
     using ObstacleCallback = const std::function<void(Obstacle*)>;
     void runActions(ObstacleCallback onCompletion = nullptr);
+    void runDefeatedActions(ObstacleCallback onCompletion = nullptr);
     void positionInWorld(cocos2d::Rect world);
 
     static const int gapLength = 100;
