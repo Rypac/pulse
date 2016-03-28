@@ -33,6 +33,7 @@ void setFrameForTextureSprite(Sprite* sprite, Vec2 position, Size size) {
 
     const auto physicsBody = PhysicsBody::createBox(size);
     physicsBody->setDynamic(true);
+    physicsBody->setGravityEnable(false);
     physicsBody->setCategoryBitmask(static_cast<int>(SpriteTag::Obstacle));
     physicsBody->setCollisionBitmask(static_cast<int>(SpriteTag::None));
     physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Hero));

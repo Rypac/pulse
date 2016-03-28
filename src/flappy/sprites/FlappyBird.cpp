@@ -26,6 +26,7 @@ FlappyBird* FlappyBird::create(Rect frame) {
 
     const auto physicsBody = PhysicsBody::createBox(frame.size);
     physicsBody->setDynamic(true);
+    physicsBody->setGravityEnable(false);
     physicsBody->setCategoryBitmask(static_cast<int>(SpriteTag::Hero));
     physicsBody->setCollisionBitmask(static_cast<int>(SpriteTag::None));
     physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Obstacle));
