@@ -99,7 +99,7 @@ void FlappyBirdScene::update(float dt) {
         return;
     }
 
-    getScene()->getPhysicsWorld()->step(dt * gameState.getTimeScale().getPlayer());
+    getScene()->getPhysicsWorld()->step(dt * gameState.timeScale().player());
 
     if (!residesInSceneBounds(*flappy)) {
         GameScene::stopScene();
@@ -111,7 +111,7 @@ void FlappyBirdScene::updateScore() {
 }
 
 void FlappyBirdScene::updateSceneTimeScale() {
-    getScene()->getScheduler()->setTimeScale(gameState.getTimeScale().getEnvironment());
+    getScene()->getScheduler()->setTimeScale(gameState.timeScale().environment());
 }
 
 void FlappyBirdScene::addTouchListeners() {
@@ -140,8 +140,8 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
         case GameScene::Status::Initialising:
             return false;
         case GameScene::Status::Running:
-            gameState.getTimeScale().setPlayer(0.4);
-            gameState.getTimeScale().setEnvironment(0.3);
+            gameState.timeScale().setPlayer(0.4);
+            gameState.timeScale().setEnvironment(0.3);
             updateSceneTimeScale();
             return true;
         case GameScene::Status::Paused:
@@ -156,8 +156,8 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
 void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
     switch (sceneStatus()) {
         case GameScene::Status::Running:
-            gameState.getTimeScale().setPlayer(1.0);
-            gameState.getTimeScale().setEnvironment(1.0);
+            gameState.timeScale().setPlayer(1.0);
+            gameState.timeScale().setEnvironment(1.0);
             updateSceneTimeScale();
             break;
         default:
@@ -225,7 +225,7 @@ void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
 }
 
 void FlappyBirdScene::handlePassedObstacle(Obstacle* obstacle) {
-    gameState.addToScore();
+    gameState.incrementScore();
     updateScore();
     ranges::for_each(obstacle->getChildren(), [](const auto node) {
         physics_body::stopCollisions(node->getPhysicsBody());

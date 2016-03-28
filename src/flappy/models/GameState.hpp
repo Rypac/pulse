@@ -8,36 +8,39 @@ struct GameState {
 
     struct TimeScale {
 
-        TimeScale(): player(1.0), environment(1.0) {}
+        TimeScale(): player_(1.0), environment_(1.0) {}
 
-        float getPlayer() const { return player; }
-        void setPlayer(float scale) { player = scale; }
-        float getEnvironment() const { return environment; }
-        void setEnvironment(float scale) { environment = scale; }
+        float player() const { return player_; }
+        void setPlayer(float scale) { player_ = scale; }
+        float environment() const { return environment_; }
+        void setEnvironment(float scale) { environment_ = scale; }
 
       private:
-        float player;
-        float environment;
+        float player_;
+        float environment_;
     };
 
-    GameState(): score(0), timeScale(TimeScale{}), accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
+    GameState(): score(0), timeScale_(TimeScale{}), accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
 
     int currentScore() const { return score; };
-    void addToScore() { score++; };
+    void incrementScore() {
+        score++;
+    };
 
     cocos2d::Vec3 calibratedAccelerometerOffset() const { return accelerometerReference; };
     void calibrateAccelerometer(cocos2d::Vec3 offset) { accelerometerReference = offset; };
 
-    TimeScale& getTimeScale() { return timeScale; }
+    TimeScale& timeScale() { return timeScale_; }
 
     void reset() {
         score = 0;
-        timeScale = TimeScale{};
+        timeScale_.setPlayer(1.0);
+        timeScale_.setEnvironment(1.0);
     }
 
   private:
     int score;
-    TimeScale timeScale;
+    TimeScale timeScale_;
     cocos2d::Vec3 accelerometerReference;
 };
 
