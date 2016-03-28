@@ -159,6 +159,7 @@
 		819E39E41C93999E00E74D57 /* Geometry.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Geometry.hpp; path = flappy/utilities/Geometry.hpp; sourceTree = "<group>"; };
 		81A319941C94F7C9005708D6 /* Obstacle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Obstacle.cpp; path = flappy/sprites/Obstacle.cpp; sourceTree = "<group>"; };
 		81A319951C94F7C9005708D6 /* Obstacle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Obstacle.hpp; path = flappy/sprites/Obstacle.hpp; sourceTree = "<group>"; };
+		81A7093D1CA8A47A00E51821 /* SpriteTag.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = SpriteTag.hpp; path = flappy/sprites/SpriteTag.hpp; sourceTree = "<group>"; };
 		81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rotation.hpp; path = flappy/utilities/Rotation.hpp; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = flappy/models/GameState.hpp; sourceTree = "<group>"; };
 		81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
@@ -403,6 +404,7 @@
 				816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */,
 				81A319941C94F7C9005708D6 /* Obstacle.cpp */,
 				81A319951C94F7C9005708D6 /* Obstacle.hpp */,
+				81A7093D1CA8A47A00E51821 /* SpriteTag.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
