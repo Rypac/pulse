@@ -164,6 +164,9 @@ bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
     const auto nodeB = contact.getShapeB()->getBody();
     if (physics::isHeroAndObstacleCollision(*nodeA, *nodeB)) {
         GameScene::stopScene();
+    } else if (physics::isHeroAndPathCollision(*nodeA, *nodeB)) {
+        gameState.addToScore();
+        updateScore();
     }
     return false;
 }

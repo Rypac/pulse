@@ -12,8 +12,10 @@ bool Obstacle::init() {
 
     top = Column::create();
     bottom = Column::create();
+    gap = Sprite::create();
     addChild(top);
     addChild(bottom);
+    addChild(gap);
 
     return true;
 }
@@ -26,23 +28,42 @@ Obstacle* Obstacle::create(Size size, Direction direction) {
     return obstacle;
 }
 
-void setFrameForTextureSprite(Sprite* sprite, Vec2 position, Size size) {
-    sprite->setPosition(position);
-    sprite->setContentSize(size);
-    sprite->setTextureRect(sprite->getBoundingBox());
-
+static PhysicsBody* physicsBodyForSprite(SpriteTag tag, Size size) {
     const auto physicsBody = PhysicsBody::createBox(size);
     physicsBody->setDynamic(true);
     physicsBody->setGravityEnable(false);
-    physicsBody->setCategoryBitmask(static_cast<int>(SpriteTag::Obstacle));
+    physicsBody->setCategoryBitmask(static_cast<int>(tag));
     physicsBody->setCollisionBitmask(static_cast<int>(SpriteTag::None));
     physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Hero));
-    sprite->setPhysicsBody(physicsBody);
+    return physicsBody;
 }
 
-void setRotationForDirection(Obstacle* obstacle) {
+static void setFrameForTextureSprite(Sprite* sprite, Vec2 position, Size size) {
+    sprite->setPosition(position);
+    sprite->setContentSize(size);
+    sprite->setTextureRect(sprite->getBoundingBox());
+    sprite->setPhysicsBody(physicsBodyForSprite(SpriteTag::Obstacle, size));
+}
+
+static void setFrameForGap(Node* node, Vec2 position, Size size) {
+    node->setPosition(position);
+    node->setContentSize(size);
+    node->setVisible(false);
+    node->setPhysicsBody(physicsBodyForSprite(SpriteTag::Path, size));
+}
+
+static void setRotationForDirection(Obstacle* obstacle) {
     if (obstacle->getDirection() == Direction::North || obstacle->getDirection() == Direction::South) {
         obstacle->setRotation(90);
+    }
+}
+
+float gapOffset(Size obstacle, Size gap, Direction direction) {
+    switch (direction) {
+        case Direction::North:
+        case Direction::West: return obstacle.width + gap.width;
+        case Direction::South:
+        case Direction::East: return -gap.width;
     }
 }
 
@@ -52,11 +73,14 @@ Obstacle* Obstacle::create(float topLength, float gapLength, float bottomLength,
 
     const auto bottomSize = Size{obstacleSize.width, bottomLength};
     const auto topSize = Size{obstacleSize.width, topLength};
-    const auto bottomPosition = Vec2{bottomSize.width / 2, bottomSize.height / 2};
-    const auto topPosition = Vec2{topSize.width / 2, bottomLength + gapLength + topSize.height / 2};
+    const auto gapSize = Size{2, gapLength};
+    const auto bottomPosition = Vec2{obstacleSize.width / 2, bottomLength / 2};
+    const auto gapPosition = Vec2{gapOffset(obstacleSize, gapSize, direction), bottomLength + gapLength / 2};
+    const auto topPosition = Vec2{obstacleSize.width / 2, bottomLength + gapLength + topSize.height / 2};
 
     setFrameForTextureSprite(obstacle->bottom, bottomPosition, bottomSize);
     setFrameForTextureSprite(obstacle->top, topPosition, topSize);
+    setFrameForGap(obstacle->gap, gapPosition, gapSize);
     setRotationForDirection(obstacle);
     return obstacle;
 }
@@ -77,20 +101,4 @@ void Obstacle::runActions(ObstacleCallback onCompletion) {
     });
     const auto actions = Sequence::create(moveToEdge, removeFromScene, actionsCompleted, nullptr);
     runAction(actions);
-}
-
-Vec2 worldPosition(const Node& node) {
-    return node.getParent()->convertToWorldSpace(node.getBoundingBox().origin);
-}
-
-Rect worldRect(const Node& node) {
-    return Rect{worldPosition(node), node.getBoundingBox().size};
-}
-
-bool Obstacle::collidesWith(cocos2d::Rect frame) const {
-    return frame.intersectsRect(worldRect(*top)) || frame.intersectsRect(worldRect(*bottom));
-}
-
-bool Obstacle::passedBy(cocos2d::Rect frame) const {
-    return frame.getMinX() > getBoundingBox().getMaxX();
 }

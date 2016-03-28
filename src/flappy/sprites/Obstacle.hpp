@@ -21,9 +21,6 @@ class Obstacle : public cocos2d::Sprite {
     void runActions(ObstacleCallback onCompletion = nullptr);
     void positionInWorld(cocos2d::Rect world);
 
-    bool collidesWith(cocos2d::Rect frame) const;
-    bool passedBy(cocos2d::Rect frame) const;
-
     static const int gapLength = 100;
 
   private:
@@ -31,6 +28,7 @@ class Obstacle : public cocos2d::Sprite {
     cocos2d::Vec2 destination;
     Column* top;
     Column* bottom;
+    cocos2d::Node* gap;
 };
 
 }

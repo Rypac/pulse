@@ -29,7 +29,7 @@ FlappyBird* FlappyBird::create(Rect frame) {
     physicsBody->setGravityEnable(false);
     physicsBody->setCategoryBitmask(static_cast<int>(SpriteTag::Hero));
     physicsBody->setCollisionBitmask(static_cast<int>(SpriteTag::None));
-    physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Obstacle));
+    physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Obstacle) | static_cast<int>(SpriteTag::Path));
     flappyBird->setPhysicsBody(physicsBody);
     return flappyBird;
 }
