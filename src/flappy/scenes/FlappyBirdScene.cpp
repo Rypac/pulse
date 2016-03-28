@@ -49,13 +49,9 @@ void FlappyBirdScene::clearScene() {
     GameScene::clearScene();
 
     stopAllActions();
-    const auto removeObstacle = [this](auto obstacle) { this->removeChild(obstacle); };
-    ranges::for_each(passedObstacles, removeObstacle);
-    ranges::for_each(incomingObstacles, removeObstacle);
-    passedObstacles.clear();
-    incomingObstacles.clear();
-
+    ranges::for_each(obstacles, [this](auto obstacle) { this->removeChild(obstacle); });
     removeChild(flappy);
+    obstacles.clear();
     gameState.reset();
 }
 
@@ -82,18 +78,18 @@ void FlappyBirdScene::addFlappy() {
     addChild(flappy, 1);
 }
 
-void addPhysicsToObstacle(const Obstacle& obstacle) {
+void addPhysicsBodyToObstacle(const Obstacle& obstacle) {
     obstacle.getTop()->setPhysicsBody(physics_body::createObstacle(obstacle.getTop()->getBoundingBox().size));
     obstacle.getBottom()->setPhysicsBody(physics_body::createObstacle(obstacle.getBottom()->getBoundingBox().size));
     obstacle.getGap()->setPhysicsBody(physics_body::createPath(obstacle.getGap()->getBoundingBox().size));
 }
 
 void FlappyBirdScene::addObstacle(float dt) {
-    const auto onCompletion = [this](auto obstacle) { incomingObstacles.remove(obstacle); };
+    const auto onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
     const auto obstacle = ObstacleGenerator{frame}.generate();
-    addPhysicsToObstacle(*obstacle);
+    addPhysicsBodyToObstacle(*obstacle);
     addChild(obstacle);
-    incomingObstacles.emplace_back(obstacle);
+    obstacles.emplace_back(obstacle);
     obstacle->runActions(onCompletion);
 }
 
@@ -155,9 +151,9 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
             initScene();
             break;
         case GameScene::Status::Running: {
-            const auto roll = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
-            const auto pitch = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
-            flappy->getPhysicsBody()->setVelocity(Vec2{roll, pitch} * physics::AccelerometerScale);
+            const auto x = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
+            const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
+            flappy->getPhysicsBody()->setVelocity(Vec2{x, y} * physics::AccelerometerScale);
             break;
         }
         case GameScene::Status::Paused:

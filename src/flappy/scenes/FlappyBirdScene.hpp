@@ -35,8 +35,7 @@ class FlappyBirdScene : public GameScene {
 
     FlappyBird* flappy;
     cocos2d::Label* scoreLabel;
-    std::list<Obstacle*> passedObstacles;
-    std::list<Obstacle*> incomingObstacles;
+    std::list<Obstacle*> obstacles;
     GameState gameState;
 };
 
