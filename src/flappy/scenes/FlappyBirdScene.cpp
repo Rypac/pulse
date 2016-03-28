@@ -41,7 +41,7 @@ void FlappyBirdScene::initScene() {
     updateScore();
     addFlappy();
     scheduleUpdate();
-    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 2);
+    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 1.5);
 }
 
 void FlappyBirdScene::clearScene() {
