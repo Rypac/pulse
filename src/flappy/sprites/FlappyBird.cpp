@@ -1,5 +1,4 @@
 #include "flappy/sprites/FlappyBird.hpp"
-#include "flappy/sprites/SpriteTag.hpp"
 
 using namespace cocos2d;
 using namespace flappy;
@@ -23,13 +22,5 @@ FlappyBird* FlappyBird::create(Rect frame) {
     flappyBird->setPosition(frame.origin);
     flappyBird->setContentSize(frame.size);
     flappyBird->setTextureRect(frame);
-
-    const auto physicsBody = PhysicsBody::createBox(frame.size);
-    physicsBody->setDynamic(true);
-    physicsBody->setGravityEnable(false);
-    physicsBody->setCategoryBitmask(static_cast<int>(SpriteTag::Hero));
-    physicsBody->setCollisionBitmask(static_cast<int>(SpriteTag::None));
-    physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Obstacle) | static_cast<int>(SpriteTag::Path));
-    flappyBird->setPhysicsBody(physicsBody);
     return flappyBird;
 }

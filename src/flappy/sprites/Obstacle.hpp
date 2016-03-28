@@ -23,6 +23,10 @@ class Obstacle : public cocos2d::Sprite {
 
     static const int gapLength = 100;
 
+    Column* getTop() const { return top; };
+    Column* getBottom() const { return bottom; };
+    Node* getGap() const { return gap; };
+
   private:
     Direction direction;
     cocos2d::Vec2 destination;

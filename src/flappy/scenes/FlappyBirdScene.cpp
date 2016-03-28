@@ -4,6 +4,7 @@
 #include "flappy/scenes/FlappyBirdScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/sprites/Obstacle.hpp"
+#include "flappy/sprites/SpritePhysicsBody.hpp"
 #include "flappy/utilities/Geometry.hpp"
 #include "flappy/utilities/Physics.hpp"
 #include "flappy/generators/ObstacleGenerator.hpp"
@@ -77,12 +78,20 @@ void FlappyBirdScene::addScoreLabel() {
 void FlappyBirdScene::addFlappy() {
     flappy = FlappyBird::create(Size{30, 30});
     flappy->setPosition(geometry::centerOf(frame));
+    flappy->setPhysicsBody(physics_body::createHero(flappy->getBoundingBox().size));
     addChild(flappy, 1);
+}
+
+void addPhysicsToObstacle(const Obstacle& obstacle) {
+    obstacle.getTop()->setPhysicsBody(physics_body::createObstacle(obstacle.getTop()->getBoundingBox().size));
+    obstacle.getBottom()->setPhysicsBody(physics_body::createObstacle(obstacle.getBottom()->getBoundingBox().size));
+    obstacle.getGap()->setPhysicsBody(physics_body::createPath(obstacle.getGap()->getBoundingBox().size));
 }
 
 void FlappyBirdScene::addObstacle(float dt) {
     const auto onCompletion = [this](auto obstacle) { incomingObstacles.remove(obstacle); };
     const auto obstacle = ObstacleGenerator{frame}.generate();
+    addPhysicsToObstacle(*obstacle);
     addChild(obstacle);
     incomingObstacles.emplace_back(obstacle);
     obstacle->runActions(onCompletion);
@@ -160,11 +169,9 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
 }
 
 bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
-    const auto nodeA = contact.getShapeA()->getBody();
-    const auto nodeB = contact.getShapeB()->getBody();
-    if (physics::isHeroAndObstacleCollision(*nodeA, *nodeB)) {
+    if (physics_body::collision::heroAndObstacle(contact)) {
         GameScene::stopScene();
-    } else if (physics::isHeroAndPathCollision(*nodeA, *nodeB)) {
+    } else if (physics_body::collision::heroAndPath(contact)) {
         gameState.addToScore();
         updateScore();
     }
