@@ -33,7 +33,3 @@ FlappyBird* FlappyBird::create(Rect frame) {
     flappyBird->setPhysicsBody(physicsBody);
     return flappyBird;
 }
-
-void FlappyBird::update(float dt) {
-    setPosition(getPosition() + velocity * dt);
-}

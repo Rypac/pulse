@@ -11,9 +11,6 @@ public:
     static FlappyBird* create(cocos2d::Rect frame);
 
     virtual bool init() override;
-    virtual void update(float dt) override;
-
-    cocos2d::Vec2 velocity;
 };
 
 }
