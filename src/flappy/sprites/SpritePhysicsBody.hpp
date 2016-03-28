@@ -13,6 +13,7 @@ cocos2d::PhysicsBody* createObstacle(cocos2d::Size size);
 bool isHero(const cocos2d::PhysicsBody& body);
 bool isPath(const cocos2d::PhysicsBody& body);
 bool isObstacle(const cocos2d::PhysicsBody& body);
+void stopCollisions(cocos2d::PhysicsBody *body);
 
 using NodePredicate = std::function<bool(const cocos2d::PhysicsBody&)>;
 std::optional<cocos2d::Node*> nodeInContact(const cocos2d::PhysicsBody& body1, const cocos2d::PhysicsBody& body2, const NodePredicate isNode);

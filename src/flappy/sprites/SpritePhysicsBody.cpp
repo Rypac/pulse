@@ -12,7 +12,7 @@ enum class SpriteTag : int {
     None = 0,
     Hero = (1 << 0),
     Obstacle = (1 << 1),
-    Path = (2 << 1)
+    Path = (1 << 2)
 };
 
 static inline int asBitmask(SpriteTag tag) {
@@ -60,6 +60,10 @@ bool isObstacle(const PhysicsBody& body) {
 
 bool isPath(const PhysicsBody& body) {
     return isSprite(body, SpriteTag::Path);
+}
+
+void stopCollisions(PhysicsBody *body) {
+    body->setContactTestBitmask(asBitmask(SpriteTag::None));
 }
 
 std::optional<Node*> nodeInContact(const PhysicsBody& body1, const PhysicsBody& body2, NodePredicate isNode) {
