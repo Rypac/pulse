@@ -6,7 +6,21 @@ namespace flappy {
 
 struct GameState {
 
-    GameState(): score(0), timeScale(1.0), accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
+    struct TimeScale {
+
+        TimeScale(): player(1.0), environment(1.0) {}
+
+        float getPlayer() const { return player; }
+        void setPlayer(float scale) { player = scale; }
+        float getEnvironment() const { return environment; }
+        void setEnvironment(float scale) { environment = scale; }
+
+      private:
+        float player;
+        float environment;
+    };
+
+    GameState(): score(0), timeScale(TimeScale{}), accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
 
     int currentScore() const { return score; };
     void addToScore() { score++; };
@@ -14,17 +28,16 @@ struct GameState {
     cocos2d::Vec3 calibratedAccelerometerOffset() const { return accelerometerReference; };
     void calibrateAccelerometer(cocos2d::Vec3 offset) { accelerometerReference = offset; };
 
-    float getTimeScale() const { return timeScale; }
-    void setTimeScale(float scale) { timeScale = scale; }
+    TimeScale& getTimeScale() { return timeScale; }
 
     void reset() {
         score = 0;
-        timeScale = 1.0;
+        timeScale = TimeScale{};
     }
 
   private:
     int score;
-    float timeScale;
+    TimeScale timeScale;
     cocos2d::Vec3 accelerometerReference;
 };
 
