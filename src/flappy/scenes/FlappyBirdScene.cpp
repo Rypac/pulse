@@ -40,9 +40,10 @@ void FlappyBirdScene::initScene() {
     GameScene::initScene();
 
     updateScore();
+    updateSceneTimeScale();
     addFlappy();
     scheduleUpdate();
-    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 1.5);
+    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 1);
 }
 
 void FlappyBirdScene::clearScene() {
@@ -98,7 +99,7 @@ void FlappyBirdScene::update(float dt) {
         return;
     }
 
-    getScene()->getPhysicsWorld()->step(dt);
+    getScene()->getPhysicsWorld()->step(dt * gameState.getTimeScale());
 
     if (!residesInSceneBounds(*flappy)) {
         GameScene::stopScene();
@@ -109,9 +110,14 @@ void FlappyBirdScene::updateScore() {
     scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
 }
 
+void FlappyBirdScene::updateSceneTimeScale() {
+    getScene()->getScheduler()->setTimeScale(gameState.getTimeScale());
+}
+
 void FlappyBirdScene::addTouchListeners() {
     const auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(FlappyBirdScene::onTouchBegan, this);
+    listener->onTouchEnded = CC_CALLBACK_2(FlappyBirdScene::onTouchEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
@@ -132,14 +138,28 @@ void FlappyBirdScene::addCollisionListeners() {
 bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
     switch (sceneStatus()) {
         case GameScene::Status::Initialising:
-        case GameScene::Status::Running:
             return false;
+        case GameScene::Status::Running:
+            gameState.setTimeScale(0.3);
+            updateSceneTimeScale();
+            return true;
         case GameScene::Status::Paused:
             GameScene::resumeScene();
             return false;
         case GameScene::Status::Stopped:
             GameScene::resetScene();
             return false;
+    }
+}
+
+void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
+    switch (sceneStatus()) {
+        case GameScene::Status::Running:
+            gameState.setTimeScale(1.0);
+            updateSceneTimeScale();
+            break;
+        default:
+            break;
     }
 }
 
@@ -153,7 +173,9 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
         case GameScene::Status::Running: {
             const auto x = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
             const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
-            flappy->getPhysicsBody()->setVelocity(Vec2{x, y} * physics::AccelerometerScale);
+            auto velocity = Vec2{x, y};
+            velocity.scale(physics::AccelerometerScale);
+            flappy->getPhysicsBody()->setVelocity(velocity);
             break;
         }
         case GameScene::Status::Paused:

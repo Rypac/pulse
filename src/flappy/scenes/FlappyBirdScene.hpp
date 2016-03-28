@@ -18,6 +18,7 @@ class FlappyBirdScene : public GameScene {
     void update(float dt) override;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     void onContactEnded(cocos2d::PhysicsContact& contact);
@@ -32,6 +33,7 @@ class FlappyBirdScene : public GameScene {
     void addAccelerometerListeners();
     void addCollisionListeners();
     void updateScore();
+    void updateSceneTimeScale();
 
     FlappyBird* flappy;
     cocos2d::Label* scoreLabel;
