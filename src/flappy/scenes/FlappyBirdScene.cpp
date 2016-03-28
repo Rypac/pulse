@@ -15,7 +15,7 @@ using namespace flappy;
 Scene* GameScene::createScene() {
     const auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setGravity(Vec2{0, 0});
-    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
+    scene->getPhysicsWorld()->setAutoStep(false);
     const auto layer = FlappyBirdScene::create();
     scene->addChild(layer);
     return scene;
@@ -40,7 +40,7 @@ void FlappyBirdScene::initScene() {
 
     updateScore();
     addFlappy();
-    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::update), 0.1);
+    scheduleUpdate();
     schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 2);
 }
 
@@ -89,6 +89,12 @@ void FlappyBirdScene::addObstacle(float dt) {
 }
 
 void FlappyBirdScene::update(float dt) {
+    if (sceneStatus() != GameScene::Status::Running) {
+        return;
+    }
+
+    getScene()->getPhysicsWorld()->step(dt);
+
     if (!residesInSceneBounds(*flappy)) {
         GameScene::stopScene();
     }
