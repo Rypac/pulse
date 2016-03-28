@@ -19,6 +19,8 @@ Column* Column::create(float height) {
 
 Column* Column::create(Rect frame) {
     const auto column = Column::create();
+    column->setPosition(frame.origin);
+    column->setContentSize(frame.size);
     column->setTextureRect(frame);
     return column;
 }

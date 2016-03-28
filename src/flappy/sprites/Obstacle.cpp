@@ -1,4 +1,5 @@
 #include "flappy/sprites/Obstacle.hpp"
+#include "flappy/sprites/SpriteTag.hpp"
 #include "flappy/utilities/Geometry.hpp"
 
 using namespace cocos2d;
@@ -29,6 +30,13 @@ void setFrameForTextureSprite(Sprite* sprite, Vec2 position, Size size) {
     sprite->setPosition(position);
     sprite->setContentSize(size);
     sprite->setTextureRect(sprite->getBoundingBox());
+
+    const auto physicsBody = PhysicsBody::createBox(size);
+    physicsBody->setDynamic(true);
+    physicsBody->setCategoryBitmask(static_cast<int>(SpriteTag::Obstacle));
+    physicsBody->setCollisionBitmask(static_cast<int>(SpriteTag::None));
+    physicsBody->setContactTestBitmask(static_cast<int>(SpriteTag::Hero));
+    sprite->setPhysicsBody(physicsBody);
 }
 
 void setRotationForDirection(Obstacle* obstacle) {

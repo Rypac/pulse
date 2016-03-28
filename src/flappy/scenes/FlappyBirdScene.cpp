@@ -1,6 +1,5 @@
 #include <string>
 #include <range/v3/algorithm/for_each.hpp>
-#include <range/v3/algorithm/any_of.hpp>
 
 #include "flappy/scenes/FlappyBirdScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
@@ -14,7 +13,9 @@ using namespace cocos2d;
 using namespace flappy;
 
 Scene* GameScene::createScene() {
-    const auto scene = Scene::create();
+    const auto scene = Scene::createWithPhysics();
+    scene->getPhysicsWorld()->setGravity(Vec2{0, 0});
+    scene->getPhysicsWorld()->setDebugDrawMask(PhysicsWorld::DEBUGDRAW_ALL);
     const auto layer = FlappyBirdScene::create();
     scene->addChild(layer);
     return scene;
@@ -29,6 +30,7 @@ bool FlappyBirdScene::init() {
     addScoreLabel();
     addTouchListeners();
     addAccelerometerListeners();
+    addCollisionListeners();
 
     return true;
 }
@@ -38,8 +40,9 @@ void FlappyBirdScene::initScene() {
 
     updateScore();
     addFlappy();
-    generateObstacles();
-    scheduleUpdate();
+    addObstacle(0);
+    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::update), 0.01);
+    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 2);
 }
 
 void FlappyBirdScene::clearScene() {
@@ -73,73 +76,31 @@ void FlappyBirdScene::addScoreLabel() {
 }
 
 void FlappyBirdScene::addFlappy() {
-    flappy = FlappyBird::create();
+    flappy = FlappyBird::create(Size{30, 30});
     flappy->setPosition(geometry::centerOf(frame));
     addChild(flappy, 1);
 }
 
-void FlappyBirdScene::addObstacle() {
+void FlappyBirdScene::addObstacle(float dt) {
     const auto onCompletion = [this](auto obstacle) { incomingObstacles.remove(obstacle); };
     const auto obstacle = ObstacleGenerator{frame}.generate();
-    obstacle->runActions(onCompletion);
     addChild(obstacle);
     incomingObstacles.emplace_back(obstacle);
-}
-
-void FlappyBirdScene::generateObstacles() {
-    const auto delay = DelayTime::create(2);
-    const auto generateNewColumn = CallFunc::create([this]() { addObstacle(); });
-    const auto delayedColumnGenerator = Sequence::create(generateNewColumn, delay, nullptr);
-    const auto infiniteColumnGenerator = RepeatForever::create(delayedColumnGenerator);
-    runAction(infiniteColumnGenerator);
-}
-
-std::optional<Obstacle*> FlappyBirdScene::closestIncomingObstacle() const {
-    return incomingObstacles.empty() ? std::nullopt : std::make_optional(incomingObstacles.front());
+    obstacle->runActions(onCompletion);
 }
 
 void FlappyBirdScene::update(float dt) {
     flappy->update(dt);
 
-    if (collisionDetected()) {
+    if (collisionWithEnvironment()) {
         GameScene::stopScene();
-    } else {
-//        updateIncomingObstacles();
     }
-}
-
-bool FlappyBirdScene::collisionDetected() const {
-    return collisionWithEnvironment()
-        || collisionWithObstacles(incomingObstacles)
-        || collisionWithObstacles(passedObstacles);
 }
 
 bool FlappyBirdScene::collisionWithEnvironment() const {
     const auto flappyFrame = flappy->getBoundingBox();
     const auto flappyIsOnScreen = flappyFrame.intersectsRect(getFrame());
     return !flappyIsOnScreen;
-}
-
-bool FlappyBirdScene::collisionWithObstacles(const std::list<Obstacle*>& obstacles) const {
-    const auto flappyFrame = flappy->getBoundingBox();
-    return ranges::any_of(obstacles, [=](const auto& obstacle) {
-        return obstacle->collidesWith(flappyFrame);
-    });
-}
-
-void FlappyBirdScene::updateIncomingObstacles() {
-    const auto possibleNearestObstacle = closestIncomingObstacle();
-    if (!possibleNearestObstacle) {
-        return;
-    }
-
-    const auto obstacle = *possibleNearestObstacle;
-    if (obstacle->passedBy(flappy->getBoundingBox())) {
-        gameState.addToScore();
-        updateScore();
-        incomingObstacles.pop_front();
-        passedObstacles.emplace_back(obstacle);
-    }
 }
 
 void FlappyBirdScene::updateScore() {
@@ -157,6 +118,13 @@ void FlappyBirdScene::addAccelerometerListeners() {
     Device::setAccelerometerInterval(1 / 30);
     const auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(FlappyBirdScene::onAccelerationDetected, this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+void FlappyBirdScene::addCollisionListeners() {
+    auto contactListener = EventListenerPhysicsContact::create();
+    contactListener->onContactBegin = CC_CALLBACK_1(FlappyBirdScene::onContactBegan, this);
+    contactListener->onContactSeparate = CC_CALLBACK_1(FlappyBirdScene::onContactEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
@@ -192,6 +160,19 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
             gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
             break;
     }
+}
+
+bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
+    const auto nodeA = contact.getShapeA()->getBody();
+    const auto nodeB = contact.getShapeB()->getBody();
+    if (physics::isHeroAndObstacleCollision(*nodeA, *nodeB)) {
+        GameScene::stopScene();
+    }
+    return false;
+}
+
+void FlappyBirdScene::onContactEnded(PhysicsContact &contact) {
+
 }
 
 void FlappyBirdScene::onMenuPause(Ref* menuItem) {

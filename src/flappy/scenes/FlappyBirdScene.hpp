@@ -1,7 +1,5 @@
 #pragma once
 
-#include <cpputils/optional.hpp>
-
 #include "cocos2d.h"
 #include "flappy/scenes/GameScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
@@ -21,24 +19,21 @@ class FlappyBirdScene : public GameScene {
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
+    bool onContactBegan(cocos2d::PhysicsContact& contact);
+    void onContactEnded(cocos2d::PhysicsContact& contact);
     void onMenuPause(cocos2d::Ref* menuItem);
 
   private:
     void addMenuOptions();
     void addScoreLabel();
     void addFlappy();
-    void addObstacle();
-    void generateObstacles();
+    void addObstacle(float dt);
     void addTouchListeners();
     void addAccelerometerListeners();
+    void addCollisionListeners();
     void updateScore();
-    void updateIncomingObstacles();
 
-    bool collisionDetected() const;
     bool collisionWithEnvironment() const;
-    bool collisionWithObstacles(const std::list<Obstacle*>& obstacles) const;
-
-    std::optional<Obstacle*> closestIncomingObstacle() const;
 
     FlappyBird* flappy;
     cocos2d::Label* scoreLabel;
