@@ -6,6 +6,7 @@ namespace physics_body {
 using cocos2d::PhysicsBody;
 using cocos2d::PhysicsContact;
 using cocos2d::Size;
+using cocos2d::Node;
 
 enum class SpriteTag : int {
     None = 0,
@@ -59,6 +60,16 @@ bool isObstacle(const PhysicsBody& body) {
 
 bool isPath(const PhysicsBody& body) {
     return isSprite(body, SpriteTag::Path);
+}
+
+std::optional<Node*> nodeInContact(const PhysicsBody& body1, const PhysicsBody& body2, NodePredicate isNode) {
+    return isNode(body1) ? std::make_optional(body1.getNode())
+         : isNode(body2) ? std::make_optional(body2.getNode())
+         : std::nullopt;
+}
+
+std::optional<Node*> nodeInContact(const PhysicsContact& contact, const NodePredicate isNode) {
+    return nodeInContact(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody(), isNode);
 }
 
 namespace collision {
