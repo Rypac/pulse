@@ -40,8 +40,7 @@ void FlappyBirdScene::initScene() {
 
     updateScore();
     addFlappy();
-    addObstacle(0);
-    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::update), 0.01);
+    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::update), 0.1);
     schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 2);
 }
 
@@ -65,14 +64,14 @@ void FlappyBirdScene::addMenuOptions() {
     pauseItem->setPosition(Vec2{frame.origin.x + frame.size.width - 20, frame.origin.y + frame.size.height - 20});
     const auto menu = Menu::create(pauseItem, nullptr);
     menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    addChild(menu, 1);
 }
 
 void FlappyBirdScene::addScoreLabel() {
     scoreLabel = Label::createWithSystemFont("", "Arial", 24);
     scoreLabel->setAnchorPoint(Vec2{0, 1.0});
     scoreLabel->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
-    this->addChild(scoreLabel, 1);
+    addChild(scoreLabel, 1);
 }
 
 void FlappyBirdScene::addFlappy() {
@@ -90,17 +89,9 @@ void FlappyBirdScene::addObstacle(float dt) {
 }
 
 void FlappyBirdScene::update(float dt) {
-    flappy->update(dt);
-
-    if (collisionWithEnvironment()) {
+    if (!residesInSceneBounds(*flappy)) {
         GameScene::stopScene();
     }
-}
-
-bool FlappyBirdScene::collisionWithEnvironment() const {
-    const auto flappyFrame = flappy->getBoundingBox();
-    const auto flappyIsOnScreen = flappyFrame.intersectsRect(getFrame());
-    return !flappyIsOnScreen;
 }
 
 void FlappyBirdScene::updateScore() {

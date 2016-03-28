@@ -33,8 +33,6 @@ class FlappyBirdScene : public GameScene {
     void addCollisionListeners();
     void updateScore();
 
-    bool collisionWithEnvironment() const;
-
     FlappyBird* flappy;
     cocos2d::Label* scoreLabel;
     std::list<Obstacle*> passedObstacles;
