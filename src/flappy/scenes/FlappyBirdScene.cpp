@@ -103,7 +103,7 @@ void FlappyBirdScene::update(float dt) {
         return;
     }
 
-    getScene()->getPhysicsWorld()->step(dt * gameState.playerTimeScale());
+    getScene()->getPhysicsWorld()->step(dt);
 
     if (!residesInSceneBounds(*flappy)) {
         GameScene::stopScene();
@@ -179,7 +179,7 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
             const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
             auto velocity = Vec2{x, y};
             velocity.scale(physics::AccelerometerScale);
-            flappy->getPhysicsBody()->setVelocity(velocity);
+            flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
             break;
         }
         case GameScene::Status::Paused:
