@@ -2,7 +2,6 @@
 
 #include "cocos2d.h"
 #include "flappy/scenes/GameScene.hpp"
-#include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/sprites/Obstacle.hpp"
 #include "flappy/models/GameState.hpp"
 
@@ -38,7 +37,7 @@ class FlappyBirdScene : public GameScene {
     void handleObstacleCollision(Obstacle* obstacle);
     void handlePassedObstacle(Obstacle* obstacle);
 
-    FlappyBird* flappy;
+    cocos2d::Sprite* flappy;
     cocos2d::Label* scoreLabel;
     std::list<Obstacle*> obstacles;
     GameState gameState;
