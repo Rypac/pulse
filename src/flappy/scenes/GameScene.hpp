@@ -7,7 +7,10 @@ namespace flappy {
 class GameScene : public cocos2d::Layer {
   public:
     enum class Status {
-        Initialising, Running, Paused, Stopped
+        Initialising,
+        Running,
+        Paused,
+        Stopped
     };
 
     CREATE_FUNC(GameScene);

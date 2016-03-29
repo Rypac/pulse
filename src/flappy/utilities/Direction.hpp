@@ -3,7 +3,10 @@
 namespace flappy {
 
 enum class Direction {
-    North, South, East, West
+    North,
+    South,
+    East,
+    West
 };
 
 }
