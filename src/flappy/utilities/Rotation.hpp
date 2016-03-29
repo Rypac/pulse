@@ -2,7 +2,8 @@
 
 #include "cocos2d.h"
 
-namespace flappy { namespace rotation {
+namespace flappy {
+namespace rotation {
 
 inline float distance(float x, float y) {
     return sqrt(x * x + y * y);

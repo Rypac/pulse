@@ -2,7 +2,8 @@
 
 #include "cocos2d.h"
 
-namespace flappy { namespace log {
+namespace flappy {
+namespace log {
 
 void vec(cocos2d::Vec2 vec) {
     cocos2d::log("x = %f, y = %f", vec.x, vec.y);

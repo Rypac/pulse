@@ -2,7 +2,8 @@
 
 #include "cocos2d.h"
 
-namespace flappy { namespace physics {
+namespace flappy {
+namespace physics {
 
 static const auto Gravity = cocos2d::Vec2{0, -400};
 static const auto AccelerometerScale = cocos2d::Vec2{2200, 1500};

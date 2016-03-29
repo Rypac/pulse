@@ -2,7 +2,8 @@
 
 #include "flappy/utilities/Direction.hpp"
 
-namespace flappy { namespace random {
+namespace flappy {
+namespace random {
 
 inline int between(int min, int max) {
     std::random_device seed;

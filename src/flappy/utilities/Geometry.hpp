@@ -3,7 +3,8 @@
 #include "cocos2d.h"
 #include "flappy/utilities/Direction.hpp"
 
-namespace flappy { namespace geometry {
+namespace flappy {
+namespace geometry {
 
 using cocos2d::Rect;
 using cocos2d::Vec2;
