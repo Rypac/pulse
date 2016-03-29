@@ -26,10 +26,15 @@ class GameScene : public cocos2d::Layer {
     void stopScene();
     void exitScene();
 
-    Status sceneStatus() const { return status; }
-    cocos2d::Rect getFrame() const { return frame; };
-
     bool residesInSceneBounds(const cocos2d::Node& node) const;
+
+    Status sceneStatus() const {
+        return status;
+    }
+
+    cocos2d::Rect getFrame() const {
+        return frame;
+    };
 
   protected:
     cocos2d::Rect frame;
