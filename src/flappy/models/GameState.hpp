@@ -6,32 +6,22 @@ namespace flappy {
 
 struct GameState {
 
-    struct TimeScale {
-
-        TimeScale(): player_(1.0), environment_(1.0) {}
-
-        float player() const {
-            return player_;
-        }
-
-        void setPlayer(float scale) {
-            player_ = scale;
-        }
-
-        float environment() const {
-            return environment_;
-        }
-
-        void setEnvironment(float scale) {
-            environment_ = scale;
-        }
-
-      private:
-        float player_;
-        float environment_;
+    enum class TimeMode {
+        Normal,
+        SlowMotion
     };
 
-    GameState(): score(0), timeScale_(TimeScale{}), accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
+    struct TimeScale {
+        float player;
+        float environment;
+    };
+
+    GameState():
+        score(0),
+        timeMode(TimeMode::Normal),
+        normalTimeScale(TimeScale{1.0, 1.0}),
+        slowMotionTimeScale(TimeScale{0.4, 0.3}),
+        accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
 
     int currentScore() const {
         return score;
@@ -49,19 +39,32 @@ struct GameState {
         accelerometerReference = offset;
     }
 
-    TimeScale& timeScale() {
-        return timeScale_;
+    void enterMode(TimeMode mode) {
+        timeMode = mode;
+    }
+
+    float playerTimeScale() const {
+        return timeScale().player;
+    }
+
+    float environmentTimeScale() const {
+        return timeScale().environment;
     }
 
     void reset() {
         score = 0;
-        timeScale_.setPlayer(1.0);
-        timeScale_.setEnvironment(1.0);
+        timeMode = TimeMode::Normal;
     }
 
   private:
+    const TimeScale& timeScale() const {
+        return timeMode == TimeMode::Normal ? normalTimeScale : slowMotionTimeScale;
+    }
+
+    const TimeScale normalTimeScale;
+    const TimeScale slowMotionTimeScale;
     int score;
-    TimeScale timeScale_;
+    TimeMode timeMode;
     cocos2d::Vec3 accelerometerReference;
 };
 

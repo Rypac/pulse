@@ -103,7 +103,7 @@ void FlappyBirdScene::update(float dt) {
         return;
     }
 
-    getScene()->getPhysicsWorld()->step(dt * gameState.timeScale().player());
+    getScene()->getPhysicsWorld()->step(dt * gameState.playerTimeScale());
 
     if (!residesInSceneBounds(*flappy)) {
         GameScene::stopScene();
@@ -115,7 +115,7 @@ void FlappyBirdScene::updateScore() {
 }
 
 void FlappyBirdScene::updateSceneTimeScale() {
-    getScene()->getScheduler()->setTimeScale(gameState.timeScale().environment());
+    getScene()->getScheduler()->setTimeScale(gameState.environmentTimeScale());
 }
 
 void FlappyBirdScene::addTouchListeners() {
@@ -144,8 +144,7 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
         case GameScene::Status::Initialising:
             return false;
         case GameScene::Status::Running:
-            gameState.timeScale().setPlayer(0.4);
-            gameState.timeScale().setEnvironment(0.3);
+            gameState.enterMode(GameState::TimeMode::SlowMotion);
             updateSceneTimeScale();
             return true;
         case GameScene::Status::Paused:
@@ -160,8 +159,7 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
 void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
     switch (sceneStatus()) {
         case GameScene::Status::Running:
-            gameState.timeScale().setPlayer(1.0);
-            gameState.timeScale().setEnvironment(1.0);
+            gameState.enterMode(GameState::TimeMode::Normal);
             updateSceneTimeScale();
             break;
         default:
