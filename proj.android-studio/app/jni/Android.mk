@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    $(SRC_PATH)/sprites/FlappyBird.cpp \
                    $(SRC_PATH)/sprites/Obstacle.cpp \
                    $(SRC_PATH)/sprites/SpritePhysicsBody.cpp \
+                   $(SRC_PATH)/ui/MenuSlider.cpp \
                    $(SRC_PATH)/generators/ObstacleGenerator.cpp
 
 LOCAL_C_INCLUDES := $(ROOT_PATH)/src $(ROOT_PATH)/include

@@ -60,6 +60,8 @@
 		81DDFE0E1CAA656500B2C776 /* Pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0C1CAA656500B2C776 /* Pulse.png */; };
 		81DDFE101CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
 		81DDFE111CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
+		81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
+		81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81EB56BC1C9659F200BE36A4 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */; };
 		81EB56BE1C965A6600BE36A4 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BD1C965A6600BE36A4 /* Icon-Small@3x.png */; };
 		81EB56C01C965AB900BE36A4 /* Icon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BF1C965AB900BE36A4 /* Icon-Small-40@3x.png */; };
@@ -168,6 +170,8 @@
 		81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DeveloperMenuScene.hpp; path = flappy/scenes/DeveloperMenuScene.hpp; sourceTree = "<group>"; };
 		81DDFE0C1CAA656500B2C776 /* Pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pulse.png; sourceTree = "<group>"; };
 		81DDFE0F1CAA6A3300B2C776 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
+		81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuSlider.cpp; path = flappy/ui/MenuSlider.cpp; sourceTree = "<group>"; };
+		81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MenuSlider.hpp; path = flappy/ui/MenuSlider.hpp; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = flappy/models/GameState.hpp; sourceTree = "<group>"; };
 		81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		81EB56BD1C965A6600BE36A4 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
@@ -313,13 +317,14 @@
 		46880B8319C43A87006E1F66 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
+				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 				817B8A3A1CA63942003BE291 /* generators */,
 				81EB56B91C96364200BE36A4 /* models */,
 				819E29511C93C60000EA3D32 /* scenes */,
 				819E29571C93D49600EA3D32 /* sprites */,
+				81E8AFB81CAD14C400609D88 /* ui */,
 				819E29521C93C60E00EA3D32 /* utilities */,
-				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
-				46880B8519C43A87006E1F66 /* AppDelegate.h */,
 			);
 			name = src;
 			path = ../src;
@@ -417,6 +422,15 @@
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 			);
 			name = sprites;
+			sourceTree = "<group>";
+		};
+		81E8AFB81CAD14C400609D88 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */,
+				81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */,
+			);
+			name = ui;
 			sourceTree = "<group>";
 		};
 		81EB56B91C96364200BE36A4 /* models */ = {
@@ -575,6 +589,7 @@
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
+				81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -592,6 +607,7 @@
 				81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
+				81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
