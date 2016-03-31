@@ -54,6 +54,8 @@
 		81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A319941C94F7C9005708D6 /* Obstacle.cpp */; };
 		81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */; };
 		81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */; };
+		81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */; };
+		81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */; };
 		81DDFE0D1CAA656500B2C776 /* Pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0C1CAA656500B2C776 /* Pulse.png */; };
 		81DDFE0E1CAA656500B2C776 /* Pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0C1CAA656500B2C776 /* Pulse.png */; };
 		81DDFE101CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
@@ -162,6 +164,8 @@
 		81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpritePhysicsBody.cpp; path = flappy/sprites/SpritePhysicsBody.cpp; sourceTree = "<group>"; };
 		81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SpritePhysicsBody.hpp; path = flappy/sprites/SpritePhysicsBody.hpp; sourceTree = "<group>"; };
 		81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rotation.hpp; path = flappy/utilities/Rotation.hpp; sourceTree = "<group>"; };
+		81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DeveloperMenuScene.cpp; path = flappy/scenes/DeveloperMenuScene.cpp; sourceTree = "<group>"; };
+		81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DeveloperMenuScene.hpp; path = flappy/scenes/DeveloperMenuScene.hpp; sourceTree = "<group>"; };
 		81DDFE0C1CAA656500B2C776 /* Pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pulse.png; sourceTree = "<group>"; };
 		81DDFE0F1CAA6A3300B2C776 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = flappy/models/GameState.hpp; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				819E29531C93C69F00EA3D32 /* GameScene.hpp */,
 				46880B8619C43A87006E1F66 /* FlappyBirdScene.cpp */,
 				46880B8719C43A87006E1F66 /* FlappyBirdScene.hpp */,
+				81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */,
+				81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -557,6 +563,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
@@ -575,6 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
