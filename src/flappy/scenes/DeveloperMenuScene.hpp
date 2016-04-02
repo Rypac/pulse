@@ -10,17 +10,19 @@ namespace flappy {
 
 class DeveloperMenuScene : public GameScene {
   public:
-    using SceneCallback = std::function<void(DeveloperMenuScene* scene)>;
-    static cocos2d::Scene* createScene(GameOptions& options, SceneCallback onSceneDismissed = nullptr);
+    DeveloperMenuScene(GameOptions& options): options(options) {}
+
     static DeveloperMenuScene* create(GameOptions& options);
 
-    bool init(GameOptions& options);
+    virtual bool init() override;
 
+    using SceneCallback = std::function<void(DeveloperMenuScene* scene)>;
     SceneCallback onSceneDismissed;
 
   private:
     void addSliders();
 
+    GameOptions& options;
     std::vector<ui::MenuSlider*> sliders;
 };
 

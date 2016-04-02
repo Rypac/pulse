@@ -6,17 +6,9 @@ using namespace cocos2d;
 using namespace flappy;
 using namespace flappy::ui;
 
-Scene* DeveloperMenuScene::createScene(GameOptions& options, SceneCallback onSceneDismissed) {
-    const auto scene = Scene::create();
-    const auto layer = DeveloperMenuScene::create(options);
-    layer->onSceneDismissed = onSceneDismissed;
-    scene->addChild(layer);
-    return scene;
-}
-
 DeveloperMenuScene* DeveloperMenuScene::create(GameOptions& options) {
-    DeveloperMenuScene *scene = new (std::nothrow) DeveloperMenuScene();
-    if (scene && scene->init(options)) {
+    DeveloperMenuScene *scene = new (std::nothrow) DeveloperMenuScene(options);
+    if (scene && scene->init()) {
         scene->autorelease();
         return scene;
     }
@@ -65,7 +57,7 @@ MenuSlider* playerSlowMotionScale(GameOptions& options) {
     return playerSlowMotionScale;
 }
 
-bool DeveloperMenuScene::init(GameOptions& options) {
+bool DeveloperMenuScene::init() {
     if (!GameScene::init()) {
         return false;
     }

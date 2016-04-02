@@ -11,7 +11,6 @@ class FlappyBirdScene : public GameScene {
   public:
     FlappyBirdScene(const GameOptions& options): options(options), gameState(GameState{options}) {}
 
-    static cocos2d::Scene* createScene(const GameOptions& options);
     static FlappyBirdScene* create(const GameOptions& options);
 
     bool init() override;

@@ -13,15 +13,6 @@
 using namespace cocos2d;
 using namespace flappy;
 
-Scene* FlappyBirdScene::createScene(const GameOptions& options) {
-    const auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setGravity(Vec2{0, 0});
-    scene->getPhysicsWorld()->setAutoStep(false);
-    const auto layer = FlappyBirdScene::create(options);
-    scene->addChild(layer);
-    return scene;
-}
-
 FlappyBirdScene* FlappyBirdScene::create(const GameOptions& options) {
     FlappyBirdScene *scene = new (std::nothrow) FlappyBirdScene(options);
     if (scene && scene->init()) {
