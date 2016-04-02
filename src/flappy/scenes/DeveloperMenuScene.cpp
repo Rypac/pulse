@@ -30,7 +30,7 @@ MenuSlider* accelerometerSensitivity(GameOptions& options) {
 }
 
 MenuSlider* obstacleFrequency(GameOptions& options) {
-    const auto preferences = SliderPreferences{0.1f, 2.0f, 1.0f, 0.1f};
+    const auto preferences = SliderPreferences{0.1f, 2.0f, options.obstacleFrequency, 0.1f};
     const auto obstacleFrequency = MenuSlider::create("Obstacle Frequency", preferences);
     obstacleFrequency->onValueChanged = [&](MenuSlider* slider) {
         options.obstacleFrequency = slider->value();
@@ -39,8 +39,8 @@ MenuSlider* obstacleFrequency(GameOptions& options) {
 }
 
 MenuSlider* obstacleSpeed(GameOptions& options) {
-    const auto prefs = SliderPreferences{1.0f, 5.0f, 3.5f, 0.1f};
-    const auto obstacleSpeed = MenuSlider::create("Obstacle Travel Duration", prefs);
+    const auto preferences = SliderPreferences{1.0f, 5.0f, options.obstacleSpeed, 0.1f};
+    const auto obstacleSpeed = MenuSlider::create("Obstacle Travel Duration", preferences);
     obstacleSpeed->onValueChanged = [&](MenuSlider* slider) {
         options.obstacleSpeed = slider->value();
     };
@@ -48,8 +48,8 @@ MenuSlider* obstacleSpeed(GameOptions& options) {
 }
 
 MenuSlider* obstacleSlowMotionScale(GameOptions& options) {
-    const auto prefs = SliderPreferences{0.1f, 1.0f, 0.3f, 0.1f};
-    const auto obstacleSlowMotionScale = MenuSlider::create("Obstacle Slow Motion Speed", prefs);
+    const auto preferences = SliderPreferences{0.1f, 1.0f, options.slowMotionTimeScale.environment, 0.1f};
+    const auto obstacleSlowMotionScale = MenuSlider::create("Obstacle Slow Motion Speed", preferences);
     obstacleSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
         options.slowMotionTimeScale.environment = slider->value();
     };
@@ -57,8 +57,8 @@ MenuSlider* obstacleSlowMotionScale(GameOptions& options) {
 }
 
 MenuSlider* playerSlowMotionScale(GameOptions& options) {
-    const auto prefs = SliderPreferences{0.1f, 1.0f, 0.3f, 0.1f};
-    const auto playerSlowMotionScale = MenuSlider::create("Player Slow Motion Speed", prefs);
+    const auto preferences = SliderPreferences{0.1f, 1.0f, options.slowMotionTimeScale.player, 0.1f};
+    const auto playerSlowMotionScale = MenuSlider::create("Player Slow Motion Speed", preferences);
     playerSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
         options.slowMotionTimeScale.player = slider->value();
     };
