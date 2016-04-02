@@ -22,7 +22,7 @@ bool SplashScene::init() {
 
     videoPlayer = VideoPlayer::create();
     videoPlayer->setPosition(geometry::centerOf(frame));
-    videoPlayer->setFileName("TandemLogo.mp4");
+    videoPlayer->setFileName("tandem_logo.mp4");
     videoPlayer->setFullScreenEnabled(true);
     videoPlayer->addEventListener([this](auto ref, auto eventType) {
         if (eventType == VideoPlayer::EventType::COMPLETED) {
