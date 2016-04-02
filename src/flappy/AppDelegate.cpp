@@ -56,7 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     const auto frame = glview->getFrameSize();
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
-    addGameScene();
+    addSplashScene();
 
     return true;
 }

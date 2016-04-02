@@ -2,7 +2,9 @@
 #include "flappy/utilities/geometry.hpp"
 
 using flappy::SplashScene;
-using cocos2d::Scene;
+using cocos2d::Size;
+using cocos2d::LayerColor;
+using cocos2d::Color4B;
 using cocos2d::experimental::ui::VideoPlayer;
 
 SplashScene* SplashScene::create() {
@@ -20,10 +22,13 @@ bool SplashScene::init() {
         return false;
     }
 
+    const auto background = LayerColor::create(Color4B::WHITE);
+    addChild(background);
+
     videoPlayer = VideoPlayer::create();
-    videoPlayer->setPosition(geometry::centerOf(frame));
     videoPlayer->setFileName("tandem_logo.mp4");
-    videoPlayer->setFullScreenEnabled(true);
+    videoPlayer->setPosition(geometry::centerOf(frame));
+    videoPlayer->setContentSize(Size{320, 320});
     videoPlayer->addEventListener([this](auto ref, auto eventType) {
         if (eventType == VideoPlayer::EventType::COMPLETED) {
             if (onSceneDismissed) {
@@ -31,7 +36,7 @@ bool SplashScene::init() {
             }
         }
     });
-    addChild(videoPlayer);
+    addChild(videoPlayer, 1);
 
     return true;
 }
