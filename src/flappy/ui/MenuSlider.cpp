@@ -1,12 +1,15 @@
 #include "flappy/ui/MenuSlider.hpp"
 
+#include <algorithm>
+#include <iomanip>
+
 using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace flappy::ui;
 
-MenuSlider* MenuSlider::create(Rect frame, const std::string& title, float lowerBound, float upperBound, float defaultValue) {
+MenuSlider* MenuSlider::create(const std::string& title, SliderPreferences preferences) {
     MenuSlider *menuSlider = new (std::nothrow) MenuSlider();
-    if (menuSlider && menuSlider->init(frame, title, lowerBound, upperBound, defaultValue)) {
+    if (menuSlider && menuSlider->init(title, preferences)) {
         menuSlider->autorelease();
         return menuSlider;
     }
@@ -14,38 +17,75 @@ MenuSlider* MenuSlider::create(Rect frame, const std::string& title, float lower
     return nullptr;
 }
 
-bool MenuSlider::init(cocos2d::Rect frame, const std::string& sliderTitle, float lowerBound, float upperBound, float defaultValue) {
+bool MenuSlider::init(const std::string& sliderTitle, SliderPreferences sliderPreferences) {
     if (!Node::init()) {
         return false;
     }
 
-    minimumSliderValue = lowerBound;
-    maximumSliderValue = upperBound;
-    currentSliderValue = defaultValue;
+    preferences = sliderPreferences;
 
-    const auto sliderWidth = frame.size.width * 0.5f;
-    const auto titleWidth = frame.size.width * 0.4f;
-    const auto valueWidth = frame.size.width * 0.1f;
-
-    title = Label::create();
-    title->setString(sliderTitle);
-    title->setPosition(Vec2{frame.origin.x, frame.origin.y});
-    title->setContentSize(Size{titleWidth, frame.size.height});
+    title = Label::createWithSystemFont(sliderTitle, "Arial", 24);
+    title->setAnchorPoint(Vec2{0, 0.5});
+    addChild(title);
 
     slider = Slider::create();
-    slider->setPosition(Vec2{frame.origin.x + titleWidth, frame.origin.y});
-    slider->setContentSize(Size{sliderWidth, frame.size.height});
+    slider->loadBarTexture("slider_blank.png");
+    slider->loadSlidBallTextures("slider_ball_normal.png", "slider_ball_pressed.png", "slider_ball_disabled.png");
+    slider->loadProgressBarTexture("slider_filled.png");
+    slider->setScale9Enabled(true);
+    slider->setAnchorPoint(Vec2{0, 0.5});
     slider->addEventListener([this](auto ref, auto eventType) {
         if (eventType == Slider::EventType::ON_PERCENTAGE_CHANGED) {
-            currentSliderValue = slider->getPercent();
-            currentValue->setString(std::to_string(currentSliderValue));
+            updateDisplayedValue();
         }
     });
+    addChild(slider);
 
-    currentValue = Label::create();
-    currentValue->setString(std::to_string(currentSliderValue));
-    currentValue->setPosition(Vec2{frame.origin.x + titleWidth + sliderWidth, frame.origin.y});
-    currentValue->setContentSize(Size{valueWidth, frame.size.height});
+    currentValue = Label::createWithSystemFont("", "Arial", 24);
+    currentValue->setAnchorPoint(Vec2{1.0, 0.5});
+    addChild(currentValue);
+
+    reset();
 
     return true;
+}
+
+void MenuSlider::setContentSize(const Size& frame) {
+    Node::setContentSize(frame);
+
+    const auto padding = frame.width * 0.05f;
+    const auto titleWidth = frame.width * 0.30f;
+    const auto valueWidth = frame.width * 0.05f;
+    const auto sliderWidth = frame.width - titleWidth - valueWidth - padding * 2;
+
+    title->setPosition(Vec2{0, 0});
+    title->setContentSize(Size{titleWidth, frame.height});
+
+    slider->setPosition(Vec2{titleWidth + padding, 0});
+    slider->setContentSize(Size{sliderWidth, std::min(20.0f, frame.height)});
+
+    currentValue->setPosition(Vec2{frame.width, 0});
+    currentValue->setContentSize(Size{valueWidth, frame.height});
+}
+
+float MenuSlider::value() const {
+    auto&& sliderValue = preferences.range() * (slider->getPercent() / 100.0f);
+    return sliderValue + preferences.minimum;
+}
+
+void MenuSlider::setValue(float newValue) {
+    auto&& offset = preferences.minimum + newValue;
+    auto&& percentage = offset / preferences.range() * 100.0f;
+    slider->setPercent(percentage);
+    updateDisplayedValue();
+}
+
+void MenuSlider::reset() {
+    setValue(preferences.initiial);
+}
+
+void MenuSlider::updateDisplayedValue() {
+    std::stringstream stream;
+    stream << std::fixed << std::setprecision(1) << value();
+    currentValue->setString(stream.str());
 }
