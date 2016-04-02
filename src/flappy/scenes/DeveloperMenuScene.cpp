@@ -24,40 +24,58 @@ DeveloperMenuScene* DeveloperMenuScene::create(GameOptions& options) {
     return nullptr;
 }
 
+MenuSlider* accelerometerSensitivity(GameOptions& options) {
+    const auto prefs = SliderPreferences{0.0f, 1.0f, 0.2f, 0.1f};
+    return MenuSlider::create("Accelerometer Sensitivity", prefs);
+}
+
+MenuSlider* obstacleFrequency(GameOptions& options) {
+    const auto preferences = SliderPreferences{0.1f, 2.0f, 1.0f, 0.1f};
+    const auto obstacleFrequency = MenuSlider::create("Obstacle Frequency", preferences);
+    obstacleFrequency->onValueChanged = [&](MenuSlider* slider) {
+        options.obstacleFrequency = slider->value();
+    };
+    return obstacleFrequency;
+}
+
+MenuSlider* obstacleSpeed(GameOptions& options) {
+    const auto prefs = SliderPreferences{1.0f, 5.0f, 3.5f, 0.1f};
+    const auto obstacleSpeed = MenuSlider::create("Obstacle Travel Duration", prefs);
+    obstacleSpeed->onValueChanged = [&](MenuSlider* slider) {
+        options.obstacleSpeed = slider->value();
+    };
+    return obstacleSpeed;
+}
+
+MenuSlider* obstacleSlowMotionScale(GameOptions& options) {
+    const auto prefs = SliderPreferences{0.1f, 1.0f, 0.3f, 0.1f};
+    const auto obstacleSlowMotionScale = MenuSlider::create("Obstacle Slow Motion Speed", prefs);
+    obstacleSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
+        options.slowMotionTimeScale.environment = slider->value();
+    };
+    return obstacleSlowMotionScale;
+}
+
+MenuSlider* playerSlowMotionScale(GameOptions& options) {
+    const auto prefs = SliderPreferences{0.1f, 1.0f, 0.3f, 0.1f};
+    const auto playerSlowMotionScale = MenuSlider::create("Player Slow Motion Speed", prefs);
+    playerSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
+        options.slowMotionTimeScale.player = slider->value();
+    };
+    return playerSlowMotionScale;
+}
+
 bool DeveloperMenuScene::init(GameOptions& options) {
     if (!GameScene::init()) {
         return false;
     }
 
-    const auto prefs = SliderPreferences{0.0f, 1.0f, 0.2f, 0.1f};
-    const auto accelerometerSensitivity = MenuSlider::create("Accelerometer Sensitivity", prefs);
-
-    const auto obstacleFrequency = MenuSlider::create("Obstacle Frequency", prefs);
-    obstacleFrequency->onValueChanged = [&](MenuSlider* slider) {
-        options.obstacleFrequency = slider->value();
-    };
-
-    const auto obstacleSpeed = MenuSlider::create("Obstacle Speed", prefs);
-    obstacleSpeed->onValueChanged = [&](MenuSlider* slider) {
-        options.obstacleSpeed = slider->value();
-    };
-
-    const auto obstacleSlowMotionScale = MenuSlider::create("Obstacle Slow Motion Speed", prefs);
-    obstacleSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
-        options.slowMotionTimeScale.environment = slider->value();
-    };
-
-    const auto playerSlowMotionScale = MenuSlider::create("Player Slow Motion Speed", prefs);
-    playerSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
-        options.slowMotionTimeScale.player = slider->value();
-    };
-
     sliders = std::vector<MenuSlider*>{
-        accelerometerSensitivity,
-        obstacleFrequency,
-        obstacleSpeed,
-        obstacleSlowMotionScale,
-        playerSlowMotionScale
+        accelerometerSensitivity(options),
+        obstacleFrequency(options),
+        obstacleSpeed(options),
+        obstacleSlowMotionScale(options),
+        playerSlowMotionScale(options)
     };
 
     addSliders();
