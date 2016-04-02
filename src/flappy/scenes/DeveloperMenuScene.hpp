@@ -21,6 +21,7 @@ class DeveloperMenuScene : public GameScene {
 
   private:
     void addSliders();
+    void addExitButton();
 
     GameOptions& options;
     std::vector<ui::MenuSlider*> sliders;

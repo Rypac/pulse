@@ -71,6 +71,7 @@ bool DeveloperMenuScene::init() {
     };
 
     addSliders();
+    addExitButton();
 
     return true;
 }
@@ -78,7 +79,7 @@ bool DeveloperMenuScene::init() {
 void DeveloperMenuScene::addSliders() {
     const auto origin = geometry::topLeftOf(frame);
     const auto horizontalInset = frame.size.width * 0.1f;
-    const auto verticalInset = 80;
+    const auto verticalInset = 100;
     const auto sliderSize = Size{frame.size.width - horizontalInset * 2, 80};
     auto sliderOrigin = Vec2{origin.x + horizontalInset, origin.y - verticalInset};
 
@@ -90,4 +91,21 @@ void DeveloperMenuScene::addSliders() {
 
         sliderOrigin.y -= sliderSize.height;
     }
+}
+
+void DeveloperMenuScene::addExitButton() {
+    const auto exitImage = Sprite::create();
+    exitImage->setColor(Color3B::RED);
+    exitImage->setContentSize(Size{40, 40});
+    exitImage->setTextureRect(exitImage->getBoundingBox());
+    const auto exit = MenuItemSprite::create(exitImage, exitImage, [this](auto ref) {
+        if (onSceneDismissed) {
+            onSceneDismissed(this);
+        }
+    });
+    exit->setAnchorPoint(Vec2{0, 1.0});
+    exit->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
+    const auto menu = Menu::create(exit, nullptr);
+    menu->setPosition(Vec2::ZERO);
+    addChild(menu, 1);
 }
