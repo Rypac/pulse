@@ -1,6 +1,7 @@
 #include "flappy/AppDelegate.h"
 #include "flappy/scenes/DeveloperMenuScene.hpp"
 #include "flappy/scenes/FlappyBirdScene.hpp"
+#include "flappy/scenes/SplashScene.hpp"
 
 #include <algorithm>
 
@@ -55,16 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     const auto frame = glview->getFrameSize();
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
-    const auto scene = FlappyBirdScene::create(options);
-    scene->onEnterMenu = [this](auto scene) {
-        const auto developerScene = DeveloperMenuScene::create(options);
-        developerScene->onSceneDismissed = [](auto scene) {
-            Director::getInstance()->popScene();
-        };
-        Director::getInstance()->pushScene(GameScene::createScene(developerScene));
-    };
-
-    director->runWithScene(GameScene::createPhysicsScene(scene));
+    addGameScene();
 
     return true;
 }
@@ -75,4 +67,28 @@ void AppDelegate::applicationDidEnterBackground() {
 
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
+}
+
+void AppDelegate::addSplashScene() {
+    const auto splashScene = SplashScene::create();
+    splashScene->onSceneDismissed = [this](auto splashScene) {
+        this->addGameScene();
+    };
+    Director::getInstance()->runWithScene(GameScene::createScene(splashScene));
+}
+
+void AppDelegate::addGameScene() {
+    const auto gameScene = FlappyBirdScene::create(options);
+    gameScene->onEnterMenu = [this](auto scene) {
+        this->addDeveloperMenuScene();
+    };
+    Director::getInstance()->replaceScene(GameScene::createPhysicsScene(gameScene));
+}
+
+void AppDelegate::addDeveloperMenuScene() {
+    const auto developerScene = DeveloperMenuScene::create(options);
+    developerScene->onSceneDismissed = [](auto scene) {
+        Director::getInstance()->popScene();
+    };
+    Director::getInstance()->pushScene(GameScene::createScene(developerScene));
 }

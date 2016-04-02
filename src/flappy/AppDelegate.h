@@ -14,5 +14,9 @@ class AppDelegate : private cocos2d::Application {
     virtual void applicationWillEnterForeground();
 
   private:
+    void addSplashScene();
+    void addGameScene();
+    void addDeveloperMenuScene();
+
     flappy::GameOptions options;
 };
