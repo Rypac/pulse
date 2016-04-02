@@ -86,7 +86,7 @@ float MenuSlider::value() const {
 }
 
 void MenuSlider::setValue(float newValue) {
-    auto&& offset = preferences.minimum + newValue;
+    auto&& offset = newValue - preferences.minimum;
     auto&& percentage = offset / preferences.range() * 100.0f;
     slider->setPercent(percentage);
     updateDisplayedValue();
