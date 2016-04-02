@@ -48,6 +48,9 @@ void MenuSlider::addSlider() {
     slider->addEventListener([this](auto ref, auto eventType) {
         if (eventType == Slider::EventType::ON_PERCENTAGE_CHANGED) {
             updateDisplayedValue();
+            if (onValueChanged) {
+                onValueChanged(this);
+            }
         }
     });
     addChild(slider);
@@ -63,7 +66,7 @@ void MenuSlider::setContentSize(const Size& frame) {
     Node::setContentSize(frame);
 
     const auto padding = frame.width * 0.05f;
-    const auto titleWidth = frame.width * 0.30f;
+    const auto titleWidth = frame.width * 0.35f;
     const auto valueWidth = frame.width * 0.05f;
     const auto sliderWidth = frame.width - titleWidth - valueWidth - padding * 2;
 

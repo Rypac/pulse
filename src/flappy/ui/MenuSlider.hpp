@@ -29,6 +29,8 @@ class MenuSlider : public cocos2d::Node {
     float value() const;
     void reset();
 
+    std::function<void(MenuSlider*)> onValueChanged;
+
   private:
     void setValue(float value);
 
