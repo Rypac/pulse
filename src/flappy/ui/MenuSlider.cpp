@@ -24,10 +24,21 @@ bool MenuSlider::init(const std::string& sliderTitle, SliderPreferences sliderPr
 
     preferences = sliderPreferences;
 
-    title = Label::createWithSystemFont(sliderTitle, "Arial", 24);
+    addTitle(sliderTitle);
+    addSlider();
+    addCurrentValue();
+    reset();
+
+    return true;
+}
+
+void MenuSlider::addTitle(const std::string& text) {
+    title = Label::createWithSystemFont(text, "Arial", 24);
     title->setAnchorPoint(Vec2{0, 0.5});
     addChild(title);
+}
 
+void MenuSlider::addSlider() {
     slider = Slider::create();
     slider->loadBarTexture("slider_blank.png");
     slider->loadSlidBallTextures("slider_ball_normal.png", "slider_ball_pressed.png", "slider_ball_disabled.png");
@@ -40,14 +51,12 @@ bool MenuSlider::init(const std::string& sliderTitle, SliderPreferences sliderPr
         }
     });
     addChild(slider);
+}
 
+void MenuSlider::addCurrentValue() {
     currentValue = Label::createWithSystemFont("", "Arial", 24);
     currentValue->setAnchorPoint(Vec2{1.0, 0.5});
     addChild(currentValue);
-
-    reset();
-
-    return true;
 }
 
 void MenuSlider::setContentSize(const Size& frame) {

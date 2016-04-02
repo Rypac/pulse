@@ -27,11 +27,14 @@ class MenuSlider : public cocos2d::Node {
     virtual void setContentSize(const cocos2d::Size& size) override;
 
     float value() const;
-    void setValue(float value);
-
     void reset();
 
   private:
+    void setValue(float value);
+
+    void addTitle(const std::string& title);
+    void addSlider();
+    void addCurrentValue();
     void updateDisplayedValue();
 
     cocos2d::Label* title;
