@@ -13,13 +13,23 @@
 using namespace cocos2d;
 using namespace flappy;
 
-Scene* GameScene::createScene() {
+Scene* FlappyBirdScene::createScene(const GameOptions& options) {
     const auto scene = Scene::createWithPhysics();
     scene->getPhysicsWorld()->setGravity(Vec2{0, 0});
     scene->getPhysicsWorld()->setAutoStep(false);
-    const auto layer = FlappyBirdScene::create();
+    const auto layer = FlappyBirdScene::create(options);
     scene->addChild(layer);
     return scene;
+}
+
+FlappyBirdScene* FlappyBirdScene::create(const GameOptions& options) {
+    FlappyBirdScene *scene = new (std::nothrow) FlappyBirdScene(options);
+    if (scene && scene->init()) {
+        scene->autorelease();
+        return scene;
+    }
+    CC_SAFE_DELETE(scene);
+    return nullptr;
 }
 
 bool FlappyBirdScene::init() {
@@ -42,8 +52,6 @@ void FlappyBirdScene::initScene() {
     updateScore();
     updateSceneTimeScale();
     addFlappy();
-    scheduleUpdate();
-    schedule(CC_SCHEDULE_SELECTOR(FlappyBirdScene::addObstacle), 1);
 }
 
 void FlappyBirdScene::clearScene() {
@@ -54,6 +62,17 @@ void FlappyBirdScene::clearScene() {
     removeChild(flappy);
     obstacles.clear();
     gameState.reset();
+}
+
+void FlappyBirdScene::resetScene() {
+    GameScene::resetScene();
+    scheduleObstacleGeneration();
+}
+
+void FlappyBirdScene::onEnter() {
+    Node::onEnter();
+    scheduleUpdate();
+    scheduleObstacleGeneration();
 }
 
 void FlappyBirdScene::addMenuOptions() {
@@ -95,7 +114,15 @@ void FlappyBirdScene::addObstacle(float dt) {
     addPhysicsBodyToObstacle(*obstacle);
     addChild(obstacle);
     obstacles.emplace_back(obstacle);
-    obstacle->runActions(onCompletion);
+    obstacle->runActions(options.obstacleSpeed, onCompletion);
+}
+
+void FlappyBirdScene::scheduleObstacleGeneration() {
+    const auto delay = DelayTime::create(options.obstacleFrequency);
+    const auto generateObstacle = CallFunc::create([this]() { addObstacle(0); });
+    const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
+    const auto delayedObstacleGenerator = Sequence::create(delay, generateObstacle, reschedule, nullptr);
+    runAction(delayedObstacleGenerator);
 }
 
 void FlappyBirdScene::update(float dt) {
@@ -151,7 +178,7 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
             GameScene::resumeScene();
             return false;
         case GameScene::Status::Stopped:
-            GameScene::resetScene();
+            resetScene();
             return false;
     }
 }
@@ -178,7 +205,7 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
             const auto x = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
             const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
             auto velocity = Vec2{x, y};
-            velocity.scale(physics::AccelerometerScale);
+            velocity.scale(options.accelerometerSensitivity);
             flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
             break;
         }

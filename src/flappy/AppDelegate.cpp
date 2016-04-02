@@ -60,7 +60,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     register_all_packages();
 
-    const auto scene = FlappyBirdScene::createScene();
+    const auto scene = FlappyBirdScene::createScene(options);
     director->runWithScene(scene);
 
     return true;

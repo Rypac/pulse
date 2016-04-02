@@ -1,9 +1,10 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "flappy/models/GameOptions.hpp"
 
 class AppDelegate : private cocos2d::Application {
-public:
+  public:
     AppDelegate();
     virtual ~AppDelegate();
 
@@ -11,4 +12,7 @@ public:
     virtual bool applicationDidFinishLaunching();
     virtual void applicationDidEnterBackground();
     virtual void applicationWillEnterForeground();
+
+  private:
+    flappy::GameOptions options;
 };

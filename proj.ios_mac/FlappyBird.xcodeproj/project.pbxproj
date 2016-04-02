@@ -158,6 +158,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = flappy/utilities/Logger.hpp; sourceTree = "<group>"; };
+		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = flappy/models/GameOptions.hpp; sourceTree = "<group>"; };
+		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = flappy/models/TimeScale.hpp; sourceTree = "<group>"; };
 		816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlappyBird.cpp; path = flappy/sprites/FlappyBird.cpp; sourceTree = "<group>"; };
 		816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FlappyBird.hpp; path = flappy/sprites/FlappyBird.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = flappy/utilities/Random.hpp; sourceTree = "<group>"; };
@@ -457,6 +459,8 @@
 			isa = PBXGroup;
 			children = (
 				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
+				814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */,
+				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
 			);
 			name = models;
 			sourceTree = "<group>";

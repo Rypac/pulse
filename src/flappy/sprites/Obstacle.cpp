@@ -78,8 +78,8 @@ void Obstacle::positionInWorld(Rect world) {
     destination = geometry::destination(body, world, direction);
 }
 
-void Obstacle::runActions(ObstacleCallback onCompletion) {
-    const auto moveToEdge = MoveTo::create(3.5, destination);
+void Obstacle::runActions(float duration, ObstacleCallback onCompletion) {
+    const auto moveToEdge = MoveTo::create(duration, destination);
     const auto removeFromScene = RemoveSelf::create(true);
     const auto actionsCompleted = CallFunc::create([=]() {
         if (onCompletion) {

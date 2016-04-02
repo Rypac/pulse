@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "flappy/models/GameOptions.hpp"
 
 namespace flappy {
 
@@ -11,17 +12,7 @@ struct GameState {
         SlowMotion
     };
 
-    struct TimeScale {
-        float player;
-        float environment;
-    };
-
-    GameState():
-        score(0),
-        timeMode(TimeMode::Normal),
-        normalTimeScale(TimeScale{1.0, 1.0}),
-        slowMotionTimeScale(TimeScale{0.4, 0.3}),
-        accelerometerReference(cocos2d::Vec3{1, 0, 1}) {}
+    GameState(const GameOptions& options): options(options) {}
 
     int currentScore() const {
         return score;
@@ -58,14 +49,14 @@ struct GameState {
 
   private:
     const TimeScale& timeScale() const {
-        return timeMode == TimeMode::Normal ? normalTimeScale : slowMotionTimeScale;
+        return timeMode == TimeMode::Normal ? normalTimeScale : options.slowMotionTimeScale;
     }
 
-    const TimeScale normalTimeScale;
-    const TimeScale slowMotionTimeScale;
-    int score;
-    TimeMode timeMode;
-    cocos2d::Vec3 accelerometerReference;
+    const GameOptions& options;
+    const TimeScale normalTimeScale{1.0, 1.0};
+    int score{0};
+    TimeMode timeMode{TimeMode::Normal};
+    cocos2d::Vec3 accelerometerReference{1, 0, 1};
 };
 
 }
