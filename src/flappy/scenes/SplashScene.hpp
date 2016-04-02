@@ -13,8 +13,8 @@ class SplashScene : public GameScene {
     virtual bool init() override;
     virtual void onEnter() override;
 
-    using SceneDismissedCallback = std::function<void(SplashScene* scene)>;
-    SceneDismissedCallback onSceneDismissed;
+    using SceneCallback = std::function<void(SplashScene* scene)>;
+    SceneCallback onSceneDismissed;
 
   private:
     cocos2d::experimental::ui::VideoPlayer* videoPlayer;
