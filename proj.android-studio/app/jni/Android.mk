@@ -17,6 +17,7 @@ LOCAL_SRC_FILES := hellocpp/main.cpp \
                    $(SRC_PATH)/scenes/DeveloperMenuScene.cpp \
                    $(SRC_PATH)/scenes/GameScene.cpp \
                    $(SRC_PATH)/scenes/FlappyBirdScene.cpp \
+                   $(SRC_PATH)/scenes/SplashScene.cpp \
                    $(SRC_PATH)/sprites/Column.cpp \
                    $(SRC_PATH)/sprites/FlappyBird.cpp \
                    $(SRC_PATH)/sprites/Obstacle.cpp \

@@ -42,6 +42,8 @@
 		521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6219F0C34300D177D7 /* Default-667h@2x.png */; };
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		814B54221CAFE8C400ABEB4E /* tandem_logo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 814B54211CAFE8C400ABEB4E /* tandem_logo.mp4 */; };
+		814B54231CAFE8C400ABEB4E /* tandem_logo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 814B54211CAFE8C400ABEB4E /* tandem_logo.mp4 */; };
 		816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
@@ -72,6 +74,8 @@
 		81DDFE111CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
 		81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
+		81E8AFC31CAD2AC700609D88 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
+		81E8AFC41CAD2AC700609D88 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		81EB56BC1C9659F200BE36A4 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */; };
 		81EB56BE1C965A6600BE36A4 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BD1C965A6600BE36A4 /* Icon-Small@3x.png */; };
 		81EB56C01C965AB900BE36A4 /* Icon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BF1C965AB900BE36A4 /* Icon-Small-40@3x.png */; };
@@ -160,6 +164,7 @@
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = flappy/utilities/Logger.hpp; sourceTree = "<group>"; };
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = flappy/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = flappy/models/TimeScale.hpp; sourceTree = "<group>"; };
+		814B54211CAFE8C400ABEB4E /* tandem_logo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tandem_logo.mp4; sourceTree = "<group>"; };
 		816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlappyBird.cpp; path = flappy/sprites/FlappyBird.cpp; sourceTree = "<group>"; };
 		816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FlappyBird.hpp; path = flappy/sprites/FlappyBird.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = flappy/utilities/Random.hpp; sourceTree = "<group>"; };
@@ -189,6 +194,8 @@
 		81DDFE0F1CAA6A3300B2C776 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuSlider.cpp; path = flappy/ui/MenuSlider.cpp; sourceTree = "<group>"; };
 		81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MenuSlider.hpp; path = flappy/ui/MenuSlider.hpp; sourceTree = "<group>"; };
+		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = flappy/scenes/SplashScene.cpp; sourceTree = "<group>"; };
+		81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SplashScene.hpp; path = flappy/scenes/SplashScene.hpp; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = flappy/models/GameState.hpp; sourceTree = "<group>"; };
 		81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
 		81EB56BD1C965A6600BE36A4 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
@@ -324,13 +331,14 @@
 		46880B7519C43A67006E1F66 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				81DDFE0F1CAA6A3300B2C776 /* Background.png */,
+				81DDFE0C1CAA656500B2C776 /* Pulse.png */,
 				81950D301CAF82BA00230E75 /* slider_ball_disabled.png */,
 				81950D311CAF82BA00230E75 /* slider_ball_normal.png */,
 				81950D321CAF82BA00230E75 /* slider_ball_pressed.png */,
 				81950D331CAF82BA00230E75 /* slider_blank.png */,
 				81950D341CAF82BA00230E75 /* slider_filled.png */,
-				81DDFE0F1CAA6A3300B2C776 /* Background.png */,
-				81DDFE0C1CAA656500B2C776 /* Pulse.png */,
+				814B54211CAFE8C400ABEB4E /* tandem_logo.mp4 */,
 			);
 			name = resources;
 			path = ../resources;
@@ -398,9 +406,9 @@
 		817B8A3A1CA63942003BE291 /* generators */ = {
 			isa = PBXGroup;
 			children = (
+				817B8A3F1CA639F2003BE291 /* Generator.hpp */,
 				817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */,
 				817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */,
-				817B8A3F1CA639F2003BE291 /* Generator.hpp */,
 			);
 			name = generators;
 			sourceTree = "<group>";
@@ -408,12 +416,14 @@
 		819E29511C93C60000EA3D32 /* scenes */ = {
 			isa = PBXGroup;
 			children = (
-				819E29541C93C8AC00EA3D32 /* GameScene.cpp */,
-				819E29531C93C69F00EA3D32 /* GameScene.hpp */,
-				46880B8619C43A87006E1F66 /* FlappyBirdScene.cpp */,
-				46880B8719C43A87006E1F66 /* FlappyBirdScene.hpp */,
 				81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */,
 				81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */,
+				46880B8619C43A87006E1F66 /* FlappyBirdScene.cpp */,
+				46880B8719C43A87006E1F66 /* FlappyBirdScene.hpp */,
+				819E29541C93C8AC00EA3D32 /* GameScene.cpp */,
+				819E29531C93C69F00EA3D32 /* GameScene.hpp */,
+				81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */,
+				81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -421,12 +431,12 @@
 		819E29521C93C60E00EA3D32 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
-				819E39E41C93999E00E74D57 /* Geometry.hpp */,
-				816908C61C9401E10073E4C6 /* Random.hpp */,
-				816908C71C94040A0073E4C6 /* Physics.hpp */,
-				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
 				81883C041CA6274A00AF5FD5 /* Direction.hpp */,
+				819E39E41C93999E00E74D57 /* Geometry.hpp */,
 				81382C1A1CA7E27C003C8EFE /* Logger.hpp */,
+				816908C71C94040A0073E4C6 /* Physics.hpp */,
+				816908C61C9401E10073E4C6 /* Random.hpp */,
+				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";
@@ -458,8 +468,8 @@
 		81EB56B91C96364200BE36A4 /* models */ = {
 			isa = PBXGroup;
 			children = (
-				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
 				814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */,
+				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
 				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
 			);
 			name = models;
@@ -582,6 +592,7 @@
 				50EF629817ECD46A001EB2F8 /* Icon-Small-40@2x.png in Resources */,
 				521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */,
 				81950D3B1CAF82BA00230E75 /* slider_blank.png in Resources */,
+				814B54221CAFE8C400ABEB4E /* tandem_logo.mp4 in Resources */,
 				81DDFE101CAA6A3300B2C776 /* Background.png in Resources */,
 				81EB56BE1C965A6600BE36A4 /* Icon-Small@3x.png in Resources */,
 				81950D3D1CAF82BA00230E75 /* slider_filled.png in Resources */,
@@ -593,6 +604,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				814B54231CAFE8C400ABEB4E /* tandem_logo.mp4 in Resources */,
 				81950D361CAF82BA00230E75 /* slider_ball_disabled.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				81950D381CAF82BA00230E75 /* slider_ball_normal.png in Resources */,
@@ -618,6 +630,7 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
+				81E8AFC31CAD2AC700609D88 /* SplashScene.cpp in Sources */,
 				816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
@@ -632,6 +645,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
+				81E8AFC41CAD2AC700609D88 /* SplashScene.cpp in Sources */,
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
