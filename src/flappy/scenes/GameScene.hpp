@@ -13,9 +13,10 @@ class GameScene : public cocos2d::Layer {
         Stopped
     };
 
-    CREATE_FUNC(GameScene);
-
     static cocos2d::Scene* createScene();
+    static cocos2d::Scene* createScene(GameScene* scene);
+    static cocos2d::Scene* createPhysicsScene(GameScene* scene, cocos2d::Vec2 gravity = cocos2d::Vec2{}, bool autoStep = false);
+
     virtual bool init() override;
     virtual void initScene();
     virtual void clearScene();
