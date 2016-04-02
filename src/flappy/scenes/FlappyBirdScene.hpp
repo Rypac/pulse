@@ -27,6 +27,9 @@ class FlappyBirdScene : public GameScene {
     void onContactEnded(cocos2d::PhysicsContact& contact);
     void onMenuPause(cocos2d::Ref* menuItem);
 
+    using SceneCallback = std::function<void(FlappyBirdScene* scene)>;
+    SceneCallback onEnterMenu;
+
   private:
     void addMenuOptions();
     void addScoreLabel();

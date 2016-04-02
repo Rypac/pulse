@@ -1,4 +1,5 @@
 #include "flappy/AppDelegate.h"
+#include "flappy/scenes/DeveloperMenuScene.hpp"
 #include "flappy/scenes/FlappyBirdScene.hpp"
 
 #include <algorithm>
@@ -20,10 +21,6 @@ AppDelegate::~AppDelegate() {}
 void AppDelegate::initGLContextAttrs() {
     GLContextAttrs glContextAttrs{8, 8, 8, 8, 24, 8};
     GLView::setGLContextAttrs(glContextAttrs);
-}
-
-static int register_all_packages() {
-    return 0;
 }
 
 Size displayResolutionForFrame(Size frame) {
@@ -58,10 +55,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
     const auto frame = glview->getFrameSize();
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
-    register_all_packages();
+    const auto scene = FlappyBirdScene::create(options);
+    scene->onEnterMenu = [this](auto scene) {
+        const auto developerScene = DeveloperMenuScene::create(options);
+        developerScene->onSceneDismissed = [](auto scene) {
+            Director::getInstance()->popScene();
+        };
+        Director::getInstance()->pushScene(GameScene::createScene(developerScene));
+    };
 
-    const auto scene = FlappyBirdScene::createScene(options);
-    director->runWithScene(scene);
+    director->runWithScene(GameScene::createPhysicsScene(scene));
 
     return true;
 }

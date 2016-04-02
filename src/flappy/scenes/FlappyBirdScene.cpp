@@ -229,7 +229,9 @@ void FlappyBirdScene::onMenuPause(Ref* menuItem) {
         case GameScene::Status::Initialising:
             break;
         case GameScene::Status::Running:
-            GameScene::pauseScene();
+            if (onEnterMenu) {
+                onEnterMenu(this);
+            }
             break;
         case GameScene::Status::Paused:
             GameScene::resumeScene();
