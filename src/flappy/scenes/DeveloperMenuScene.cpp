@@ -31,7 +31,7 @@ MenuSlider* obstacleFrequency(GameOptions& options) {
 }
 
 MenuSlider* obstacleSpeed(GameOptions& options) {
-    const auto preferences = SliderPreferences{1.0f, 5.0f, options.obstacleSpeed, 0.1f};
+    const auto preferences = SliderPreferences{1.0f, 15.0f, options.obstacleSpeed, 0.1f};
     const auto obstacleSpeed = MenuSlider::create("Obstacle Travel Duration", preferences);
     obstacleSpeed->onValueChanged = [&](MenuSlider* slider) {
         options.obstacleSpeed = slider->value();
@@ -49,7 +49,7 @@ MenuSlider* obstacleSlowMotionScale(GameOptions& options) {
 }
 
 MenuSlider* playerSlowMotionScale(GameOptions& options) {
-    const auto preferences = SliderPreferences{0.1f, 1.0f, options.slowMotionTimeScale.player, 0.1f};
+    const auto preferences = SliderPreferences{0.1f, 5.0f, options.slowMotionTimeScale.player, 0.1f};
     const auto playerSlowMotionScale = MenuSlider::create("Player Slow Motion Speed", preferences);
     playerSlowMotionScale->onValueChanged = [&](MenuSlider* slider) {
         options.slowMotionTimeScale.player = slider->value();
