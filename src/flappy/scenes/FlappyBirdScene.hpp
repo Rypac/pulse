@@ -44,7 +44,6 @@ class FlappyBirdScene : public GameScene {
     void unscheduleObstacleGeneration();
 
     void handleGameOver();
-    void handleObstacleCollision(Obstacle* obstacle);
     void handlePassedObstacle(Obstacle* obstacle);
     void handleDefeatedObstacle(Obstacle* obstacle);
     void handleDefeatedObstacles();

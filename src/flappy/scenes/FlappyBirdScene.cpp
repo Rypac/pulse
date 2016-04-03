@@ -212,8 +212,7 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
 
 bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
     if (physics_body::collision::heroAndObstacle(contact)) {
-        const auto obstacle = *physics_body::nodeInContact(contact, physics_body::isObstacle);
-        handleObstacleCollision(static_cast<Obstacle*>(obstacle));
+        handleGameOver();
     } else if (physics_body::collision::heroAndPath(contact)) {
         const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
         const auto obstacle = static_cast<Obstacle*>(path->getParent());
@@ -225,10 +224,6 @@ bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
 void FlappyBirdScene::handleGameOver() {
     gameState.gameOver();
     stopScene();
-}
-
-void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
-    handleGameOver();
 }
 
 void FlappyBirdScene::handlePassedObstacle(Obstacle* obstacle) {
