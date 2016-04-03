@@ -30,7 +30,9 @@ bool SplashScene::init() {
     videoPlayer->setPosition(geometry::centerOf(frame));
     videoPlayer->setContentSize(Size{320, 320});
     videoPlayer->addEventListener([this](auto ref, auto eventType) {
-        if (eventType == VideoPlayer::EventType::COMPLETED) {
+        if (eventType == VideoPlayer::EventType::COMPLETED ||
+            eventType == VideoPlayer::EventType::PAUSED ||
+            eventType == VideoPlayer::EventType::STOPPED) {
             if (onSceneDismissed) {
                 onSceneDismissed(this);
             }
