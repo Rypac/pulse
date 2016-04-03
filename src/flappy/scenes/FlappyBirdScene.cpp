@@ -36,6 +36,7 @@ bool FlappyBirdScene::init() {
     addTouchListeners();
     addAccelerometerListeners();
     addCollisionListeners();
+    addGameStateListeners();
 
     return true;
 }
@@ -166,15 +167,20 @@ void FlappyBirdScene::addCollisionListeners() {
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
+void FlappyBirdScene::addGameStateListeners() {
+    gameState.onTimeModeChanged = [this](auto mode) {
+        this->updateSceneTimeScale();
+        if (mode == GameState::TimeMode::Normal) {
+            this->handleDefeatedObstacles();
+        }
+    };
+}
+
 bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
     switch (sceneStatus()) {
         case GameScene::Status::Running:
             gameState.enterMode(GameState::TimeMode::SlowMotion);
-            updateSceneTimeScale();
             return true;
-        case GameScene::Status::Paused:
-            GameScene::resumeScene();
-            return false;
         case GameScene::Status::Stopped:
             resetScene();
             return false;
@@ -184,14 +190,8 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
 }
 
 void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
-    switch (sceneStatus()) {
-        case GameScene::Status::Running:
-            gameState.enterMode(GameState::TimeMode::Normal);
-            updateSceneTimeScale();
-            handleDefeatedObstacles();
-            break;
-        default:
-            break;
+    if (sceneStatus() == GameScene::Status::Running) {
+        gameState.enterMode(GameState::TimeMode::Normal);
     }
 }
 
@@ -233,12 +233,10 @@ bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
 void FlappyBirdScene::onMenuPause(Ref* menuItem) {
     switch (sceneStatus()) {
         case GameScene::Status::Running:
+        case GameScene::Status::Stopped:
             if (onEnterMenu) {
                 onEnterMenu(this);
             }
-            break;
-        case GameScene::Status::Paused:
-            GameScene::resumeScene();
             break;
         default:
             break;

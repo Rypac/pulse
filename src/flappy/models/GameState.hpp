@@ -14,6 +14,8 @@ struct GameState {
 
     GameState(const GameOptions& options): options(options) {}
 
+    std::function<void(TimeMode)> onTimeModeChanged;
+
     int currentScore() const {
         return score;
     }
@@ -36,6 +38,9 @@ struct GameState {
 
     void enterMode(TimeMode mode) {
         timeMode = mode;
+        if (onTimeModeChanged) {
+            onTimeModeChanged(mode);
+        }
     }
 
     float playerTimeScale() const {

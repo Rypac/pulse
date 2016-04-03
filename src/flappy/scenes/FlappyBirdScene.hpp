@@ -38,6 +38,7 @@ class FlappyBirdScene : public GameScene {
     void addTouchListeners();
     void addAccelerometerListeners();
     void addCollisionListeners();
+    void addGameStateListeners();
     void updateScore();
     void updateSceneTimeScale();
     void scheduleObstacleGeneration();
