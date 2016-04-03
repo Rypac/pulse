@@ -74,8 +74,6 @@
 		81DDFE111CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
 		81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
-		81E8AFC31CAD2AC700609D88 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
-		81E8AFC41CAD2AC700609D88 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		81EB56BC1C9659F200BE36A4 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */; };
 		81EB56BE1C965A6600BE36A4 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BD1C965A6600BE36A4 /* Icon-Small@3x.png */; };
 		81EB56C01C965AB900BE36A4 /* Icon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BF1C965AB900BE36A4 /* Icon-Small-40@3x.png */; };
@@ -630,7 +628,6 @@
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
-				81E8AFC31CAD2AC700609D88 /* SplashScene.cpp in Sources */,
 				816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
@@ -645,7 +642,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
-				81E8AFC41CAD2AC700609D88 /* SplashScene.cpp in Sources */,
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
@@ -712,6 +708,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tandem.flappybird;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
@@ -753,6 +750,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tandem.flappybird;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
 				VALID_ARCHS = "arm64 armv7";
