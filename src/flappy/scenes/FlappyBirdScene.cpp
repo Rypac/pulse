@@ -17,7 +17,7 @@ using namespace cocos2d;
 using namespace flappy;
 
 FlappyBirdScene* FlappyBirdScene::create(const GameOptions& options) {
-    FlappyBirdScene *scene = new (std::nothrow) FlappyBirdScene(options);
+    FlappyBirdScene *scene = new (std::nothrow) FlappyBirdScene{options};
     if (scene && scene->init()) {
         scene->autorelease();
         return scene;
@@ -163,14 +163,11 @@ void FlappyBirdScene::addAccelerometerListeners() {
 void FlappyBirdScene::addCollisionListeners() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->onContactBegin = CC_CALLBACK_1(FlappyBirdScene::onContactBegan, this);
-    contactListener->onContactSeparate = CC_CALLBACK_1(FlappyBirdScene::onContactEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
     switch (sceneStatus()) {
-        case GameScene::Status::Initialising:
-            return false;
         case GameScene::Status::Running:
             gameState.enterMode(GameState::TimeMode::SlowMotion);
             updateSceneTimeScale();
@@ -180,6 +177,8 @@ bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
             return false;
         case GameScene::Status::Stopped:
             resetScene();
+            return false;
+        default:
             return false;
     }
 }
@@ -211,10 +210,10 @@ void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* 
             flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
             break;
         }
-        case GameScene::Status::Paused:
-            break;
         case GameScene::Status::Stopped:
             gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
+            break;
+        default:
             break;
     }
 }
@@ -231,14 +230,8 @@ bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
     return false;
 }
 
-void FlappyBirdScene::onContactEnded(PhysicsContact &contact) {
-
-}
-
 void FlappyBirdScene::onMenuPause(Ref* menuItem) {
     switch (sceneStatus()) {
-        case GameScene::Status::Initialising:
-            break;
         case GameScene::Status::Running:
             if (onEnterMenu) {
                 onEnterMenu(this);
@@ -247,8 +240,7 @@ void FlappyBirdScene::onMenuPause(Ref* menuItem) {
         case GameScene::Status::Paused:
             GameScene::resumeScene();
             break;
-        case GameScene::Status::Stopped:
-            GameScene::exitScene();
+        default:
             break;
     }
 }

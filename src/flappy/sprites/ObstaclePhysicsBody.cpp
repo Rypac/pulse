@@ -8,12 +8,19 @@ using namespace cocos2d;
 ObstaclePhysicsBody* ObstaclePhysicsBody::create(const Obstacle* obstacle) {
     ObstaclePhysicsBody *body = new (std::nothrow) ObstaclePhysicsBody(obstacle);
     if (body && body->init()) {
-        body->setState(body->currentState());
         body->autorelease();
         return body;
     }
     CC_SAFE_DELETE(body);
     return nullptr;
+}
+
+bool ObstaclePhysicsBody::init() {
+    if (!PhysicsBody::init()) {
+        return false;
+    }
+    setState(currentState());
+    return true;
 }
 
 void ObstaclePhysicsBody::pass() {

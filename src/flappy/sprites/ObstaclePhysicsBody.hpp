@@ -18,6 +18,7 @@ class ObstaclePhysicsBody : public cocos2d::PhysicsBody {
 
     static ObstaclePhysicsBody* create(const Obstacle* obstacle);
 
+    bool init() override;
     void pass();
     void defeat();
 

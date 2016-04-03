@@ -9,7 +9,7 @@ namespace flappy {
 
 class FlappyBirdScene : public GameScene {
   public:
-    FlappyBirdScene(const GameOptions& options): options(options), gameState(GameState{options}) {}
+    FlappyBirdScene(const GameOptions& options): options{options}, gameState{GameState{options}} {}
 
     static FlappyBirdScene* create(const GameOptions& options);
 
@@ -25,7 +25,6 @@ class FlappyBirdScene : public GameScene {
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
-    void onContactEnded(cocos2d::PhysicsContact& contact);
     void onMenuPause(cocos2d::Ref* menuItem);
 
     using SceneCallback = std::function<void(FlappyBirdScene* scene)>;
