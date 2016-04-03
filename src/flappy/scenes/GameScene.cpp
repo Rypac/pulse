@@ -22,43 +22,34 @@ bool GameScene::init() {
         return false;
     }
 
-    auto director = Director::getInstance();
+    const auto director = Director::getInstance();
     frame = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
-    status = Status::Initialising;
+    status = Status::Stopped;
 
     return true;
 }
 
-void GameScene::initScene() {
-    resumeScene();
+void GameScene::onEnter() {
+    Layer::onEnter();
+    runScene();
 }
 
-void GameScene::clearScene() {
+void GameScene::onExit() {
+    Layer::onExit();
     stopScene();
 }
 
-void GameScene::resetScene() {
-    clearScene();
-    initScene();
-}
-
-void GameScene::pauseScene() {
-    status = Status::Paused;
-    Director::getInstance()->pause();
-}
-
-void GameScene::resumeScene() {
+void GameScene::runScene() {
     status = Status::Running;
     Director::getInstance()->resume();
 }
 
 void GameScene::stopScene() {
-    pauseScene();
     status = Status::Stopped;
+    Director::getInstance()->pause();
 }
 
-void GameScene::exitScene() {
-    stopScene();
+void GameScene::quit() {
     Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)

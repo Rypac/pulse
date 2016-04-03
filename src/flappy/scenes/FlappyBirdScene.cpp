@@ -37,21 +37,17 @@ bool FlappyBirdScene::init() {
     addAccelerometerListeners();
     addCollisionListeners();
     addGameStateListeners();
+    setupScene();
 
     return true;
 }
 
-void FlappyBirdScene::initScene() {
-    GameScene::initScene();
-
+void FlappyBirdScene::setupScene() {
     updateScore();
-    updateSceneTimeScale();
     addFlappy();
 }
 
 void FlappyBirdScene::clearScene() {
-    GameScene::clearScene();
-
     stopAllActions();
     removeChild(flappy);
     ranges::for_each(obstacles, [this](auto obstacle) {
@@ -62,27 +58,35 @@ void FlappyBirdScene::clearScene() {
 }
 
 void FlappyBirdScene::resetScene() {
-    GameScene::resetScene();
-    scheduleObstacleGeneration();
+    stopScene();
+    clearScene();
+    setupScene();
+    runScene();
 }
 
-void FlappyBirdScene::onEnter() {
-    Node::onEnter();
+void FlappyBirdScene::runScene() {
+    GameScene::runScene();
     scheduleUpdate();
     scheduleObstacleGeneration();
+    updateSceneTimeScale();
 }
 
-void FlappyBirdScene::onExit() {
-    Node::onExit();
+void FlappyBirdScene::stopScene() {
+    GameScene::stopScene();
     unscheduleObstacleGeneration();
 }
 
 void FlappyBirdScene::addMenuOptions() {
+    const auto onPause = [this](auto ref) {
+        if (onEnterMenu) {
+            onEnterMenu(this);
+        }
+    };
     const auto pauseImage = Sprite::create();
     pauseImage->setColor(Color3B::GREEN);
     pauseImage->setContentSize(Size{40, 40});
     pauseImage->setTextureRect(pauseImage->getBoundingBox());
-    const auto pauseItem = MenuItemSprite::create(pauseImage, pauseImage, CC_CALLBACK_1(FlappyBirdScene::onMenuPause, this));
+    const auto pauseItem = MenuItemSprite::create(pauseImage, pauseImage, onPause);
     pauseItem->setAnchorPoint(Vec2{1.0, 1.0});
     pauseItem->setPosition(Vec2{frame.origin.x + frame.size.width - 15, frame.origin.y + frame.size.height - 15});
     const auto menu = Menu::create(pauseItem, nullptr);
@@ -128,14 +132,10 @@ void FlappyBirdScene::unscheduleObstacleGeneration() {
 }
 
 void FlappyBirdScene::update(float dt) {
-    if (sceneStatus() != GameScene::Status::Running) {
-        return;
-    }
-
     getScene()->getPhysicsWorld()->step(dt);
 
     if (!residesInSceneBounds(*flappy)) {
-        GameScene::stopScene();
+        stopScene();
     }
 }
 
@@ -177,15 +177,12 @@ void FlappyBirdScene::addGameStateListeners() {
 }
 
 bool FlappyBirdScene::onTouchBegan(Touch* touch, Event* event) {
-    switch (sceneStatus()) {
-        case GameScene::Status::Running:
-            gameState.enterMode(GameState::TimeMode::SlowMotion);
-            return true;
-        case GameScene::Status::Stopped:
-            resetScene();
-            return false;
-        default:
-            return false;
+    if (sceneStatus() == GameScene::Status::Running) {
+        gameState.enterMode(GameState::TimeMode::SlowMotion);
+        return true;
+    } else {
+        resetScene();
+        return false;
     }
 }
 
@@ -197,24 +194,15 @@ void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
 
 void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* event) {
     const auto currentAcceleration = Vec3(acceleration->x, acceleration->y, acceleration->z);
-    switch (sceneStatus()) {
-        case GameScene::Status::Initialising:
-            gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
-            initScene();
-            break;
-        case GameScene::Status::Running: {
-            const auto x = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
-            const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
-            auto velocity = Vec2{x, y};
-            velocity.scale(options.accelerometerSensitivity);
-            flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
-            break;
-        }
-        case GameScene::Status::Stopped:
-            gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
-            break;
-        default:
-            break;
+
+    if (sceneStatus() == GameScene::Status::Running) {
+        const auto x = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
+        const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
+        auto velocity = Vec2{x, y};
+        velocity.scale(options.accelerometerSensitivity);
+        flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
+    } else {
+        gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
     }
 }
 
@@ -230,21 +218,8 @@ bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
     return false;
 }
 
-void FlappyBirdScene::onMenuPause(Ref* menuItem) {
-    switch (sceneStatus()) {
-        case GameScene::Status::Running:
-        case GameScene::Status::Stopped:
-            if (onEnterMenu) {
-                onEnterMenu(this);
-            }
-            break;
-        default:
-            break;
-    }
-}
-
 void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
-    GameScene::stopScene();
+    stopScene();
 }
 
 void FlappyBirdScene::handlePassedObstacle(Obstacle* obstacle) {

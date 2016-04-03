@@ -14,18 +14,17 @@ class FlappyBirdScene : public GameScene {
     static FlappyBirdScene* create(const GameOptions& options);
 
     bool init() override;
-    void initScene() override;
-    void clearScene() override;
-    void resetScene() override;
+    void setupScene();
+    void clearScene();
+    void resetScene();
+    void runScene() override;
+    void stopScene() override;
     void update(float dt) override;
-    void onEnter() override;
-    void onExit() override;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
-    void onMenuPause(cocos2d::Ref* menuItem);
 
     using SceneCallback = std::function<void(FlappyBirdScene* scene)>;
     SceneCallback onEnterMenu;
