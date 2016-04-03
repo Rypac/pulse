@@ -5,10 +5,9 @@
 using namespace flappy;
 using namespace cocos2d;
 
-ObstaclePhysicsBody* ObstaclePhysicsBody::create(Obstacle* obstacle) {
-    ObstaclePhysicsBody *body = new (std::nothrow) ObstaclePhysicsBody();
+ObstaclePhysicsBody* ObstaclePhysicsBody::create(const Obstacle* obstacle) {
+    ObstaclePhysicsBody *body = new (std::nothrow) ObstaclePhysicsBody(obstacle);
     if (body && body->init()) {
-        body->obstacle = obstacle;
         body->setState(body->currentState());
         body->autorelease();
         return body;
