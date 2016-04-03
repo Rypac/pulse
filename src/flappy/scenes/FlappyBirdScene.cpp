@@ -65,6 +65,10 @@ void FlappyBirdScene::resetScene() {
 }
 
 void FlappyBirdScene::runScene() {
+    if (gameState.isGameOver()) {
+        return;
+    }
+
     GameScene::runScene();
     scheduleUpdate();
     scheduleObstacleGeneration();
@@ -135,7 +139,7 @@ void FlappyBirdScene::update(float dt) {
     getScene()->getPhysicsWorld()->step(dt);
 
     if (!residesInSceneBounds(*flappy)) {
-        stopScene();
+        handleGameOver();
     }
 }
 
@@ -218,8 +222,13 @@ bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {
     return false;
 }
 
-void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
+void FlappyBirdScene::handleGameOver() {
+    gameState.gameOver();
     stopScene();
+}
+
+void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
+    handleGameOver();
 }
 
 void FlappyBirdScene::handlePassedObstacle(Obstacle* obstacle) {

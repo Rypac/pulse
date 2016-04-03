@@ -24,6 +24,14 @@ struct GameState {
         score++;
     }
 
+    void gameOver() {
+        gameIsOver = true;
+    }
+
+    bool isGameOver() const {
+        return gameIsOver;
+    }
+
     cocos2d::Vec3 calibratedAccelerometerOffset() const {
         return accelerometerReference;
     }
@@ -54,6 +62,7 @@ struct GameState {
     void reset() {
         score = 0;
         timeMode = TimeMode::Normal;
+        gameIsOver = false;
     }
 
   private:
@@ -61,6 +70,7 @@ struct GameState {
         return timeMode == TimeMode::Normal ? normalTimeScale : options.slowMotionTimeScale;
     }
 
+    bool gameIsOver{false};
     const GameOptions& options;
     const TimeScale normalTimeScale{1.0, 1.0};
     int score{0};
