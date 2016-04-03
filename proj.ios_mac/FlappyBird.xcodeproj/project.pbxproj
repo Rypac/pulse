@@ -48,6 +48,7 @@
 		816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
+		81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81827DF61CB11AB2009EA6A7 /* Images.xcassets */; };
 		81950D351CAF82BA00230E75 /* slider_ball_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 81950D301CAF82BA00230E75 /* slider_ball_disabled.png */; };
 		81950D361CAF82BA00230E75 /* slider_ball_disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 81950D301CAF82BA00230E75 /* slider_ball_disabled.png */; };
 		81950D371CAF82BA00230E75 /* slider_ball_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 81950D311CAF82BA00230E75 /* slider_ball_normal.png */; };
@@ -172,6 +173,7 @@
 		817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleGenerator.cpp; path = flappy/generators/ObstacleGenerator.cpp; sourceTree = "<group>"; };
 		817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleGenerator.hpp; path = flappy/generators/ObstacleGenerator.hpp; sourceTree = "<group>"; };
 		817B8A3F1CA639F2003BE291 /* Generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Generator.hpp; path = flappy/generators/Generator.hpp; sourceTree = "<group>"; };
+		81827DF61CB11AB2009EA6A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = assets/Images.xcassets; sourceTree = "<group>"; };
 		81883C041CA6274A00AF5FD5 /* Direction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = flappy/utilities/Direction.hpp; sourceTree = "<group>"; };
 		81950D301CAF82BA00230E75 /* slider_ball_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_ball_disabled.png; sourceTree = "<group>"; };
 		81950D311CAF82BA00230E75 /* slider_ball_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_ball_normal.png; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				50EF629317ECD46A001EB2F8 /* Icon-Small@2x.png */,
 				81EB56BD1C965A6600BE36A4 /* Icon-Small@3x.png */,
 				5087E77C17EB970100C73F5D /* Info.plist */,
+				81827DF61CB11AB2009EA6A7 /* Images.xcassets */,
 			);
 			name = Icons;
 			path = ios;
@@ -590,6 +593,7 @@
 				81EB56BC1C9659F200BE36A4 /* Icon-60@3x.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-Small.png in Resources */,
+				81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-Small-40.png in Resources */,
 				81950D371CAF82BA00230E75 /* slider_ball_normal.png in Resources */,
 				81950D351CAF82BA00230E75 /* slider_ball_disabled.png in Resources */,
@@ -684,7 +688,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
@@ -728,7 +731,6 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
