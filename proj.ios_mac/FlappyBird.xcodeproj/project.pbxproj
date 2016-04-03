@@ -72,6 +72,8 @@
 		81DDFE0E1CAA656500B2C776 /* Pulse.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0C1CAA656500B2C776 /* Pulse.png */; };
 		81DDFE101CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
 		81DDFE111CAA6A3300B2C776 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 81DDFE0F1CAA6A3300B2C776 /* Background.png */; };
+		81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
+		81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81EB56BC1C9659F200BE36A4 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81EB56BB1C9659F200BE36A4 /* Icon-60@3x.png */; };
@@ -190,6 +192,8 @@
 		81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DeveloperMenuScene.hpp; path = flappy/scenes/DeveloperMenuScene.hpp; sourceTree = "<group>"; };
 		81DDFE0C1CAA656500B2C776 /* Pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pulse.png; sourceTree = "<group>"; };
 		81DDFE0F1CAA6A3300B2C776 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
+		81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstaclePhysicsBody.cpp; path = flappy/sprites/ObstaclePhysicsBody.cpp; sourceTree = "<group>"; };
+		81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstaclePhysicsBody.hpp; path = flappy/sprites/ObstaclePhysicsBody.hpp; sourceTree = "<group>"; };
 		81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuSlider.cpp; path = flappy/ui/MenuSlider.cpp; sourceTree = "<group>"; };
 		81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MenuSlider.hpp; path = flappy/ui/MenuSlider.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = flappy/scenes/SplashScene.cpp; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				81A319951C94F7C9005708D6 /* Obstacle.hpp */,
 				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
+				81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */,
+				81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -625,6 +631,7 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
+				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
@@ -651,6 +658,7 @@
 				81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* FlappyBirdScene.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
+				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

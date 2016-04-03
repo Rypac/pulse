@@ -6,6 +6,8 @@
 
 namespace flappy {
 
+class ObstaclePhysicsBody;
+
 class Obstacle : public cocos2d::Sprite {
   public:
     CREATE_FUNC(Obstacle);
@@ -14,10 +16,15 @@ class Obstacle : public cocos2d::Sprite {
 
     virtual bool init() override;
 
-    using ObstacleCallback = const std::function<void(Obstacle*)>;
-    void runActions(float duration, ObstacleCallback onCompletion = nullptr);
-    void runDefeatedActions(ObstacleCallback onCompletion = nullptr);
+    using ObstacleCallback = std::function<void(Obstacle*)>;
+    ObstacleCallback onCompletion;
+
+    void runActions(float duration);
+    void runDefeatedActions();
     void positionInWorld(cocos2d::Rect world);
+
+    void setPhysicsBody(ObstaclePhysicsBody* body);
+    ObstaclePhysicsBody* getPhysicsBody() const;
 
     static const int gapLength = 100;
 

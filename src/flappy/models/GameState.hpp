@@ -30,6 +30,10 @@ struct GameState {
         accelerometerReference = offset;
     }
 
+    TimeMode currentMode() const {
+        return timeMode;
+    }
+
     void enterMode(TimeMode mode) {
         timeMode = mode;
     }

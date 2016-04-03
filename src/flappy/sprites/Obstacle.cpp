@@ -1,4 +1,5 @@
 #include "flappy/sprites/Obstacle.hpp"
+#include "flappy/sprites/ObstaclePhysicsBody.hpp"
 #include "flappy/utilities/Geometry.hpp"
 
 using namespace cocos2d;
@@ -78,10 +79,10 @@ void Obstacle::positionInWorld(Rect world) {
     destination = geometry::destination(body, world, direction);
 }
 
-void Obstacle::runActions(float duration, ObstacleCallback onCompletion) {
+void Obstacle::runActions(float duration) {
     const auto moveToEdge = MoveTo::create(duration, destination);
     const auto removeFromScene = RemoveSelf::create(true);
-    const auto actionsCompleted = CallFunc::create([=]() {
+    const auto actionsCompleted = CallFunc::create([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
@@ -90,15 +91,23 @@ void Obstacle::runActions(float duration, ObstacleCallback onCompletion) {
     runAction(actions);
 }
 
-void Obstacle::runDefeatedActions(ObstacleCallback onCompletion) {
+void Obstacle::runDefeatedActions() {
     setCascadeOpacityEnabled(true);
     const auto fadeOut = FadeOut::create(0.5);
     const auto removeFromScene = RemoveSelf::create(true);
-    const auto actionsCompleted = CallFunc::create([=]() {
+    const auto actionsCompleted = CallFunc::create([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
     });
     const auto actions = Sequence::create(fadeOut, removeFromScene, actionsCompleted, nullptr);
     runAction(actions);
+}
+
+void Obstacle::setPhysicsBody(ObstaclePhysicsBody* body) {
+    Sprite::setPhysicsBody(body);
+}
+
+ObstaclePhysicsBody* Obstacle::getPhysicsBody() const {
+    return dynamic_cast<ObstaclePhysicsBody*>(Sprite::getPhysicsBody());
 }

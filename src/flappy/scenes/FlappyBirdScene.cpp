@@ -1,10 +1,13 @@
 #include <string>
 #include <range/v3/algorithm/for_each.hpp>
+#include <range/v3/view/filter.hpp>
+#include <range/v3/to_container.hpp>
 
 #include "flappy/scenes/FlappyBirdScene.hpp"
 #include "flappy/sprites/FlappyBird.hpp"
 #include "flappy/sprites/Obstacle.hpp"
 #include "flappy/sprites/SpritePhysicsBody.hpp"
+#include "flappy/sprites/ObstaclePhysicsBody.hpp"
 #include "flappy/utilities/Geometry.hpp"
 #include "flappy/utilities/Physics.hpp"
 #include "flappy/generators/ObstacleGenerator.hpp"
@@ -49,8 +52,10 @@ void FlappyBirdScene::clearScene() {
     GameScene::clearScene();
 
     stopAllActions();
-    ranges::for_each(obstacles, [this](auto obstacle) { this->removeChild(obstacle); });
     removeChild(flappy);
+    ranges::for_each(obstacles, [this](auto obstacle) {
+        this->removeChild(obstacle);
+    });
     obstacles.clear();
     gameState.reset();
 }
@@ -64,6 +69,11 @@ void FlappyBirdScene::onEnter() {
     Node::onEnter();
     scheduleUpdate();
     scheduleObstacleGeneration();
+}
+
+void FlappyBirdScene::onExit() {
+    Node::onExit();
+    unscheduleObstacleGeneration();
 }
 
 void FlappyBirdScene::addMenuOptions() {
@@ -93,27 +103,27 @@ void FlappyBirdScene::addFlappy() {
     addChild(flappy, 1);
 }
 
-void addPhysicsBodyToObstacle(const Obstacle& obstacle) {
-    obstacle.getTop()->setPhysicsBody(physics_body::createObstacle(obstacle.getTop()->getBoundingBox().size));
-    obstacle.getBottom()->setPhysicsBody(physics_body::createObstacle(obstacle.getBottom()->getBoundingBox().size));
-    obstacle.getGap()->setPhysicsBody(physics_body::createPath(obstacle.getGap()->getBoundingBox().size));
-}
-
-void FlappyBirdScene::addObstacle(float dt) {
-    const auto onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
+void FlappyBirdScene::addObstacle() {
     const auto obstacle = ObstacleGenerator{frame}.generate();
-    addPhysicsBodyToObstacle(*obstacle);
+    obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
+    obstacle->setPhysicsBody(ObstaclePhysicsBody::create(obstacle));
     addChild(obstacle);
     obstacles.emplace_back(obstacle);
-    obstacle->runActions(options.obstacleSpeed, onCompletion);
+    obstacle->runActions(options.obstacleSpeed);
 }
 
 void FlappyBirdScene::scheduleObstacleGeneration() {
     const auto delay = DelayTime::create(options.obstacleFrequency);
-    const auto generateObstacle = CallFunc::create([this]() { addObstacle(0); });
+    const auto generateObstacle = CallFunc::create([this]() { addObstacle(); });
     const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
-    const auto delayedObstacleGenerator = Sequence::create(delay, generateObstacle, reschedule, nullptr);
-    runAction(delayedObstacleGenerator);
+    obstacleGenerator = Sequence::create(delay, generateObstacle, reschedule, nullptr);
+    runAction(obstacleGenerator);
+}
+
+void FlappyBirdScene::unscheduleObstacleGeneration() {
+    if (obstacleGenerator) {
+        stopAction(obstacleGenerator);
+    }
 }
 
 void FlappyBirdScene::update(float dt) {
@@ -179,6 +189,7 @@ void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
         case GameScene::Status::Running:
             gameState.enterMode(GameState::TimeMode::Normal);
             updateSceneTimeScale();
+            handleDefeatedObstacles();
             break;
         default:
             break;
@@ -249,8 +260,25 @@ void FlappyBirdScene::handleObstacleCollision(Obstacle* obstacle) {
 void FlappyBirdScene::handlePassedObstacle(Obstacle* obstacle) {
     gameState.incrementScore();
     updateScore();
-    ranges::for_each(obstacle->getChildren(), [](const auto node) {
-        physics_body::stopCollisions(node->getPhysicsBody());
-    });
-    obstacle->runDefeatedActions([this](auto obstacle) { obstacles.remove(obstacle); });
+    obstacle->getPhysicsBody()->pass();
+
+    if (gameState.currentMode() == GameState::TimeMode::Normal) {
+        handleDefeatedObstacle(obstacle);
+    }
+}
+
+void FlappyBirdScene::handleDefeatedObstacle(Obstacle* obstacle) {
+    obstacle->getPhysicsBody()->defeat();
+    obstacle->runDefeatedActions();
+}
+
+void FlappyBirdScene::handleDefeatedObstacles() {
+    const auto obstacleWasPassed = [](Obstacle* obstacle) {
+        return obstacle->getPhysicsBody()->currentState() == ObstacleState::Passed;
+    };
+    const auto removeObstacle = [this](Obstacle* obstacle) {
+        this->handleDefeatedObstacle(obstacle);
+    };
+    const auto passedObstacles = obstacles | ranges::view::filter(obstacleWasPassed) | ranges::to_vector;
+    ranges::for_each(passedObstacles, removeObstacle);
 }
