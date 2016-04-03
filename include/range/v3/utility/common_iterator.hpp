@@ -52,9 +52,7 @@ namespace ranges
                   : basic_mixin<common_cursor>
                 {
                     mixin() = default;
-                    mixin(common_cursor pos)
-                      : basic_mixin<common_cursor>{std::move(pos)}
-                    {}
+                    using basic_mixin<common_cursor>::basic_mixin;
                     explicit mixin(I it)
                       : mixin(common_cursor{std::move(it)})
                     {}
@@ -91,7 +89,7 @@ namespace ranges
                     RANGES_ASSERT(is_sentinel());
                     return ranges::get<1>(data_);
                 }
-                CONCEPT_REQUIRES(SizedIteratorRange<I, S>() && SizedIteratorRange<I, I>())
+                CONCEPT_REQUIRES((bool)SizedIteratorRange<I, S>() && (bool)SizedIteratorRange<I, I>())
                 friend iterator_difference_t<I>
                 operator-(common_iterator<I, S> const &end, common_iterator<I, S> const &begin)
                 {
