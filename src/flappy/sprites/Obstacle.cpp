@@ -79,8 +79,18 @@ void Obstacle::positionInWorld(Rect world) {
     destination = geometry::destination(body, world, direction);
 }
 
+float durationForDirection(float duration, Direction direction) {
+    switch (direction) {
+        case Direction::North:
+        case Direction::South: return duration;
+        case Direction::East:
+        case Direction::West: return duration * 1.5;
+    }
+}
+
 void Obstacle::runActions(float duration) {
-    const auto moveToEdge = MoveTo::create(duration, destination);
+    const auto scaledDuration = durationForDirection(duration, direction);
+    const auto moveToEdge = MoveTo::create(scaledDuration, destination);
     const auto removeFromScene = RemoveSelf::create(true);
     const auto actionsCompleted = CallFunc::create([this]() {
         if (onCompletion) {
