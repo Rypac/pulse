@@ -1,4 +1,5 @@
 #include "flappy/ui/MenuSlider.hpp"
+#include "flappy/ui/Font.hpp"
 
 #include <algorithm>
 #include <iomanip>
@@ -33,7 +34,7 @@ bool MenuSlider::init(const std::string& sliderTitle, SliderPreferences sliderPr
 }
 
 void MenuSlider::addTitle(const std::string& text) {
-    title = Label::createWithTTF(text, "fonts/Arial.ttf", 24);
+    title = Label::createWithTTF(text, Font::Arial, 24);
     title->setAnchorPoint(Vec2{0, 0.5});
     addChild(title);
 }
@@ -57,7 +58,7 @@ void MenuSlider::addSlider() {
 }
 
 void MenuSlider::addCurrentValue() {
-    currentValue = Label::createWithTTF("", "fonts/Arial.ttf", 24);
+    currentValue = Label::createWithTTF("", Font::Arial, 24);
     currentValue->setAnchorPoint(Vec2{1.0, 0.5});
     addChild(currentValue);
 }

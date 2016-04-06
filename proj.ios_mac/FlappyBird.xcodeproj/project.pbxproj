@@ -42,6 +42,7 @@
 		521A8E6419F0C34300D177D7 /* Default-667h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6219F0C34300D177D7 /* Default-667h@2x.png */; };
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		816908C41C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		816908C51C93FE5C0073E4C6 /* FlappyBird.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */; };
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
@@ -165,6 +166,8 @@
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = flappy/utilities/Logger.hpp; sourceTree = "<group>"; };
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = flappy/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = flappy/models/TimeScale.hpp; sourceTree = "<group>"; };
+		814FF98B1CB5246B00820727 /* Font.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Font.hpp; path = flappy/ui/Font.hpp; sourceTree = "<group>"; };
+		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		816908C21C93FE5C0073E4C6 /* FlappyBird.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlappyBird.cpp; path = flappy/sprites/FlappyBird.cpp; sourceTree = "<group>"; };
 		816908C31C93FE5C0073E4C6 /* FlappyBird.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FlappyBird.hpp; path = flappy/sprites/FlappyBird.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = flappy/utilities/Random.hpp; sourceTree = "<group>"; };
@@ -336,6 +339,7 @@
 		46880B7519C43A67006E1F66 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				814FF98C1CB5291C00820727 /* fonts */,
 				81827DFE1CB12726009EA6A7 /* background.png */,
 				81827DFF1CB12726009EA6A7 /* pulse.png */,
 				81827DFB1CB12700009EA6A7 /* tandem_logo.mp4 */,
@@ -469,6 +473,7 @@
 			children = (
 				81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */,
 				81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */,
+				814FF98B1CB5246B00820727 /* Font.hpp */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				814FF98D1CB5291C00820727 /* fonts in Resources */,
 				5087E78117EB970100C73F5D /* Icon-60@2x.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,

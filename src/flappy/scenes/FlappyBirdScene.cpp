@@ -13,6 +13,7 @@
 #include "flappy/utilities/Geometry.hpp"
 #include "flappy/utilities/Physics.hpp"
 #include "flappy/utilities/Rotation.hpp"
+#include "flappy/ui/Font.hpp"
 
 using namespace cocos2d;
 using namespace flappy;
@@ -100,7 +101,7 @@ void FlappyBirdScene::addMenuOptions() {
 }
 
 void FlappyBirdScene::addScoreLabel() {
-    scoreLabel = Label::createWithTTF("", "fonts/Arial.ttf", 24);
+    scoreLabel = Label::createWithTTF("", Font::Arial, 24);
     scoreLabel->setAnchorPoint(Vec2{0, 1.0});
     scoreLabel->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
     addChild(scoreLabel, 1);
