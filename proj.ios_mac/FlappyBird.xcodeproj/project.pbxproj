@@ -176,6 +176,7 @@
 		81827DFB1CB12700009EA6A7 /* tandem_logo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = tandem_logo.mp4; sourceTree = "<group>"; };
 		81827DFE1CB12726009EA6A7 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		81827DFF1CB12726009EA6A7 /* pulse.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pulse.png; sourceTree = "<group>"; };
+		81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Accelerometer.hpp; path = flappy/models/Accelerometer.hpp; sourceTree = "<group>"; };
 		81883C041CA6274A00AF5FD5 /* Direction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = flappy/utilities/Direction.hpp; sourceTree = "<group>"; };
 		81950D301CAF82BA00230E75 /* slider_ball_disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_ball_disabled.png; sourceTree = "<group>"; };
 		81950D311CAF82BA00230E75 /* slider_ball_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slider_ball_normal.png; sourceTree = "<group>"; };
@@ -478,6 +479,7 @@
 				814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */,
 				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
 				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
+				81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */,
 			);
 			name = models;
 			sourceTree = "<group>";

@@ -8,9 +8,10 @@
 #include "flappy/sprites/Obstacle.hpp"
 #include "flappy/sprites/SpritePhysicsBody.hpp"
 #include "flappy/sprites/ObstaclePhysicsBody.hpp"
+#include "flappy/generators/ObstacleGenerator.hpp"
+#include "flappy/models/Accelerometer.hpp"
 #include "flappy/utilities/Geometry.hpp"
 #include "flappy/utilities/Physics.hpp"
-#include "flappy/generators/ObstacleGenerator.hpp"
 #include "flappy/utilities/Rotation.hpp"
 
 using namespace cocos2d;
@@ -197,17 +198,23 @@ void FlappyBirdScene::onTouchEnded(Touch* touch, Event* event) {
 }
 
 void FlappyBirdScene::onAccelerationDetected(Acceleration* acceleration, Event* event) {
-    const auto currentAcceleration = Vec3(acceleration->x, acceleration->y, acceleration->z);
-
-    if (sceneStatus() == GameScene::Status::Running) {
-        const auto x = rotation::roll(currentAcceleration) - gameState.calibratedAccelerometerOffset().x;
-        const auto y = rotation::pitch(currentAcceleration) - gameState.calibratedAccelerometerOffset().y;
-        auto velocity = Vec2{x, y};
-        velocity.scale(options.accelerometerSensitivity);
-        flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
-    } else {
-        gameState.calibrateAccelerometer(rotation::angle(currentAcceleration));
+    if (sceneStatus() == GameScene::Status::Stopped) {
+        return;
     }
+
+    const auto currentAcceleration = Vec3(acceleration->x, acceleration->y, acceleration->z);
+    auto& accelerometer = gameState.accelerometer();
+    if (!accelerometer.isCalibrated()) {
+        accelerometer.calibrate(rotation::angle(currentAcceleration));
+        return;
+    }
+
+    const auto offset = *accelerometer.offset();
+    const auto x = rotation::roll(currentAcceleration) - offset.x;
+    const auto y = rotation::pitch(currentAcceleration) - offset.y;
+    auto velocity = Vec2{x, y};
+    velocity.scale(options.accelerometerSensitivity);
+    flappy->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
 }
 
 bool FlappyBirdScene::onContactBegan(PhysicsContact &contact) {

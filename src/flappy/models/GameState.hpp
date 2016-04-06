@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "flappy/models/GameOptions.hpp"
+#include "flappy/models/Accelerometer.hpp"
 
 namespace flappy {
 
@@ -32,12 +33,8 @@ struct GameState {
         return gameIsOver;
     }
 
-    cocos2d::Vec3 calibratedAccelerometerOffset() const {
-        return accelerometerReference;
-    }
-
-    void calibrateAccelerometer(cocos2d::Vec3 offset) {
-        accelerometerReference = offset;
+    Accelerometer& accelerometer() {
+        return accelerometer_;
     }
 
     TimeMode currentMode() const {
@@ -63,6 +60,7 @@ struct GameState {
         score = 0;
         timeMode = TimeMode::Normal;
         gameIsOver = false;
+        accelerometer_.reset();
     }
 
   private:
@@ -75,7 +73,7 @@ struct GameState {
     const TimeScale normalTimeScale{1.0, 1.0};
     int score{0};
     TimeMode timeMode{TimeMode::Normal};
-    cocos2d::Vec3 accelerometerReference{1, 0, 1};
+    Accelerometer accelerometer_{10};
 };
 
 }
