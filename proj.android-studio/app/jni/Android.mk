@@ -12,7 +12,7 @@ LOCAL_MODULE := cocos2dcpp_shared
 
 LOCAL_MODULE_FILENAME := libcocos2dcpp
 
-LOCAL_SRC_FILES := hellocpp/main.cpp \
+LOCAL_SRC_FILES := bootstrap/main.cpp \
                    $(SRC_PATH)/AppDelegate.cpp \
                    $(SRC_PATH)/scenes/DeveloperMenuScene.cpp \
                    $(SRC_PATH)/scenes/GameScene.cpp \

@@ -4,8 +4,12 @@
 
 @implementation RootViewController
 
-- (NSUInteger)supportedInterfaceOrientations{
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (BOOL)shouldAutorotate {
@@ -19,14 +23,10 @@
     if (glview) {
         auto eaglview = (CCEAGLView*)glview->getEAGLView();
         if (eaglview) {
-            CGSize s = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
-            cocos2d::Application::getInstance()->applicationScreenSizeChanged((int) s.width, (int) s.height);
+            CGSize size = CGSizeMake([eaglview getWidth], [eaglview getHeight]);
+            cocos2d::Application::getInstance()->applicationScreenSizeChanged((int)size.width, (int)size.height);
         }
     }
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 @end
