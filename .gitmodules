@@ -4,3 +4,6 @@
 [submodule "libs/cpputils"]
 	path = libs/cpputils
 	url = git@bitbucket.org:Rypac/cpputils.git
+[submodule "libs/GSL"]
+	path = libs/GSL
+	url = https://github.com/Microsoft/GSL
