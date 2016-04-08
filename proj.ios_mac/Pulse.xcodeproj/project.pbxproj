@@ -660,8 +660,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
-					"$(SRCROOT)/../include",
 					"$(SRCROOT)/../src",
+					"$(SRCROOT)/../libs/cpputils/include",
+					"$(SRCROOT)/../libs/GSL/include",
+					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -703,8 +705,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
-					"$(SRCROOT)/../include",
 					"$(SRCROOT)/../src",
+					"$(SRCROOT)/../libs/cpputils/include",
+					"$(SRCROOT)/../libs/GSL/include",
+					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -745,8 +749,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
-					"$(SRCROOT)/../include",
 					"$(SRCROOT)/../src",
+					"$(SRCROOT)/../libs/cpputils/include",
+					"$(SRCROOT)/../libs/GSL/include",
+					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -780,8 +786,10 @@
 					"$(inherited)",
 					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
-					"$(SRCROOT)/../include",
 					"$(SRCROOT)/../src",
+					"$(SRCROOT)/../libs/cpputils/include",
+					"$(SRCROOT)/../libs/GSL/include",
+					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";

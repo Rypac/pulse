@@ -26,7 +26,10 @@ LOCAL_SRC_FILES := bootstrap/main.cpp \
                    $(SRC_PATH)/ui/MenuSlider.cpp \
                    $(SRC_PATH)/generators/ObstacleGenerator.cpp
 
-LOCAL_C_INCLUDES := $(ROOT_PATH)/src $(ROOT_PATH)/include
+LOCAL_C_INCLUDES := $(ROOT_PATH)/src \
+                    $(ROOT_PATH)/libs/cpputils/include \
+                    $(ROOT_PATH)/libs/GSL/include \
+                    $(ROOT_PATH)/libs/range-v3/include
 
 # _COCOS_HEADER_ANDROID_BEGIN
 # _COCOS_HEADER_ANDROID_END
