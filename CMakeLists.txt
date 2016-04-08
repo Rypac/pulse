@@ -40,7 +40,7 @@ set(PLATFORM_SPECIFIC_HEADERS
   proj.ios_mac/ios/AppController.h
 )
 
-set(SRC_DIR src/flappy)
+set(SRC_DIR src/pulse)
 
 include_directories(
   /usr/local/include/GLFW

@@ -1,6 +1,6 @@
-# FlappyBird
+# Pulse
 
-A simple FlappyBird clone
+A simple game ready to take on the world
 
 ## Working with submodules
 - clone: `git clone --recursive <REPOSITORY>`

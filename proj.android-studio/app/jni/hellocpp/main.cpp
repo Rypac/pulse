@@ -1,4 +1,4 @@
-#include "flappy/AppDelegate.h"
+#include "pulse/AppDelegate.h"
 #include "cocos2d.h"
 #include "platform/android/jni/JniHelper.h"
 #include <jni.h>
