@@ -6,7 +6,7 @@ namespace pulse {
 
 class Pulse : public cocos2d::Sprite {
 public:
-    CREATE_FUNC(Pulse);
+    static Pulse* create();
     static Pulse* create(cocos2d::Size size);
     static Pulse* create(cocos2d::Rect frame);
 

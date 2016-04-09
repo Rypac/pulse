@@ -13,7 +13,7 @@ SplashScene* SplashScene::create() {
         scene->autorelease();
         return scene;
     }
-    CC_SAFE_DELETE(scene);
+    delete scene;
     return nullptr;
 }
 

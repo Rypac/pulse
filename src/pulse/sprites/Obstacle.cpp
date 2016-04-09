@@ -5,6 +5,16 @@
 using namespace cocos2d;
 using namespace pulse;
 
+Obstacle* Obstacle::create() {
+    Obstacle *obstacle = new (std::nothrow) Obstacle();
+    if (obstacle && obstacle->init()) {
+        obstacle->autorelease();
+        return obstacle;
+    }
+    delete obstacle;
+    return nullptr;
+}
+
 bool Obstacle::init() {
     if (!Sprite::init()) {
         return false;

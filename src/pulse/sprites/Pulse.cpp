@@ -3,6 +3,16 @@
 using namespace cocos2d;
 using namespace pulse;
 
+Pulse* Pulse::create() {
+    Pulse *pulse = new (std::nothrow) Pulse();
+    if (pulse && pulse->init()) {
+        pulse->autorelease();
+        return pulse;
+    }
+    delete pulse;
+    return nullptr;
+}
+
 bool Pulse::init() {
     if (!Sprite::init()) {
         return false;

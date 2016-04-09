@@ -3,6 +3,16 @@
 using namespace cocos2d;
 using namespace pulse;
 
+Column* Column::create() {
+    Column *column = new (std::nothrow) Column();
+    if (column && column->init()) {
+        column->autorelease();
+        return column;
+    }
+    delete column;
+    return nullptr;
+}
+
 bool Column::init() {
     if (!Sprite::init()) {
         return false;

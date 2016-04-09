@@ -10,7 +10,7 @@ class ObstaclePhysicsBody;
 
 class Obstacle : public cocos2d::Sprite {
   public:
-    CREATE_FUNC(Obstacle);
+    static Obstacle* create();
     static Obstacle* create(cocos2d::Size frame, Direction direction);
     static Obstacle* create(float topColumnLength, float gapLength, float bottomLength, Direction direction);
 

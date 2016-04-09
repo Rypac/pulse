@@ -12,7 +12,7 @@ DeveloperMenuScene* DeveloperMenuScene::create(GameOptions& options) {
         scene->autorelease();
         return scene;
     }
-    CC_SAFE_DELETE(scene);
+    delete scene;
     return nullptr;
 }
 

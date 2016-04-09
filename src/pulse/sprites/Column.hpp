@@ -6,7 +6,7 @@ namespace pulse {
 
 class Column : public cocos2d::Sprite {
   public:
-    CREATE_FUNC(Column);
+    static Column* create();
     static Column* create(float height);
     static Column* create(cocos2d::Rect frame);
 

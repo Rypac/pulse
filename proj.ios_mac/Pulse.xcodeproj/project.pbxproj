@@ -36,9 +36,8 @@
 		812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		812BE9491CB8C3640038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
-		812BE94A1CB8C3640038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
-		812BE94C1CB8C38F0038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE94B1CB8C38F0038D730 /* videos */; };
 		812BE94D1CB8C38F0038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE94B1CB8C38F0038D730 /* videos */; };
+		812BE94E1CB8D30D0038D730 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		816908C41C93FE5C0073E4C6 /* Pulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* Pulse.cpp */; };
 		816908C51C93FE5C0073E4C6 /* Pulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* Pulse.cpp */; };
@@ -535,7 +534,6 @@
 			files = (
 				812BE9491CB8C3640038D730 /* videos in Resources */,
 				812BE9411CB8BCF60038D730 /* images in Resources */,
-				812BE94C1CB8C38F0038D730 /* videos in Resources */,
 				812BE93E1CB8BCE80038D730 /* audio in Resources */,
 				814FF98D1CB5291C00820727 /* fonts in Resources */,
 				81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */,
@@ -547,10 +545,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				812BE94D1CB8C38F0038D730 /* videos in Resources */,
-				812BE94A1CB8C3640038D730 /* videos in Resources */,
 				812BE9421CB8BCF60038D730 /* images in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				812BE93F1CB8BCE80038D730 /* audio in Resources */,
+				812BE94E1CB8D30D0038D730 /* fonts in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
