@@ -2,10 +2,10 @@
 #include "pulse/utilities/geometry.hpp"
 
 using pulse::SplashScene;
-using cocos2d::Size;
-using cocos2d::LayerColor;
 using cocos2d::Color4B;
-using cocos2d::experimental::ui::VideoPlayer;
+using cocos2d::LayerColor;
+using cocos2d::Size;
+using cocos2d::Sprite;
 
 SplashScene* SplashScene::create() {
     SplashScene *scene = new (std::nothrow) SplashScene();
@@ -25,25 +25,13 @@ bool SplashScene::init() {
     const auto background = LayerColor::create(Color4B::WHITE);
     addChild(background);
 
-    videoPlayer = VideoPlayer::create();
-    videoPlayer->setFileName("tandem_logo.mp4");
-    videoPlayer->setPosition(geometry::centerOf(frame));
-    videoPlayer->setContentSize(Size{320, 320});
-    videoPlayer->addEventListener([this](auto ref, auto eventType) {
-        if (eventType == VideoPlayer::EventType::COMPLETED ||
-            eventType == VideoPlayer::EventType::PAUSED ||
-            eventType == VideoPlayer::EventType::STOPPED) {
-            if (onSceneDismissed) {
-                onSceneDismissed(this);
-            }
-        }
-    });
-    addChild(videoPlayer, 1);
+    image = Sprite::create("images/splash/normal.png");
+    image->setPosition(geometry::centerOf(frame));
+    addChild(image, 1);
 
     return true;
 }
 
 void SplashScene::onEnter() {
     GameScene::onEnter();
-    videoPlayer->play();
 }

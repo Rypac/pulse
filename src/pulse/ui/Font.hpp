@@ -6,7 +6,7 @@
 namespace pulse {
 
 namespace Font {
-    constexpr const auto Arial = "fonts/Arial.ttf";
+    constexpr const auto Arial = "fonts/arial.ttf";
 };
 
 }

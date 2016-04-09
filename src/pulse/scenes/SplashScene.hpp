@@ -17,7 +17,7 @@ class SplashScene : public GameScene {
     SceneCallback onSceneDismissed;
 
   private:
-    cocos2d::experimental::ui::VideoPlayer* videoPlayer;
+    cocos2d::Node* image;
 };
 
 }

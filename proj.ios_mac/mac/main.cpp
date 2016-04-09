@@ -22,7 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#include "AppDelegate.h"
+#include "AppDelegate.hpp"
 #include "cocos2d.h"
 
 int main(int argc, char *argv[]) {

@@ -58,7 +58,7 @@ set(GAME_SRC
 )
 
 set(GAME_HEADERS
-  ${SRC_DIR}/AppDelegate.h
+  ${SRC_DIR}/AppDelegate.hpp
   ${SRC_DIR}/scenes/GameScene.hpp
   ${SRC_DIR}/scenes/HelloWorldScene.hpp
   ${PLATFORM_SPECIFIC_HEADERS}

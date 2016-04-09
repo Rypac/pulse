@@ -1,4 +1,4 @@
-#include "pulse/AppDelegate.h"
+#include "pulse/AppDelegate.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
@@ -56,7 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     const auto frame = glview->getFrameSize();
     director->setContentScaleFactor(contentScaleFactorForFrame(frame));
 
-    addGameScene();
+    addSplashScene();
 
     return true;
 }
@@ -70,11 +70,11 @@ void AppDelegate::applicationWillEnterForeground() {
 }
 
 void AppDelegate::addSplashScene() {
-//    const auto splashScene = SplashScene::create();
-//    splashScene->onSceneDismissed = [this](auto splashScene) {
-//        this->addGameScene();
-//    };
-//    Director::getInstance()->runWithScene(GameScene::createScene(splashScene));
+    const auto splashScene = SplashScene::create();
+    splashScene->onSceneDismissed = [this](auto splashScene) {
+        this->addGameScene();
+    };
+    Director::getInstance()->runWithScene(GameScene::createScene(splashScene));
 }
 
 void AppDelegate::addGameScene() {
