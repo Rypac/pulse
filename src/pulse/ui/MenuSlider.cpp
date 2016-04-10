@@ -1,6 +1,7 @@
 #include "pulse/ui/MenuSlider.hpp"
 #include "pulse/ui/Font.hpp"
 
+#include <algorithm>
 #include <iomanip>
 
 using namespace cocos2d;
@@ -85,13 +86,13 @@ void MenuSlider::setContentSize(const Size& frame) {
 }
 
 float MenuSlider::value() const {
-    auto&& sliderValue = preferences.range() * (slider->getPercent() / 100.0f);
+    const auto sliderValue = preferences.range() * (slider->getPercent() / 100.0f);
     return sliderValue + preferences.minimum;
 }
 
 void MenuSlider::setValue(float newValue) {
-    auto&& offset = newValue - preferences.minimum;
-    auto&& percentage = offset / preferences.range() * 100.0f;
+    const auto offset = newValue - preferences.minimum;
+    const auto percentage = offset / preferences.range() * 100.0f;
     slider->setPercent(percentage);
     updateDisplayedValue();
 }
