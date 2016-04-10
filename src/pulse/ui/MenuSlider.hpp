@@ -7,22 +7,22 @@
 namespace pulse {
 namespace ui {
 
-struct SliderPreferences {
-    float minimum;
-    float maximum;
-    float initiial;
-    float increment;
-
-    float range() const {
-        return maximum - minimum;
-    }
-};
-
 class MenuSlider : public cocos2d::Node {
   public:
-    static MenuSlider* create(const std::string& title, SliderPreferences preferences);
+    struct Preferences {
+        float minimum;
+        float maximum;
+        float initiial;
+        float increment;
 
-    bool init(const std::string& sliderTitle, SliderPreferences preferences);
+        float range() const {
+            return maximum - minimum;
+        }
+    };
+
+    static MenuSlider* create(const std::string& title, Preferences preferences);
+
+    bool init(const std::string& sliderTitle, Preferences preferences);
 
     virtual void setContentSize(const cocos2d::Size& size) override;
 
@@ -42,7 +42,7 @@ class MenuSlider : public cocos2d::Node {
     cocos2d::Label* title;
     cocos2d::Label* currentValue;
     cocos2d::ui::Slider* slider;
-    SliderPreferences preferences;
+    Preferences preferences;
 };
 
 } }

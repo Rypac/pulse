@@ -1,14 +1,13 @@
 #include "pulse/ui/MenuSlider.hpp"
 #include "pulse/ui/Font.hpp"
 
-#include <algorithm>
 #include <iomanip>
 
 using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace pulse::ui;
 
-MenuSlider* MenuSlider::create(const std::string& title, SliderPreferences preferences) {
+MenuSlider* MenuSlider::create(const std::string& title, Preferences preferences) {
     MenuSlider *menuSlider = new (std::nothrow) MenuSlider();
     if (menuSlider && menuSlider->init(title, preferences)) {
         menuSlider->autorelease();
@@ -18,14 +17,14 @@ MenuSlider* MenuSlider::create(const std::string& title, SliderPreferences prefe
     return nullptr;
 }
 
-bool MenuSlider::init(const std::string& sliderTitle, SliderPreferences sliderPreferences) {
+bool MenuSlider::init(const std::string& title, Preferences sliderPreferences) {
     if (!Node::init()) {
         return false;
     }
 
     preferences = sliderPreferences;
 
-    addTitle(sliderTitle);
+    addTitle(title);
     addSlider();
     addCurrentValue();
     reset();
