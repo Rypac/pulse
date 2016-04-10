@@ -17,7 +17,9 @@ class SplashScene : public GameScene {
     SceneCallback onSceneDismissed;
 
   private:
-    cocos2d::Node* image;
+    cocos2d::Action* splashScreenAnimation();
+
+    cocos2d::Sprite* image;
 };
 
 }

@@ -252,12 +252,12 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				46880B8319C43A87006E1F66 /* src */,
-				46880B7519C43A67006E1F66 /* resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
 				080E96DDFE201D6D7F000001 /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
-				19C28FACFE9D520D11CA2CBB /* Products */,
+				46880B7519C43A67006E1F66 /* resources */,
+				46880B8319C43A87006E1F66 /* src */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -362,10 +362,10 @@
 			children = (
 				81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */,
 				81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */,
-				46880B8619C43A87006E1F66 /* PulseGameScene.cpp */,
-				46880B8719C43A87006E1F66 /* PulseGameScene.hpp */,
 				819E29541C93C8AC00EA3D32 /* GameScene.cpp */,
 				819E29531C93C69F00EA3D32 /* GameScene.hpp */,
+				46880B8619C43A87006E1F66 /* PulseGameScene.cpp */,
+				46880B8719C43A87006E1F66 /* PulseGameScene.hpp */,
 				81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */,
 				81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */,
 			);
@@ -390,14 +390,14 @@
 			children = (
 				819E29581C93D4D700EA3D32 /* Column.cpp */,
 				819E29591C93D4D700EA3D32 /* Column.hpp */,
-				816908C21C93FE5C0073E4C6 /* Pulse.cpp */,
-				816908C31C93FE5C0073E4C6 /* Pulse.hpp */,
 				81A319941C94F7C9005708D6 /* Obstacle.cpp */,
 				81A319951C94F7C9005708D6 /* Obstacle.hpp */,
-				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
-				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 				81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */,
 				81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */,
+				816908C21C93FE5C0073E4C6 /* Pulse.cpp */,
+				816908C31C93FE5C0073E4C6 /* Pulse.hpp */,
+				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
+				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -414,9 +414,9 @@
 		81E8AFB81CAD14C400609D88 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				814FF98B1CB5246B00820727 /* Font.hpp */,
 				81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */,
 				81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */,
-				814FF98B1CB5246B00820727 /* Font.hpp */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -424,10 +424,10 @@
 		81EB56B91C96364200BE36A4 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */,
 				814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */,
 				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
 				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
-				81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */,
 			);
 			name = models;
 			sourceTree = "<group>";

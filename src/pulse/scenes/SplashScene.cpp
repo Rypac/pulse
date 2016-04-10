@@ -1,11 +1,9 @@
 #include "pulse/scenes/SplashScene.hpp"
 #include "pulse/utilities/geometry.hpp"
+#include "SimpleAudioEngine.h"
 
 using pulse::SplashScene;
-using cocos2d::Color4B;
-using cocos2d::LayerColor;
-using cocos2d::Size;
-using cocos2d::Sprite;
+using namespace cocos2d;
 
 SplashScene* SplashScene::create() {
     SplashScene *scene = new (std::nothrow) SplashScene();
@@ -25,7 +23,7 @@ bool SplashScene::init() {
     const auto background = LayerColor::create(Color4B::WHITE);
     addChild(background);
 
-    image = Sprite::create("images/splash/normal.png");
+    image = Sprite::create();
     image->setPosition(geometry::centerOf(frame));
     addChild(image, 1);
 
@@ -34,4 +32,32 @@ bool SplashScene::init() {
 
 void SplashScene::onEnter() {
     GameScene::onEnter();
+    runAction(splashScreenAnimation());
+}
+
+Action* SplashScene::splashScreenAnimation() {
+    const auto normalImage = CallFunc::create([this]() {
+        image->setTexture("images/splash/normal.png");
+    });
+    const auto winkImage = CallFunc::create([this]() {
+        image->setTexture("images/splash/wink.png");
+    });
+    const auto winkSound = CallFunc::create([this]() {
+        const auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
+        audio->playEffect("audio/splash/wink.wav", false, 1.0f, 1.0f, 1.0f);
+    });
+    const auto finish = CallFunc::create([this]() {
+        onSceneDismissed(this);
+    });
+
+    return Sequence::create(
+        normalImage,
+        DelayTime::create(1.0),
+        Spawn::createWithTwoActions(winkImage, winkSound),
+        DelayTime::create(0.5),
+        normalImage,
+        DelayTime::create(1),
+        finish,
+        nullptr
+    );
 }
