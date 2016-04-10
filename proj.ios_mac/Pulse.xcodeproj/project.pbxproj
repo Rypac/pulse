@@ -130,6 +130,7 @@
 		5087E78817EB974C00C73F5D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		81245F641CBA830400CEE0D5 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libs; path = ../libs; sourceTree = "<group>"; };
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
@@ -258,6 +259,7 @@
 				503AE10617EB990700D1A890 /* mac */,
 				46880B7519C43A67006E1F66 /* resources */,
 				46880B8319C43A87006E1F66 /* src */,
+				81245F641CBA830400CEE0D5 /* libs */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -774,12 +776,14 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -841,6 +845,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -848,12 +853,14 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ANALYZER_LOCALIZABILITY_EMPTY_CONTEXT = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_RAND = YES;
 				CLANG_ANALYZER_SECURITY_INSECUREAPI_STRCPY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
 				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_STATIC_ANALYZER_MODE = deep;
 				CLANG_WARN_ASSIGN_ENUM = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -912,6 +919,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
 			};
