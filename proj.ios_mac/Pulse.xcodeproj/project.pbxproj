@@ -640,9 +640,6 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../src",
-					"$(SRCROOT)/../libs/cpputils/include",
-					"$(SRCROOT)/../libs/GSL/include",
-					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -686,9 +683,6 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios",
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 					"$(SRCROOT)/../src",
-					"$(SRCROOT)/../libs/cpputils/include",
-					"$(SRCROOT)/../libs/GSL/include",
-					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -730,9 +724,6 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
 					"$(SRCROOT)/../src",
-					"$(SRCROOT)/../libs/cpputils/include",
-					"$(SRCROOT)/../libs/GSL/include",
-					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -767,9 +758,6 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/mac",
 					"$(SRCROOT)/../cocos2d/external/glfw3/include/mac",
 					"$(SRCROOT)/../src",
-					"$(SRCROOT)/../libs/cpputils/include",
-					"$(SRCROOT)/../libs/GSL/include",
-					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "";
@@ -845,6 +833,9 @@
 					"$(SRCROOT)/../cocos2d/extensions",
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
+					"$(SRCROOT)/../libs/cpputils/include",
+					"$(SRCROOT)/../libs/GSL/include",
+					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
@@ -913,6 +904,9 @@
 					"$(SRCROOT)/../cocos2d/extensions",
 					"$(SRCROOT)/../cocos2d/external",
 					"$(SRCROOT)/../cocos2d/external/chipmunk/include/chipmunk",
+					"$(SRCROOT)/../libs/cpputils/include",
+					"$(SRCROOT)/../libs/GSL/include",
+					"$(SRCROOT)/../libs/range-v3/include",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
