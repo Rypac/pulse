@@ -11,7 +11,7 @@ class ObstacleGenerator : public Generator<Obstacle*> {
     ObstacleGenerator() = delete;
     ObstacleGenerator(cocos2d::Rect world) : world(world) {};
 
-    virtual Obstacle* generate() const;
+    virtual Obstacle* generate() const override;
 
   private:
     cocos2d::Rect world;
