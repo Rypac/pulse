@@ -1,6 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 ROOT_PATH := $(LOCAL_PATH)/../../..
-COCOS_PATH := $(ROOT_PATH)/cocos2d
+COCOS_PATH := $(ROOT_PATH)/libs/cocos2d
 LIB_PATH := $(ROOT_PATH)/libs
 INC_PATH := $(ROOT_PATH)/src
 SRC_PATH := ../../../src

@@ -7,3 +7,6 @@
 [submodule "libs/GSL"]
 	path = libs/GSL
 	url = https://github.com/Microsoft/GSL
+[submodule "libs/cocos2d"]
+	path = libs/cocos2d
+	url = https://github.com/cocos2d/cocos2d-x.git

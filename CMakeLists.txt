@@ -2,10 +2,10 @@ cmake_policy(SET CMP0017 NEW)
 
 cmake_minimum_required(VERSION 2.8)
 
-set(APP_NAME MyGame)
+set(APP_NAME Pulse)
 project (${APP_NAME})
 
-set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/cocos2d)
+set(COCOS2D_ROOT ${CMAKE_SOURCE_DIR}/libs/cocos2d)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${COCOS2D_ROOT}/cmake/Modules/")
 include(CocosBuildHelpers)
@@ -53,14 +53,11 @@ include_directories(
 
 set(GAME_SRC
   ${SRC_DIR}/AppDelegate.cpp
-  ${SRC_DIR}/scenes/HelloWorldScene.cpp
   ${PLATFORM_SPECIFIC_SRC}
 )
 
 set(GAME_HEADERS
   ${SRC_DIR}/AppDelegate.hpp
-  ${SRC_DIR}/scenes/GameScene.hpp
-  ${SRC_DIR}/scenes/HelloWorldScene.hpp
   ${PLATFORM_SPECIFIC_HEADERS}
 )
 
