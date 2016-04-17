@@ -2,6 +2,7 @@
 #include "pulse/scenes/DeveloperMenuScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
+#include "pulse/scenes/TitleScene.hpp"
 
 #include <algorithm>
 
@@ -71,10 +72,18 @@ void AppDelegate::applicationWillEnterForeground() {
 
 void AppDelegate::addSplashScene() {
     const auto splashScene = SplashScene::create();
-    splashScene->onSceneDismissed = [this](auto splashScene) {
-        this->addGameScene();
+    splashScene->onSceneDismissed = [this](auto scene) {
+        this->addTitleScene();
     };
     Director::getInstance()->runWithScene(GameScene::createScene(splashScene));
+}
+
+void AppDelegate::addTitleScene() {
+    const auto titleScene = TitleScene::create();
+    titleScene->onSceneDismissed = [this](auto scene) {
+        this->addGameScene();
+    };
+    Director::getInstance()->replaceScene(GameScene::createScene(titleScene));
 }
 
 void AppDelegate::addGameScene() {

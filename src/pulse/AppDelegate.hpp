@@ -15,6 +15,7 @@ class AppDelegate : private cocos2d::Application {
 
   private:
     void addSplashScene();
+    void addTitleScene();
     void addGameScene();
     void addDeveloperMenuScene();
 
