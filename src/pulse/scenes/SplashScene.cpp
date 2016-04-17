@@ -23,7 +23,7 @@ bool SplashScene::init() {
     const auto background = LayerColor::create(Color4B::WHITE);
     addChild(background);
 
-    image = Sprite::create();
+    image = Sprite::create("images/splash/normal.png");
     image->setPosition(geometry::centerOf(frame));
     addChild(image, 1);
 
@@ -51,7 +51,6 @@ Action* SplashScene::splashScreenAnimation() {
     });
 
     return Sequence::create(
-        normalImage,
         DelayTime::create(1.0),
         Spawn::createWithTwoActions(winkImage, winkSound),
         DelayTime::create(0.5),
