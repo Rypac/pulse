@@ -20,21 +20,47 @@ bool TitleScene::init() {
     }
 
     title = Sprite3D::create("animations/title.c3b");
-    title->setScale(20.f);
     title->setPosition(geometry::centerOf(frame));
-    addChild(title, 1);
+    title->setScale(30.0f);
+    addChild(title);
+
+    addTouchListeners();
 
     return true;
 }
 
 void TitleScene::onEnter() {
     GameScene::onEnter();
-    title->runAction(titleScreenAnimation());
+    titleAnimation = titleScreenAnimation();
+    title->runAction(titleAnimation);
+    scheduleUpdate();
+}
+
+void TitleScene::update(float dt) {
+    titleAnimation->step(dt * animationSpeedScale);
 }
 
 Action* TitleScene::titleScreenAnimation() {
     const auto animation = Animation3D::create("animations/title.c3b");
     const auto animate = Animate3D::create(animation);
+    animate->setSpeed(0.001);
     const auto finish = CallFunc::create([this]() { onSceneDismissed(this); });
-    return Sequence::create(animate, finish, nullptr);
+    const auto delay = DelayTime::create(1.0);
+    return Sequence::create(animate, delay, finish, nullptr);
+}
+
+void TitleScene::addTouchListeners() {
+    const auto listener = EventListenerTouchOneByOne::create();
+    listener->onTouchBegan = CC_CALLBACK_2(TitleScene::onTouchBegan, this);
+    listener->onTouchEnded = CC_CALLBACK_2(TitleScene::onTouchEnded, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+}
+
+bool TitleScene::onTouchBegan(Touch *touch, Event *unused_event) {
+    animationSpeedScale = 3000.0;
+    return true;
+}
+
+void TitleScene::onTouchEnded(Touch *touch, Event *unused_event) {
+    animationSpeedScale = -1500.0;
 }
