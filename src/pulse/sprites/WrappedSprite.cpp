@@ -32,11 +32,11 @@ bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool r
         return false;
     }
 
-    setColor(Color3B::WHITE);
     setMirrorsVisible(false);
-    horizontalMirror->setColor(Color3B::RED);
-    verticalMirror->setColor(Color3B::GREEN);
-    diagonalMirror->setColor(Color3B::GREEN);
+    setColor(Color3B::WHITE);
+    horizontalMirror->setColor(Color3B::WHITE);
+    verticalMirror->setColor(Color3B::WHITE);
+    diagonalMirror->setColor(Color3B::WHITE);
     addChild(horizontalMirror);
     addChild(verticalMirror);
     addChild(diagonalMirror);
@@ -62,6 +62,32 @@ float normalisedVerticalPosition(float y, const Rect& rect, const Rect& bounds) 
     return y;
 }
 
+float mirroredHoriztonalPosition(float x, const Rect& rect, const Rect& bounds) {
+    if (rect.getMaxX() > bounds.getMaxX()) {
+        return x - bounds.size.width;
+    } else if (rect.getMinX() < bounds.getMinX()) {
+        return x + bounds.size.width;
+    }
+    return x;
+}
+
+float mirroredVerticalPosition(float y, const Rect& rect, const Rect& bounds) {
+    if (rect.getMaxY() > bounds.getMaxY()) {
+        return y - bounds.size.height;
+    } else if (rect.getMinY() < bounds.getMinY()) {
+        return y + bounds.size.height;
+    }
+    return y;
+}
+
+float exceedsHorizontalBounds(const Rect& rect, const Rect& bounds) {
+    return rect.getMaxX() > bounds.getMaxX() || rect.getMinX() < bounds.getMinX();
+}
+
+float exceedsVerticalBounds(const Rect& rect, const Rect& bounds) {
+    return rect.getMaxY() > bounds.getMaxY() || rect.getMinY() < bounds.getMinY();
+}
+
 void WrappedSprite::normalisePosition(const Rect& bounds) {
     const auto frame = getBoundingBox();
     const auto x = normalisedHoriztonalPosition(frame.getMidX(), frame, bounds);
@@ -76,27 +102,25 @@ void WrappedSprite::setPosition(float x, float y) {
         return;
     }
 
-    normalisePosition(parent->getBoundingBox());
+    const auto bounds = parent->getBoundingBox();
+    normalisePosition(bounds);
+    drawMirrors(bounds);
 }
 
-void WrappedSprite::setMirrorsPosition(float x, float y) {
-    const auto size = getContentSize();
-    const auto position = convertToNodeSpace(Vec2{x, y});
-    const auto parent = getParent();
-    const auto parentFrame = parent->getBoundingBox();
-    const auto parentCenter = Vec2{parentFrame.getMidX(), parentFrame.getMidY()};
-    const auto center = convertToNodeSpace(parentCenter);
-    const auto horizontalDiff = position.x - center.x;
-    const auto diff = (size.width + x > parentFrame.getMaxX()) ? 1 : -1;
-    const auto horizontalPosition = Vec2{position.x + parentFrame.size.width * diff, position.y};
-    horizontalMirror->setPosition(horizontalPosition);
+void WrappedSprite::drawMirrors(const Rect& bounds) {
+    const auto frame = getBoundingBox();
+    const auto mirrorX = mirroredHoriztonalPosition(frame.getMidX(), frame, bounds);
+    const auto mirrorY = mirroredVerticalPosition(frame.getMidY(), frame, bounds);
 
-    const auto verticalDiff = position.y - center.y;
-    const auto verticalPosition = Vec2{position.x, center.y - verticalDiff - size.height};
-    verticalMirror->setPosition(verticalPosition);
+    const auto convertedPosition = convertToNodeSpace(getPosition());
+    const auto mirroredPosition = convertToNodeSpace(Vec2{mirrorX, mirrorY});
+    horizontalMirror->setPosition(mirroredPosition.x, convertedPosition.y);
+    verticalMirror->setPosition(convertedPosition.x, mirroredPosition.y);
+    diagonalMirror->setPosition(mirroredPosition.x, mirroredPosition.y);
 
-    const auto diagonalPosition = Vec2{center.x - horizontalDiff, center.y - verticalDiff};
-    diagonalMirror->setPosition(diagonalPosition);
+    horizontalMirror->setVisible(exceedsHorizontalBounds(frame, bounds));
+    verticalMirror->setVisible(exceedsVerticalBounds(frame, bounds));
+    diagonalMirror->setVisible(horizontalMirror->isVisible() && verticalMirror->isVisible());
 }
 
 void WrappedSprite::setContentSize(const Size& size) {
@@ -115,9 +139,7 @@ void WrappedSprite::setTextureRect(const Rect& rect) {
 
 void WrappedSprite::setVisible(bool visible) {
     Sprite::setVisible(visible);
-    if (!visible) {
-        setMirrorsVisible(false);
-    }
+    setMirrorsVisible(visible);
 }
 
 void WrappedSprite::setMirrorsVisible(bool visible) {

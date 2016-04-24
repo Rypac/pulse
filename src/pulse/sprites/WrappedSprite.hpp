@@ -20,7 +20,7 @@ class WrappedSprite : public cocos2d::Sprite {
   private:
     void normalisePosition(const cocos2d::Rect& bounds);
     void setMirrorsVisible(bool visible);
-    void setMirrorsPosition(float x, float y);
+    void drawMirrors(const cocos2d::Rect& bounds);
 
     cocos2d::Sprite* horizontalMirror;
     cocos2d::Sprite* verticalMirror;
