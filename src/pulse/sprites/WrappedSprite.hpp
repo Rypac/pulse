@@ -15,12 +15,12 @@ class WrappedSprite : public cocos2d::Sprite {
 
     virtual void setParent(cocos2d::Node* parent) override;
     virtual void setVisible(bool visible) override;
+    virtual void setPosition(float x, float y) override;
     virtual void setContentSize(const cocos2d::Size& size) override;
+    virtual void setTextureRect(const cocos2d::Rect& rect) override;
 
-    virtual void removeFromParent() override;
     virtual void removeFromParentAndCleanup(bool cleanup) override;
-
-    virtual void update(float dt) override;
+    virtual void removeAllChildrenWithCleanup(bool cleanup) override;
 
   private:
     cocos2d::Sprite* horizontalMirror;

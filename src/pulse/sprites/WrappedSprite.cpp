@@ -1,7 +1,7 @@
 #include "pulse/sprites/WrappedSprite.hpp"
 
 using pulse::WrappedSprite;
-using cocos2d::Sprite;
+using namespace cocos2d;
 
 WrappedSprite* WrappedSprite::create() {
     WrappedSprite *sprite = new (std::nothrow) WrappedSprite();
@@ -24,33 +24,73 @@ WrappedSprite* WrappedSprite::create(const std::string& filename) {
 }
 
 bool WrappedSprite::init() {
+    horizontalMirror = Sprite::create();
+    verticalMirror = Sprite::create();
+    diagonalMirror = Sprite::create();
+
     if (!Sprite::init()) {
         return false;
     }
 
-    return true;
-}
+    setColor(Color3B::WHITE);
+    horizontalMirror->setColor(Color3B::RED);
+    verticalMirror->setColor(Color3B::GREEN);
+    diagonalMirror->setColor(Color3B::GREEN);
 
-bool WrappedSprite::initWithFile(const std::string &filename) {
-    if (!Sprite::initWithFile(filename)) {
-        return false;
-    }
-
-    horizontalMirror = Sprite::create(filename);
-    verticalMirror = Sprite::create(filename);
-    diagonalMirror = Sprite::create(filename);
-    horizontalMirror->setVisible(false);
+    horizontalMirror->setVisible(true);
     verticalMirror->setVisible(false);
     diagonalMirror->setVisible(false);
 
     return true;
 }
 
-void WrappedSprite::setContentSize(const cocos2d::Size& size) {
+bool WrappedSprite::initWithFile(const std::string &filename) {
+    horizontalMirror = Sprite::create(filename);
+    verticalMirror = Sprite::create(filename);
+    diagonalMirror = Sprite::create(filename);
+
+    if (!Sprite::initWithFile(filename)) {
+        return false;
+    }
+
+    horizontalMirror->setVisible(true);
+    verticalMirror->setVisible(false);
+    diagonalMirror->setVisible(false);
+
+    return true;
+}
+
+void WrappedSprite::setPosition(float x, float y) {
+//    log("Setting position");
+    Sprite::setPosition(x, y);
+//    horizontalMirror->setPosition(x + 30, y + 30);
+    const auto parent = getParent();
+    if (!parent) {
+        return;
+    }
+
+    const auto position = Vec2{x, y};
+    const auto worldPosition = convertToWorldSpace(position);
+    const auto parentFrame = parent->getBoundingBox();
+    const auto parentCenter = Vec2{parentFrame.getMidX(), parentFrame.getMidY()};
+    auto center = convertToNodeSpace(parentCenter);
+    const auto horizontalDiff = worldPosition.x - center.x;
+    const auto horizontalPosition = Vec2{center.x + horizontalDiff, worldPosition.y};
+    horizontalMirror->setPosition(horizontalPosition);
+}
+
+void WrappedSprite::setContentSize(const Size& size) {
     Sprite::setContentSize(size);
     horizontalMirror->setContentSize(size);
     verticalMirror->setContentSize(size);
     diagonalMirror->setContentSize(size);
+}
+
+void WrappedSprite::setTextureRect(const Rect& rect) {
+    Sprite::setTextureRect(rect);
+    horizontalMirror->setTextureRect(rect);
+    verticalMirror->setTextureRect(rect);
+    diagonalMirror->setTextureRect(rect);
 }
 
 void WrappedSprite::setVisible(bool visible) {
@@ -64,16 +104,15 @@ void WrappedSprite::setVisible(bool visible) {
 
 void WrappedSprite::setParent(cocos2d::Node* parent) {
     Sprite::setParent(parent);
-    horizontalMirror->setParent(parent);
-    verticalMirror->setParent(parent);
-    diagonalMirror->setParent(parent);
-}
-
-void WrappedSprite::removeFromParent() {
-    Sprite::removeFromParent();
-    horizontalMirror->removeFromParent();
-    verticalMirror->removeFromParent();
-    diagonalMirror->removeFromParent();
+    if (parent) {
+        parent->addChild(horizontalMirror, getLocalZOrder());
+        parent->addChild(verticalMirror, getLocalZOrder());
+        parent->addChild(diagonalMirror, getLocalZOrder());
+    } else {
+        horizontalMirror->removeFromParent();
+        verticalMirror->removeFromParent();
+        diagonalMirror->removeFromParent();
+    }
 }
 
 void WrappedSprite::removeFromParentAndCleanup(bool cleanup) {
@@ -83,6 +122,9 @@ void WrappedSprite::removeFromParentAndCleanup(bool cleanup) {
     diagonalMirror->removeFromParentAndCleanup(cleanup);
 }
 
-void WrappedSprite::update(float dt) {
-    Sprite::update(dt);
+void WrappedSprite::removeAllChildrenWithCleanup(bool cleanup) {
+    Sprite::removeAllChildrenWithCleanup(cleanup);
+    horizontalMirror->removeAllChildrenWithCleanup(cleanup);
+    verticalMirror->removeAllChildrenWithCleanup(cleanup);
+    diagonalMirror->removeAllChildrenWithCleanup(cleanup);
 }
