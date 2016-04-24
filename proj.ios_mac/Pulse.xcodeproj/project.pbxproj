@@ -29,6 +29,8 @@
 		5087E78917EB974C00C73F5D /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78817EB974C00C73F5D /* AppKit.framework */; };
 		5087E78B17EB975400C73F5D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5087E78A17EB975400C73F5D /* OpenGL.framework */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
+		81110ECE1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */; };
+		81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */; };
 		812BE93E1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE93F1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE9411CB8BCF60038D730 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9401CB8BCF60038D730 /* images */; };
@@ -134,6 +136,8 @@
 		5087E78817EB974C00C73F5D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WrappedSprite.cpp; path = pulse/sprites/WrappedSprite.cpp; sourceTree = "<group>"; };
+		81110ECD1CCCA17400BB0C9D /* WrappedSprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WrappedSprite.hpp; path = pulse/sprites/WrappedSprite.hpp; sourceTree = "<group>"; };
 		81245F641CBA830400CEE0D5 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libs; path = ../libs; sourceTree = "<group>"; };
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
@@ -417,6 +421,8 @@
 				816908C31C93FE5C0073E4C6 /* Pulse.hpp */,
 				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
+				81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */,
+				81110ECD1CCCA17400BB0C9D /* WrappedSprite.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -577,6 +583,7 @@
 				81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				81110ECE1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
@@ -602,6 +609,7 @@
 				81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
+				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				816908C51C93FE5C0073E4C6 /* Pulse.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
