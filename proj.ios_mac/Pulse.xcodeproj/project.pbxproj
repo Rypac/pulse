@@ -42,8 +42,6 @@
 		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		81563DF21CBB9ED200B303F9 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DEF1CBB9E9000B303F9 /* libcocos2d iOS.a */; };
 		81563DF51CBB9EE200B303F9 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DED1CBB9E9000B303F9 /* libcocos2d Mac.a */; };
-		816908C41C93FE5C0073E4C6 /* Pulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* Pulse.cpp */; };
-		816908C51C93FE5C0073E4C6 /* Pulse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 816908C21C93FE5C0073E4C6 /* Pulse.cpp */; };
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81827DF61CB11AB2009EA6A7 /* Images.xcassets */; };
@@ -148,8 +146,6 @@
 		814FF98B1CB5246B00820727 /* Font.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Font.hpp; path = pulse/ui/Font.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../libs/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
-		816908C21C93FE5C0073E4C6 /* Pulse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Pulse.cpp; path = pulse/sprites/Pulse.cpp; sourceTree = "<group>"; };
-		816908C31C93FE5C0073E4C6 /* Pulse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Pulse.hpp; path = pulse/sprites/Pulse.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
 		816908C71C94040A0073E4C6 /* Physics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Physics.hpp; path = pulse/utilities/Physics.hpp; sourceTree = "<group>"; };
 		817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleGenerator.cpp; path = pulse/generators/ObstacleGenerator.cpp; sourceTree = "<group>"; };
@@ -417,8 +413,6 @@
 				81A319951C94F7C9005708D6 /* Obstacle.hpp */,
 				81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */,
 				81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */,
-				816908C21C93FE5C0073E4C6 /* Pulse.cpp */,
-				816908C31C93FE5C0073E4C6 /* Pulse.hpp */,
 				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 				81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */,
@@ -588,7 +582,6 @@
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
-				816908C41C93FE5C0073E4C6 /* Pulse.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */,
@@ -611,7 +604,6 @@
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
-				816908C51C93FE5C0073E4C6 /* Pulse.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */,
 				81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,

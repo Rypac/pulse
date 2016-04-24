@@ -18,17 +18,18 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 LOCAL_SRC_FILES := \
     bootstrap/main.cpp \
     $(PULSE_PATH)/AppDelegate.cpp \
+	$(PULSE_PATH)/generators/ObstacleGenerator.cpp \
     $(PULSE_PATH)/scenes/DeveloperMenuScene.cpp \
     $(PULSE_PATH)/scenes/GameScene.cpp \
     $(PULSE_PATH)/scenes/PulseGameScene.cpp \
     $(PULSE_PATH)/scenes/SplashScene.cpp \
+	$(PULSE_PATH)/scenes/TitleScene.cpp \
     $(PULSE_PATH)/sprites/Column.cpp \
-    $(PULSE_PATH)/sprites/Pulse.cpp \
     $(PULSE_PATH)/sprites/Obstacle.cpp \
-    $(PULSE_PATH)/sprites/SpritePhysicsBody.cpp \
     $(PULSE_PATH)/sprites/ObstaclePhysicsBody.cpp \
-    $(PULSE_PATH)/ui/MenuSlider.cpp \
-    $(PULSE_PATH)/generators/ObstacleGenerator.cpp
+	$(PULSE_PATH)/sprites/SpritePhysicsBody.cpp \
+	$(PULSE_PATH)/sprites/WrappedSprite.cpp \
+    $(PULSE_PATH)/ui/MenuSlider.cpp
 
 LOCAL_C_INCLUDES := \
 	$(INC_PATH) \

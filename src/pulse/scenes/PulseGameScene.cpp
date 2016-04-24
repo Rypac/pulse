@@ -4,10 +4,10 @@
 #include <range/v3/to_container.hpp>
 
 #include "pulse/scenes/PulseGameScene.hpp"
-#include "pulse/sprites/Pulse.hpp"
 #include "pulse/sprites/Obstacle.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
+#include "pulse/sprites/WrappedSprite.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
 #include "pulse/models/Accelerometer.hpp"
 #include "pulse/utilities/Geometry.hpp"
@@ -108,7 +108,10 @@ void PulseGameScene::addScoreLabel() {
 }
 
 void PulseGameScene::addPlayer() {
-    player = Pulse::create(Size{30, 30});
+    player = WrappedSprite::create();
+    const auto size = Size{30, 30};
+    player->setContentSize(size);
+    player->setTextureRect(Rect{Vec2::ZERO, size});
     player->setPosition(geometry::centerOf(frame));
     player->setPhysicsBody(physics_body::createHero(player->getBoundingBox().size));
     addChild(player, 1);
