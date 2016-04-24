@@ -142,10 +142,6 @@ void PulseGameScene::unscheduleObstacleGeneration() {
 
 void PulseGameScene::update(float dt) {
     getScene()->getPhysicsWorld()->step(dt);
-
-    if (!residesInSceneBounds(*player)) {
-        handleGameOver();
-    }
 }
 
 void PulseGameScene::updateScore() {
