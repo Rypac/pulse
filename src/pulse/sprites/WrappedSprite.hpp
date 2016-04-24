@@ -18,6 +18,10 @@ class WrappedSprite : public cocos2d::Sprite {
     virtual void setTextureRect(const cocos2d::Rect& rect) override;
 
   private:
+    void normalisePosition(const cocos2d::Rect& bounds);
+    void setMirrorsVisible(bool visible);
+    void setMirrorsPosition(float x, float y);
+
     cocos2d::Sprite* horizontalMirror;
     cocos2d::Sprite* verticalMirror;
     cocos2d::Sprite* diagonalMirror;
