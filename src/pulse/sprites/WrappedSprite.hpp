@@ -10,17 +10,12 @@ class WrappedSprite : public cocos2d::Sprite {
     static WrappedSprite* create();
     static WrappedSprite* create(const std::string& filename);
 
-    virtual bool init() override;
-    virtual bool initWithFile(const std::string& filename) override;
+    virtual bool initWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect& rect, bool rotated) override;
 
-    virtual void setParent(cocos2d::Node* parent) override;
     virtual void setVisible(bool visible) override;
     virtual void setPosition(float x, float y) override;
     virtual void setContentSize(const cocos2d::Size& size) override;
     virtual void setTextureRect(const cocos2d::Rect& rect) override;
-
-    virtual void removeFromParentAndCleanup(bool cleanup) override;
-    virtual void removeAllChildrenWithCleanup(bool cleanup) override;
 
   private:
     cocos2d::Sprite* horizontalMirror;
