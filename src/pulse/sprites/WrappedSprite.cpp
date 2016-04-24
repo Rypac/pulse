@@ -80,12 +80,28 @@ float mirroredVerticalPosition(float y, const Rect& rect, const Rect& bounds) {
     return y;
 }
 
-float exceedsHorizontalBounds(const Rect& rect, const Rect& bounds) {
+bool exceedsHorizontalBounds(const Rect& rect, const Rect& bounds) {
     return rect.getMaxX() > bounds.getMaxX() || rect.getMinX() < bounds.getMinX();
 }
 
-float exceedsVerticalBounds(const Rect& rect, const Rect& bounds) {
+bool exceedsVerticalBounds(const Rect& rect, const Rect& bounds) {
     return rect.getMaxY() > bounds.getMaxY() || rect.getMinY() < bounds.getMinY();
+}
+
+bool exceedsBounds(const Rect& rect, const Rect& bounds) {
+    return exceedsVerticalBounds(rect, bounds) || exceedsHorizontalBounds(rect, bounds);
+}
+
+bool withinHorizontalBounds(const Rect& rect, const Rect& bounds) {
+    return rect.getMinX() > bounds.getMinX() && rect.getMaxX() < bounds.getMaxX();
+}
+
+bool withinVerticalBounds(const Rect& rect, const Rect& bounds) {
+    return rect.getMinY() > bounds.getMinY() && rect.getMaxY() < bounds.getMaxY();
+}
+
+bool withinBounds(const Rect& rect, const Rect& bounds) {
+    return withinHorizontalBounds(rect, bounds) && withinVerticalBounds(rect, bounds);
 }
 
 void WrappedSprite::normalisePosition(const Rect& bounds) {
@@ -102,9 +118,15 @@ void WrappedSprite::setPosition(float x, float y) {
         return;
     }
 
+    const auto position = convertToWorldSpace(getPosition());
+    const auto frame = Rect{position, getContentSize()};
     const auto bounds = parent->getBoundingBox();
-    normalisePosition(bounds);
-    drawMirrors(bounds);
+    if (!withinBounds(frame, bounds)) {
+        normalisePosition(bounds);
+        drawMirrors(bounds);
+    } else {
+        setMirrorsVisible(false);
+    }
 }
 
 void WrappedSprite::drawMirrors(const Rect& bounds) {
