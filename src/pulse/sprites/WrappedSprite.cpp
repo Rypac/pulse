@@ -42,40 +42,48 @@ bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool r
     return true;
 }
 
-float normalisedHoriztonalPosition(float x, const Rect& rect, const Rect& bounds) {
+float normalisedHoriztonalPosition(const Rect& rect, const Rect& bounds) {
     if (rect.getMinX() > bounds.getMaxX()) {
-        return x - bounds.size.width;
+        return rect.getMinX() - bounds.size.width;
     } else if (rect.getMaxX() < bounds.getMinX()) {
-        return x + bounds.size.width;
+        return rect.getMinX() + bounds.size.width;
     }
-    return x;
+    return rect.getMinX();
 }
 
-float normalisedVerticalPosition(float y, const Rect& rect, const Rect& bounds) {
+float normalisedVerticalPosition(const Rect& rect, const Rect& bounds) {
     if (rect.getMinY() > bounds.getMaxY()) {
-        return y - bounds.size.height;
+        return rect.getMinY() - bounds.size.height;
     } else if (rect.getMaxY() < bounds.getMinY()) {
-        return y + bounds.size.height;
+        return rect.getMinY() + bounds.size.height;
     }
-    return y;
+    return rect.getMinY();
 }
 
-float mirroredHoriztonalPosition(float x, const Rect& rect, const Rect& bounds) {
+Vec2 normalisedPosition(const Rect& body, const Rect& bounds) {
+    return Vec2{normalisedHoriztonalPosition(body, bounds), normalisedVerticalPosition(body, bounds)};
+}
+
+float mirroredHoriztonalPosition(const Rect& rect, const Rect& bounds) {
     if (rect.getMaxX() > bounds.getMaxX()) {
-        return x - bounds.size.width;
+        return rect.getMinX() - bounds.size.width;
     } else if (rect.getMinX() < bounds.getMinX()) {
-        return x + bounds.size.width;
+        return rect.getMinX() + bounds.size.width;
     }
-    return x;
+    return rect.getMinX();
 }
 
-float mirroredVerticalPosition(float y, const Rect& rect, const Rect& bounds) {
+float mirroredVerticalPosition(const Rect& rect, const Rect& bounds) {
     if (rect.getMaxY() > bounds.getMaxY()) {
-        return y - bounds.size.height;
+        return rect.getMinY() - bounds.size.height;
     } else if (rect.getMinY() < bounds.getMinY()) {
-        return y + bounds.size.height;
+        return rect.getMinY() + bounds.size.height;
     }
-    return y;
+    return rect.getMinY();
+}
+
+Vec2 mirroredPosition(const Rect& body, const Rect& bounds) {
+    return Vec2{mirroredHoriztonalPosition(body, bounds), mirroredVerticalPosition(body, bounds)};
 }
 
 bool exceedsHorizontalBounds(const Rect& rect, const Rect& bounds) {
@@ -103,9 +111,9 @@ bool withinBounds(const Rect& rect, const Rect& bounds) {
 }
 
 void WrappedSprite::normalisePosition(const Rect& bounds) {
-    const auto frame = getBoundingBox();
-    const auto x = normalisedHoriztonalPosition(frame.getMidX(), frame, bounds);
-    const auto y = normalisedVerticalPosition(frame.getMidY(), frame, bounds);
+    const auto frame = Rect{getPosition(), getBoundingBox().size};
+    const auto x = normalisedHoriztonalPosition(frame, bounds);
+    const auto y = normalisedVerticalPosition(frame, bounds);
     Sprite::setPosition(x, y);
 }
 
@@ -116,8 +124,7 @@ void WrappedSprite::setPosition(float x, float y) {
         return;
     }
 
-    const auto position = convertToWorldSpace(getPosition());
-    const auto frame = Rect{position, getContentSize()};
+    const auto frame = Rect{convertToWorldSpace(getPosition()), getBoundingBox().size};
     const auto bounds = parent->getBoundingBox();
     if (!withinBounds(frame, bounds)) {
         normalisePosition(bounds);
@@ -128,15 +135,12 @@ void WrappedSprite::setPosition(float x, float y) {
 }
 
 void WrappedSprite::drawMirrors(const Rect& bounds) {
-    const auto frame = getBoundingBox();
-    const auto mirrorX = mirroredHoriztonalPosition(frame.getMidX(), frame, bounds);
-    const auto mirrorY = mirroredVerticalPosition(frame.getMidY(), frame, bounds);
-
-    const auto convertedPosition = convertToNodeSpace(getPosition());
-    const auto mirroredPosition = convertToNodeSpace(Vec2{mirrorX, mirrorY});
-    horizontalMirror->setPosition(mirroredPosition.x, convertedPosition.y);
-    verticalMirror->setPosition(convertedPosition.x, mirroredPosition.y);
-    diagonalMirror->setPosition(mirroredPosition.x, mirroredPosition.y);
+    const auto position = getPosition();
+    const auto frame = Rect{position, getBoundingBox().size};
+    auto mirror = convertToNodeSpace(mirroredPosition(frame, bounds));
+    horizontalMirror->setPosition(mirror.x, position.y);
+    verticalMirror->setPosition(position.x, mirror.y);
+    diagonalMirror->setPosition(mirror.x, mirror.y);
 
     horizontalMirror->setVisible(exceedsHorizontalBounds(frame, bounds));
     verticalMirror->setVisible(exceedsVerticalBounds(frame, bounds));
