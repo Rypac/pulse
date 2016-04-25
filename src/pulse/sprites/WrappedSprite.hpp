@@ -19,6 +19,8 @@ class WrappedSprite : public cocos2d::Sprite {
 
     void setPhysicsBody(cocos2d::Component* physicsBody);
 
+    cocos2d::Vec2 relativeToAnchorPoint(const cocos2d::Vec2& position) const;
+
   private:
     void applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func);
     void normalisePosition(const cocos2d::Rect& bounds);

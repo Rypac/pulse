@@ -44,11 +44,14 @@ bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool r
     return true;
 }
 
+Vec2 WrappedSprite::relativeToAnchorPoint(const Vec2& position) const {
+    return position::relativeToAnchorPoint(position, getContentSize(), getAnchorPoint());
+}
+
 void WrappedSprite::normalisePosition(const Rect& bounds) {
-    const auto frame = Rect{getPosition(), getBoundingBox().size};
-    const auto x = position::normalisedHoriztonal(frame, bounds);
-    const auto y = position::normalisedVertical(frame, bounds);
-    Sprite::setPosition(x, y);
+    const auto position = position::normalised(getBoundingBox(), bounds);
+    const auto relativePosition = relativeToAnchorPoint(position);
+    Sprite::setPosition(relativePosition.x, relativePosition.y);
 }
 
 void WrappedSprite::setPosition(float x, float y) {
@@ -58,7 +61,7 @@ void WrappedSprite::setPosition(float x, float y) {
         return;
     }
 
-    const auto frame = Rect{convertToWorldSpace(getPosition()), getBoundingBox().size};
+    const auto frame = getBoundingBox();
     const auto bounds = parent->getBoundingBox();
     if (!rect::withinBounds(frame, bounds)) {
         normalisePosition(bounds);
@@ -69,12 +72,13 @@ void WrappedSprite::setPosition(float x, float y) {
 }
 
 void WrappedSprite::drawMirrors(const Rect& bounds) {
-    const auto position = getPosition();
-    const auto frame = Rect{position, getBoundingBox().size};
-    auto mirror = convertToNodeSpace(position::mirrored(frame, bounds));
-    horizontalMirror->setPosition(mirror.x, position.y);
-    verticalMirror->setPosition(position.x, mirror.y);
-    diagonalMirror->setPosition(mirror.x, mirror.y);
+    const auto frame = getBoundingBox();
+    const auto mirror = relativeToAnchorPoint(position::mirrored(frame, bounds));
+    const auto childPosition = convertToNodeSpace(getPosition());
+    const auto childMirror = convertToNodeSpace(mirror);
+    horizontalMirror->setPosition(childMirror.x, childPosition.y);
+    verticalMirror->setPosition(childPosition.x, childMirror.y);
+    diagonalMirror->setPosition(childMirror.x, childMirror.y);
 
     horizontalMirror->setVisible(rect::exceedsHorizontalBounds(frame, bounds));
     verticalMirror->setVisible(rect::exceedsVerticalBounds(frame, bounds));
