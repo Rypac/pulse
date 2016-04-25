@@ -17,7 +17,10 @@ class WrappedSprite : public cocos2d::Sprite {
     virtual void setContentSize(const cocos2d::Size& size) override;
     virtual void setTextureRect(const cocos2d::Rect& rect) override;
 
+    void setPhysicsBody(cocos2d::Component* physicsBody);
+
   private:
+    void applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func);
     void normalisePosition(const cocos2d::Rect& bounds);
     void setMirrorsVisible(bool visible);
     void drawMirrors(const cocos2d::Rect& bounds);

@@ -32,14 +32,12 @@ bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool r
         return false;
     }
 
-    setMirrorsVisible(false);
     setColor(Color3B::WHITE);
-    horizontalMirror->setColor(Color3B::WHITE);
-    verticalMirror->setColor(Color3B::WHITE);
-    diagonalMirror->setColor(Color3B::WHITE);
-    addChild(horizontalMirror);
-    addChild(verticalMirror);
-    addChild(diagonalMirror);
+    applyToMirrors([this](auto mirror) {
+        mirror->setVisible(false);
+        mirror->setColor(Color3B::WHITE);
+        addChild(mirror);
+    });
 
     return true;
 }
@@ -147,16 +145,17 @@ void WrappedSprite::drawMirrors(const Rect& bounds) {
 
 void WrappedSprite::setContentSize(const Size& size) {
     Sprite::setContentSize(size);
-    horizontalMirror->setContentSize(size);
-    verticalMirror->setContentSize(size);
-    diagonalMirror->setContentSize(size);
+    applyToMirrors([&](auto mirror) { mirror->setContentSize(size); });
 }
 
 void WrappedSprite::setTextureRect(const Rect& rect) {
     Sprite::setTextureRect(rect);
-    horizontalMirror->setTextureRect(rect);
-    verticalMirror->setTextureRect(rect);
-    diagonalMirror->setTextureRect(rect);
+    applyToMirrors([&](auto mirror) { mirror->setTextureRect(rect); });
+}
+
+void WrappedSprite::setPhysicsBody(Component *physicsBody) {
+    Sprite::setPhysicsBody(physicsBody);
+    applyToMirrors([&](auto mirror) { mirror->setPhysicsBody(physicsBody); });
 }
 
 void WrappedSprite::setVisible(bool visible) {
@@ -165,7 +164,11 @@ void WrappedSprite::setVisible(bool visible) {
 }
 
 void WrappedSprite::setMirrorsVisible(bool visible) {
-    horizontalMirror->setVisible(visible);
-    verticalMirror->setVisible(visible);
-    diagonalMirror->setVisible(visible);
+    applyToMirrors([&](auto mirror) { mirror->setVisible(visible); });
+}
+
+void WrappedSprite::applyToMirrors(const std::function<void (Sprite *)> func) {
+    func(horizontalMirror);
+    func(verticalMirror);
+    func(diagonalMirror);
 }
