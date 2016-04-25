@@ -176,6 +176,8 @@
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
 		81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SplashScene.hpp; path = pulse/scenes/SplashScene.hpp; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = pulse/models/GameState.hpp; sourceTree = "<group>"; };
+		81F6F9501CCDBA3500222C4F /* Position.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Position.hpp; path = pulse/utilities/Position.hpp; sourceTree = "<group>"; };
+		81F6F9511CCDBB3700222C4F /* Rect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rect.hpp; path = pulse/utilities/Rect.hpp; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -400,6 +402,8 @@
 				816908C71C94040A0073E4C6 /* Physics.hpp */,
 				816908C61C9401E10073E4C6 /* Random.hpp */,
 				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
+				81F6F9501CCDBA3500222C4F /* Position.hpp */,
+				81F6F9511CCDBB3700222C4F /* Rect.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";
