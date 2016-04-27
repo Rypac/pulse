@@ -5,15 +5,22 @@
 namespace pulse {
 namespace logger {
 
-void log(const cocos2d::Vec2& vec) {
+static inline void log(const char* format, ...) {
+    va_list args;
+    va_start(args, format);
+    cocos2d::log(format, args);
+    va_end(args);
+}
+
+static inline void log(const cocos2d::Vec2& vec) {
     cocos2d::log("x = %f, y = %f", vec.x, vec.y);
 }
 
-void log(const cocos2d::Size& size) {
+static inline void log(const cocos2d::Size& size) {
     cocos2d::log("width = %f, height = %f", size.width, size.height);
 }
 
-void log(const cocos2d::Rect& rect) {
+static inline void log(const cocos2d::Rect& rect) {
     logger::log(rect.origin);
     logger::log(rect.size);
 }
