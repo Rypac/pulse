@@ -1,4 +1,5 @@
 #include <string>
+#include <range/v3/algorithm/any_of.hpp>
 #include <range/v3/algorithm/for_each.hpp>
 #include <range/v3/view/filter.hpp>
 #include <range/v3/to_container.hpp>
@@ -169,6 +170,7 @@ void PulseGameScene::addAccelerometerListeners() {
 void PulseGameScene::addCollisionListeners() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->onContactBegin = CC_CALLBACK_1(PulseGameScene::onContactBegan, this);
+    contactListener->onContactPreSolve = CC_CALLBACK_2(PulseGameScene::onContactPreSolve, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
@@ -217,13 +219,25 @@ void PulseGameScene::onAccelerationDetected(Acceleration* acceleration, Event* e
     player->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
 }
 
-bool PulseGameScene::onContactBegan(PhysicsContact &contact) {
+bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
     if (physics_body::collision::heroAndObstacle(contact)) {
-        handleGameOver();
+        return true;
     } else if (physics_body::collision::heroAndPath(contact)) {
         const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
         const auto obstacle = static_cast<Obstacle*>(path->getParent());
         handlePassedObstacle(obstacle);
+    }
+    return false;
+}
+
+bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
+    if (physics_body::collision::heroAndObstacle(contact)) {
+        const auto onScreenCollision = ranges::any_of(contact.getContactData()->points, [this](auto point) {
+            return frame.containsPoint(point) && point != Vec2::ZERO;
+        });
+        if (onScreenCollision) {
+            handleGameOver();
+        }
     }
     return false;
 }

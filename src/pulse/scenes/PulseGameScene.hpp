@@ -25,6 +25,7 @@ class PulseGameScene : public GameScene {
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
+    bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
 
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;

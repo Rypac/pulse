@@ -29,17 +29,20 @@ static PhysicsBody* create(SpriteTag tag, Size size) {
     body->setGravityEnable(false);
     body->setCategoryBitmask(asBitmask(tag));
     body->setCollisionBitmask(asBitmask(SpriteTag::None));
+    body->setContactTestBitmask(asBitmask(SpriteTag::None));
     return body;
 }
 
 PhysicsBody* createHero(Size size) {
     const auto body = create(SpriteTag::Hero, size);
+    body->setCollisionBitmask(asBitmask(SpriteTag::Obstacle));
     body->setContactTestBitmask(asBitmask(SpriteTag::Obstacle) | asBitmask(SpriteTag::Path));
     return body;
 }
 
 PhysicsBody* createObstacle(Size size) {
     const auto body = create(SpriteTag::Obstacle, size);
+    body->setCollisionBitmask(asBitmask(SpriteTag::Hero));
     body->setContactTestBitmask(asBitmask(SpriteTag::Hero));
     return body;
 }
@@ -63,6 +66,7 @@ bool isPath(const PhysicsBody& body) {
 }
 
 void stopCollisions(PhysicsBody *body) {
+    body->setCollisionBitmask(asBitmask(SpriteTag::None));
     body->setContactTestBitmask(asBitmask(SpriteTag::None));
 }
 
