@@ -19,7 +19,7 @@
 using namespace cocos2d;
 using namespace pulse;
 
-PulseGameScene* PulseGameScene::create(const GameOptions& options) {
+PulseGameScene* PulseGameScene::create(GameOptions& options) {
     PulseGameScene *scene = new (std::nothrow) PulseGameScene{options};
     if (scene && scene->init()) {
         scene->autorelease();
@@ -156,6 +156,7 @@ void PulseGameScene::updateSceneTimeScale() {
 void PulseGameScene::addTouchListeners() {
     const auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = CC_CALLBACK_2(PulseGameScene::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(PulseGameScene::onTouchMoved, this);
     listener->onTouchEnded = CC_CALLBACK_2(PulseGameScene::onTouchEnded, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
@@ -190,6 +191,24 @@ bool PulseGameScene::onTouchBegan(Touch* touch, Event* event) {
     } else {
         resetScene();
         return false;
+    }
+}
+
+void PulseGameScene::onTouchMoved(Touch* touch, Event* event) {
+    if (sceneStatus() == GameScene::Status::Running) {
+        if (touch->getMaxForce() > 0) {
+            on3dTouchDetected(touch);
+        }
+    }
+}
+
+void PulseGameScene::on3dTouchDetected(Touch* touch) {
+    const auto maxForce = touch->getMaxForce();
+    const auto currentForce = touch->getCurrentForce();
+    options.slowMotionTimeScale.environment = ((maxForce - currentForce) / maxForce) + 0.1;
+    updateSceneTimeScale();
+    if (currentForce < 1.2) {
+        handleDefeatedObstacles();
     }
 }
 

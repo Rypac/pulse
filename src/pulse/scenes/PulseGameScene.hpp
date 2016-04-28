@@ -9,9 +9,9 @@ namespace pulse {
 
 class PulseGameScene : public GameScene {
   public:
-    PulseGameScene(const GameOptions& options): options{options}, gameState{GameState{options}} {}
+    PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {}
 
-    static PulseGameScene* create(const GameOptions& options);
+    static PulseGameScene* create(GameOptions& options);
 
     bool init() override;
     void setupScene();
@@ -22,7 +22,9 @@ class PulseGameScene : public GameScene {
     void update(float dt) override;
 
     bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event) override;
     void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
+    void on3dTouchDetected(cocos2d::Touch* touch);
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
@@ -49,7 +51,7 @@ class PulseGameScene : public GameScene {
     void handleDefeatedObstacle(Obstacle* obstacle);
     void handleDefeatedObstacles();
 
-    const GameOptions& options;
+    GameOptions& options;
     cocos2d::Sprite* player;
     cocos2d::Label* scoreLabel;
     cocos2d::Action* obstacleGenerator;
