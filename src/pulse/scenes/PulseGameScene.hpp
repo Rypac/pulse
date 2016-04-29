@@ -29,6 +29,7 @@ class PulseGameScene : public GameScene {
     void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
+    bool onScreenCollision(const cocos2d::PhysicsContact& contact) const;
 
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;

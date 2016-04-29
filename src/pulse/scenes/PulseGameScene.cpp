@@ -238,6 +238,12 @@ void PulseGameScene::onAccelerationDetected(Acceleration* acceleration, Event* e
     player->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
 }
 
+bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {
+    return ranges::any_of(contact.getContactData()->points, [this](auto point) {
+        return point != Vec2::ZERO && frame.containsPoint(point);
+    });
+}
+
 bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
     if (physics_body::collision::heroAndObstacle(contact)) {
         return true;
@@ -250,13 +256,8 @@ bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
 }
 
 bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
-    if (physics_body::collision::heroAndObstacle(contact)) {
-        const auto onScreenCollision = ranges::any_of(contact.getContactData()->points, [this](auto point) {
-            return frame.containsPoint(point) && point != Vec2::ZERO;
-        });
-        if (onScreenCollision) {
-            handleGameOver();
-        }
+    if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
+        handleGameOver();
     }
     return false;
 }
