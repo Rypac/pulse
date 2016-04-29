@@ -53,6 +53,16 @@ PhysicsBody* createPath(Size size) {
     return body;
 }
 
+PhysicsBody* clone(PhysicsBody* body, cocos2d::Size size) {
+    const auto clone = PhysicsBody::createBox(size);
+    clone->setDynamic(body->isDynamic());
+    clone->setGravityEnable(body->isGravityEnabled());
+    clone->setCategoryBitmask(body->getCategoryBitmask());
+    clone->setCollisionBitmask(body->getCollisionBitmask());
+    clone->setContactTestBitmask(body->getContactTestBitmask());
+    return clone;
+}
+
 bool isHero(const PhysicsBody& body) {
     return isSprite(body, SpriteTag::Hero);
 }

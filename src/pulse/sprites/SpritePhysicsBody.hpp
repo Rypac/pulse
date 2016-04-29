@@ -9,6 +9,7 @@ namespace physics_body {
 cocos2d::PhysicsBody* createHero(cocos2d::Size size);
 cocos2d::PhysicsBody* createPath(cocos2d::Size size);
 cocos2d::PhysicsBody* createObstacle(cocos2d::Size size);
+cocos2d::PhysicsBody* clone(cocos2d::PhysicsBody* body, cocos2d::Size size);
 
 bool isHero(const cocos2d::PhysicsBody& body);
 bool isPath(const cocos2d::PhysicsBody& body);
