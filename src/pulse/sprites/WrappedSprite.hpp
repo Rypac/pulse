@@ -13,10 +13,11 @@ class WrappedSprite : public cocos2d::Sprite {
 
     virtual void setVisible(bool visible) override;
     virtual void setPosition(float x, float y) override;
+    virtual void setPosition(const cocos2d::Vec2& position) override;
     virtual void setContentSize(const cocos2d::Size& size) override;
     virtual void setTextureRect(const cocos2d::Rect& rect) override;
 
-    void setPhysicsBody(cocos2d::Component* physicsBody);
+    void setPhysicsBody(cocos2d::PhysicsBody* physicsBody);
 
     cocos2d::Vec2 relativeToAnchorPoint(const cocos2d::Vec2& position) const;
 

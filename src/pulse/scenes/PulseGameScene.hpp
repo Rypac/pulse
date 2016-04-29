@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "pulse/scenes/GameScene.hpp"
 #include "pulse/sprites/Obstacle.hpp"
+#include "pulse/sprites/WrappedSprite.hpp"
 #include "pulse/models/GameState.hpp"
 
 namespace pulse {
@@ -52,7 +53,7 @@ class PulseGameScene : public GameScene {
     void handleDefeatedObstacles();
 
     GameOptions& options;
-    cocos2d::Sprite* player;
+    WrappedSprite* player;
     cocos2d::Label* scoreLabel;
     cocos2d::Action* obstacleGenerator;
     std::list<Obstacle*> obstacles;

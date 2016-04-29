@@ -1,4 +1,5 @@
 #include "pulse/sprites/WrappedSprite.hpp"
+#include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/utilities/Position.hpp"
 #include "pulse/utilities/Rect.hpp"
 
@@ -54,6 +55,10 @@ void WrappedSprite::normalisePosition(const Rect& bounds) {
     Sprite::setPosition(relativePosition.x, relativePosition.y);
 }
 
+void WrappedSprite::setPosition(const Vec2& position) {
+    setPosition(position.x, position.y);
+}
+
 void WrappedSprite::setPosition(float x, float y) {
     Sprite::setPosition(x, y);
     const auto parent = getParent();
@@ -83,6 +88,11 @@ void WrappedSprite::drawMirrors(const Rect& bounds) {
     horizontalMirror->setVisible(rect::exceedsHorizontalBounds(frame, bounds));
     verticalMirror->setVisible(rect::exceedsVerticalBounds(frame, bounds));
     diagonalMirror->setVisible(horizontalMirror->isVisible() && verticalMirror->isVisible());
+    applyToMirrors([](auto mirror) {
+        if (mirror->getPhysicsBody()) {
+            mirror->getPhysicsBody()->setEnabled(mirror->isVisible());
+        }
+    });
 }
 
 void WrappedSprite::setContentSize(const Size& size) {
@@ -95,9 +105,12 @@ void WrappedSprite::setTextureRect(const Rect& rect) {
     applyToMirrors([&](auto mirror) { mirror->setTextureRect(rect); });
 }
 
-void WrappedSprite::setPhysicsBody(Component *physicsBody) {
+void WrappedSprite::setPhysicsBody(PhysicsBody *physicsBody) {
     Sprite::setPhysicsBody(physicsBody);
-    applyToMirrors([&](auto mirror) { mirror->setPhysicsBody(physicsBody); });
+    applyToMirrors([&](auto mirror) {
+        const auto body = physics_body::clone(physicsBody, mirror->getContentSize());
+        mirror->setPhysicsBody(body);
+    });
 }
 
 void WrappedSprite::setVisible(bool visible) {
@@ -106,7 +119,12 @@ void WrappedSprite::setVisible(bool visible) {
 }
 
 void WrappedSprite::setMirrorsVisible(bool visible) {
-    applyToMirrors([&](auto mirror) { mirror->setVisible(visible); });
+    applyToMirrors([&](auto mirror) {
+        mirror->setVisible(visible);
+        if (mirror->getPhysicsBody()) {
+            mirror->getPhysicsBody()->setEnabled(visible);
+        }
+    });
 }
 
 void WrappedSprite::applyToMirrors(const std::function<void (Sprite *)> func) {
