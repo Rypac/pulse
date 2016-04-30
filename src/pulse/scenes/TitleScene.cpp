@@ -1,5 +1,5 @@
 #include "pulse/scenes/TitleScene.hpp"
-#include "pulse/utilities/geometry.hpp"
+#include "pulse/utilities/Geometry.hpp"
 
 using pulse::TitleScene;
 using namespace cocos2d;
@@ -37,10 +37,12 @@ void TitleScene::onEnter() {
 }
 
 void TitleScene::update(float dt) {
-    titleAnimation->step(dt * animationSpeedScale);
+    if (titleAnimation->getElapsed() > 0 || animationStep > 0) {
+        titleAnimation->step(dt * animationStep);
+    }
 }
 
-Action* TitleScene::titleScreenAnimation() {
+Sequence* TitleScene::titleScreenAnimation() {
     const auto animation = Animation3D::create("animations/title.c3b");
     const auto animate = Animate3D::create(animation);
     animate->setSpeed(0.001);
@@ -57,10 +59,10 @@ void TitleScene::addTouchListeners() {
 }
 
 bool TitleScene::onTouchBegan(Touch *touch, Event *unused_event) {
-    animationSpeedScale = 3000.0;
+    animationStep = 3000.0;
     return true;
 }
 
 void TitleScene::onTouchEnded(Touch *touch, Event *unused_event) {
-    animationSpeedScale = -1500.0;
+    animationStep = -1500.0;
 }

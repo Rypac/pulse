@@ -20,11 +20,11 @@ public:
 
 private:
     void addTouchListeners();
-    cocos2d::Action* titleScreenAnimation();
+    cocos2d::Sequence* titleScreenAnimation();
 
     cocos2d::Sprite3D* title;
-    cocos2d::Action* titleAnimation;
-    float animationSpeedScale;
+    cocos2d::Sequence* titleAnimation;
+    float animationStep;
 };
 
 }
