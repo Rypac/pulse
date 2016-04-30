@@ -26,12 +26,15 @@ WrappedSprite* WrappedSprite::create(const std::string& filename) {
     return nullptr;
 }
 
-bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool rotated) {
+bool WrappedSprite::initMirrors(Texture2D *texture, const Rect& rect, bool rotated) {
     horizontalMirror = Sprite::createWithTexture(texture, rect, rotated);
     verticalMirror = Sprite::createWithTexture(texture, rect, rotated);
     diagonalMirror = Sprite::createWithTexture(texture, rect, rotated);
+    return horizontalMirror && verticalMirror && diagonalMirror;
+}
 
-    if (!Sprite::initWithTexture(texture, rect, rotated)) {
+bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool rotated) {
+    if (!Sprite::initWithTexture(texture, rect, rotated) || !initMirrors(texture, rect, rotated)) {
         return false;
     }
 
