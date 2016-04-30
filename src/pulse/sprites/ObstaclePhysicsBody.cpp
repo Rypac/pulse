@@ -23,10 +23,6 @@ bool ObstaclePhysicsBody::init() {
     return true;
 }
 
-void ObstaclePhysicsBody::pass() {
-    setState(ObstacleState::Passed);
-}
-
 void ObstaclePhysicsBody::defeat() {
     setState(ObstacleState::Defeated);
 }
@@ -45,9 +41,6 @@ void ObstaclePhysicsBody::setState(ObstacleState newState) {
             applyPhysicsBody(obstacle->getTop(), physics_body::createObstacle);
             applyPhysicsBody(obstacle->getBottom(), physics_body::createObstacle);
             applyPhysicsBody(obstacle->getGap(), physics_body::createPath);
-            break;
-        case ObstacleState::Passed:
-            preventCollisions(obstacle->getGap());
             break;
         case ObstacleState::Defeated:
             preventCollisions(obstacle->getTop());
