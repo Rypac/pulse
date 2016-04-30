@@ -172,6 +172,7 @@ void PulseGameScene::addCollisionListeners() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->onContactBegin = CC_CALLBACK_1(PulseGameScene::onContactBegan, this);
     contactListener->onContactPreSolve = CC_CALLBACK_2(PulseGameScene::onContactPreSolve, this);
+    contactListener->onContactSeparate = CC_CALLBACK_1(PulseGameScene::onContactSeparate, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
@@ -245,14 +246,7 @@ bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {
 }
 
 bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
-    if (physics_body::collision::heroAndObstacle(contact)) {
-        return true;
-    } else if (physics_body::collision::heroAndPath(contact)) {
-        const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
-        const auto obstacle = static_cast<Obstacle*>(path->getParent());
-        handlePassedObstacle(obstacle);
-    }
-    return false;
+    return physics_body::collision::heroAndPath(contact) ? false : true;
 }
 
 bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
@@ -260,6 +254,14 @@ bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPr
         handleGameOver();
     }
     return false;
+}
+
+void PulseGameScene::onContactSeparate(PhysicsContact& contact) {
+    if (physics_body::collision::heroAndPath(contact)) {
+        const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
+        const auto obstacle = static_cast<Obstacle*>(path->getParent());
+        handlePassedObstacle(obstacle);
+    }
 }
 
 void PulseGameScene::handleGameOver() {
