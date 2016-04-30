@@ -101,6 +101,7 @@ void WrappedSprite::setPhysicsBody(PhysicsBody *physicsBody) {
     Sprite::setPhysicsBody(physicsBody);
     applyToMirrors([&](auto mirror) {
         const auto body = physics_body::clone(physicsBody, mirror->getContentSize());
+        body->setEnabled(mirror->isVisible());
         mirror->setPhysicsBody(body);
     });
 }
