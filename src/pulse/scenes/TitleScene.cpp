@@ -58,16 +58,12 @@ Sequence* TitleScene::titleScreenAnimation() {
 
 void TitleScene::addTouchListeners() {
     const auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(TitleScene::onTouchBegan, this);
-    listener->onTouchEnded = CC_CALLBACK_2(TitleScene::onTouchEnded, this);
+    listener->onTouchBegan = [this](auto touch, auto event) {
+        animationStep = 3000.0;
+        return true;
+    };
+    listener->onTouchEnded = [this](auto touch, auto event) {
+        animationStep = -2000.0;
+    };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-}
-
-bool TitleScene::onTouchBegan(Touch *touch, Event *unused_event) {
-    animationStep = 3000.0;
-    return true;
-}
-
-void TitleScene::onTouchEnded(Touch *touch, Event *unused_event) {
-    animationStep = -2000.0;
 }
