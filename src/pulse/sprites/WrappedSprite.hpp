@@ -9,7 +9,6 @@ class WrappedSprite : public cocos2d::Sprite {
     static WrappedSprite* create();
     static WrappedSprite* create(const std::string& filename);
 
-    virtual void setVisible(bool visible) override;
     virtual void setPosition(float x, float y) override;
     virtual void setPosition(const cocos2d::Vec2& position) override;
     virtual void setContentSize(const cocos2d::Size& size) override;
@@ -25,9 +24,6 @@ class WrappedSprite : public cocos2d::Sprite {
 
   private:
     void applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func);
-    void normalisePosition(const cocos2d::Rect& bounds);
-    void setMirrorsVisible(bool visible);
-    void drawMirrors(const cocos2d::Rect& bounds);
 
     cocos2d::Sprite* horizontalMirror;
     cocos2d::Sprite* verticalMirror;

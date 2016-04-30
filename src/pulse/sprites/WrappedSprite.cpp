@@ -52,35 +52,22 @@ Vec2 WrappedSprite::relativeToAnchorPoint(const Vec2& position) const {
     return position::relativeToAnchorPoint(position, getContentSize(), getAnchorPoint());
 }
 
-void WrappedSprite::normalisePosition(const Rect& bounds) {
-    const auto position = position::normalised(getBoundingBox(), bounds);
-    const auto relativePosition = relativeToAnchorPoint(position);
-    Sprite::setPosition(relativePosition.x, relativePosition.y);
-}
-
 void WrappedSprite::setPosition(const Vec2& position) {
     setPosition(position.x, position.y);
 }
 
 void WrappedSprite::setPosition(float x, float y) {
-    Sprite::setPosition(x, y);
     const auto parent = getParent();
     if (!parent) {
+        Sprite::setPosition(x, y);
         return;
     }
 
     const auto frame = getBoundingBox();
     const auto bounds = parent->getBoundingBox();
-    if (!rect::withinBounds(frame, bounds)) {
-        normalisePosition(bounds);
-        drawMirrors(bounds);
-    } else {
-        setMirrorsVisible(false);
-    }
-}
+    const auto position = relativeToAnchorPoint(position::normalised(frame, bounds));
+    Sprite::setPosition(position.x, position.y);
 
-void WrappedSprite::drawMirrors(const Rect& bounds) {
-    const auto frame = getBoundingBox();
     const auto mirror = relativeToAnchorPoint(position::mirrored(frame, bounds));
     const auto childPosition = convertToNodeSpace(getPosition());
     const auto childMirror = convertToNodeSpace(mirror);
@@ -113,20 +100,6 @@ void WrappedSprite::setPhysicsBody(PhysicsBody *physicsBody) {
     applyToMirrors([&](auto mirror) {
         const auto body = physics_body::clone(physicsBody, mirror->getContentSize());
         mirror->setPhysicsBody(body);
-    });
-}
-
-void WrappedSprite::setVisible(bool visible) {
-    Sprite::setVisible(visible);
-    setMirrorsVisible(visible);
-}
-
-void WrappedSprite::setMirrorsVisible(bool visible) {
-    applyToMirrors([&](auto mirror) {
-        mirror->setVisible(visible);
-        if (mirror->getPhysicsBody()) {
-            mirror->getPhysicsBody()->setEnabled(visible);
-        }
     });
 }
 
