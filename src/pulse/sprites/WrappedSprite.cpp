@@ -30,11 +30,11 @@ bool WrappedSprite::initMirrors(Texture2D *texture, const Rect& rect, bool rotat
     horizontalMirror = Sprite::createWithTexture(texture, rect, rotated);
     verticalMirror = Sprite::createWithTexture(texture, rect, rotated);
     diagonalMirror = Sprite::createWithTexture(texture, rect, rotated);
-    return horizontalMirror && verticalMirror && diagonalMirror;
+    return horizontalMirror != nullptr && verticalMirror != nullptr && diagonalMirror != nullptr;
 }
 
 bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool rotated) {
-    if (!Sprite::initWithTexture(texture, rect, rotated) || !initMirrors(texture, rect, rotated)) {
+    if (!(initMirrors(texture, rect, rotated) && Sprite::initWithTexture(texture, rect, rotated))) {
         return false;
     }
 
