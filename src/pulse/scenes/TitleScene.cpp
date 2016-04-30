@@ -31,14 +31,20 @@ bool TitleScene::init() {
 
 void TitleScene::onEnter() {
     GameScene::onEnter();
+    animationStep = 0;
     titleAnimation = titleScreenAnimation();
     title->runAction(titleAnimation);
     scheduleUpdate();
 }
 
 void TitleScene::update(float dt) {
-    if (titleAnimation->getElapsed() > 0 || animationStep > 0) {
-        titleAnimation->step(dt * animationStep);
+    const auto elapsed = titleAnimation->getElapsed() / titleAnimation->getDuration();
+    if (elapsed > 0 || animationStep > 0) {
+        const auto easeOut = [](auto elapsed) { return 1.0 - elapsed + 0.2; };
+        const auto animationCurve = animationStep > 0 ? easeOut(elapsed) : 1.0;
+        float step = dt * animationStep * animationCurve;
+        const auto remaining = titleAnimation->getDuration() - titleAnimation->getElapsed();
+        titleAnimation->step(std::min(remaining, step));
     }
 }
 
@@ -64,5 +70,5 @@ bool TitleScene::onTouchBegan(Touch *touch, Event *unused_event) {
 }
 
 void TitleScene::onTouchEnded(Touch *touch, Event *unused_event) {
-    animationStep = -1500.0;
+    animationStep = -2000.0;
 }
