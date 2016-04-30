@@ -73,7 +73,7 @@ struct GameState {
     const TimeScale normalTimeScale{1.0, 1.0};
     int score{0};
     TimeMode timeMode{TimeMode::Normal};
-    Accelerometer accelerometer_{10};
+    Accelerometer accelerometer_{20};
 };
 
 }
