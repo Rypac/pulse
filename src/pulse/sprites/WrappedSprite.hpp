@@ -14,6 +14,8 @@ class WrappedSprite : public cocos2d::Sprite {
     virtual void setContentSize(const cocos2d::Size& size) override;
     virtual void setTextureRect(const cocos2d::Rect& rect) override;
 
+    void normalisePositionInBounds(const cocos2d::Rect& bounds);
+
     void setPhysicsBody(cocos2d::PhysicsBody* physicsBody);
 
     cocos2d::Vec2 relativeToAnchorPoint(const cocos2d::Vec2& position) const;

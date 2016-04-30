@@ -57,14 +57,16 @@ void WrappedSprite::setPosition(const Vec2& position) {
 }
 
 void WrappedSprite::setPosition(float x, float y) {
+    Sprite::setPosition(x, y);
     const auto parent = getParent();
-    if (!parent) {
-        Sprite::setPosition(x, y);
+    if (parent != nullptr) {
+        normalisePositionInBounds(parent->getBoundingBox());
         return;
     }
+}
 
+void WrappedSprite::normalisePositionInBounds(const Rect& bounds) {
     const auto frame = getBoundingBox();
-    const auto bounds = parent->getBoundingBox();
     const auto position = relativeToAnchorPoint(position::normalised(frame, bounds));
     Sprite::setPosition(position.x, position.y);
 
@@ -79,7 +81,7 @@ void WrappedSprite::setPosition(float x, float y) {
     verticalMirror->setVisible(rect::exceedsVerticalBounds(frame, bounds));
     diagonalMirror->setVisible(horizontalMirror->isVisible() && verticalMirror->isVisible());
     applyToMirrors([](auto mirror) {
-        if (mirror->getPhysicsBody()) {
+        if (mirror->getPhysicsBody() != nullptr) {
             mirror->getPhysicsBody()->setEnabled(mirror->isVisible());
         }
     });
