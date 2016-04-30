@@ -53,8 +53,7 @@ Sequence* TitleScene::titleScreenAnimation() {
     const auto animate = Animate3D::create(animation);
     animate->setSpeed(0.001);
     const auto finish = CallFunc::create([this]() { onSceneDismissed(this); });
-    const auto delay = DelayTime::create(1.0);
-    return Sequence::create(animate, delay, finish, nullptr);
+    return Sequence::create(animate, finish, nullptr);
 }
 
 void TitleScene::addTouchListeners() {
