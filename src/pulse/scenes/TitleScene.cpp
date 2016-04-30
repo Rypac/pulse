@@ -40,7 +40,7 @@ void TitleScene::onEnter() {
 void TitleScene::update(float dt) {
     const auto elapsed = titleAnimation->getElapsed() / titleAnimation->getDuration();
     if (elapsed > 0 || animationStep > 0) {
-        const auto easeOut = [](auto elapsed) { return 1.0 - elapsed + 0.2; };
+        const auto easeOut = [](auto elapsed) { return 1.0 - elapsed + 0.25; };
         const auto animationCurve = animationStep > 0 ? easeOut(elapsed) : 1.0;
         float step = dt * animationStep * animationCurve;
         const auto remaining = titleAnimation->getDuration() - titleAnimation->getElapsed();
@@ -63,7 +63,7 @@ void TitleScene::addTouchListeners() {
         return true;
     };
     listener->onTouchEnded = [this](auto touch, auto event) {
-        animationStep = -2000.0;
+        animationStep = -3000.0;
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
