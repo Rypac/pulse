@@ -51,8 +51,6 @@ class PulseGameScene : public GameScene {
 
     void handleGameOver();
     void handlePassedObstacle(Obstacle* obstacle);
-    void handleDefeatedObstacle(Obstacle* obstacle);
-    void handleDefeatedObstacles();
 
     GameOptions& options;
     WrappedSprite* player;

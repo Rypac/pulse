@@ -1,8 +1,6 @@
 #include <string>
 #include <range/v3/algorithm/any_of.hpp>
 #include <range/v3/algorithm/for_each.hpp>
-#include <range/v3/view/filter.hpp>
-#include <range/v3/to_container.hpp>
 
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/sprites/Obstacle.hpp"
@@ -179,9 +177,6 @@ void PulseGameScene::addCollisionListeners() {
 void PulseGameScene::addGameStateListeners() {
     gameState.onTimeModeChanged = [this](auto mode) {
         this->updateSceneTimeScale();
-        if (mode == GameState::TimeMode::Normal) {
-            this->handleDefeatedObstacles();
-        }
     };
 }
 
@@ -208,9 +203,6 @@ void PulseGameScene::on3dTouchDetected(Touch* touch) {
     const auto currentForce = touch->getCurrentForce();
     options.slowMotionTimeScale.environment = ((maxForce - currentForce) / maxForce) + 0.1;
     updateSceneTimeScale();
-    if (currentForce < 1.2) {
-        handleDefeatedObstacles();
-    }
 }
 
 void PulseGameScene::onTouchEnded(Touch* touch, Event* event) {
@@ -272,25 +264,6 @@ void PulseGameScene::handleGameOver() {
 void PulseGameScene::handlePassedObstacle(Obstacle* obstacle) {
     gameState.incrementScore();
     updateScore();
-    obstacle->getPhysicsBody()->pass();
-
-    if (gameState.currentMode() == GameState::TimeMode::Normal) {
-        handleDefeatedObstacle(obstacle);
-    }
-}
-
-void PulseGameScene::handleDefeatedObstacle(Obstacle* obstacle) {
     obstacle->getPhysicsBody()->defeat();
     obstacle->runDefeatedActions();
-}
-
-void PulseGameScene::handleDefeatedObstacles() {
-    const auto obstacleWasPassed = [](Obstacle* obstacle) {
-        return obstacle->getPhysicsBody()->currentState() == ObstacleState::Passed;
-    };
-    const auto removeObstacle = [this](Obstacle* obstacle) {
-        this->handleDefeatedObstacle(obstacle);
-    };
-    const auto passedObstacles = obstacles | ranges::view::filter(obstacleWasPassed) | ranges::to_vector;
-    ranges::for_each(passedObstacles, removeObstacle);
 }
