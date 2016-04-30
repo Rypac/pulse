@@ -32,6 +32,7 @@ bool PulseGameScene::init() {
         return false;
     }
 
+    addBackground();
     addMenuOptions();
     addScoreLabel();
     addTouchListeners();
@@ -79,6 +80,13 @@ void PulseGameScene::runScene() {
 void PulseGameScene::stopScene() {
     GameScene::stopScene();
     unscheduleObstacleGeneration();
+}
+
+void PulseGameScene::addBackground() {
+    background = Sprite3D::create("images/background/Background.c3b");
+    background->setPosition(geometry::centerOf(frame));
+    background->setScale(25.0);
+    addChild(background, -1);
 }
 
 void PulseGameScene::addMenuOptions() {

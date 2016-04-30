@@ -36,6 +36,7 @@ class PulseGameScene : public GameScene {
     SceneCallback onEnterMenu;
 
   private:
+    void addBackground();
     void addMenuOptions();
     void addScoreLabel();
     void addPlayer();
@@ -54,6 +55,7 @@ class PulseGameScene : public GameScene {
 
     GameOptions& options;
     WrappedSprite* player;
+    cocos2d::Sprite3D* background;
     cocos2d::Label* scoreLabel;
     cocos2d::Action* obstacleGenerator;
     std::list<Obstacle*> obstacles;
