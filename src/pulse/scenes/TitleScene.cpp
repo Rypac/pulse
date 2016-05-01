@@ -21,7 +21,7 @@ bool TitleScene::init() {
 
     title = Sprite3D::create("animations/title.c3b");
     title->setPosition(geometry::centerOf(frame));
-    title->setScale(30.0f);
+    title->setScale(35);
     addChild(title);
 
     addTouchListeners();
