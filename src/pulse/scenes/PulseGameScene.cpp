@@ -83,9 +83,8 @@ void PulseGameScene::stopScene() {
 }
 
 void PulseGameScene::addBackground() {
-    background = Sprite3D::create("images/background/Background.c3b");
+    const auto background = Sprite::create("background/level.png");
     background->setPosition(geometry::centerOf(frame));
-    background->setScale(25.0);
     addChild(background, -1);
 }
 
