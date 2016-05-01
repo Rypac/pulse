@@ -64,6 +64,8 @@
 		81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
+		81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
+		81E8F3C01CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
@@ -175,6 +177,8 @@
 		81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MenuSlider.hpp; path = pulse/ui/MenuSlider.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
 		81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SplashScene.hpp; path = pulse/scenes/SplashScene.hpp; sourceTree = "<group>"; };
+		81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Resolution.cpp; path = pulse/models/Resolution.cpp; sourceTree = "<group>"; };
+		81E8F3BE1CD5D9F200DC1689 /* Resolution.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Resolution.hpp; path = pulse/models/Resolution.hpp; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = pulse/models/GameState.hpp; sourceTree = "<group>"; };
 		81F6F9501CCDBA3500222C4F /* Position.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Position.hpp; path = pulse/utilities/Position.hpp; sourceTree = "<group>"; };
 		81F6F9511CCDBB3700222C4F /* Rect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rect.hpp; path = pulse/utilities/Rect.hpp; sourceTree = "<group>"; };
@@ -441,6 +445,8 @@
 				81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */,
 				814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */,
 				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
+				81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */,
+				81E8F3BE1CD5D9F200DC1689 /* Resolution.hpp */,
 				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
 			);
 			name = models;
@@ -588,6 +594,7 @@
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
 				812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */,
 				81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				81C44A461CC311D7006D6F0F /* TitleScene.cpp in Sources */,
@@ -609,6 +616,7 @@
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
+				81E8F3C01CD5D9F200DC1689 /* Resolution.cpp in Sources */,
 				812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */,
 				81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				81C44A471CC311D7006D6F0F /* TitleScene.cpp in Sources */,

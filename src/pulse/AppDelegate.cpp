@@ -1,4 +1,5 @@
 #include "pulse/AppDelegate.hpp"
+#include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
@@ -7,18 +8,6 @@
 using namespace cocos2d;
 using namespace pulse;
 
-struct Resolution {
-    Size size;
-    std::string path;
-};
-
-namespace DisplayResolution {
-    static const auto Small = Resolution{Size{960, 540}, "small"};
-    static const auto Medium = Resolution{Size{1280, 720}, "medium"};
-    static const auto Large = Resolution{Size{1920, 1080}, "large"};
-    static const auto ExtraLarge = Resolution{Size{2560, 1440}, "extra_large"};
-}
-
 AppDelegate::AppDelegate() {}
 
 AppDelegate::~AppDelegate() {}
@@ -26,28 +15,6 @@ AppDelegate::~AppDelegate() {}
 void AppDelegate::initGLContextAttrs() {
     GLContextAttrs glContextAttrs{8, 8, 8, 8, 24, 8};
     GLView::setGLContextAttrs(glContextAttrs);
-}
-
-Resolution displayResolutionForFrame(Size frame) {
-    if (frame.height > DisplayResolution::Large.size.height) {
-        return DisplayResolution::ExtraLarge;
-    } else if (frame.height > DisplayResolution::Medium.size.height) {
-        return DisplayResolution::Large;
-    } else if (frame.height > DisplayResolution::Small.size.height) {
-        return DisplayResolution::Medium;
-    } else {
-        return DisplayResolution::Small;
-    }
-}
-
-float contentScaleFactor(Resolution resolution, Resolution designResolution) {
-    const auto scaledHeight = resolution.size.height / designResolution.size.height;
-    const auto scaledWidth = resolution.size.width / designResolution.size.width;
-    return std::min(scaledHeight, scaledWidth);
-}
-
-std::vector<std::string> imageSearchPaths(Resolution resolution) {
-    return {"images/" + resolution.path};
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
@@ -61,12 +28,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setDisplayStats(false);
     director->setAnimationInterval(1.0 / 60);
 
-    const auto designResolution = DisplayResolution::Medium;
+    const auto designResolution = Resolution::design();
     glview->setDesignResolutionSize(designResolution.size.width, designResolution.size.height, ResolutionPolicy::FIXED_HEIGHT);
 
-    const auto displayResolution = displayResolutionForFrame(glview->getFrameSize());
-    director->setContentScaleFactor(contentScaleFactor(displayResolution, designResolution));
-    FileUtils::getInstance()->setSearchPaths(imageSearchPaths(displayResolution));
+    const auto displayResolution = Resolution::forFrame(glview->getFrameSize());
+    director->setContentScaleFactor(displayResolution.contentScaleFactor());
+    FileUtils::getInstance()->setSearchPaths(displayResolution.resourceSearchPaths());
 
     addSplashScene();
 
