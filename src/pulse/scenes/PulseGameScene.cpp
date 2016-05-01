@@ -108,7 +108,7 @@ void PulseGameScene::addMenuOptions() {
 }
 
 void PulseGameScene::addScoreLabel() {
-    scoreLabel = Label::createWithTTF("", Font::Arial, 24);
+    scoreLabel = Label::createWithTTF("", Font::Arial, 28);
     scoreLabel->setAnchorPoint(Vec2{0, 1.0});
     scoreLabel->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
     addChild(scoreLabel, 1);
