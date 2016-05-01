@@ -10,10 +10,11 @@ using namespace cocos2d;
 using namespace pulse;
 
 namespace DisplayResolution {
-    static const auto Design = Size{960, 640};
-    static const auto Small = Size{960, 640};
-    static const auto Medium = Size{1920, 1080};
-    static const auto Large = Size{2560, 1440};
+    static const auto Small = Size{960, 540};
+    static const auto Medium = Size{1280, 720};
+    static const auto Large = Size{1920, 1080};
+    static const auto ExtraLarge = Size{2560, 1440};
+    static const auto Design = Medium;
 }
 
 AppDelegate::AppDelegate() {}
@@ -26,7 +27,9 @@ void AppDelegate::initGLContextAttrs() {
 }
 
 Size displayResolutionForFrame(Size frame) {
-    if (frame.height > DisplayResolution::Medium.height) {
+    if (frame.height > DisplayResolution::Large.height) {
+        return DisplayResolution::ExtraLarge;
+    } else if (frame.height > DisplayResolution::Medium.height) {
         return DisplayResolution::Large;
     } else if (frame.height > DisplayResolution::Small.height) {
         return DisplayResolution::Medium;
