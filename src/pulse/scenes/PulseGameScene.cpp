@@ -170,7 +170,7 @@ void PulseGameScene::addTouchListeners() {
 
 void PulseGameScene::addAccelerometerListeners() {
     Device::setAccelerometerEnabled(true);
-    Device::setAccelerometerInterval(1 / 30);
+    Device::setAccelerometerInterval(1.0f / 60.0f);
     const auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(PulseGameScene::onAccelerationDetected, this));
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
