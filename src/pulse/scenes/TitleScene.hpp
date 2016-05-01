@@ -19,8 +19,9 @@ class TitleScene : public GameScene {
     virtual bool init() override;
 
   private:
+    void addTitle();
     void addTouchListeners();
-    cocos2d::Sequence* titleScreenAnimation();
+    cocos2d::Sequence* createTitleAnimation();
 
     cocos2d::Sprite3D* title;
     cocos2d::Sequence* titleAnimation;
