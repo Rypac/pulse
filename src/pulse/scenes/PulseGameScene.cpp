@@ -144,6 +144,7 @@ void PulseGameScene::scheduleObstacleGeneration() {
 void PulseGameScene::unscheduleObstacleGeneration() {
     if (obstacleGenerator) {
         stopAction(obstacleGenerator);
+        obstacleGenerator = nullptr;
     }
 }
 
