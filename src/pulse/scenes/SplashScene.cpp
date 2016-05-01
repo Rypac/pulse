@@ -23,7 +23,7 @@ bool SplashScene::init() {
     const auto background = LayerColor::create(Color4B::WHITE);
     addChild(background);
 
-    image = Sprite::create("images/splash/normal.png");
+    image = Sprite::create("splash/normal.png");
     image->setPosition(geometry::centerOf(frame));
     addChild(image, 1);
 
@@ -37,10 +37,10 @@ void SplashScene::onEnter() {
 
 Action* SplashScene::splashScreenAnimation() {
     const auto normalImage = CallFunc::create([this]() {
-        image->setTexture("images/splash/normal.png");
+        image->setTexture("splash/normal.png");
     });
     const auto winkImage = CallFunc::create([this]() {
-        image->setTexture("images/splash/wink.png");
+        image->setTexture("splash/wink.png");
     });
     const auto winkSound = CallFunc::create([this]() {
         const auto audio = CocosDenshion::SimpleAudioEngine::getInstance();

@@ -41,13 +41,13 @@ void MenuSlider::addTitle(const std::string& text) {
 
 void MenuSlider::addSlider() {
     slider = Slider::create();
-    slider->loadBarTexture("images/menu/slider/empty.png");
+    slider->loadBarTexture("menu/slider/empty.png");
     slider->loadSlidBallTextures(
-        "images/menu/slider/ball/normal.png",
-        "images/menu/slider/ball/selected.png",
-        "images/menu/slider/ball/disabled.png"
+        "menu/slider/ball/normal.png",
+        "menu/slider/ball/selected.png",
+        "menu/slider/ball/disabled.png"
     );
-    slider->loadProgressBarTexture("images/menu/slider/filled.png");
+    slider->loadProgressBarTexture("menu/slider/filled.png");
     slider->setScale9Enabled(true);
     slider->setAnchorPoint(Vec2{0, 0.5});
     slider->addEventListener([this](auto ref, auto eventType) {
