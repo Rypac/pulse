@@ -35,19 +35,25 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setContentScaleFactor(displayResolution.contentScaleFactor());
     FileUtils::getInstance()->setSearchPaths(displayResolution.resourceSearchPaths());
 
+    gameRunning(true);
     addSplashScene();
 
     return true;
 }
 
 void AppDelegate::applicationDidEnterBackground() {
+    gameRunning(false);
     Director::getInstance()->stopAnimation();
-    Device::setKeepScreenOn(false);
 }
 
 void AppDelegate::applicationWillEnterForeground() {
+    gameRunning(true);
     Director::getInstance()->startAnimation();
-    Device::setKeepScreenOn(true);
+}
+
+void AppDelegate::gameRunning(bool running) {
+    Device::setKeepScreenOn(running);
+    Device::setAccelerometerEnabled(running);
 }
 
 void AppDelegate::addSplashScene() {

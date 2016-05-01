@@ -14,6 +14,7 @@ class AppDelegate : private cocos2d::Application {
     virtual void applicationWillEnterForeground() override;
 
   private:
+    void gameRunning(bool running);
     void addSplashScene();
     void addTitleScene();
     void addGameScene();
