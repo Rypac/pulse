@@ -42,10 +42,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
+    Device::setKeepScreenOn(false);
 }
 
 void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
+    Device::setKeepScreenOn(true);
 }
 
 void AppDelegate::addSplashScene() {
