@@ -59,6 +59,7 @@ class PulseGameScene : public GameScene {
     cocos2d::Action* obstacleGenerator;
     std::list<Obstacle*> obstacles;
     GameState gameState;
+    cocos2d::Acceleration previousReading;
 };
 
 }

@@ -149,7 +149,6 @@
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../libs/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
-		816908C71C94040A0073E4C6 /* Physics.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Physics.hpp; path = pulse/utilities/Physics.hpp; sourceTree = "<group>"; };
 		817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleGenerator.cpp; path = pulse/generators/ObstacleGenerator.cpp; sourceTree = "<group>"; };
 		817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleGenerator.hpp; path = pulse/generators/ObstacleGenerator.hpp; sourceTree = "<group>"; };
 		817B8A3F1CA639F2003BE291 /* Generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Generator.hpp; path = pulse/generators/Generator.hpp; sourceTree = "<group>"; };
@@ -165,6 +164,7 @@
 		81A319951C94F7C9005708D6 /* Obstacle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Obstacle.hpp; path = pulse/sprites/Obstacle.hpp; sourceTree = "<group>"; };
 		81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpritePhysicsBody.cpp; path = pulse/sprites/SpritePhysicsBody.cpp; sourceTree = "<group>"; };
 		81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SpritePhysicsBody.hpp; path = pulse/sprites/SpritePhysicsBody.hpp; sourceTree = "<group>"; };
+		81A76B361CD5F4B400ACA538 /* Acceleration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Acceleration.hpp; path = pulse/utilities/Acceleration.hpp; sourceTree = "<group>"; };
 		81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rotation.hpp; path = pulse/utilities/Rotation.hpp; sourceTree = "<group>"; };
 		81C44A441CC311D7006D6F0F /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleScene.cpp; path = pulse/scenes/TitleScene.cpp; sourceTree = "<group>"; };
 		81C44A451CC311D7006D6F0F /* TitleScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TitleScene.hpp; path = pulse/scenes/TitleScene.hpp; sourceTree = "<group>"; };
@@ -400,14 +400,14 @@
 		819E29521C93C60E00EA3D32 /* utilities */ = {
 			isa = PBXGroup;
 			children = (
+				81A76B361CD5F4B400ACA538 /* Acceleration.hpp */,
 				81883C041CA6274A00AF5FD5 /* Direction.hpp */,
 				819E39E41C93999E00E74D57 /* Geometry.hpp */,
 				81382C1A1CA7E27C003C8EFE /* Logger.hpp */,
-				816908C71C94040A0073E4C6 /* Physics.hpp */,
-				816908C61C9401E10073E4C6 /* Random.hpp */,
-				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
 				81F6F9501CCDBA3500222C4F /* Position.hpp */,
+				816908C61C9401E10073E4C6 /* Random.hpp */,
 				81F6F9511CCDBB3700222C4F /* Rect.hpp */,
+				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";

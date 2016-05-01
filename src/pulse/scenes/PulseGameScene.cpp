@@ -9,8 +9,8 @@
 #include "pulse/sprites/WrappedSprite.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
 #include "pulse/models/Accelerometer.hpp"
+#include "pulse/utilities/Acceleration.hpp"
 #include "pulse/utilities/Geometry.hpp"
-#include "pulse/utilities/Physics.hpp"
 #include "pulse/utilities/Rotation.hpp"
 #include "pulse/ui/Font.hpp"
 
@@ -223,7 +223,10 @@ void PulseGameScene::onAccelerationDetected(Acceleration* acceleration, Event* e
         return;
     }
 
-    const auto currentAcceleration = Vec3(acceleration->x, acceleration->y, acceleration->z);
+    const auto smoothedReading = accelerometer::filter(*acceleration, previousReading);
+    previousReading = smoothedReading;
+    const auto currentAcceleration = Vec3(smoothedReading.x, smoothedReading.y, smoothedReading.z);
+
     auto& accelerometer = gameState.accelerometer();
     if (!accelerometer.isCalibrated()) {
         accelerometer.calibrate(rotation::angle(currentAcceleration));
