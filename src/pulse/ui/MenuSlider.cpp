@@ -34,7 +34,7 @@ bool MenuSlider::init(const std::string& title, Preferences sliderPreferences) {
 }
 
 void MenuSlider::addTitle(const std::string& text) {
-    title = Label::createWithTTF(text, Font::Arial, 28);
+    title = Label::createWithTTF(text, Font::System, 28);
     title->setAnchorPoint(Vec2{0, 0.5});
     addChild(title);
 }
@@ -62,7 +62,7 @@ void MenuSlider::addSlider() {
 }
 
 void MenuSlider::addCurrentValue() {
-    currentValue = Label::createWithTTF("", Font::Arial, 28);
+    currentValue = Label::createWithTTF("", Font::System, 28);
     currentValue->setAnchorPoint(Vec2{1.0, 0.5});
     addChild(currentValue);
 }
