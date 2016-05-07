@@ -42,7 +42,7 @@ class PulseGameScene : public GameScene {
     void addPlayer();
     void addObstacle();
     void addTouchListeners();
-    void addAccelerometerListeners();
+    void addPlayerMovementListener();
     void addCollisionListeners();
     void addGameStateListeners();
     void updateScore();
@@ -59,7 +59,6 @@ class PulseGameScene : public GameScene {
     cocos2d::Action* obstacleGenerator;
     std::list<Obstacle*> obstacles;
     GameState gameState;
-    cocos2d::Acceleration previousReading;
 };
 
 }

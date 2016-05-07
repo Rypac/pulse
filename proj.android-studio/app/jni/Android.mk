@@ -20,6 +20,7 @@ LOCAL_SRC_FILES := \
     $(PULSE_PATH)/AppDelegate.cpp \
 	$(PULSE_PATH)/generators/ObstacleGenerator.cpp \
 	$(PULSE_PATH)/models/Resolution.cpp \
+	$(PULSE_PATH)/movement/AccelerometerMovementSystem.cpp \
     $(PULSE_PATH)/scenes/DeveloperMenuScene.cpp \
     $(PULSE_PATH)/scenes/GameScene.cpp \
     $(PULSE_PATH)/scenes/PulseGameScene.cpp \

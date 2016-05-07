@@ -6,9 +6,8 @@
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
-#include "pulse/utilities/Acceleration.hpp"
+#include "pulse/movement/AccelerometerMovementSystem.hpp"
 #include "pulse/utilities/Geometry.hpp"
-#include "pulse/utilities/Rotation.hpp"
 #include "pulse/ui/Font.hpp"
 
 using namespace cocos2d;
@@ -33,7 +32,7 @@ bool PulseGameScene::init() {
     addMenuOptions();
     addScoreLabel();
     addTouchListeners();
-    addAccelerometerListeners();
+    addPlayerMovementListener();
     addCollisionListeners();
     addGameStateListeners();
     setupScene();
@@ -164,10 +163,13 @@ void PulseGameScene::addTouchListeners() {
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
-void PulseGameScene::addAccelerometerListeners() {
-    Device::setAccelerometerInterval(1.0f / 60.0f);
-    const auto listener = EventListenerAcceleration::create(CC_CALLBACK_2(PulseGameScene::onAccelerationDetected, this));
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+void PulseGameScene::addPlayerMovementListener() {
+    const auto playerMovement = AccelerometerMovementSystem::create(&gameState.accelerometer());
+    playerMovement->onMovement = [this](const auto movedBy) {
+        const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
+        player->getPhysicsBody()->setVelocity(velocity);
+    };
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(playerMovement, this);
 }
 
 void PulseGameScene::addCollisionListeners() {
@@ -213,29 +215,6 @@ void PulseGameScene::onTouchEnded(Touch* touch, Event* event) {
     if (sceneStatus() == GameScene::Status::Running) {
         gameState.enterMode(GameState::TimeMode::Normal);
     }
-}
-
-void PulseGameScene::onAccelerationDetected(Acceleration* acceleration, Event* event) {
-    if (sceneStatus() == GameScene::Status::Stopped) {
-        return;
-    }
-
-    const auto smoothedReading = accelerometer::filter(*acceleration, previousReading);
-    previousReading = smoothedReading;
-    const auto currentAcceleration = Vec3(smoothedReading.x, smoothedReading.y, smoothedReading.z);
-
-    auto& accelerometer = gameState.accelerometer();
-    if (!accelerometer.isCalibrated()) {
-        accelerometer.calibrate(rotation::angle(currentAcceleration));
-        return;
-    }
-
-    const auto offset = *accelerometer.offset();
-    const auto x = rotation::roll(currentAcceleration) - offset.x;
-    const auto y = rotation::pitch(currentAcceleration) - offset.y;
-    auto velocity = Vec2{x, y};
-    velocity.scale(options.accelerometerSensitivity);
-    player->getPhysicsBody()->setVelocity(velocity * gameState.playerTimeScale());
 }
 
 bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {

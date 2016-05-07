@@ -60,6 +60,7 @@ set(GAME_SRC
     ${PULSE_DIR}/AppDelegate.cpp
     ${PULSE_DIR}/generators/ObstacleGenerator.cpp
     ${PULSE_DIR}/models/Resolution.cpp
+    ${PULSE_DIR}/movement/AccelerometerMovementSystem.cpp
     ${PULSE_DIR}/scenes/DeveloperMenuScene.cpp
     ${PULSE_DIR}/scenes/GameScene.cpp
     ${PULSE_DIR}/scenes/PulseGameScene.cpp
@@ -83,6 +84,8 @@ set(GAME_HEADERS
     ${PULSE_DIR}/models/GameState.hpp
     ${PULSE_DIR}/models/Resolution.hpp
     ${PULSE_DIR}/models/TimeScale.hpp
+    ${PULSE_DIR}/movement/AccelerometerMovementSystem.hpp
+    ${PULSE_DIR}/movement/MovementSystem.hpp
     ${PULSE_DIR}/scenes/DeveloperMenuScene.hpp
     ${PULSE_DIR}/scenes/GameScene.hpp
     ${PULSE_DIR}/scenes/PulseGameScene.hpp

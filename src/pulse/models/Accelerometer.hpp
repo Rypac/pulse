@@ -19,6 +19,10 @@ struct Accelerometer {
         aggregateReading = cocos2d::Vec3{};
     }
 
+    cocos2d::Vec3 sensitivity() const {
+        return cocos2d::Vec3{2200, 1500, 0};
+    }
+
     bool isCalibrated() const {
         return totalReadings >= requiredCalibrationReadings;
     }

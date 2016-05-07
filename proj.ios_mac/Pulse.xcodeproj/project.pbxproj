@@ -60,10 +60,12 @@
 		81C44A4F1CC31445006D6F0F /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
 		81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */; };
 		81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */; };
+		81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F911CDD8DF500C09896 /* MenuSlider.cpp */; };
+		81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F911CDD8DF500C09896 /* MenuSlider.cpp */; };
+		81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */; };
+		81D28F9A1CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */; };
 		81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
-		81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
-		81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */; };
 		81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
 		81E8F3C01CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
@@ -145,7 +147,6 @@
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = pulse/utilities/Logger.hpp; sourceTree = "<group>"; };
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = pulse/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = pulse/models/TimeScale.hpp; sourceTree = "<group>"; };
-		814FF98B1CB5246B00820727 /* Font.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Font.hpp; path = pulse/ui/Font.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../libs/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
@@ -171,10 +172,14 @@
 		81C44A4C1CC31421006D6F0F /* animations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = animations; sourceTree = "<group>"; };
 		81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DeveloperMenuScene.cpp; path = pulse/scenes/DeveloperMenuScene.cpp; sourceTree = "<group>"; };
 		81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DeveloperMenuScene.hpp; path = pulse/scenes/DeveloperMenuScene.hpp; sourceTree = "<group>"; };
+		81D28F901CDD8DF500C09896 /* Font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Font.hpp; sourceTree = "<group>"; };
+		81D28F911CDD8DF500C09896 /* MenuSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuSlider.cpp; sourceTree = "<group>"; };
+		81D28F921CDD8DF500C09896 /* MenuSlider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MenuSlider.hpp; sourceTree = "<group>"; };
+		81D28F961CDD8E5A00C09896 /* MovementSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = MovementSystem.hpp; path = pulse/movement/MovementSystem.hpp; sourceTree = "<group>"; };
+		81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AccelerometerMovementSystem.cpp; path = pulse/movement/AccelerometerMovementSystem.cpp; sourceTree = "<group>"; };
+		81D28F981CDD8F7D00C09896 /* AccelerometerMovementSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AccelerometerMovementSystem.hpp; path = pulse/movement/AccelerometerMovementSystem.hpp; sourceTree = "<group>"; };
 		81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstaclePhysicsBody.cpp; path = pulse/sprites/ObstaclePhysicsBody.cpp; sourceTree = "<group>"; };
 		81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstaclePhysicsBody.hpp; path = pulse/sprites/ObstaclePhysicsBody.hpp; sourceTree = "<group>"; };
-		81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MenuSlider.cpp; path = pulse/ui/MenuSlider.cpp; sourceTree = "<group>"; };
-		81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MenuSlider.hpp; path = pulse/ui/MenuSlider.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
 		81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SplashScene.hpp; path = pulse/scenes/SplashScene.hpp; sourceTree = "<group>"; };
 		81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Resolution.cpp; path = pulse/models/Resolution.cpp; sourceTree = "<group>"; };
@@ -323,9 +328,10 @@
 				46880B8519C43A87006E1F66 /* AppDelegate.hpp */,
 				817B8A3A1CA63942003BE291 /* generators */,
 				81EB56B91C96364200BE36A4 /* models */,
+				81D28F951CDD8E3100C09896 /* movement */,
 				819E29511C93C60000EA3D32 /* scenes */,
 				819E29571C93D49600EA3D32 /* sprites */,
-				81E8AFB81CAD14C400609D88 /* ui */,
+				81D28F8F1CDD8DF500C09896 /* ui */,
 				819E29521C93C60E00EA3D32 /* utilities */,
 			);
 			name = src;
@@ -429,14 +435,25 @@
 			name = sprites;
 			sourceTree = "<group>";
 		};
-		81E8AFB81CAD14C400609D88 /* ui */ = {
+		81D28F8F1CDD8DF500C09896 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				814FF98B1CB5246B00820727 /* Font.hpp */,
-				81E8AFBD1CAD17E800609D88 /* MenuSlider.cpp */,
-				81E8AFBE1CAD17E800609D88 /* MenuSlider.hpp */,
+				81D28F901CDD8DF500C09896 /* Font.hpp */,
+				81D28F911CDD8DF500C09896 /* MenuSlider.cpp */,
+				81D28F921CDD8DF500C09896 /* MenuSlider.hpp */,
 			);
 			name = ui;
+			path = pulse/ui;
+			sourceTree = "<group>";
+		};
+		81D28F951CDD8E3100C09896 /* movement */ = {
+			isa = PBXGroup;
+			children = (
+				81D28F961CDD8E5A00C09896 /* MovementSystem.hpp */,
+				81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */,
+				81D28F981CDD8F7D00C09896 /* AccelerometerMovementSystem.hpp */,
+			);
+			name = movement;
 			sourceTree = "<group>";
 		};
 		81EB56B91C96364200BE36A4 /* models */ = {
@@ -581,23 +598,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
-				81110ECE1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
-				81E8AFBF1CAD17E800609D88 /* MenuSlider.cpp in Sources */,
+				81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
-				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
+				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */,
 				81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				81C44A461CC311D7006D6F0F /* TitleScene.cpp in Sources */,
+				81110ECE1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,12 +628,13 @@
 				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				81E8AFC01CAD17E800609D88 /* MenuSlider.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
+				81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
+				81D28F9A1CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				81E8F3C01CD5D9F200DC1689 /* Resolution.cpp in Sources */,
 				812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */,
 				81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
