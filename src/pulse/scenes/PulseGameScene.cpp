@@ -245,7 +245,7 @@ bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {
 }
 
 bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
-    return physics_body::collision::heroAndPath(contact) ? false : true;
+    return !physics_body::collision::heroAndPath(contact);
 }
 
 bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {

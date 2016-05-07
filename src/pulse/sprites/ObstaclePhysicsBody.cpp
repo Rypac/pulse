@@ -11,7 +11,7 @@ ObstaclePhysicsBody* ObstaclePhysicsBody::create(const Obstacle* obstacle) {
         body->autorelease();
         return body;
     }
-    CC_SAFE_DELETE(body);
+    delete body;
     return nullptr;
 }
 

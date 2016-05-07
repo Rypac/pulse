@@ -10,9 +10,7 @@ struct Accelerometer {
     Accelerometer(int requiredCalibrationReadings): requiredCalibrationReadings{requiredCalibrationReadings} {}
 
     void calibrate(const cocos2d::Vec3& currentReading) {
-        aggregateReading.x += currentReading.x;
-        aggregateReading.y += currentReading.y;
-        aggregateReading.z += currentReading.z;
+        aggregateReading += currentReading;
         totalReadings++;
     }
 

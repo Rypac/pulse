@@ -62,7 +62,7 @@ bool DeveloperMenuScene::init() {
         return false;
     }
 
-    sliders = std::vector<MenuSlider*>{
+    sliders = {
         accelerometerSensitivity(options),
         obstacleFrequency(options),
         obstacleSpeed(options),

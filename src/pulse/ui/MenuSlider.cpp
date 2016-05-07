@@ -14,7 +14,7 @@ MenuSlider* MenuSlider::create(const std::string& title, Preferences preferences
         menuSlider->autorelease();
         return menuSlider;
     }
-    CC_SAFE_DELETE(menuSlider);
+    delete menuSlider;
     return nullptr;
 }
 

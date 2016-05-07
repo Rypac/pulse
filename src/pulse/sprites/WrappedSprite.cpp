@@ -106,7 +106,7 @@ void WrappedSprite::setPhysicsBody(PhysicsBody *physicsBody) {
     });
 }
 
-void WrappedSprite::applyToMirrors(const std::function<void (Sprite *)> func) {
+void WrappedSprite::applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func) {
     func(horizontalMirror);
     func(verticalMirror);
     func(diagonalMirror);

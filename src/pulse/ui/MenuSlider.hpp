@@ -22,14 +22,16 @@ class MenuSlider : public cocos2d::Node {
 
     static MenuSlider* create(const std::string& title, Preferences preferences);
 
-    bool init(const std::string& sliderTitle, Preferences preferences);
-
     virtual void setContentSize(const cocos2d::Size& size) override;
 
     float value() const;
     void reset();
 
-    std::function<void(MenuSlider*)> onValueChanged;
+    using SliderCallback = std::function<void(MenuSlider* scene)>;
+    SliderCallback onValueChanged;
+
+  protected:
+    virtual bool init(const std::string& sliderTitle, Preferences preferences);
 
   private:
     void setValue(float value);
