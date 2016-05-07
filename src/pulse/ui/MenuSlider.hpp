@@ -31,6 +31,7 @@ class MenuSlider : public cocos2d::Node {
     SliderCallback onValueChanged;
 
   protected:
+    using cocos2d::Node::init;
     virtual bool init(const std::string& sliderTitle, Preferences preferences);
 
   private:
@@ -45,8 +46,6 @@ class MenuSlider : public cocos2d::Node {
     cocos2d::Label* currentValue;
     cocos2d::ui::Slider* slider;
     Preferences preferences;
-
-    using cocos2d::Node::init;
 };
 
 } }

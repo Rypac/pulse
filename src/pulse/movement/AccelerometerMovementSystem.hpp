@@ -10,7 +10,7 @@ class AccelerometerMovementSystem : public cocos2d::EventListenerAcceleration, p
   public:
     static AccelerometerMovementSystem* create(Accelerometer* accelerometer);
 
-  CC_CONSTRUCTOR_ACCESS:
+  protected:
     AccelerometerMovementSystem(Accelerometer* accelerometer): accelerometer_{accelerometer} {}
 
     virtual bool init();
