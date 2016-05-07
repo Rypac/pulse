@@ -10,7 +10,7 @@ namespace SupportedResolutions {
     static const auto ExtraLarge = Resolution{Size{2560, 1440}, "extra_large"};
 }
 
-Resolution Resolution::design() {
+const Resolution& Resolution::design() {
     return SupportedResolutions::Medium;
 }
 
