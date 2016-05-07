@@ -1,14 +1,11 @@
 #include <string>
-#include <range/v3/algorithm/any_of.hpp>
-#include <range/v3/algorithm/for_each.hpp>
+#include "range/v3/algorithm/any_of.hpp"
+#include "range/v3/algorithm/for_each.hpp"
 
 #include "pulse/scenes/PulseGameScene.hpp"
-#include "pulse/sprites/Obstacle.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
-#include "pulse/sprites/WrappedSprite.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
-#include "pulse/models/Accelerometer.hpp"
 #include "pulse/utilities/Acceleration.hpp"
 #include "pulse/utilities/Geometry.hpp"
 #include "pulse/utilities/Rotation.hpp"

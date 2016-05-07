@@ -29,7 +29,7 @@ struct Accelerometer {
         return isCalibrated() ? std::make_optional(averageReading()) : std::nullopt;
     }
 
-private:
+  private:
     cocos2d::Vec3 averageReading() const {
         return aggregateReading * (1.0 / totalReadings);
     }

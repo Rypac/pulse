@@ -108,4 +108,6 @@ namespace collision {
         return isHero(body1) || isHero(body2) ? isPath(body1) || isPath(body2) : false;
     }
 
-} } }
+}
+
+} }

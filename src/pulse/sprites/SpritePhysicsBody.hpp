@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include <cpputils/optional.hpp>
+#include "cpputils/optional.hpp"
 
 namespace pulse {
 namespace physics_body {
@@ -27,4 +27,6 @@ namespace collision {
     bool heroAndPath(const cocos2d::PhysicsContact& contact);
     bool heroAndPath(const cocos2d::PhysicsBody& body1, const cocos2d::PhysicsBody& body2);
 
-} } }
+}
+
+} }
