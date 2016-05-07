@@ -40,6 +40,7 @@ set(PLATFORM_SPECIFIC_HEADERS
     proj.ios_mac/ios/AppController.h
 )
 
+set(LIB_DIR ${CMAKE_SOURCE_DIR}/libs)
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(PULSE_DIR ${SRC_DIR}/pulse)
 
@@ -50,6 +51,9 @@ include_directories(
     ${COCOS2D_ROOT}/cocos/platform
     ${COCOS2D_ROOT}/cocos/audio/include
     ${SRC_DIR}
+    ${LIB_DIR}/cpputils/include
+    ${LIB_DIR}/GSL/include
+    ${LIB_DIR}/range-v3/include
 )
 
 set(GAME_SRC
@@ -71,6 +75,34 @@ set(GAME_SRC
 )
 
 set(GAME_HEADERS
+    ${PULSE_DIR}/AppDelegate.hpp
+    ${PULSE_DIR}/generators/Generator.hpp
+    ${PULSE_DIR}/generators/ObstacleGenerator.hpp
+    ${PULSE_DIR}/models/Accelerometer.hpp
+    ${PULSE_DIR}/models/GameOptions.hpp
+    ${PULSE_DIR}/models/GameState.hpp
+    ${PULSE_DIR}/models/Resolution.hpp
+    ${PULSE_DIR}/models/TimeScale.hpp
+    ${PULSE_DIR}/scenes/DeveloperMenuScene.hpp
+    ${PULSE_DIR}/scenes/GameScene.hpp
+    ${PULSE_DIR}/scenes/PulseGameScene.hpp
+    ${PULSE_DIR}/scenes/SplashScene.hpp
+    ${PULSE_DIR}/scenes/TitleScene.hpp
+    ${PULSE_DIR}/sprites/Column.hpp
+    ${PULSE_DIR}/sprites/Obstacle.hpp
+    ${PULSE_DIR}/sprites/ObstaclePhysicsBody.hpp
+    ${PULSE_DIR}/sprites/SpritePhysicsBody.hpp
+    ${PULSE_DIR}/sprites/WrappedSprite.hpp
+    ${PULSE_DIR}/ui/Font.hpp
+    ${PULSE_DIR}/ui/MenuSlider.hpp
+    ${PULSE_DIR}/utilities/Acceleration.hpp
+    ${PULSE_DIR}/utilities/Direction.hpp
+    ${PULSE_DIR}/utilities/Geometry.hpp
+    ${PULSE_DIR}/utilities/Logger.hpp
+    ${PULSE_DIR}/utilities/Position.hpp
+    ${PULSE_DIR}/utilities/Random.hpp
+    ${PULSE_DIR}/utilities/Rect.hpp
+    ${PULSE_DIR}/utilities/Rotation.hpp
     ${PLATFORM_SPECIFIC_HEADERS}
 )
 
