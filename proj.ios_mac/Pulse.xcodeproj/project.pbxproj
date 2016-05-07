@@ -64,6 +64,10 @@
 		81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F911CDD8DF500C09896 /* MenuSlider.cpp */; };
 		81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */; };
 		81D28F9A1CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */; };
+		81D28F9D1CDDC18D00C09896 /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 81D28F9C1CDDC18D00C09896 /* particles */; };
+		81D28F9E1CDDC18D00C09896 /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 81D28F9C1CDDC18D00C09896 /* particles */; };
+		81D28FA11CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */; };
+		81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */; };
 		81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
@@ -179,6 +183,9 @@
 		81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AccelerometerMovementSystem.cpp; path = pulse/movement/AccelerometerMovementSystem.cpp; sourceTree = "<group>"; };
 		81D28F981CDD8F7D00C09896 /* AccelerometerMovementSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AccelerometerMovementSystem.hpp; path = pulse/movement/AccelerometerMovementSystem.hpp; sourceTree = "<group>"; };
 		81D28F9B1CDDB6A500C09896 /* Vec.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vec.hpp; path = pulse/utilities/Vec.hpp; sourceTree = "<group>"; };
+		81D28F9C1CDDC18D00C09896 /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
+		81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleIndicator.cpp; path = pulse/sprites/ObstacleIndicator.cpp; sourceTree = "<group>"; };
+		81D28FA01CDDCB3A00C09896 /* ObstacleIndicator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleIndicator.hpp; path = pulse/sprites/ObstacleIndicator.hpp; sourceTree = "<group>"; };
 		81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstaclePhysicsBody.cpp; path = pulse/sprites/ObstaclePhysicsBody.cpp; sourceTree = "<group>"; };
 		81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstaclePhysicsBody.hpp; path = pulse/sprites/ObstaclePhysicsBody.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
@@ -316,6 +323,7 @@
 				812BE93D1CB8BCE80038D730 /* audio */,
 				814FF98C1CB5291C00820727 /* fonts */,
 				812BE9401CB8BCF60038D730 /* images */,
+				81D28F9C1CDDC18D00C09896 /* particles */,
 				812BE9481CB8C3640038D730 /* videos */,
 			);
 			name = resources;
@@ -427,6 +435,8 @@
 				819E29591C93D4D700EA3D32 /* Column.hpp */,
 				81A319941C94F7C9005708D6 /* Obstacle.cpp */,
 				81A319951C94F7C9005708D6 /* Obstacle.hpp */,
+				81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */,
+				81D28FA01CDDCB3A00C09896 /* ObstacleIndicator.hpp */,
 				81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */,
 				81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */,
 				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
@@ -575,6 +585,7 @@
 				812BE9411CB8BCF60038D730 /* images in Resources */,
 				812BE93E1CB8BCE80038D730 /* audio in Resources */,
 				81C44A4D1CC31421006D6F0F /* animations in Resources */,
+				81D28F9D1CDDC18D00C09896 /* particles in Resources */,
 				814FF98D1CB5291C00820727 /* fonts in Resources */,
 				81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */,
 			);
@@ -588,6 +599,7 @@
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				81C44A4F1CC31445006D6F0F /* videos in Resources */,
 				81C44A4E1CC31421006D6F0F /* animations in Resources */,
+				81D28F9E1CDDC18D00C09896 /* particles in Resources */,
 				812BE93F1CB8BCE80038D730 /* audio in Resources */,
 				812BE94E1CB8D30D0038D730 /* fonts in Resources */,
 			);
@@ -618,6 +630,7 @@
 				81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				81C44A461CC311D7006D6F0F /* TitleScene.cpp in Sources */,
 				81110ECE1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
+				81D28FA11CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,6 +644,7 @@
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
+				81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
