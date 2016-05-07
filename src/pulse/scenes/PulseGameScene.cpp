@@ -123,7 +123,7 @@ void PulseGameScene::addObstacle() {
     const auto obstacle = ObstacleGenerator{frame}.generate();
     obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
     obstacle->setPhysicsBody(ObstaclePhysicsBody::create(obstacle));
-    addChild(obstacle);
+    addChild(obstacle, 2);
     obstacles.emplace_back(obstacle);
     obstacle->runActions(options.obstacleSpeed);
 }
