@@ -178,6 +178,7 @@
 		81D28F961CDD8E5A00C09896 /* MovementSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = MovementSystem.hpp; path = pulse/movement/MovementSystem.hpp; sourceTree = "<group>"; };
 		81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AccelerometerMovementSystem.cpp; path = pulse/movement/AccelerometerMovementSystem.cpp; sourceTree = "<group>"; };
 		81D28F981CDD8F7D00C09896 /* AccelerometerMovementSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AccelerometerMovementSystem.hpp; path = pulse/movement/AccelerometerMovementSystem.hpp; sourceTree = "<group>"; };
+		81D28F9B1CDDB6A500C09896 /* Vec.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vec.hpp; path = pulse/utilities/Vec.hpp; sourceTree = "<group>"; };
 		81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstaclePhysicsBody.cpp; path = pulse/sprites/ObstaclePhysicsBody.cpp; sourceTree = "<group>"; };
 		81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstaclePhysicsBody.hpp; path = pulse/sprites/ObstaclePhysicsBody.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
@@ -414,6 +415,7 @@
 				816908C61C9401E10073E4C6 /* Random.hpp */,
 				81F6F9511CCDBB3700222C4F /* Rect.hpp */,
 				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
+				81D28F9B1CDDB6A500C09896 /* Vec.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";

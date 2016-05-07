@@ -106,6 +106,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/utilities/Random.hpp
     ${PULSE_DIR}/utilities/Rect.hpp
     ${PULSE_DIR}/utilities/Rotation.hpp
+    ${PULSE_DIR}/utilities/Vec.hpp
     ${PLATFORM_SPECIFIC_HEADERS}
 )
 

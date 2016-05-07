@@ -1,6 +1,7 @@
 #include "pulse/movement/AccelerometerMovementSystem.hpp"
 #include "pulse/utilities/Acceleration.hpp"
 #include "pulse/utilities/Rotation.hpp"
+#include "pulse/utilities/Vec.hpp"
 
 using namespace pulse;
 using namespace cocos2d;
@@ -25,21 +26,16 @@ void AccelerometerMovementSystem::onAccelerationDetected(Acceleration *accelerat
     const auto smoothedReading = accelerometer::filter(*acceleration, previousReading);
     previousReading = smoothedReading;
     const auto currentAcceleration = Vec3(smoothedReading.x, smoothedReading.y, smoothedReading.z);
+    const auto rotationAngle = rotation::angle(currentAcceleration);
 
     if (!accelerometer_->isCalibrated()) {
-        accelerometer_->calibrate(rotation::angle(currentAcceleration));
+        accelerometer_->calibrate(rotationAngle);
         return;
     }
 
-    const auto offset = *accelerometer_->offset();
-    const auto sensitivity = accelerometer_->sensitivity();
-    const auto velocity = Vec3{
-        (rotation::roll(currentAcceleration) - offset.x) * sensitivity.x,
-        (rotation::pitch(currentAcceleration) - offset.y) * sensitivity.y,
-        (rotation::yaw(currentAcceleration) - offset.z) * sensitivity.z
-    };
-
     if (onMovement) {
+        const auto relativeAngle = rotationAngle - *accelerometer_->offset();
+        const auto velocity = vec::scaleBy(relativeAngle, accelerometer_->sensitivity());
         onMovement(velocity);
     }
 }
