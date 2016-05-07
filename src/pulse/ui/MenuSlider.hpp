@@ -12,7 +12,7 @@ class MenuSlider : public cocos2d::Node {
     struct Preferences {
         float minimum;
         float maximum;
-        float initiial;
+        float initial;
         float increment;
 
         float range() const {

@@ -98,7 +98,7 @@ void MenuSlider::setValue(float newValue) {
 }
 
 void MenuSlider::reset() {
-    setValue(preferences.initiial);
+    setValue(preferences.initial);
 }
 
 void MenuSlider::updateDisplayedValue() {

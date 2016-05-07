@@ -9,7 +9,7 @@ namespace pulse {
 class ObstacleGenerator : public Generator<Obstacle*> {
   public:
     ObstacleGenerator() = delete;
-    ObstacleGenerator(cocos2d::Rect world) : world(world) {};
+    ObstacleGenerator(const cocos2d::Rect& world) : world(world) {};
 
     virtual Obstacle* generate() const override;
 

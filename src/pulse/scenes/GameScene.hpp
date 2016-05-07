@@ -11,7 +11,6 @@ class GameScene : public cocos2d::Layer {
         Stopped
     };
 
-    static cocos2d::Scene* createScene();
     static cocos2d::Scene* createScene(GameScene* scene);
     static cocos2d::Scene* createPhysicsScene(GameScene* scene, cocos2d::Vec2 gravity = cocos2d::Vec2{}, bool autoStep = false);
 

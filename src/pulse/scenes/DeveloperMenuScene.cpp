@@ -17,8 +17,8 @@ DeveloperMenuScene* DeveloperMenuScene::create(GameOptions& options) {
 }
 
 MenuSlider* accelerometerSensitivity(GameOptions& options) {
-    const auto prefs = MenuSlider::Preferences{0.0f, 1.0f, 0.2f, 0.1f};
-    return MenuSlider::create("Accelerometer Sensitivity", prefs);
+    const auto preferences = MenuSlider::Preferences{0.0f, 1.0f, 0.2f, 0.1f};
+    return MenuSlider::create("Accelerometer Sensitivity", preferences);
 }
 
 MenuSlider* obstacleFrequency(GameOptions& options) {
