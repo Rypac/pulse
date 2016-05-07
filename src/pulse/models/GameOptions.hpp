@@ -6,7 +6,6 @@
 namespace pulse {
 
 struct GameOptions {
-    cocos2d::Vec2 accelerometerSensitivity{2200, 1500};
     float obstacleFrequency{1};
     float obstacleSpeed{3.5};
     TimeScale slowMotionTimeScale{1.0, 0.3};
