@@ -33,11 +33,11 @@ void TitleScene::addTitle() {
 void TitleScene::addTouchListeners() {
     const auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = [this](auto touch, auto event) {
-        animationStep = 3000.0;
+        animationStep = 3000.0f;
         return true;
     };
     listener->onTouchEnded = [this](auto touch, auto event) {
-        animationStep = -3000.0;
+        animationStep = -3000.0f;
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }

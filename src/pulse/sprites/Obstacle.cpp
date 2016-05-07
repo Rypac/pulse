@@ -94,7 +94,7 @@ float durationForDirection(float duration, Direction direction) {
         case Direction::North:
         case Direction::South: return duration;
         case Direction::East:
-        case Direction::West: return duration * 1.5;
+        case Direction::West: return duration * 1.5f;
     }
 }
 
