@@ -31,6 +31,8 @@
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		81110ECE1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */; };
 		81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */; };
+		81253C151CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */; };
+		81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */; };
 		812BE93E1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE93F1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE9411CB8BCF60038D730 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9401CB8BCF60038D730 /* images */; };
@@ -145,6 +147,8 @@
 		81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WrappedSprite.cpp; path = pulse/sprites/WrappedSprite.cpp; sourceTree = "<group>"; };
 		81110ECD1CCCA17400BB0C9D /* WrappedSprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WrappedSprite.hpp; path = pulse/sprites/WrappedSprite.hpp; sourceTree = "<group>"; };
 		81245F641CBA830400CEE0D5 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libs; path = ../libs; sourceTree = "<group>"; };
+		81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RemoveSelfWithCallback.cpp; path = pulse/actions/RemoveSelfWithCallback.cpp; sourceTree = "<group>"; };
+		81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RemoveSelfWithCallback.hpp; path = pulse/actions/RemoveSelfWithCallback.hpp; sourceTree = "<group>"; };
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
@@ -335,6 +339,7 @@
 			children = (
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.hpp */,
+				81253C0E1CDEB2C70072DBFD /* actions */,
 				817B8A3A1CA63942003BE291 /* generators */,
 				81EB56B91C96364200BE36A4 /* models */,
 				81D28F951CDD8E3100C09896 /* movement */,
@@ -375,6 +380,15 @@
 			name = assets;
 			path = ios;
 			sourceTree = SOURCE_ROOT;
+		};
+		81253C0E1CDEB2C70072DBFD /* actions */ = {
+			isa = PBXGroup;
+			children = (
+				81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */,
+				81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */,
+			);
+			name = actions;
+			sourceTree = "<group>";
 		};
 		81563DE81CBB9E9000B303F9 /* Products */ = {
 			isa = PBXGroup;
@@ -615,6 +629,7 @@
 				81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				81253C151CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
@@ -646,6 +661,7 @@
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
+				81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
