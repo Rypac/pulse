@@ -202,10 +202,11 @@ void PulseGameScene::addPlayerTouchListener() {
         return true;
     };
     playerTouchListener->onTouchEnded = [this](auto touch, auto event) {
+        player->stopAllActions();
         const auto touchEffect = ParticleSystemQuad::create("particles/pulse_ended.plist");
+        touchEffect->setAutoRemoveOnFinish(true);
         touchEffect->setPosition(player->getPosition());
         this->addChild(touchEffect);
-        player->stopAllActions();
     };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(playerTouchListener, this);
 }
