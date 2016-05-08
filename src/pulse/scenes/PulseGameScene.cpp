@@ -99,14 +99,14 @@ void PulseGameScene::addMenuOptions() {
     pauseItem->setPosition(Vec2{frame.origin.x + frame.size.width - 15, frame.origin.y + frame.size.height - 15});
     const auto menu = Menu::create(pauseItem, nullptr);
     menu->setPosition(Vec2::ZERO);
-    addChild(menu, 1);
+    addChild(menu, 3);
 }
 
 void PulseGameScene::addScoreLabel() {
     scoreLabel = Label::createWithTTF("", Font::System, 28);
     scoreLabel->setAnchorPoint(Vec2{0, 1.0});
     scoreLabel->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
-    addChild(scoreLabel, 1);
+    addChild(scoreLabel, 3);
 }
 
 void PulseGameScene::addPlayer() {
