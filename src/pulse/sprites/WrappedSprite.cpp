@@ -45,6 +45,9 @@ bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool r
         addChild(mirror);
     });
 
+    emitter = ParticleSystemQuad::create("particles/player_trail.plist");
+    addChild(emitter, -1);
+
     return true;
 }
 
@@ -58,6 +61,8 @@ void WrappedSprite::setPosition(const Vec2& position) {
 
 void WrappedSprite::setPosition(float x, float y) {
     Sprite::setPosition(x, y);
+    emitter->setPosition(convertToNodeSpace(getPosition()));
+
     const auto parent = getParent();
     if (parent != nullptr) {
         normalisePositionInBounds(parent->getBoundingBox());
