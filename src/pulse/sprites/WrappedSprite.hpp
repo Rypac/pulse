@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "pulse/sprites/MirrorSprite.hpp"
 
 namespace pulse {
 
@@ -27,9 +28,9 @@ class WrappedSprite : public cocos2d::Sprite {
   private:
     void applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func);
 
-    cocos2d::Sprite* horizontalMirror;
-    cocos2d::Sprite* verticalMirror;
-    cocos2d::Sprite* diagonalMirror;
+    MirrorSprite* horizontalMirror;
+    MirrorSprite* verticalMirror;
+    MirrorSprite* diagonalMirror;
 };
 
 }

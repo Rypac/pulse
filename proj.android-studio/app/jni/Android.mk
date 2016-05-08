@@ -28,6 +28,7 @@ LOCAL_SRC_FILES := \
     $(PULSE_PATH)/scenes/SplashScene.cpp \
 	$(PULSE_PATH)/scenes/TitleScene.cpp \
     $(PULSE_PATH)/sprites/Column.cpp \
+	$(PULSE_PATH)/sprites/MirrorSprite.cpp \
     $(PULSE_PATH)/sprites/Obstacle.cpp \
 	$(PULSE_PATH)/sprites/ObstacleIndicator.cpp \
     $(PULSE_PATH)/sprites/ObstaclePhysicsBody.cpp \

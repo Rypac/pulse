@@ -27,9 +27,9 @@ WrappedSprite* WrappedSprite::create(const std::string& filename) {
 }
 
 bool WrappedSprite::initMirrors(Texture2D *texture, const Rect& rect, bool rotated) {
-    horizontalMirror = Sprite::createWithTexture(texture, rect, rotated);
-    verticalMirror = Sprite::createWithTexture(texture, rect, rotated);
-    diagonalMirror = Sprite::createWithTexture(texture, rect, rotated);
+    horizontalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
+    verticalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
+    diagonalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
     return horizontalMirror != nullptr && verticalMirror != nullptr && diagonalMirror != nullptr;
 }
 
@@ -80,11 +80,6 @@ void WrappedSprite::normalisePositionInBounds(const Rect& bounds) {
     horizontalMirror->setVisible(rect::exceedsHorizontalBounds(frame, bounds));
     verticalMirror->setVisible(rect::exceedsVerticalBounds(frame, bounds));
     diagonalMirror->setVisible(horizontalMirror->isVisible() && verticalMirror->isVisible());
-    applyToMirrors([](auto mirror) {
-        if (mirror->getPhysicsBody() != nullptr) {
-            mirror->getPhysicsBody()->setEnabled(mirror->isVisible());
-        }
-    });
 }
 
 void WrappedSprite::setContentSize(const Size& size) {
@@ -100,9 +95,7 @@ void WrappedSprite::setTextureRect(const Rect& rect) {
 void WrappedSprite::setPhysicsBody(PhysicsBody *physicsBody) {
     Sprite::setPhysicsBody(physicsBody);
     applyToMirrors([&](auto mirror) {
-        const auto body = physics_body::clone(physicsBody, mirror->getContentSize());
-        body->setEnabled(mirror->isVisible());
-        mirror->setPhysicsBody(body);
+        mirror->setPhysicsBody(physics_body::clone(physicsBody, mirror->getContentSize()));
     });
 }
 

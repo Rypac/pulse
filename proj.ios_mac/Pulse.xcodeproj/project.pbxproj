@@ -33,6 +33,8 @@
 		81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */; };
 		81253C151CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */; };
 		81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */; };
+		81253C191CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */; };
+		81253C1A1CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */; };
 		812BE93E1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE93F1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE9411CB8BCF60038D730 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9401CB8BCF60038D730 /* images */; };
@@ -149,6 +151,8 @@
 		81245F641CBA830400CEE0D5 /* libs */ = {isa = PBXFileReference; lastKnownFileType = folder; name = libs; path = ../libs; sourceTree = "<group>"; };
 		81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RemoveSelfWithCallback.cpp; path = pulse/actions/RemoveSelfWithCallback.cpp; sourceTree = "<group>"; };
 		81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RemoveSelfWithCallback.hpp; path = pulse/actions/RemoveSelfWithCallback.hpp; sourceTree = "<group>"; };
+		81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MirrorSprite.cpp; path = pulse/sprites/MirrorSprite.cpp; sourceTree = "<group>"; };
+		81253C181CDEC7CB0072DBFD /* MirrorSprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MirrorSprite.hpp; path = pulse/sprites/MirrorSprite.hpp; sourceTree = "<group>"; };
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
@@ -457,6 +461,8 @@
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 				81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */,
 				81110ECD1CCCA17400BB0C9D /* WrappedSprite.hpp */,
+				81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */,
+				81253C181CDEC7CB0072DBFD /* MirrorSprite.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -637,6 +643,7 @@
 				81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
+				81253C191CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
@@ -656,6 +663,7 @@
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
+				81253C1A1CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,

@@ -68,6 +68,7 @@ set(GAME_SRC
     ${PULSE_DIR}/scenes/SplashScene.cpp
     ${PULSE_DIR}/scenes/TitleScene.cpp
     ${PULSE_DIR}/sprites/Column.cpp
+    ${PULSE_DIR}/sprites/MirrorSprite.cpp
     ${PULSE_DIR}/sprites/Obstacle.cpp
     ${PULSE_DIR}/sprites/ObstacleIndicator.cpp
     ${PULSE_DIR}/sprites/ObstaclePhysicsBody.cpp
@@ -95,6 +96,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/scenes/SplashScene.hpp
     ${PULSE_DIR}/scenes/TitleScene.hpp
     ${PULSE_DIR}/sprites/Column.hpp
+    ${PULSE_DIR}/sprites/MirrorSprite.hpp
     ${PULSE_DIR}/sprites/Obstacle.hpp
     ${PULSE_DIR}/sprites/ObstacleIndicator.hpp
     ${PULSE_DIR}/sprites/ObstaclePhysicsBody.hpp
