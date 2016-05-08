@@ -156,20 +156,20 @@ void PulseGameScene::updateSceneTimeScale() {
 }
 
 void PulseGameScene::addTouchListeners() {
-    const auto listener = EventListenerTouchOneByOne::create();
-    listener->onTouchBegan = CC_CALLBACK_2(PulseGameScene::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(PulseGameScene::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(PulseGameScene::onTouchEnded, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    const auto touchTistener = EventListenerTouchOneByOne::create();
+    touchTistener->onTouchBegan = CC_CALLBACK_2(PulseGameScene::onTouchBegan, this);
+    touchTistener->onTouchMoved = CC_CALLBACK_2(PulseGameScene::onTouchMoved, this);
+    touchTistener->onTouchEnded = CC_CALLBACK_2(PulseGameScene::onTouchEnded, this);
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchTistener, this);
 }
 
 void PulseGameScene::addPlayerMovementListener() {
-    const auto playerMovement = AccelerometerMovementSystem::create(&gameState.accelerometer());
-    playerMovement->onMovement = [this](const auto movedBy) {
+    const auto accelerometerListener = AccelerometerMovementSystem::create(&gameState.accelerometer());
+    accelerometerListener->onMovement = [this](const auto movedBy) {
         const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
         player->getPhysicsBody()->setVelocity(velocity);
     };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(playerMovement, this);
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(accelerometerListener, this);
 }
 
 void PulseGameScene::addCollisionListeners() {
@@ -177,7 +177,7 @@ void PulseGameScene::addCollisionListeners() {
     contactListener->onContactBegin = CC_CALLBACK_1(PulseGameScene::onContactBegan, this);
     contactListener->onContactPreSolve = CC_CALLBACK_2(PulseGameScene::onContactPreSolve, this);
     contactListener->onContactSeparate = CC_CALLBACK_1(PulseGameScene::onContactSeparate, this);
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(contactListener, this);
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
 }
 
 void PulseGameScene::addGameStateListeners() {
