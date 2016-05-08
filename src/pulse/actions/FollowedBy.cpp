@@ -15,7 +15,7 @@ FollowedBy* FollowedBy::create(Node *follower) {
 
 FollowedBy::~FollowedBy() {
     if (follower) {
-        if (follower->getParent()) {
+        if (follower->getParent() == getTarget()) {
             follower->removeFromParent();
         }
         follower->release();
@@ -37,5 +37,6 @@ bool FollowedBy::isDone() const {
 }
 
 void FollowedBy::step(float dt) {
-    follower->setPosition(getTarget()->convertToNodeSpace(getTarget()->getPosition()));
+    const auto targetPosition = getTarget()->convertToNodeSpace(getTarget()->getPosition());
+    follower->setPosition(targetPosition);
 }
