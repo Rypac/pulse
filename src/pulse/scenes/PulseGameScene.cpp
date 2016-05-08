@@ -3,6 +3,7 @@
 #include "range/v3/algorithm/for_each.hpp"
 
 #include "pulse/scenes/PulseGameScene.hpp"
+#include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
@@ -169,7 +170,7 @@ void PulseGameScene::updateSceneTimeScale() {
 void PulseGameScene::addResetGameTouchListener() {
     resetListener = EventListenerTouchOneByOne::create();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    resetListener->onTouchEnded = [this](auto touch, auto event) { resetScene(); };
+    resetListener->onTouchEnded = [this](auto touch, auto event) { this->resetScene(); };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
 }
 
@@ -184,7 +185,7 @@ void PulseGameScene::addTimeScaleTouchListener() {
             const auto maxForce = touch->getMaxForce();
             const auto currentForce = touch->getCurrentForce();
             options.slowMotionTimeScale.environment = ((maxForce - currentForce) / maxForce) + 0.1;
-            updateSceneTimeScale();
+            this->updateSceneTimeScale();
         }
     };
     timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
@@ -195,11 +196,16 @@ void PulseGameScene::addTimeScaleTouchListener() {
 
 void PulseGameScene::addPlayerTouchListener() {
     playerTouchListener = EventListenerTouchOneByOne::create();
-    playerTouchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
+    playerTouchListener->onTouchBegan = [this](auto touch, auto event) {
+        const auto touchEffect = ParticleSystemQuad::create("particles/pulse_began.plist");
+        player->runAction(FollowedBy::create(touchEffect));
+        return true;
+    };
     playerTouchListener->onTouchEnded = [this](auto touch, auto event) {
         const auto touchEffect = ParticleSystemQuad::create("particles/pulse_ended.plist");
         touchEffect->setPosition(player->getPosition());
         this->addChild(touchEffect);
+        player->stopAllActions();
     };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(playerTouchListener, this);
 }

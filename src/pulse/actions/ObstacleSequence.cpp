@@ -39,7 +39,7 @@ bool ObstacleSequence::init() {
         indicator->removeFromParent();
     });
     const auto addObstacle = CallFunc::create([this]() {
-        getTarget()->addChild(obstacle);
+        getTarget()->addChild(obstacle, 2);
     });
     std::vector<FiniteTimeAction*> actions{addIndicator, spawnDelay, addObstacle, removalDelay, removeIndicator};
     return Sequence::init(toVector(actions));

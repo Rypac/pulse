@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>angle</key>
-	<real>0</real>
+	<real>-180</real>
 	<key>angleVariance</key>
 	<real>180</real>
 	<key>blendFuncDestination</key>
@@ -13,15 +13,15 @@
 	<key>duration</key>
 	<real>-1</real>
 	<key>emitterType</key>
-	<real>0</real>
+	<real>1</real>
 	<key>finishColorAlpha</key>
 	<real>1</real>
 	<key>finishColorBlue</key>
-	<real>1</real>
+	<real>0</real>
 	<key>finishColorGreen</key>
-	<real>1</real>
+	<real>0</real>
 	<key>finishColorRed</key>
-	<real>1</real>
+	<real>0</real>
 	<key>finishColorVarianceAlpha</key>
 	<real>0</real>
 	<key>finishColorVarianceBlue</key>
@@ -31,29 +31,29 @@
 	<key>finishColorVarianceRed</key>
 	<real>0</real>
 	<key>finishParticleSize</key>
-	<real>2</real>
+	<real>8</real>
 	<key>finishParticleSizeVariance</key>
-	<real>1</real>
+	<real>5</real>
 	<key>gravityx</key>
 	<real>0</real>
 	<key>gravityy</key>
 	<real>0</real>
 	<key>maxParticles</key>
-	<real>150</real>
+	<real>200</real>
 	<key>maxRadius</key>
-	<real>0</real>
+	<real>131</real>
 	<key>maxRadiusVariance</key>
-	<real>0</real>
+	<real>10</real>
 	<key>minRadius</key>
 	<real>0</real>
 	<key>particleLifespan</key>
-	<real>1</real>
+	<real>0.2</real>
 	<key>particleLifespanVariance</key>
 	<real>0</real>
 	<key>radialAccelVariance</key>
 	<real>0</real>
 	<key>radialAcceleration</key>
-	<real>-800</real>
+	<real>0</real>
 	<key>rotatePerSecond</key>
 	<real>0</real>
 	<key>rotatePerSecondVariance</key>
@@ -67,15 +67,15 @@
 	<key>rotationStartVariance</key>
 	<real>0</real>
 	<key>sourcePositionVariancex</key>
-	<real>5</real>
+	<real>15</real>
 	<key>sourcePositionVariancey</key>
-	<real>5</real>
+	<real>-20</real>
 	<key>sourcePositionx</key>
-	<real>971.52</real>
+	<real>1005.5172413793103</real>
 	<key>sourcePositiony</key>
-	<real>568.3199999999999</real>
+	<real>578.2214156079855</real>
 	<key>speed</key>
-	<real>350</real>
+	<real>0</real>
 	<key>speedVariance</key>
 	<real>0</real>
 	<key>startColorAlpha</key>
@@ -87,17 +87,17 @@
 	<key>startColorRed</key>
 	<real>1</real>
 	<key>startColorVarianceAlpha</key>
-	<real>0</real>
+	<real>0.1</real>
 	<key>startColorVarianceBlue</key>
-	<real>0</real>
+	<real>0.2</real>
 	<key>startColorVarianceGreen</key>
 	<real>0</real>
 	<key>startColorVarianceRed</key>
 	<real>0</real>
 	<key>startParticleSize</key>
-	<real>5</real>
+	<real>15</real>
 	<key>startParticleSizeVariance</key>
-	<real>3</real>
+	<real>7</real>
 	<key>tangentialAccelVariance</key>
 	<real>0</real>
 	<key>tangentialAcceleration</key>
