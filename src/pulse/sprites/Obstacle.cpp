@@ -1,4 +1,6 @@
 #include "pulse/sprites/Obstacle.hpp"
+
+#include "pulse/actions/RemoveSelfWithCallback.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/utilities/Geometry.hpp"
 
@@ -99,28 +101,31 @@ float durationForDirection(float duration, Direction direction) {
 }
 
 void Obstacle::runActions(float duration) {
+    const auto actionsStarted = CallFunc::create([this]() {
+        if (onStarted) {
+            onStarted(this);
+        }
+    });
     const auto scaledDuration = durationForDirection(duration, direction);
     const auto moveToEdge = MoveTo::create(scaledDuration, destination);
-    const auto removeFromScene = RemoveSelf::create(true);
-    const auto actionsCompleted = CallFunc::create([this]() {
+    const auto removeFromScene = RemoveSelfWithCallback::create([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
     });
-    const auto actions = Sequence::create(moveToEdge, removeFromScene, actionsCompleted, nullptr);
+    const auto actions = Sequence::create(actionsStarted, moveToEdge, removeFromScene, nullptr);
     runAction(actions);
 }
 
 void Obstacle::runDefeatedActions() {
     setCascadeOpacityEnabled(true);
     const auto fadeOut = FadeOut::create(0.5);
-    const auto removeFromScene = RemoveSelf::create(true);
-    const auto actionsCompleted = CallFunc::create([this]() {
+    const auto removeFromScene = RemoveSelfWithCallback::create([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
     });
-    const auto actions = Sequence::create(fadeOut, removeFromScene, actionsCompleted, nullptr);
+    const auto actions = Sequence::create(fadeOut, removeFromScene, nullptr);
     runAction(actions);
 }
 

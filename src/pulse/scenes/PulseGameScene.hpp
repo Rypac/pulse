@@ -40,7 +40,6 @@ class PulseGameScene : public GameScene {
     void addMenuOptions();
     void addScoreLabel();
     void addPlayer();
-    void addObstacle();
     void addTouchListeners();
     void addPlayerMovementListener();
     void addCollisionListeners();
@@ -49,6 +48,8 @@ class PulseGameScene : public GameScene {
     void updateSceneTimeScale();
     void scheduleObstacleGeneration();
     void unscheduleObstacleGeneration();
+
+    Obstacle* generateObstacle();
 
     void handleGameOver();
     void handlePassedObstacle(Obstacle* obstacle);

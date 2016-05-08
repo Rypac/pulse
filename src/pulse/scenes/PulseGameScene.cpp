@@ -119,20 +119,23 @@ void PulseGameScene::addPlayer() {
     addChild(player, 1);
 }
 
-void PulseGameScene::addObstacle() {
+Obstacle* PulseGameScene::generateObstacle() {
     const auto obstacle = ObstacleGenerator{frame}.generate();
-    obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
     obstacle->setPhysicsBody(ObstaclePhysicsBody::create(obstacle));
-    addChild(obstacle, 2);
-    obstacles.emplace_back(obstacle);
-    obstacle->runActions(options.obstacleSpeed);
+    obstacle->onStarted = [this](auto obstacle) { obstacles.emplace_back(obstacle); };
+    obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
+    return obstacle;
 }
 
 void PulseGameScene::scheduleObstacleGeneration() {
     const auto delay = DelayTime::create(options.obstacleFrequency);
-    const auto generateObstacle = CallFunc::create([this]() { addObstacle(); });
+    const auto displayObstacle = CallFunc::create([this]() {
+        const auto obstacle = generateObstacle();
+        addChild(obstacle, 2);
+        obstacle->runActions(options.obstacleSpeed);
+    });
     const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
-    obstacleGenerator = Sequence::create(delay, generateObstacle, reschedule, nullptr);
+    obstacleGenerator = Sequence::create(delay, displayObstacle, reschedule, nullptr);
     runAction(obstacleGenerator);
 }
 

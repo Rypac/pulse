@@ -17,6 +17,7 @@ class Obstacle : public cocos2d::Sprite {
     virtual bool init() override;
 
     using ObstacleCallback = std::function<void(Obstacle*)>;
+    ObstacleCallback onStarted;
     ObstacleCallback onCompletion;
 
     void runActions(float duration);
