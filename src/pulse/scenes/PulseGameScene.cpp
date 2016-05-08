@@ -3,6 +3,7 @@
 #include "range/v3/algorithm/for_each.hpp"
 
 #include "pulse/scenes/PulseGameScene.hpp"
+#include "pulse/actions/ObstacleSequence.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
@@ -129,10 +130,10 @@ Obstacle* PulseGameScene::generateObstacle() {
 }
 
 void PulseGameScene::scheduleObstacleGeneration() {
-    const auto delay = DelayTime::create(options.obstacleFrequency);
-    const auto addObstacle = CallFunc::create([this]() { addChild(generateObstacle(), 2); });
+    const auto obstacle = generateObstacle();
+    const auto obstacleSequence = ObstacleSequence::create(obstacle, options.obstacleFrequency);
     const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
-    obstacleGenerator = Sequence::create(delay, addObstacle, reschedule, nullptr);
+    obstacleGenerator = Sequence::create(obstacleSequence, reschedule, nullptr);
     runAction(obstacleGenerator);
 }
 

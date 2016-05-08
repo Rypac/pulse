@@ -58,6 +58,7 @@ include_directories(
 
 set(GAME_SRC
     ${PULSE_DIR}/AppDelegate.cpp
+    ${PULSE_DIR}/actions/ObstacleSequence.cpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.cpp
     ${PULSE_DIR}/generators/ObstacleGenerator.cpp
     ${PULSE_DIR}/models/Resolution.cpp
@@ -80,6 +81,7 @@ set(GAME_SRC
 
 set(GAME_HEADERS
     ${PULSE_DIR}/AppDelegate.hpp
+    ${PULSE_DIR}/actions/ObstacleSequence.hpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.hpp
     ${PULSE_DIR}/generators/Generator.hpp
     ${PULSE_DIR}/generators/ObstacleGenerator.hpp
