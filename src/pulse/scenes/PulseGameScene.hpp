@@ -22,11 +22,6 @@ class PulseGameScene : public GameScene {
     void stopScene() override;
     void update(float dt) override;
 
-    bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void onTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
-    void on3dTouchDetected(cocos2d::Touch* touch);
-    void onAccelerationDetected(cocos2d::Acceleration* acc, cocos2d::Event* event);
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
     void onContactSeparate(cocos2d::PhysicsContact& contact);
@@ -40,10 +35,13 @@ class PulseGameScene : public GameScene {
     void addMenuOptions();
     void addScoreLabel();
     void addPlayer();
-    void addTouchListeners();
+    void addResetGameTouchListener();
+    void addTimeScaleTouchListener();
+    void addPlayerTouchListener();
     void addPlayerMovementListener();
     void addCollisionListeners();
     void addGameStateListeners();
+    void updateListeners(bool isGameRunning);
     void updateScore();
     void updateSceneTimeScale();
     void scheduleObstacleGeneration();
@@ -60,6 +58,10 @@ class PulseGameScene : public GameScene {
     cocos2d::Action* obstacleGenerator;
     std::list<Obstacle*> obstacles;
     GameState gameState;
+
+    cocos2d::EventListenerTouchOneByOne* resetListener;
+    cocos2d::EventListenerTouchOneByOne* timeScaleListener;
+    cocos2d::EventListenerTouchOneByOne* playerTouchListener;
 };
 
 }

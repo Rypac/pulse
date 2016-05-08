@@ -32,7 +32,9 @@ bool PulseGameScene::init() {
     addBackground();
     addMenuOptions();
     addScoreLabel();
-    addTouchListeners();
+    addResetGameTouchListener();
+    addTimeScaleTouchListener();
+    addPlayerTouchListener();
     addPlayerMovementListener();
     addCollisionListeners();
     addGameStateListeners();
@@ -69,6 +71,7 @@ void PulseGameScene::runScene() {
     }
 
     GameScene::runScene();
+    updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
     updateSceneTimeScale();
@@ -76,7 +79,14 @@ void PulseGameScene::runScene() {
 
 void PulseGameScene::stopScene() {
     GameScene::stopScene();
+    updateListeners(false);
     unscheduleObstacleGeneration();
+}
+
+void PulseGameScene::updateListeners(bool isGameRunning) {
+    resetListener->setEnabled(!isGameRunning);
+    timeScaleListener->setEnabled(isGameRunning);
+    playerTouchListener->setEnabled(isGameRunning);
 }
 
 void PulseGameScene::addBackground() {
@@ -156,12 +166,42 @@ void PulseGameScene::updateSceneTimeScale() {
     getScene()->getScheduler()->setTimeScale(gameState.environmentTimeScale());
 }
 
-void PulseGameScene::addTouchListeners() {
-    const auto touchTistener = EventListenerTouchOneByOne::create();
-    touchTistener->onTouchBegan = CC_CALLBACK_2(PulseGameScene::onTouchBegan, this);
-    touchTistener->onTouchMoved = CC_CALLBACK_2(PulseGameScene::onTouchMoved, this);
-    touchTistener->onTouchEnded = CC_CALLBACK_2(PulseGameScene::onTouchEnded, this);
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchTistener, this);
+void PulseGameScene::addResetGameTouchListener() {
+    resetListener = EventListenerTouchOneByOne::create();
+    resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
+    resetListener->onTouchEnded = [this](auto touch, auto event) { resetScene(); };
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
+}
+
+void PulseGameScene::addTimeScaleTouchListener() {
+    timeScaleListener = EventListenerTouchOneByOne::create();
+    timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
+        gameState.enterMode(GameState::TimeMode::SlowMotion);
+        return true;
+    };
+    timeScaleListener->onTouchMoved = [this](auto touch, auto event) {
+        if (touch->getMaxForce() > 0) {
+            const auto maxForce = touch->getMaxForce();
+            const auto currentForce = touch->getCurrentForce();
+            options.slowMotionTimeScale.environment = ((maxForce - currentForce) / maxForce) + 0.1;
+            updateSceneTimeScale();
+        }
+    };
+    timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
+        gameState.enterMode(GameState::TimeMode::Normal);
+    };
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(timeScaleListener, this);
+}
+
+void PulseGameScene::addPlayerTouchListener() {
+    playerTouchListener = EventListenerTouchOneByOne::create();
+    playerTouchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
+    playerTouchListener->onTouchEnded = [this](auto touch, auto event) {
+        const auto touchEffect = ParticleSystemQuad::create("particles/pulse_ended.plist");
+        touchEffect->setPosition(player->getPosition());
+        this->addChild(touchEffect);
+    };
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(playerTouchListener, this);
 }
 
 void PulseGameScene::addPlayerMovementListener() {
@@ -185,37 +225,6 @@ void PulseGameScene::addGameStateListeners() {
     gameState.onTimeModeChanged = [this](auto mode) {
         this->updateSceneTimeScale();
     };
-}
-
-bool PulseGameScene::onTouchBegan(Touch* touch, Event* event) {
-    if (sceneStatus() == GameScene::Status::Running) {
-        gameState.enterMode(GameState::TimeMode::SlowMotion);
-        return true;
-    } else {
-        resetScene();
-        return false;
-    }
-}
-
-void PulseGameScene::onTouchMoved(Touch* touch, Event* event) {
-    if (sceneStatus() == GameScene::Status::Running) {
-        if (touch->getMaxForce() > 0) {
-            on3dTouchDetected(touch);
-        }
-    }
-}
-
-void PulseGameScene::on3dTouchDetected(Touch* touch) {
-    const auto maxForce = touch->getMaxForce();
-    const auto currentForce = touch->getCurrentForce();
-    options.slowMotionTimeScale.environment = ((maxForce - currentForce) / maxForce) + 0.1;
-    updateSceneTimeScale();
-}
-
-void PulseGameScene::onTouchEnded(Touch* touch, Event* event) {
-    if (sceneStatus() == GameScene::Status::Running) {
-        gameState.enterMode(GameState::TimeMode::Normal);
-    }
 }
 
 bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {
