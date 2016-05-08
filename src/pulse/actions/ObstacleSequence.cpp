@@ -3,7 +3,7 @@
 using namespace pulse;
 using namespace cocos2d;
 
-ObstacleSequence* ObstacleSequence::create(Obstacle *obstacle, float indicatorDurection) {
+ObstacleSequence* ObstacleSequence::create(Obstacle* obstacle, float indicatorDurection) {
     const auto sequence = new (std::nothrow) ObstacleSequence{obstacle, indicatorDurection};
     if (sequence && sequence->init()) {
         obstacle->retain();
@@ -27,7 +27,8 @@ ObstacleSequence::~ObstacleSequence() {
 }
 
 bool ObstacleSequence::init() {
-    const auto delay = DelayTime::create(indicatorDuration);
+    const auto obstacleSpawnDelay = DelayTime::create(indicatorDuration);
+    const auto indicatorRemovalDelay = DelayTime::create(0.25);
     const auto addIndicator = CallFunc::create([this]() {
         indicator = ObstacleIndicator::create(obstacle->getDirection(), getTarget()->getBoundingBox());
         indicator->retain();
@@ -41,8 +42,9 @@ bool ObstacleSequence::init() {
     });
     auto actions = Vector<FiniteTimeAction*>();
     actions.pushBack(addIndicator);
-    actions.pushBack(delay);
-    actions.pushBack(removeIndicator);
+    actions.pushBack(obstacleSpawnDelay);
     actions.pushBack(addObstacle);
+    actions.pushBack(indicatorRemovalDelay);
+    actions.pushBack(removeIndicator);
     return Sequence::init(actions);
 }

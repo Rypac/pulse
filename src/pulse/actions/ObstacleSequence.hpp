@@ -8,7 +8,7 @@ namespace pulse {
 
 class ObstacleSequence : public cocos2d::Sequence {
   public:
-    static ObstacleSequence* create(Obstacle* obstacle, float indicatorDuration = 2);
+    static ObstacleSequence* create(Obstacle* obstacle, float indicatorDuration);
 
   protected:
     ObstacleSequence(Obstacle* obstacle, float indicatorDuration):
