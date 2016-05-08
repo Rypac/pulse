@@ -14,7 +14,7 @@ class ObstacleSequence : public cocos2d::Sequence {
     ObstacleSequence(Obstacle* obstacle, float indicatorDuration):
         obstacle{obstacle},
         indicatorDuration{indicatorDuration} {}
-    ~ObstacleSequence();
+    virtual ~ObstacleSequence();
 
     virtual bool init();
 
