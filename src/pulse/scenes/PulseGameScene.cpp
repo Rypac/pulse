@@ -79,9 +79,9 @@ void PulseGameScene::stopScene() {
 }
 
 void PulseGameScene::addBackground() {
-    const auto background = Sprite::create("background/level.png");
-    background->setPosition(geometry::centerOf(frame));
-    addChild(background, -1);
+    const auto particles = ParticleSystemQuad::create("particles/ambient_sparkles.plist");
+    particles->setContentSize(frame.size);
+    addChild(particles, -1);
 }
 
 void PulseGameScene::addMenuOptions() {
