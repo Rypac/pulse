@@ -32,6 +32,11 @@ bool Obstacle::init() {
     return true;
 }
 
+void Obstacle::onEnter() {
+    Sprite::onEnter();
+    runActions();
+}
+
 Obstacle* Obstacle::create(Size size, Direction direction) {
     const auto obstacle = Obstacle::create();
     obstacle->setPosition(0, 0);
@@ -100,21 +105,20 @@ float durationForDirection(float duration, Direction direction) {
     }
 }
 
-void Obstacle::runActions(float duration) {
+void Obstacle::runActions() {
     const auto actionsStarted = CallFunc::create([this]() {
         if (onStarted) {
             onStarted(this);
         }
     });
-    const auto scaledDuration = durationForDirection(duration, direction);
+    const auto scaledDuration = durationForDirection(getSpeed(), direction);
     const auto moveToEdge = MoveTo::create(scaledDuration, destination);
     const auto removeFromScene = RemoveSelfWithCallback::create([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
     });
-    const auto actions = Sequence::create(actionsStarted, moveToEdge, removeFromScene, nullptr);
-    runAction(actions);
+    runAction(Sequence::create(actionsStarted, moveToEdge, removeFromScene, nullptr));
 }
 
 void Obstacle::runDefeatedActions() {
@@ -125,8 +129,7 @@ void Obstacle::runDefeatedActions() {
             onCompletion(this);
         }
     });
-    const auto actions = Sequence::create(fadeOut, removeFromScene, nullptr);
-    runAction(actions);
+    runAction(Sequence::create(fadeOut, removeFromScene, nullptr));
 }
 
 void Obstacle::setPhysicsBody(ObstaclePhysicsBody* body) {
