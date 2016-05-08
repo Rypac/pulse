@@ -4,25 +4,15 @@ using namespace pulse;
 using namespace cocos2d;
 
 RemoveSelfWithCallback * RemoveSelfWithCallback::create(Callback callback) {
-    RemoveSelfWithCallback *action = new (std::nothrow) RemoveSelfWithCallback();
-    if (action && action->init(callback)) {
+    RemoveSelfWithCallback *action = new (std::nothrow) RemoveSelfWithCallback(callback);
+    if (action) {
         action->autorelease();
-        return action;
     }
-    delete action;
-    return nullptr;
-}
-
-bool RemoveSelfWithCallback::init(Callback callback) {
-    if (!RemoveSelf::init(true)) {
-        return false;
-    }
-    onRemoved = callback;
-    return true;
+    return action;
 }
 
 void RemoveSelfWithCallback::update(float time) {
-    RemoveSelf::update(time);
+    _target->removeFromParentAndCleanup(true);
     if (onRemoved) {
         onRemoved();
     }

@@ -18,6 +18,7 @@ LOCAL_MODULE_FILENAME := libcocos2dcpp
 LOCAL_SRC_FILES := \
     bootstrap/main.cpp \
     $(PULSE_PATH)/AppDelegate.cpp \
+	$(PULSE_PATH)/actions/RemoveSelfWithCallback.cpp \
 	$(PULSE_PATH)/generators/ObstacleGenerator.cpp \
 	$(PULSE_PATH)/models/Resolution.cpp \
 	$(PULSE_PATH)/movement/AccelerometerMovementSystem.cpp \
