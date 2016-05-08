@@ -48,6 +48,8 @@
 		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		81563DF21CBB9ED200B303F9 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DEF1CBB9E9000B303F9 /* libcocos2d iOS.a */; };
 		81563DF51CBB9EE200B303F9 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DED1CBB9E9000B303F9 /* libcocos2d Mac.a */; };
+		81775EE71CDF26D80011049C /* FollowedBy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81775EE51CDF26D80011049C /* FollowedBy.cpp */; };
+		81775EE81CDF26D80011049C /* FollowedBy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81775EE51CDF26D80011049C /* FollowedBy.cpp */; };
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81827DF61CB11AB2009EA6A7 /* Images.xcassets */; };
@@ -166,6 +168,8 @@
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../libs/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
+		81775EE51CDF26D80011049C /* FollowedBy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FollowedBy.cpp; path = pulse/actions/FollowedBy.cpp; sourceTree = "<group>"; };
+		81775EE61CDF26D80011049C /* FollowedBy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FollowedBy.hpp; path = pulse/actions/FollowedBy.hpp; sourceTree = "<group>"; };
 		817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleGenerator.cpp; path = pulse/generators/ObstacleGenerator.cpp; sourceTree = "<group>"; };
 		817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleGenerator.hpp; path = pulse/generators/ObstacleGenerator.hpp; sourceTree = "<group>"; };
 		817B8A3F1CA639F2003BE291 /* Generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Generator.hpp; path = pulse/generators/Generator.hpp; sourceTree = "<group>"; };
@@ -396,6 +400,8 @@
 				81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */,
 				81253C1B1CDEDD7E0072DBFD /* ObstacleSequence.cpp */,
 				81253C1C1CDEDD7E0072DBFD /* ObstacleSequence.hpp */,
+				81775EE51CDF26D80011049C /* FollowedBy.cpp */,
+				81775EE61CDF26D80011049C /* FollowedBy.hpp */,
 			);
 			name = actions;
 			sourceTree = "<group>";
@@ -638,6 +644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81775EE71CDF26D80011049C /* FollowedBy.cpp in Sources */,
 				81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				81253C1D1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -677,6 +684,7 @@
 				81253C1E1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
 				81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
+				81775EE81CDF26D80011049C /* FollowedBy.cpp in Sources */,
 				81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
