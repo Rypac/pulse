@@ -24,7 +24,6 @@ bool GameScene::init() {
 
     const auto director = Director::getInstance();
     frame = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
-    status = Status::Stopped;
 
     return true;
 }
@@ -40,12 +39,10 @@ void GameScene::onExit() {
 }
 
 void GameScene::runScene() {
-    status = Status::Running;
     Director::getInstance()->resume();
 }
 
 void GameScene::stopScene() {
-    status = Status::Stopped;
     Director::getInstance()->pause();
 }
 
