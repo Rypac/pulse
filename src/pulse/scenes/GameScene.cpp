@@ -55,5 +55,5 @@ void GameScene::quit() {
 }
 
 bool GameScene::residesInSceneBounds(const Node& node) const {
-    return node.getBoundingBox().intersectsRect(getFrame());
+    return node.getBoundingBox().intersectsRect(sceneFrame());
 }

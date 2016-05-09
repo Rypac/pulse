@@ -18,7 +18,7 @@ class GameScene : public cocos2d::Layer {
 
     bool residesInSceneBounds(const cocos2d::Node& node) const;
 
-    cocos2d::Rect getFrame() const {
+    const cocos2d::Rect& sceneFrame() const {
         return frame;
     };
 

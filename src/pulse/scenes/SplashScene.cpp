@@ -24,7 +24,7 @@ bool SplashScene::init() {
     addChild(background);
 
     image = Sprite::create("splash/normal.png");
-    image->setPosition(geometry::centerOf(frame));
+    image->setPosition(geometry::centerOf(sceneFrame()));
     addChild(image, 1);
 
     return true;

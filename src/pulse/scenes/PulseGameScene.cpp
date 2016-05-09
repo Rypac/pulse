@@ -92,7 +92,7 @@ void PulseGameScene::updateListeners(bool isGameRunning) {
 
 void PulseGameScene::addBackground() {
     const auto particles = ParticleSystemQuad::create("particles/ambient_sparkles.plist");
-    particles->setContentSize(frame.size);
+    particles->setContentSize(sceneFrame().size);
     addChild(particles, -1);
 }
 
@@ -108,7 +108,7 @@ void PulseGameScene::addMenuOptions() {
     pauseImage->setTextureRect(pauseImage->getBoundingBox());
     const auto pauseItem = MenuItemSprite::create(pauseImage, pauseImage, onPause);
     pauseItem->setAnchorPoint(Vec2{1.0, 1.0});
-    pauseItem->setPosition(Vec2{frame.origin.x + frame.size.width - 15, frame.origin.y + frame.size.height - 15});
+    pauseItem->setPosition(Vec2{sceneFrame().origin.x + sceneFrame().size.width - 15, sceneFrame().origin.y + sceneFrame().size.height - 15});
     const auto menu = Menu::create(pauseItem, nullptr);
     menu->setPosition(Vec2::ZERO);
     addChild(menu, 3);
@@ -117,7 +117,7 @@ void PulseGameScene::addMenuOptions() {
 void PulseGameScene::addScoreLabel() {
     scoreLabel = Label::createWithTTF("", Font::System, 28);
     scoreLabel->setAnchorPoint(Vec2{0, 1.0});
-    scoreLabel->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
+    scoreLabel->setPosition(Vec2{sceneFrame().origin.x + 20, sceneFrame().origin.y + sceneFrame().size.height - 20});
     addChild(scoreLabel, 3);
 }
 
@@ -126,13 +126,13 @@ void PulseGameScene::addPlayer() {
     const auto size = Size{30, 30};
     player->setContentSize(size);
     player->setTextureRect(Rect{Vec2::ZERO, size});
-    player->setPosition(geometry::centerOf(frame));
+    player->setPosition(geometry::centerOf(sceneFrame()));
     player->setPhysicsBody(physics_body::createHero(player->getBoundingBox().size));
     addChild(player, 1);
 }
 
 Obstacle* PulseGameScene::generateObstacle() {
-    const auto obstacle = ObstacleGenerator{frame}.generate();
+    const auto obstacle = ObstacleGenerator{sceneFrame()}.generate();
     obstacle->setSpeed(options.obstacleSpeed);
     obstacle->setPhysicsBody(ObstaclePhysicsBody::create(obstacle));
     obstacle->onStarted = [this](auto obstacle) { obstacles.emplace_back(obstacle); };
@@ -236,7 +236,7 @@ void PulseGameScene::addGameStateListeners() {
 
 bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {
     return ranges::any_of(contact.getContactData()->points, [this](auto point) {
-        return point != Vec2::ZERO && frame.containsPoint(point);
+        return point != Vec2::ZERO && sceneFrame().containsPoint(point);
     });
 }
 

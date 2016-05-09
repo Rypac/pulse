@@ -25,7 +25,7 @@ bool TitleScene::init() {
 
 void TitleScene::addTitle() {
     title = Sprite3D::create("animations/title.c3b");
-    title->setPosition(geometry::centerOf(frame));
+    title->setPosition(geometry::centerOf(sceneFrame()));
     title->setScale(35);
     addChild(title);
 }

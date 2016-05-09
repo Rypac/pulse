@@ -71,10 +71,10 @@ bool DeveloperMenuScene::init() {
 }
 
 void DeveloperMenuScene::addSliders() {
-    const auto origin = geometry::topLeftOf(frame);
-    const auto horizontalInset = frame.size.width * 0.1f;
+    const auto origin = geometry::topLeftOf(sceneFrame());
+    const auto horizontalInset = sceneFrame().size.width * 0.1f;
     const auto verticalInset = 100;
-    const auto sliderSize = Size{frame.size.width - horizontalInset * 2, 80};
+    const auto sliderSize = Size{sceneFrame().size.width - horizontalInset * 2, 80};
     auto sliderOrigin = Vec2{origin.x + horizontalInset, origin.y - verticalInset};
 
     for (const auto slider : sliders) {
@@ -98,7 +98,7 @@ void DeveloperMenuScene::addExitButton() {
         }
     });
     exit->setAnchorPoint(Vec2{0, 1.0});
-    exit->setPosition(Vec2{frame.origin.x + 20, frame.origin.y + frame.size.height - 20});
+    exit->setPosition(Vec2{sceneFrame().origin.x + 20, sceneFrame().origin.y + sceneFrame().size.height - 20});
     const auto menu = Menu::create(exit, nullptr);
     menu->setPosition(Vec2::ZERO);
     addChild(menu, 1);
