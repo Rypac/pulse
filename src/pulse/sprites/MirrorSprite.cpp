@@ -3,8 +3,8 @@
 using namespace pulse;
 using namespace cocos2d;
 
-MirrorSprite* MirrorSprite::createWithTexture(Texture2D *texture, const Rect& rect, bool rotated) {
-    MirrorSprite *sprite = new (std::nothrow) MirrorSprite();
+MirrorSprite* MirrorSprite::createWithTexture(Texture2D* texture, const Rect& rect, bool rotated) {
+    const auto sprite = new (std::nothrow) MirrorSprite();
     if (sprite && sprite->initWithTexture(texture, rect, rotated)) {
         sprite->autorelease();
         return sprite;
@@ -13,7 +13,7 @@ MirrorSprite* MirrorSprite::createWithTexture(Texture2D *texture, const Rect& re
     return nullptr;
 }
 
-void MirrorSprite::setPhysicsBody(PhysicsBody *physicsBody) {
+void MirrorSprite::setPhysicsBody(PhysicsBody* physicsBody) {
     Sprite::setPhysicsBody(physicsBody);
     physicsBody->setEnabled(isVisible());
 }

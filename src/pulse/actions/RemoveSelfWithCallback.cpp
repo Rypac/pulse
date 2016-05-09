@@ -3,8 +3,8 @@
 using namespace pulse;
 using namespace cocos2d;
 
-RemoveSelfWithCallback * RemoveSelfWithCallback::create(Callback callback) {
-    RemoveSelfWithCallback *action = new (std::nothrow) RemoveSelfWithCallback(callback);
+RemoveSelfWithCallback* RemoveSelfWithCallback::create(Callback callback) {
+    const auto action = new (std::nothrow) RemoveSelfWithCallback(callback);
     if (action) {
         action->autorelease();
     }

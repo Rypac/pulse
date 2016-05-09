@@ -5,7 +5,7 @@ using pulse::TitleScene;
 using namespace cocos2d;
 
 TitleScene* TitleScene::create() {
-    TitleScene *scene = new (std::nothrow) TitleScene();
+    const auto scene = new (std::nothrow) TitleScene();
     if (scene && scene->init()) {
         scene->autorelease();
         return scene;

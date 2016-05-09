@@ -6,7 +6,7 @@ using pulse::SplashScene;
 using namespace cocos2d;
 
 SplashScene* SplashScene::create() {
-    SplashScene *scene = new (std::nothrow) SplashScene();
+    const auto scene = new (std::nothrow) SplashScene();
     if (scene && scene->init()) {
         scene->autorelease();
         return scene;

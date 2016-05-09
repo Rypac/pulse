@@ -8,7 +8,7 @@ using namespace cocos2d;
 using namespace pulse;
 
 Obstacle* Obstacle::create() {
-    Obstacle *obstacle = new (std::nothrow) Obstacle();
+    const auto obstacle = new (std::nothrow) Obstacle();
     if (obstacle && obstacle->init()) {
         obstacle->autorelease();
         return obstacle;

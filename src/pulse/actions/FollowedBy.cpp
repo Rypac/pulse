@@ -4,8 +4,8 @@ using pulse::FollowedBy;
 using cocos2d::Action;
 using cocos2d::Node;
 
-FollowedBy* FollowedBy::create(Node *follower) {
-    FollowedBy* action = new (std::nothrow) FollowedBy{follower};
+FollowedBy* FollowedBy::create(Node* follower) {
+    const auto action = new (std::nothrow) FollowedBy{follower};
     if (action) {
         follower->retain();
         action->autorelease();

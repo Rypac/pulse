@@ -22,8 +22,8 @@ class WrappedSprite : public cocos2d::Sprite {
     cocos2d::Vec2 relativeToAnchorPoint(const cocos2d::Vec2& position) const;
 
   protected:
-    virtual bool initMirrors(cocos2d::Texture2D *texture, const cocos2d::Rect& rect, bool rotated);
-    virtual bool initWithTexture(cocos2d::Texture2D *texture, const cocos2d::Rect& rect, bool rotated) override;
+    virtual bool initMirrors(cocos2d::Texture2D* texture, const cocos2d::Rect& rect, bool rotated);
+    virtual bool initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& rect, bool rotated) override;
 
   private:
     void applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func);

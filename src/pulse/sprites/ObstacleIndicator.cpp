@@ -5,7 +5,7 @@ using namespace cocos2d;
 using namespace pulse;
 
 ObstacleIndicator* ObstacleIndicator::create(Direction direction, const Rect& frame) {
-    ObstacleIndicator *column = new (std::nothrow) ObstacleIndicator{direction};
+    const auto column = new (std::nothrow) ObstacleIndicator{direction};
     if (column && column->initWithFrame(frame)) {
         column->autorelease();
         return column;

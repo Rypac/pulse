@@ -6,7 +6,7 @@ using namespace pulse;
 using namespace cocos2d;
 
 ObstaclePhysicsBody* ObstaclePhysicsBody::create(const Obstacle* obstacle) {
-    ObstaclePhysicsBody *body = new (std::nothrow) ObstaclePhysicsBody(obstacle);
+    const auto body = new (std::nothrow) ObstaclePhysicsBody(obstacle);
     if (body && body->init()) {
         body->autorelease();
         return body;

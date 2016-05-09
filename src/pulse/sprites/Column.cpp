@@ -4,7 +4,7 @@ using namespace cocos2d;
 using namespace pulse;
 
 Column* Column::create() {
-    Column *column = new (std::nothrow) Column();
+    const auto column = new (std::nothrow) Column();
     if (column && column->init()) {
         column->autorelease();
         return column;

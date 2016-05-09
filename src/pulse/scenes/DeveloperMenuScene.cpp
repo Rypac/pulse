@@ -7,7 +7,7 @@ using namespace pulse;
 using namespace pulse::ui;
 
 DeveloperMenuScene* DeveloperMenuScene::create(GameOptions& options) {
-    DeveloperMenuScene *scene = new (std::nothrow) DeveloperMenuScene(options);
+    const auto scene = new (std::nothrow) DeveloperMenuScene(options);
     if (scene && scene->init()) {
         scene->autorelease();
         return scene;

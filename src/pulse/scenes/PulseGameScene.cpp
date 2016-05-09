@@ -16,7 +16,7 @@ using namespace cocos2d;
 using namespace pulse;
 
 PulseGameScene* PulseGameScene::create(GameOptions& options) {
-    PulseGameScene *scene = new (std::nothrow) PulseGameScene{options};
+    const auto scene = new (std::nothrow) PulseGameScene{options};
     if (scene && scene->init()) {
         scene->autorelease();
         return scene;
@@ -234,7 +234,7 @@ void PulseGameScene::addGameStateListeners() {
     };
 }
 
-bool PulseGameScene::onScreenCollision(const PhysicsContact &contact) const {
+bool PulseGameScene::onScreenCollision(const PhysicsContact& contact) const {
     return ranges::any_of(contact.getContactData()->points, [this](auto point) {
         return point != Vec2::ZERO && sceneFrame().containsPoint(point);
     });

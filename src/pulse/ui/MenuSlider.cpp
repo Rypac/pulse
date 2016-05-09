@@ -9,7 +9,7 @@ using namespace cocos2d::ui;
 using namespace pulse::ui;
 
 MenuSlider* MenuSlider::create(const std::string& title, Preferences preferences) {
-    MenuSlider *menuSlider = new (std::nothrow) MenuSlider();
+    MenuSlider* menuSlider = new (std::nothrow) MenuSlider();
     if (menuSlider && menuSlider->init(title, preferences)) {
         menuSlider->autorelease();
         return menuSlider;

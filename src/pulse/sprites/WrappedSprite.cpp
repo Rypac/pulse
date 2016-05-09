@@ -7,7 +7,7 @@ using pulse::WrappedSprite;
 using namespace cocos2d;
 
 WrappedSprite* WrappedSprite::create() {
-    WrappedSprite *sprite = new (std::nothrow) WrappedSprite();
+    const auto sprite = new (std::nothrow) WrappedSprite();
     if (sprite && sprite->init()) {
         sprite->autorelease();
         return sprite;
@@ -17,7 +17,7 @@ WrappedSprite* WrappedSprite::create() {
 }
 
 WrappedSprite* WrappedSprite::create(const std::string& filename) {
-    WrappedSprite *sprite = new (std::nothrow) WrappedSprite();
+    const auto sprite = new (std::nothrow) WrappedSprite();
     if (sprite && sprite->initWithFile(filename)) {
         sprite->autorelease();
         return sprite;
@@ -26,14 +26,14 @@ WrappedSprite* WrappedSprite::create(const std::string& filename) {
     return nullptr;
 }
 
-bool WrappedSprite::initMirrors(Texture2D *texture, const Rect& rect, bool rotated) {
+bool WrappedSprite::initMirrors(Texture2D* texture, const Rect& rect, bool rotated) {
     horizontalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
     verticalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
     diagonalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
     return horizontalMirror != nullptr && verticalMirror != nullptr && diagonalMirror != nullptr;
 }
 
-bool WrappedSprite::initWithTexture(Texture2D *texture, const Rect& rect, bool rotated) {
+bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool rotated) {
     if (!(initMirrors(texture, rect, rotated) && Sprite::initWithTexture(texture, rect, rotated))) {
         return false;
     }
@@ -97,7 +97,7 @@ void WrappedSprite::setTextureRect(const Rect& rect) {
     applyToMirrors([&](auto mirror) { mirror->setTextureRect(rect); });
 }
 
-void WrappedSprite::setPhysicsBody(PhysicsBody *physicsBody) {
+void WrappedSprite::setPhysicsBody(PhysicsBody* physicsBody) {
     Sprite::setPhysicsBody(physicsBody);
     applyToMirrors([&](auto mirror) {
         mirror->setPhysicsBody(physics_body::clone(physicsBody, mirror->getContentSize()));
