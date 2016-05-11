@@ -13,7 +13,7 @@ enum class ObstacleState {
 
 class ObstaclePhysicsBody : public cocos2d::PhysicsBody {
   public:
-    ObstaclePhysicsBody(const Obstacle* obstacle): state{ObstacleState::Incoming}, obstacle{obstacle} {}
+    ObstaclePhysicsBody(const Obstacle* obstacle): obstacle{obstacle}, state{ObstacleState::Incoming} {}
 
     static ObstaclePhysicsBody* create(const Obstacle* obstacle);
 
