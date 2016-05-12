@@ -1,0 +1,78 @@
+From e4446c9416beaaf737c7d96cb8bc3300696a7999 Mon Sep 17 00:00:00 2001
+From: Ryan Davis <ryan.davis.dev@gmail.com>
+Date: Mon, 11 Apr 2016 21:55:28 +1000
+Subject: [PATCH] Add fixes for 3.10
+
+---
+ build/cocos2d_libs.xcodeproj/project.pbxproj           | 4 ++--
+ cocos/2d/CCLight.h                                     | 2 +-
+ cocos/3d/CCAnimationCurve.inl                          | 2 +-
+ cocos/editor-support/cocostudio/CocosStudioExtension.h | 2 +-
+ cocos/ui/GUIExport.h                                   | 2 +-
+ cocos/ui/UIWebViewImpl-android.h                       | 1 +
+ 6 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/build/cocos2d_libs.xcodeproj/project.pbxproj b/build/cocos2d_libs.xcodeproj/project.pbxproj
+index 027713d..8493062 100644
+--- a/build/cocos2d_libs.xcodeproj/project.pbxproj
++++ b/build/cocos2d_libs.xcodeproj/project.pbxproj
+@@ -12844,6 +12842,7 @@
+ 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+ 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+ 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
++				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+ 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+ 				GCC_WARN_SHADOW = YES;
+ 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+@@ -12879,6 +12878,7 @@
+ 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+ 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+ 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
++				GCC_WARN_INHIBIT_ALL_WARNINGS = YES;
+ 				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+ 				GCC_WARN_SHADOW = YES;
+ 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+diff --git a/cocos/2d/CCLight.h b/cocos/2d/CCLight.h
+index 1c5eeec..1e8111e 100644
+--- a/cocos/2d/CCLight.h
++++ b/cocos/2d/CCLight.h
+@@ -291,4 +291,4 @@ CC_CONSTRUCTOR_ACCESS:
+
+ NS_CC_END
+
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/cocos/3d/CCAnimationCurve.inl b/cocos/3d/CCAnimationCurve.inl
+index 9b14ef0..f0ee3c8 100644
+--- a/cocos/3d/CCAnimationCurve.inl
++++ b/cocos/3d/CCAnimationCurve.inl
+@@ -141,4 +141,4 @@ int AnimationCurve<componentSize>::determineIndex(float time) const
+     return -1;
+ }
+
+-NS_CC_END
+\ No newline at end of file
++NS_CC_END
+diff --git a/cocos/editor-support/cocostudio/CocosStudioExtension.h b/cocos/editor-support/cocostudio/CocosStudioExtension.h
+index 8a8e870..0ab3060 100644
+--- a/cocos/editor-support/cocostudio/CocosStudioExtension.h
++++ b/cocos/editor-support/cocostudio/CocosStudioExtension.h
+@@ -41,4 +41,4 @@ private:
+ NS_CC_END
+
+
+-#endif
+\ No newline at end of file
++#endif
+diff --git a/cocos/ui/GUIExport.h b/cocos/ui/GUIExport.h
+index 7b86aea..dd421db 100644
+--- a/cocos/ui/GUIExport.h
++++ b/cocos/ui/GUIExport.h
+@@ -30,4 +30,4 @@
+     #define CC_GUI_DLL
+ #endif
+
+-#endif /* __CCEXTENSIONEXPORT_H__*/
+\ No newline at end of file
++#endif /* __CCEXTENSIONEXPORT_H__*/
