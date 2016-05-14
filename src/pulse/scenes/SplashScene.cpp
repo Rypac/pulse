@@ -15,6 +15,11 @@ SplashScene* SplashScene::create() {
     return nullptr;
 }
 
+SplashScene::~SplashScene() {
+    AnimationCache::getInstance()->removeAnimation("animations/splash/tandem_intro.plist");
+    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("animations/splash/tandem_intro_spritesheet.plist");
+}
+
 bool SplashScene::init() {
     if (!GameScene::init()) {
         return false;
@@ -24,9 +29,10 @@ bool SplashScene::init() {
     addChild(background);
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/splash/tandem_intro_spritesheet.plist");
+    AnimationCache::getInstance()->addAnimationsWithFile("animations/splash/tandem_intro.plist");
     image = Sprite::createWithSpriteFrameName("tandem_intro_long.png");
     image->setPosition(geometry::centerOf(sceneFrame()));
-    image->setScale(3.6, 3.6);
+    image->setScale(3, 3);
     addChild(image, 1);
 
     return true;
@@ -37,15 +43,8 @@ void SplashScene::onEnter() {
     image->runAction(logoAnimation());
 }
 
-void SplashScene::onExit() {
-    GameScene::onExit();
-    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("animations/splash/tandem_intro_spritesheet.plist");
-}
-
 Action* SplashScene::logoAnimation() {
-    const auto cache = AnimationCache::getInstance();
-    cache->addAnimationsWithFile("animations/splash/tandem_intro.plist");
-    const auto animation = cache->getAnimation("tandem_intro_long");
+    const auto animation = AnimationCache::getInstance()->getAnimation("tandem_intro_long");
     const auto logo = Animate::create(animation);
     const auto logoAudio = CallFunc::create([this]() {
         const auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
