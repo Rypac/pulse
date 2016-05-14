@@ -2,7 +2,7 @@
 #include "pulse/utilities/geometry.hpp"
 #include "SimpleAudioEngine.h"
 
-using pulse::SplashScene;
+using namespace pulse;
 using namespace cocos2d;
 
 SplashScene* SplashScene::create() {
@@ -23,8 +23,10 @@ bool SplashScene::init() {
     const auto background = LayerColor::create(Color4B::WHITE);
     addChild(background);
 
-    image = Sprite::create("splash/normal.png");
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/splash/tandem_intro_spritesheet.plist");
+    image = Sprite::createWithSpriteFrameName("tandem_intro.png");
     image->setPosition(geometry::centerOf(sceneFrame()));
+    image->setScale(3.6, 3.6);
     addChild(image, 1);
 
     return true;
@@ -32,31 +34,26 @@ bool SplashScene::init() {
 
 void SplashScene::onEnter() {
     GameScene::onEnter();
-    runAction(splashScreenAnimation());
+    image->runAction(logoAnimation());
 }
 
-Action* SplashScene::splashScreenAnimation() {
-    const auto normalImage = CallFunc::create([this]() {
-        image->setTexture("splash/normal.png");
-    });
-    const auto winkImage = CallFunc::create([this]() {
-        image->setTexture("splash/wink.png");
-    });
-    const auto winkSound = CallFunc::create([this]() {
+void SplashScene::onExit() {
+    GameScene::onExit();
+    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile("animations/splash/tandem_intro_spritesheet.plist");
+}
+
+Action* SplashScene::logoAnimation() {
+    const auto cache = AnimationCache::getInstance();
+    cache->addAnimationsWithFile("animations/splash/tandem_intro.plist");
+    const auto animation = cache->getAnimation("intro_long");
+    const auto logo = Animate::create(animation);
+    const auto logoAudio = CallFunc::create([this]() {
         const auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-        audio->playEffect("audio/splash/wink.wav", false, 1.0f, 1.0f, 1.0f);
+        audio->playEffect("audio/splash/tandem_intro.wav", false, 1.0f, 1.0f, 1.0f);
     });
-    const auto finish = CallFunc::create([this]() {
+    const auto introAnimation = Spawn::createWithTwoActions(logo, logoAudio);
+    const auto onCompletion = CallFunc::create([this]() {
         onSceneDismissed(this);
     });
-
-    return Sequence::create(
-        DelayTime::create(1.0),
-        Spawn::createWithTwoActions(winkImage, winkSound),
-        DelayTime::create(0.5),
-        normalImage,
-        DelayTime::create(1),
-        finish,
-        nullptr
-    );
+    return Sequence::create(introAnimation, onCompletion, nullptr);
 }
