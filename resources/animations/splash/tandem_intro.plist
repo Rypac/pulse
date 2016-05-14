@@ -4,7 +4,7 @@
 <dict>
     <key>animations</key>
     <dict>
-        <key>intro_long</key>
+        <key>tandem_intro_long</key>
         <dict>
             <key>delayPerUnit</key>
             <integer>1</integer>
@@ -227,13 +227,47 @@
                     <key>spriteframe</key>
                     <string>tandem_intro_34.png</string>
                     <key>delayUnits</key>
+                    <real>0.90</real>
+                    <key>notification</key>
+                    <dict>
+                        <key>lastframe</key>
+                        <true/>
+                    </dict>
+                </dict>
+            </array>
+        </dict>
+        <key>tandem_intro_short</key>
+        <dict>
+            <key>delayPerUnit</key>
+            <integer>1</integer>
+            <key>restoreOriginalFrame</key>
+            <false/>
+            <key>loops</key>
+            <integer>1</integer>
+            <key>frames</key>
+            <array>
+                <dict>
+                    <key>spriteframe</key>
+                    <string>tandem_intro_32.png</string>
+                    <key>delayUnits</key>
+                    <real>0.70</real>
+                    <key>notification</key>
+                    <dict>
+                        <key>firstframe</key>
+                        <true/>
+                    </dict>
+                </dict>
+                <dict>
+                    <key>spriteframe</key>
+                    <string>tandem_intro_33.png</string>
+                    <key>delayUnits</key>
                     <real>0.20</real>
                 </dict>
                 <dict>
                     <key>spriteframe</key>
-                    <string>tandem_intro_35.png</string>
+                    <string>tandem_intro_34.png</string>
                     <key>delayUnits</key>
-                    <real>0.70</real>
+                    <real>0.90</real>
                     <key>notification</key>
                     <dict>
                         <key>lastframe</key>

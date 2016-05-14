@@ -24,7 +24,7 @@ bool SplashScene::init() {
     addChild(background);
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("animations/splash/tandem_intro_spritesheet.plist");
-    image = Sprite::createWithSpriteFrameName("tandem_intro.png");
+    image = Sprite::createWithSpriteFrameName("tandem_intro_long.png");
     image->setPosition(geometry::centerOf(sceneFrame()));
     image->setScale(3.6, 3.6);
     addChild(image, 1);
@@ -45,11 +45,11 @@ void SplashScene::onExit() {
 Action* SplashScene::logoAnimation() {
     const auto cache = AnimationCache::getInstance();
     cache->addAnimationsWithFile("animations/splash/tandem_intro.plist");
-    const auto animation = cache->getAnimation("intro_long");
+    const auto animation = cache->getAnimation("tandem_intro_long");
     const auto logo = Animate::create(animation);
     const auto logoAudio = CallFunc::create([this]() {
         const auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
-        audio->playEffect("audio/splash/tandem_intro.wav", false, 1.0f, 1.0f, 1.0f);
+        audio->playEffect("audio/splash/tandem_intro_long.wav", false, 1.0f, 1.0f, 1.0f);
     });
     const auto introAnimation = Spawn::createWithTwoActions(logo, logoAudio);
     const auto onCompletion = CallFunc::create([this]() {

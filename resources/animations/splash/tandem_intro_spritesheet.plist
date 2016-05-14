@@ -8,7 +8,7 @@
             <dict>
                 <key>aliases</key>
                 <array>
-                    <string>tandem_intro.png</string>
+                    <string>tandem_intro_long.png</string>
                 </array>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
@@ -489,7 +489,9 @@
             <key>tandem_intro_32.png</key>
             <dict>
                 <key>aliases</key>
-                <array/>
+                <array>
+                    <string>tandem_intro_short.png</string>
+                </array>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
