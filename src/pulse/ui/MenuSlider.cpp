@@ -1,5 +1,6 @@
 #include "pulse/ui/MenuSlider.hpp"
 #include "pulse/ui/Font.hpp"
+#include "pulse/ui/Resources.hpp"
 
 #include <algorithm>
 #include <iomanip>
@@ -41,13 +42,13 @@ void MenuSlider::addTitle(const std::string& text) {
 
 void MenuSlider::addSlider() {
     slider = Slider::create();
-    slider->loadBarTexture("menu/slider/empty.png");
+    slider->loadBarTexture(Resources::Images::Menu::Slider::Empty);
     slider->loadSlidBallTextures(
-        "menu/slider/ball/normal.png",
-        "menu/slider/ball/selected.png",
-        "menu/slider/ball/disabled.png"
+        Resources::Images::Menu::Slider::Normal,
+        Resources::Images::Menu::Slider::Selected,
+        Resources::Images::Menu::Slider::Disabled
     );
-    slider->loadProgressBarTexture("menu/slider/filled.png");
+    slider->loadProgressBarTexture(Resources::Images::Menu::Slider::Filled);
     slider->setScale9Enabled(true);
     slider->setAnchorPoint(Vec2{0, 0.5});
     slider->addEventListener([this](auto ref, auto eventType) {

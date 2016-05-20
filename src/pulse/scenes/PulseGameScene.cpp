@@ -9,6 +9,7 @@
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
 #include "pulse/movement/AccelerometerMovementSystem.hpp"
+#include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Geometry.hpp"
 #include "pulse/ui/Font.hpp"
 
@@ -91,7 +92,7 @@ void PulseGameScene::updateListeners(bool isGameRunning) {
 }
 
 void PulseGameScene::addBackground() {
-    const auto particles = ParticleSystemQuad::create("particles/ambient_sparkles.plist");
+    const auto particles = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
     particles->setContentSize(sceneFrame().size);
     addChild(particles, -1);
 }
@@ -197,13 +198,13 @@ void PulseGameScene::addTimeScaleTouchListener() {
 void PulseGameScene::addPlayerTouchListener() {
     playerTouchListener = EventListenerTouchOneByOne::create();
     playerTouchListener->onTouchBegan = [this](auto touch, auto event) {
-        const auto touchEffect = ParticleSystemQuad::create("particles/pulse_began.plist");
+        const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
         player->runAction(FollowedBy::create(touchEffect));
         return true;
     };
     playerTouchListener->onTouchEnded = [this](auto touch, auto event) {
         player->stopAllActions();
-        const auto touchEffect = ParticleSystemQuad::create("particles/pulse_ended.plist");
+        const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseEnded);
         touchEffect->setAutoRemoveOnFinish(true);
         touchEffect->setPosition(player->getPosition());
         this->addChild(touchEffect);

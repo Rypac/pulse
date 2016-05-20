@@ -1,7 +1,8 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/utilities/Geometry.hpp"
+#include "pulse/ui/Resources.hpp"
 
-using pulse::TitleScene;
+using namespace pulse;
 using namespace cocos2d;
 
 TitleScene* TitleScene::create() {
@@ -24,7 +25,7 @@ bool TitleScene::init() {
 }
 
 void TitleScene::addTitle() {
-    title = Sprite3D::create("animations/title.c3b");
+    title = Sprite3D::create(Resources::Animations::Title);
     title->setPosition(geometry::centerOf(sceneFrame()));
     addChild(title);
 }
@@ -50,7 +51,7 @@ void TitleScene::onEnter() {
 }
 
 Sequence* TitleScene::createTitleAnimation() {
-    const auto animation = Animation3D::create("animations/title.c3b");
+    const auto animation = Animation3D::create(Resources::Animations::Title);
     const auto animate = Animate3D::create(animation);
     animate->setSpeed(0.001);
     const auto finish = CallFunc::create([this]() { onSceneDismissed(this); });

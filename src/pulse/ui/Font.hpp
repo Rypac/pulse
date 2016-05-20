@@ -10,6 +10,6 @@ namespace Font {
     static constexpr const auto Tahoma = "fonts/tahoma.ttf";
     static constexpr const auto Thonburi = "fonts/thonburi.ttf";
     static constexpr const auto& System = Thonburi;
-};
+}
 
 }
