@@ -5,6 +5,11 @@
 using namespace pulse;
 using namespace cocos2d;
 
+namespace AnimationStep {
+    const auto Backwards = -3000.0f;
+    const auto Forwards = 3000.0f;
+}
+
 TitleScene* TitleScene::create() {
     const auto scene = new (std::nothrow) TitleScene();
     if (scene && scene->init()) {
@@ -33,18 +38,18 @@ void TitleScene::addTitle() {
 void TitleScene::addTouchListeners() {
     const auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = [this](auto touch, auto event) {
-        animationStep = 3000.0f;
+        animationStep = AnimationStep::Forwards;
         return true;
     };
     listener->onTouchEnded = [this](auto touch, auto event) {
-        animationStep = -3000.0f;
+        animationStep = AnimationStep::Backwards;
     };
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
 void TitleScene::onEnter() {
     GameScene::onEnter();
-    animationStep = 0;
+    animationStep = AnimationStep::Backwards;
     titleAnimation = createTitleAnimation();
     title->runAction(titleAnimation);
     scheduleUpdate();
