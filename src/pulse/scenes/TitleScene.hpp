@@ -2,6 +2,7 @@
 
 #include "cocos2d.h"
 #include "pulse/scenes/GameScene.hpp"
+#include "pulse/ui/Button.hpp"
 
 namespace pulse {
 
@@ -22,14 +23,13 @@ class TitleScene : public GameScene {
     void addBackground();
     void addTitle();
     void addPlayButton();
-    void addTouchListeners();
     cocos2d::Sequence* createTitleAnimation();
 
     cocos2d::Sprite3D* title;
     cocos2d::Sequence* titleAnimation;
     float animationStep;
 
-    cocos2d::Sprite* playButton;
+    ui::Button* playButton;
 };
 
 }
