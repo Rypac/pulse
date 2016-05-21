@@ -21,12 +21,15 @@ class TitleScene : public GameScene {
   private:
     void addBackground();
     void addTitle();
+    void addPlayButton();
     void addTouchListeners();
     cocos2d::Sequence* createTitleAnimation();
 
     cocos2d::Sprite3D* title;
     cocos2d::Sequence* titleAnimation;
     float animationStep;
+
+    cocos2d::Sprite* playButton;
 };
 
 }

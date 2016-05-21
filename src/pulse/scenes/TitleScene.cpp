@@ -26,6 +26,7 @@ bool TitleScene::init() {
     }
     addBackground();
     addTitle();
+    addPlayButton();
     addTouchListeners();
     return true;
 }
@@ -44,16 +45,34 @@ void TitleScene::addTitle() {
     addChild(title);
 }
 
+void TitleScene::addPlayButton() {
+    playButton = Sprite::create(Resources::Buttons::Play);
+    playButton->setAnchorPoint(Vec2{1.0, 0.5});
+    playButton->setPosition(Vec2{sceneFrame().getMaxX(), sceneFrame().getMinY() + 120});
+    addChild(playButton);
+
+    const auto particles = ParticleSystemQuad::create(Resources::Particles::ButtonBackground);
+    auto buttonFrame = playButton->getBoundingBox();
+    buttonFrame.origin = playButton->convertToNodeSpace(buttonFrame.origin);
+    particles->setPosition(buttonFrame.origin);
+    particles->setSourcePosition(geometry::centerOf(buttonFrame));
+    particles->setPosVar(buttonFrame.size / 2);
+    playButton->addChild(particles, -1);
+}
+
 void TitleScene::addTouchListeners() {
     const auto listener = EventListenerTouchOneByOne::create();
     listener->onTouchBegan = [this](auto touch, auto event) {
-        animationStep = AnimationStep::Forwards;
-        return true;
+        if (playButton->getBoundingBox().containsPoint(touch->getLocation())) {
+            animationStep = AnimationStep::Forwards;
+            return true;
+        }
+        return false;
     };
     listener->onTouchEnded = [this](auto touch, auto event) {
         animationStep = AnimationStep::Backwards;
     };
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    playButton->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
 void TitleScene::onEnter() {
