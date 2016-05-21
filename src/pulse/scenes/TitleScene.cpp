@@ -24,9 +24,18 @@ bool TitleScene::init() {
     if (!GameScene::init()) {
         return false;
     }
+    addBackground();
     addTitle();
     addTouchListeners();
     return true;
+}
+
+void TitleScene::addBackground() {
+    const auto particles = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
+    particles->setPosition(sceneFrame().origin);
+    particles->setSourcePosition(geometry::centerOf(sceneFrame()));
+    particles->setPosVar(sceneFrame().size / 2);
+    addChild(particles, -1);
 }
 
 void TitleScene::addTitle() {
