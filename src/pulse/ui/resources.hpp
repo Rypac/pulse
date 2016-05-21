@@ -22,10 +22,12 @@ namespace Resources {
     }
 
     namespace Buttons {
+        static constexpr const auto Achievements = "buttons/achievements.png";
+        static constexpr const auto Blank = "buttons/blank.png";
+        static constexpr const auto Modes = "buttons/modes.png";
         static constexpr const auto Play = "buttons/play.png";
-        static constexpr const auto Mode = "buttons/mode.png";
-        static constexpr const auto Achievments = "buttons/achievments.png";
         static constexpr const auto Settings = "buttons/settings.png";
+        static constexpr const auto Tick = "buttons/tick.png";
     }
 
     namespace Images {
@@ -46,7 +48,8 @@ namespace Resources {
     }
 
     namespace Particles {
-        static constexpr const auto AmbientBackground = "particles/ambient_sparkles.plist";
+        static constexpr const auto AmbientBackground = "particles/background_sparkles.plist";
+        static constexpr const auto ButtonBackground = "particles/button_sparkles.plist";
         static constexpr const auto PulseBegan = "particles/pulse_began.plist";
         static constexpr const auto PulseEnded = "particles/pulse_ended.plist";
     }
