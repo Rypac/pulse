@@ -17,13 +17,15 @@ class TitleScene : public GameScene {
     SceneCallback onSceneDismissed;
 
   protected:
+    TitleScene();
+    virtual ~TitleScene();
     virtual bool init() override;
 
   private:
     void addBackground();
     void addTitle();
+    void addTitleAnimation();
     void addPlayButton();
-    cocos2d::Sequence* createTitleAnimation();
 
     cocos2d::Sprite3D* title;
     cocos2d::Sequence* titleAnimation;

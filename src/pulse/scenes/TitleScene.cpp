@@ -11,6 +11,14 @@ namespace AnimationStep {
     const auto Forwards = 3000.0f;
 }
 
+TitleScene::TitleScene(): animationStep{AnimationStep::Backwards} {}
+
+TitleScene::~TitleScene() {
+    if (titleAnimation) {
+        titleAnimation->release();
+    }
+}
+
 TitleScene* TitleScene::create() {
     const auto scene = new (std::nothrow) TitleScene();
     if (scene && scene->init()) {
@@ -27,6 +35,7 @@ bool TitleScene::init() {
     }
     addBackground();
     addTitle();
+    addTitleAnimation();
     addPlayButton();
     return true;
 }
@@ -40,6 +49,16 @@ void TitleScene::addTitle() {
     title = Sprite3D::create(Resources::Animations::Title);
     title->setPosition(geometry::centerOf(sceneFrame()));
     addChild(title);
+}
+
+void TitleScene::addTitleAnimation() {
+    const auto animation = Animation3D::create(Resources::Animations::Title);
+    const auto animate = Animate3D::create(animation);
+    animate->setSpeed(0.001);
+    const auto finish = CallFunc::create([this]() { onSceneDismissed(this); });
+
+    titleAnimation = Sequence::create(animate, finish, nullptr);
+    titleAnimation->retain();
 }
 
 void TitleScene::addPlayButton() {
@@ -58,21 +77,15 @@ void TitleScene::addPlayButton() {
 
 void TitleScene::onEnter() {
     GameScene::onEnter();
-    animationStep = AnimationStep::Backwards;
-    titleAnimation = createTitleAnimation();
     title->runAction(titleAnimation);
     scheduleUpdate();
 }
 
-Sequence* TitleScene::createTitleAnimation() {
-    const auto animation = Animation3D::create(Resources::Animations::Title);
-    const auto animate = Animate3D::create(animation);
-    animate->setSpeed(0.001);
-    const auto finish = CallFunc::create([this]() { onSceneDismissed(this); });
-    return Sequence::create(animate, finish, nullptr);
-}
-
 void TitleScene::update(float dt) {
+    if (titleAnimation->isDone()) {
+        return;
+    }
+
     const auto elapsed = titleAnimation->getElapsed() / titleAnimation->getDuration();
     if (elapsed > 0 || animationStep > 0) {
         const auto easeOut = [](auto elapsed) { return 1.0 - elapsed + 0.25; };
