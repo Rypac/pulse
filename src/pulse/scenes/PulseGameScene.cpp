@@ -93,7 +93,9 @@ void PulseGameScene::updateListeners(bool isGameRunning) {
 
 void PulseGameScene::addBackground() {
     const auto particles = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
-    particles->setContentSize(sceneFrame().size);
+    particles->setPosition(sceneFrame().origin);
+    particles->setSourcePosition(geometry::centerOf(sceneFrame()));
+    particles->setPosVar(sceneFrame().size / 2);
     addChild(particles, -1);
 }
 
