@@ -25,6 +25,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
         director->setOpenGLView(glview);
     }
 
+    director->setProjection(Director::Projection::_2D);
     director->setDisplayStats(false);
     director->setAnimationInterval(1.0f / 60);
 
