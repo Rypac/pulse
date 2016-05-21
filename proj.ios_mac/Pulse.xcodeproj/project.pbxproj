@@ -78,6 +78,8 @@
 		81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */; };
 		81D8177B1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */; };
 		81D8177C1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */; };
+		81D817821CF024910081C4A1 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D817801CF024910081C4A1 /* Button.cpp */; };
+		81D817831CF024910081C4A1 /* Button.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D817801CF024910081C4A1 /* Button.cpp */; };
 		81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
@@ -214,6 +216,8 @@
 		81D28FA01CDDCB3A00C09896 /* ObstacleIndicator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleIndicator.hpp; path = pulse/sprites/ObstacleIndicator.hpp; sourceTree = "<group>"; };
 		81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimatedBackground.cpp; path = pulse/actions/AnimatedBackground.cpp; sourceTree = "<group>"; };
 		81D8177A1CF014B60081C4A1 /* AnimatedBackground.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AnimatedBackground.hpp; path = pulse/actions/AnimatedBackground.hpp; sourceTree = "<group>"; };
+		81D817801CF024910081C4A1 /* Button.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Button.cpp; sourceTree = "<group>"; };
+		81D817811CF024910081C4A1 /* Button.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Button.hpp; sourceTree = "<group>"; };
 		81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstaclePhysicsBody.cpp; path = pulse/sprites/ObstaclePhysicsBody.cpp; sourceTree = "<group>"; };
 		81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstaclePhysicsBody.hpp; path = pulse/sprites/ObstaclePhysicsBody.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
@@ -498,6 +502,8 @@
 		81D28F8F1CDD8DF500C09896 /* ui */ = {
 			isa = PBXGroup;
 			children = (
+				81D817801CF024910081C4A1 /* Button.cpp */,
+				81D817811CF024910081C4A1 /* Button.hpp */,
 				81D28F901CDD8DF500C09896 /* Font.hpp */,
 				81D28F911CDD8DF500C09896 /* MenuSlider.cpp */,
 				81D28F921CDD8DF500C09896 /* MenuSlider.hpp */,
@@ -667,6 +673,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81D817821CF024910081C4A1 /* Button.cpp in Sources */,
 				81775EE71CDF26D80011049C /* FollowedBy.cpp in Sources */,
 				81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				81253C1D1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
@@ -713,6 +720,7 @@
 				81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
+				81D817831CF024910081C4A1 /* Button.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81D28F9A1CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
