@@ -76,6 +76,8 @@
 		81D28F9E1CDDC18D00C09896 /* particles in Resources */ = {isa = PBXBuildFile; fileRef = 81D28F9C1CDDC18D00C09896 /* particles */; };
 		81D28FA11CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */; };
 		81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */; };
+		81D8177B1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */; };
+		81D8177C1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */; };
 		81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */; };
 		81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */; };
@@ -120,6 +122,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1551A33E158F2AB200E66CFE;
 			remoteInfo = "libcocos2d Mac";
+		};
+		81D8177E1CF014B60081C4A1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 507B40FD1C31BDD30067B53E;
+			remoteInfo = "libcocos2d tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -203,6 +212,8 @@
 		81D28F9C1CDDC18D00C09896 /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
 		81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleIndicator.cpp; path = pulse/sprites/ObstacleIndicator.cpp; sourceTree = "<group>"; };
 		81D28FA01CDDCB3A00C09896 /* ObstacleIndicator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleIndicator.hpp; path = pulse/sprites/ObstacleIndicator.hpp; sourceTree = "<group>"; };
+		81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimatedBackground.cpp; path = pulse/actions/AnimatedBackground.cpp; sourceTree = "<group>"; };
+		81D8177A1CF014B60081C4A1 /* AnimatedBackground.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AnimatedBackground.hpp; path = pulse/actions/AnimatedBackground.hpp; sourceTree = "<group>"; };
 		81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstaclePhysicsBody.cpp; path = pulse/sprites/ObstaclePhysicsBody.cpp; sourceTree = "<group>"; };
 		81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstaclePhysicsBody.hpp; path = pulse/sprites/ObstaclePhysicsBody.hpp; sourceTree = "<group>"; };
 		81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashScene.cpp; path = pulse/scenes/SplashScene.cpp; sourceTree = "<group>"; };
@@ -403,6 +414,8 @@
 				81253C1C1CDEDD7E0072DBFD /* ObstacleSequence.hpp */,
 				81775EE51CDF26D80011049C /* FollowedBy.cpp */,
 				81775EE61CDF26D80011049C /* FollowedBy.hpp */,
+				81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */,
+				81D8177A1CF014B60081C4A1 /* AnimatedBackground.hpp */,
 			);
 			name = actions;
 			sourceTree = "<group>";
@@ -412,6 +425,7 @@
 			children = (
 				81563DED1CBB9E9000B303F9 /* libcocos2d Mac.a */,
 				81563DEF1CBB9E9000B303F9 /* libcocos2d iOS.a */,
+				81D8177F1CF014B60081C4A1 /* libcocos2d tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -608,6 +622,13 @@
 			remoteRef = 81563DEE1CBB9E9000B303F9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		81D8177F1CF014B60081C4A1 /* libcocos2d tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libcocos2d tvOS.a";
+			remoteRef = 81D8177E1CF014B60081C4A1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -664,6 +685,7 @@
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				81D8177B1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */,
 				812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */,
 				81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */,
 				81C44A461CC311D7006D6F0F /* TitleScene.cpp in Sources */,
@@ -678,6 +700,7 @@
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
+				81D8177C1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */,
 				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				81253C1A1CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,

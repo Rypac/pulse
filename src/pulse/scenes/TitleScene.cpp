@@ -1,4 +1,5 @@
 #include "pulse/scenes/TitleScene.hpp"
+#include "pulse/actions/AnimatedBackground.hpp"
 #include "pulse/utilities/Geometry.hpp"
 #include "pulse/ui/Resources.hpp"
 
@@ -33,10 +34,7 @@ bool TitleScene::init() {
 
 void TitleScene::addBackground() {
     const auto particles = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
-    particles->setPosition(sceneFrame().origin);
-    particles->setSourcePosition(geometry::centerOf(sceneFrame()));
-    particles->setPosVar(sceneFrame().size / 2);
-    addChild(particles, -1);
+    runAction(AnimatedBackground::create(particles));
 }
 
 void TitleScene::addTitle() {
@@ -52,12 +50,7 @@ void TitleScene::addPlayButton() {
     addChild(playButton);
 
     const auto particles = ParticleSystemQuad::create(Resources::Particles::ButtonBackground);
-    auto buttonFrame = playButton->getBoundingBox();
-    buttonFrame.origin = playButton->convertToNodeSpace(buttonFrame.origin);
-    particles->setPosition(buttonFrame.origin);
-    particles->setSourcePosition(geometry::centerOf(buttonFrame));
-    particles->setPosVar(buttonFrame.size / 2);
-    playButton->addChild(particles, -1);
+    playButton->runAction(AnimatedBackground::create(particles));
 }
 
 void TitleScene::addTouchListeners() {
