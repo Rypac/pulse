@@ -1,6 +1,7 @@
 #include "pulse/AppDelegate.hpp"
 #include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
+#include "pulse/scenes/InGameMenuScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
 #include "pulse/scenes/TitleScene.hpp"
@@ -75,11 +76,32 @@ void AppDelegate::addTitleScene() {
 }
 
 void AppDelegate::addGameScene() {
-    const auto gameScene = PulseGameScene::create(options);
+    gameScene = PulseGameScene::create(options);
+    gameScene->retain();
     gameScene->onEnterMenu = [this](auto scene) {
-        this->addDeveloperMenuScene();
+        this->addInGameMenuScene();
+    };
+    gameScene->onSceneDismissed = [this](auto scene) {
+        this->addTitleScene();
+        scene->release();
     };
     Director::getInstance()->replaceScene(PhysicsScene::createScene(gameScene));
+}
+
+void AppDelegate::addInGameMenuScene() {
+    const auto menuScene = InGameMenuScene::create();
+    menuScene->onResumeGame = [](auto scene) {
+        Director::getInstance()->popScene();
+    };
+    menuScene->onRestartGame = [this](auto scene) {
+        Director::getInstance()->popScene();
+        gameScene->restartScene();
+    };
+    menuScene->onQuitGame = [this](auto scene) {
+        Director::getInstance()->popScene();
+        gameScene->onSceneDismissed(gameScene);
+    };
+    Director::getInstance()->pushScene(GameScene::createScene(menuScene));
 }
 
 void AppDelegate::addDeveloperMenuScene() {

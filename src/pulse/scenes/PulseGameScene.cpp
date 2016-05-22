@@ -8,9 +8,10 @@
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
 #include "pulse/movement/AccelerometerMovementSystem.hpp"
+#include "pulse/ui/Button.hpp"
+#include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Geometry.hpp"
-#include "pulse/ui/Font.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -50,18 +51,21 @@ bool PulseGameScene::init() {
     addCollisionListeners();
     addGameStateListeners();
 
-    setonEnterTransitionDidFinishCallback([this]() {
-        if (gameState.isGameOver()) {
-            this->startScene();
-        } else {
-            this->resumeScene();
-        }
-    });
-    setonExitTransitionDidStartCallback([this]() {
-        this->pauseScene();
-    });
-
     return true;
+}
+
+void PulseGameScene::onEnterTransitionDidFinish() {
+    if (gameState.isGameOver()) {
+        startScene();
+    } else {
+        resume();
+    }
+}
+
+void PulseGameScene::restartScene() {
+    stopScene();
+    clearScene();
+    startScene();
 }
 
 void PulseGameScene::clearScene() {
@@ -80,16 +84,17 @@ void PulseGameScene::startScene() {
     scheduleUpdate();
     scheduleObstacleGeneration();
     updateSceneTimeScale();
-    resumeScene();
+    resume();
 }
 
 void PulseGameScene::stopScene() {
     stopAllActions();
+    player->stopAllActions();
     ranges::for_each(obstacles, [](auto obstacle) {
         obstacle->stopAllActions();
     });
     updateListeners(false);
-    pauseScene();
+    pause();
 }
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
@@ -107,28 +112,23 @@ void PulseGameScene::addBackground() {
 }
 
 void PulseGameScene::addMenuOptions() {
-    const auto onPause = [this](auto ref) {
+    const auto menuButton = ui::Button::create(Resources::Buttons::Settings);
+    menuButton->setScale(0.6);
+    menuButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
+    menuButton->setPosition(Vec2{sceneFrame().getMaxX() - 20, sceneFrame().getMaxY() - 20});
+    menuButton->onTouchEnded = [this](auto ref) {
         if (onEnterMenu) {
             onEnterMenu(this);
         }
     };
-    const auto pauseImage = Sprite::create();
-    pauseImage->setColor(Color3B::GREEN);
-    pauseImage->setContentSize(Size{40, 40});
-    pauseImage->setTextureRect(pauseImage->getBoundingBox());
-    const auto pauseItem = MenuItemSprite::create(pauseImage, pauseImage, onPause);
-    pauseItem->setAnchorPoint(Vec2{1.0, 1.0});
-    pauseItem->setPosition(Vec2{sceneFrame().origin.x + sceneFrame().size.width - 15, sceneFrame().origin.y + sceneFrame().size.height - 15});
-    const auto menu = Menu::create(pauseItem, nullptr);
-    menu->setPosition(Vec2::ZERO);
-    addChild(menu, 3);
+    addChild(menuButton, 3);
 }
 
 void PulseGameScene::addScoreLabel() {
     scoreLabel = Label::createWithTTF("", Font::System, 28);
     scoreLabel->retain();
-    scoreLabel->setAnchorPoint(Vec2{0, 1.0});
-    scoreLabel->setPosition(Vec2{sceneFrame().origin.x + 20, sceneFrame().origin.y + sceneFrame().size.height - 20});
+    scoreLabel->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    scoreLabel->setPosition(Vec2{sceneFrame().getMinX() + 20, sceneFrame().getMaxY() - 20});
     addChild(scoreLabel, 3);
 }
 
@@ -175,10 +175,7 @@ void PulseGameScene::addResetGameTouchListener() {
     resetListener = EventListenerTouchOneByOne::create();
     resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    resetListener->onTouchEnded = [this](auto touch, auto event) {
-        this->clearScene();
-        this->startScene();
-    };
+    resetListener->onTouchEnded = [this](auto touch, auto event) { this->restartScene(); };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
 }
 

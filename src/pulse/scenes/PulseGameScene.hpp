@@ -13,6 +13,9 @@ class PulseGameScene : public PhysicsScene {
     static PulseGameScene* create(GameOptions& options);
 
     virtual void update(float dt) override;
+    virtual void onEnterTransitionDidFinish() override;
+
+    void restartScene();
 
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
@@ -20,6 +23,7 @@ class PulseGameScene : public PhysicsScene {
 
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;
+    SceneCallback onSceneDismissed;
 
   protected:
     PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {}
