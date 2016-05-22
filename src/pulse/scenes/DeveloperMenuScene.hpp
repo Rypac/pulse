@@ -20,11 +20,10 @@ class DeveloperMenuScene : public GameScene {
     SceneCallback onSceneDismissed;
 
   private:
-    void addSliders();
+    void addSliders(std::vector<ui::MenuSlider*> sliders);
     void addExitButton();
 
     GameOptions& options;
-    std::vector<ui::MenuSlider*> sliders;
 };
 
 }

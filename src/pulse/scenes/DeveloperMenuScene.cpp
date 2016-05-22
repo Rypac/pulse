@@ -57,20 +57,18 @@ bool DeveloperMenuScene::init() {
         return false;
     }
 
-    sliders = {
+    addSliders({
         obstacleFrequency(options),
         obstacleSpeed(options),
         obstacleSlowMotionScale(options),
         playerSlowMotionScale(options)
-    };
-
-    addSliders();
+    });
     addExitButton();
 
     return true;
 }
 
-void DeveloperMenuScene::addSliders() {
+void DeveloperMenuScene::addSliders(std::vector<ui::MenuSlider*> sliders) {
     const auto origin = geometry::topLeftOf(sceneFrame());
     const auto horizontalInset = sceneFrame().size.width * 0.1f;
     const auto verticalInset = 100;
@@ -78,7 +76,7 @@ void DeveloperMenuScene::addSliders() {
     auto sliderOrigin = Vec2{origin.x + horizontalInset, origin.y - verticalInset};
 
     for (const auto slider : sliders) {
-        slider->setAnchorPoint(Vec2{0, 0});
+        slider->setAnchorPoint(Vec2::ZERO);
         slider->setPosition(sliderOrigin);
         slider->setContentSize(sliderSize);
         addChild(slider);
