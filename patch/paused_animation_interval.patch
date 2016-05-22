@@ -1,0 +1,58 @@
+From 7029a895cb506caac595cc41734d13084dc987b8 Mon Sep 17 00:00:00 2001
+From: Ryan Davis <ryan.davis.dev@gmail.com>
+Date: Sun, 22 May 2016 14:54:05 +1000
+Subject: [PATCH] Add ability to set paused animation interval
+
+---
+ cocos/base/CCDirector.cpp | 3 ++-
+ cocos/base/CCDirector.h   | 6 ++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/cocos/base/CCDirector.cpp b/cocos/base/CCDirector.cpp
+index a4f6797..1964339 100644
+--- a/cocos/base/CCDirector.cpp
++++ b/cocos/base/CCDirector.cpp
+@@ -219,6 +219,7 @@ void Director::setDefaultValues(void)
+     // default FPS
+     double fps = conf->getValue("cocos2d.x.fps", Value(kDefaultFPS)).asDouble();
+     _oldAnimationInterval = _animationInterval = 1.0 / fps;
++    _animationInterval = 1.0 / 4;
+ 
+     // Display FPS
+     _displayStats = conf->getValue("cocos2d.x.display_fps", Value(false)).asBool();
+@@ -1140,7 +1141,7 @@ void Director::pause()
+     _oldAnimationInterval = _animationInterval;
+ 
+     // when paused, don't consume CPU
+-    setAnimationInterval(1 / 4.0);
++    setAnimationInterval(_pausedAnimationInterval);
+     _paused = true;
+ }
+ 
+diff --git a/cocos/base/CCDirector.h b/cocos/base/CCDirector.h
+index aa0ab1b..37e2b2f 100644
+--- a/cocos/base/CCDirector.h
++++ b/cocos/base/CCDirector.h
+@@ -161,6 +161,11 @@ public:
+     /** Sets the FPS value. FPS = 1/interval. */
+     virtual void setAnimationInterval(float interval) = 0;
+ 
++    /** Gets the FPS value when paused. */
++    inline float getPausedAnimationInterval() const { return _pausedAnimationInterval; }
++    /** Sets the FPS value when paused. FPS = 1/interval. */
++    virtual void setPausedAnimationInterval(float interval) { _pausedAnimationInterval = interval; }
++
+     /** Whether or not displaying the FPS on the bottom-left corner of the screen. */
+     inline bool isDisplayStats() { return _displayStats; }
+     /** Display the FPS on the bottom-left corner of the screen. */
+@@ -556,6 +561,7 @@ protected:
+ 
+     float _animationInterval;
+     float _oldAnimationInterval;
++    float _pausedAnimationInterval;
+ 
+     /* landscape mode ? */
+     bool _landscape;
+-- 
+2.8.3
+
