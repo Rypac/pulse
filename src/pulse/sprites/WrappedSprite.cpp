@@ -26,10 +26,19 @@ WrappedSprite* WrappedSprite::create(const std::string& filename) {
     return nullptr;
 }
 
+WrappedSprite::~WrappedSprite() {
+    CC_SAFE_RELEASE(horizontalMirror);
+    CC_SAFE_RELEASE(verticalMirror);
+    CC_SAFE_RELEASE(diagonalMirror);
+}
+
 bool WrappedSprite::initMirrors(Texture2D* texture, const Rect& rect, bool rotated) {
     horizontalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
     verticalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
     diagonalMirror = MirrorSprite::createWithTexture(texture, rect, rotated);
+    horizontalMirror->retain();
+    verticalMirror->retain();
+    diagonalMirror->retain();
     return horizontalMirror != nullptr && verticalMirror != nullptr && diagonalMirror != nullptr;
 }
 

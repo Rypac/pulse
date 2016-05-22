@@ -30,8 +30,6 @@ class TitleScene : public GameScene {
     cocos2d::Sprite3D* title;
     cocos2d::Sequence* titleAnimation;
     float animationStep;
-
-    ui::Button* playButton;
 };
 
 }

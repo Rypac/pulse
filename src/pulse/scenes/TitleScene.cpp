@@ -14,9 +14,8 @@ namespace AnimationStep {
 TitleScene::TitleScene(): animationStep{AnimationStep::Backwards} {}
 
 TitleScene::~TitleScene() {
-    if (titleAnimation) {
-        titleAnimation->release();
-    }
+    CC_SAFE_RELEASE(titleAnimation);
+    CC_SAFE_RELEASE(title);
 }
 
 TitleScene* TitleScene::create() {
@@ -47,6 +46,7 @@ void TitleScene::addBackground() {
 
 void TitleScene::addTitle() {
     title = Sprite3D::create(Resources::Animations::Title);
+    title->retain();
     title->setPosition(geometry::centerOf(sceneFrame()));
     addChild(title);
 }
@@ -62,7 +62,7 @@ void TitleScene::addTitleAnimation() {
 }
 
 void TitleScene::addPlayButton() {
-    playButton = ui::Button::create(Resources::Buttons::Play);
+    const auto playButton = ui::Button::create(Resources::Buttons::Play);
     playButton->setAnchorPoint(Vec2{1.0, 0.5});
     playButton->setPosition(Vec2{sceneFrame().getMaxX(), sceneFrame().getMinY() + 120});
     addChild(playButton);

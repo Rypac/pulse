@@ -10,11 +10,8 @@ namespace pulse {
 
 class PulseGameScene : public GameScene {
   public:
-    PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {}
-
     static PulseGameScene* create(GameOptions& options);
 
-    bool init() override;
     void setupScene();
     void clearScene();
     void resetScene();
@@ -29,6 +26,12 @@ class PulseGameScene : public GameScene {
 
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;
+
+  protected:
+    PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {}
+    virtual ~PulseGameScene();
+
+    bool init() override;
 
   private:
     void addBackground();

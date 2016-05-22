@@ -19,6 +19,7 @@ SplashScene* SplashScene::create() {
 SplashScene::~SplashScene() {
     AnimationCache::getInstance()->removeAnimation(Resources::Animations::Intro::Properties);
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile(Resources::Spritesheets::Intro);
+    CC_SAFE_RELEASE(image);
 }
 
 bool SplashScene::init() {
@@ -32,6 +33,7 @@ bool SplashScene::init() {
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(Resources::Spritesheets::Intro);
     AnimationCache::getInstance()->addAnimationsWithFile(Resources::Animations::Intro::Properties);
     image = Sprite::createWithSpriteFrameName(Resources::Images::Intro::Long);
+    image->retain();
     image->setPosition(geometry::centerOf(sceneFrame()));
     image->setScale(3, 3);
     addChild(image, 1);

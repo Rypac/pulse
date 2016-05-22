@@ -16,6 +16,16 @@
 using namespace cocos2d;
 using namespace pulse;
 
+PulseGameScene::~PulseGameScene() {
+    const auto listeners = {resetListener, timeScaleListener, playerTouchListener};
+    ranges::for_each(listeners, [this](auto listener) {
+        this->getEventDispatcher()->removeEventListener(listener);
+        CC_SAFE_RELEASE(listener);
+    });
+    CC_SAFE_RELEASE(player);
+    CC_SAFE_RELEASE(scoreLabel);
+}
+
 PulseGameScene* PulseGameScene::create(GameOptions& options) {
     const auto scene = new (std::nothrow) PulseGameScene{options};
     if (scene && scene->init()) {
@@ -119,6 +129,7 @@ void PulseGameScene::addMenuOptions() {
 
 void PulseGameScene::addScoreLabel() {
     scoreLabel = Label::createWithTTF("", Font::System, 28);
+    scoreLabel->retain();
     scoreLabel->setAnchorPoint(Vec2{0, 1.0});
     scoreLabel->setPosition(Vec2{sceneFrame().origin.x + 20, sceneFrame().origin.y + sceneFrame().size.height - 20});
     addChild(scoreLabel, 3);
@@ -126,6 +137,7 @@ void PulseGameScene::addScoreLabel() {
 
 void PulseGameScene::addPlayer() {
     player = WrappedSprite::create();
+    player->retain();
     const auto size = Size{30, 30};
     player->setContentSize(size);
     player->setTextureRect(Rect{Vec2::ZERO, size});
@@ -172,6 +184,7 @@ void PulseGameScene::updateSceneTimeScale() {
 
 void PulseGameScene::addResetGameTouchListener() {
     resetListener = EventListenerTouchOneByOne::create();
+    resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
     resetListener->onTouchEnded = [this](auto touch, auto event) { this->resetScene(); };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
@@ -179,6 +192,7 @@ void PulseGameScene::addResetGameTouchListener() {
 
 void PulseGameScene::addTimeScaleTouchListener() {
     timeScaleListener = EventListenerTouchOneByOne::create();
+    timeScaleListener->retain();
     timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::SlowMotion);
         return true;
@@ -199,6 +213,7 @@ void PulseGameScene::addTimeScaleTouchListener() {
 
 void PulseGameScene::addPlayerTouchListener() {
     playerTouchListener = EventListenerTouchOneByOne::create();
+    playerTouchListener->retain();
     playerTouchListener->onTouchBegan = [this](auto touch, auto event) {
         const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
         player->runAction(FollowedBy::create(touchEffect));
