@@ -50,11 +50,10 @@ bool PulseGameScene::init() {
     addCollisionListeners();
     addGameStateListeners();
 
-    setOnEnterCallback([this]() {
-        this->runScene();
-    });
     setonEnterTransitionDidFinishCallback([this]() {
-        if (not gameState.isGameOver()) {
+        if (gameState.isGameOver()) {
+            this->startScene();
+        } else {
             this->resumeScene();
         }
     });
@@ -66,34 +65,31 @@ bool PulseGameScene::init() {
 }
 
 void PulseGameScene::clearScene() {
-    stopAllActions();
     removeChild(player);
     ranges::for_each(obstacles, [this](auto obstacle) {
         this->removeChild(obstacle);
     });
     obstacles.clear();
+}
+
+void PulseGameScene::startScene() {
     gameState.reset();
-}
-
-void PulseGameScene::resetScene() {
-    stopScene();
-    clearScene();
-    runScene();
-}
-
-void PulseGameScene::runScene() {
-    resumeScene();
     addPlayer();
     updateScore();
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
     updateSceneTimeScale();
+    resumeScene();
 }
 
 void PulseGameScene::stopScene() {
-    pauseScene();
+    stopAllActions();
+    ranges::for_each(obstacles, [](auto obstacle) {
+        obstacle->stopAllActions();
+    });
     updateListeners(false);
+    pauseScene();
 }
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
@@ -179,7 +175,10 @@ void PulseGameScene::addResetGameTouchListener() {
     resetListener = EventListenerTouchOneByOne::create();
     resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    resetListener->onTouchEnded = [this](auto touch, auto event) { this->resetScene(); };
+    resetListener->onTouchEnded = [this](auto touch, auto event) {
+        this->clearScene();
+        this->startScene();
+    };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
 }
 

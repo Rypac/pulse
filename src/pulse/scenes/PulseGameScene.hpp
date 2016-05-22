@@ -12,7 +12,7 @@ class PulseGameScene : public PhysicsScene {
   public:
     static PulseGameScene* create(GameOptions& options);
 
-    void update(float dt) override;
+    virtual void update(float dt) override;
 
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
@@ -27,10 +27,9 @@ class PulseGameScene : public PhysicsScene {
 
     bool init() override;
 
-    void runScene();
+    void startScene();
     void stopScene();
     void clearScene();
-    void resetScene();
 
   private:
     void addBackground();
