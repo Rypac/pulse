@@ -15,7 +15,7 @@ class PulseGameScene : public PhysicsScene {
     virtual void update(float dt) override;
     virtual void onEnterTransitionDidFinish() override;
 
-    void restartScene();
+    void resetScene();
 
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);

@@ -62,10 +62,10 @@ void PulseGameScene::onEnterTransitionDidFinish() {
     }
 }
 
-void PulseGameScene::restartScene() {
+void PulseGameScene::resetScene() {
     stopScene();
     clearScene();
-    startScene();
+    gameState.gameOver();
 }
 
 void PulseGameScene::clearScene() {
@@ -175,8 +175,11 @@ void PulseGameScene::addResetGameTouchListener() {
     resetListener = EventListenerTouchOneByOne::create();
     resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    resetListener->onTouchEnded = [this](auto touch, auto event) { this->restartScene(); };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
+    resetListener->onTouchEnded = [this](auto touch, auto event) {
+        this->resetScene();
+        this->startScene();
+    };
 }
 
 void PulseGameScene::addTimeScaleTouchListener() {
