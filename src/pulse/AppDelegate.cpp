@@ -29,7 +29,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setProjection(Director::Projection::_2D);
     director->setDisplayStats(false);
     director->setAnimationInterval(1.0f / 60);
-    director->setPausedAnimationInterval(1.0f / 10);
 
     const auto& designResolution = Resolution::design();
     glview->setDesignResolutionSize(designResolution.size.width, designResolution.size.height, ResolutionPolicy::FIXED_HEIGHT);
