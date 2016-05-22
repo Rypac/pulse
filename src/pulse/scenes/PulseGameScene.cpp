@@ -175,11 +175,11 @@ void PulseGameScene::addResetGameTouchListener() {
     resetListener = EventListenerTouchOneByOne::create();
     resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(resetListener, this);
     resetListener->onTouchEnded = [this](auto touch, auto event) {
         this->resetScene();
         this->startScene();
     };
+    getEventDispatcher()->addEventListenerWithFixedPriority(resetListener, 1);
 }
 
 void PulseGameScene::addTimeScaleTouchListener() {
