@@ -36,6 +36,14 @@ bool TitleScene::init() {
     addTitle();
     addTitleAnimation();
     addPlayButton();
+    addModesButton();
+    addAchievmentsButton();
+    addSettingsButton();
+
+    setonEnterTransitionDidFinishCallback([this]() {
+        title->runAction(titleAnimation);
+        this->scheduleUpdate();
+    });
     return true;
 }
 
@@ -75,10 +83,22 @@ void TitleScene::addPlayButton() {
     playButton->runAction(AnimatedBackground::create(particles));
 }
 
-void TitleScene::onEnter() {
-    GameScene::onEnter();
-    title->runAction(titleAnimation);
-    scheduleUpdate();
+void TitleScene::addModesButton() {
+    const auto modesButton = ui::Button::create(Resources::Buttons::Modes);
+    modesButton->setPosition(Vec2{sceneFrame().getMinX() + 100, sceneFrame().getMinY() + 120});
+    addChild(modesButton);
+}
+
+void TitleScene::addAchievmentsButton() {
+    const auto achievmentsButton = ui::Button::create(Resources::Buttons::Achievements);
+    achievmentsButton->setPosition(Vec2{sceneFrame().getMinX() + 250, sceneFrame().getMinY() + 120});
+    addChild(achievmentsButton);
+}
+
+void TitleScene::addSettingsButton() {
+    const auto settingsButton = ui::Button::create(Resources::Buttons::Settings);
+    settingsButton->setPosition(Vec2{sceneFrame().getMinX() + 400, sceneFrame().getMinY() + 120});
+    addChild(settingsButton);
 }
 
 void TitleScene::update(float dt) {

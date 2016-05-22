@@ -38,12 +38,11 @@ bool SplashScene::init() {
     image->setScale(3, 3);
     addChild(image, 1);
 
-    return true;
-}
+    setonEnterTransitionDidFinishCallback([this]() {
+        image->runAction(logoAnimation());
+    });
 
-void SplashScene::onEnter() {
-    GameScene::onEnter();
-    image->runAction(logoAnimation());
+    return true;
 }
 
 Action* SplashScene::logoAnimation() {
@@ -55,7 +54,9 @@ Action* SplashScene::logoAnimation() {
     });
     const auto introAnimation = Spawn::createWithTwoActions(logoAnimation, logoAudio);
     const auto onCompletion = CallFunc::create([this]() {
-        onSceneDismissed(this);
+        if (onSceneDismissed) {
+            onSceneDismissed(this);
+        }
     });
     return Sequence::create(introAnimation, onCompletion, nullptr);
 }
