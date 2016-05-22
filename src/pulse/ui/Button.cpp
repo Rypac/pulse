@@ -52,7 +52,8 @@ bool Button::onTouchDidBegin(cocos2d::Touch* touch, cocos2d::Event* event) {
     }
 
     if (reactsToTouch_) {
-        runAction(cocos2d::ScaleTo::create(AnimationSpeed, 1.0f + touchScale()));
+        savedScale_ = getScale();
+        runAction(cocos2d::ScaleTo::create(AnimationSpeed, savedScale_ + touchScale()));
     }
     if (onTouchBegan) {
         onTouchBegan(this);
@@ -68,7 +69,7 @@ void Button::onTouchDidMove(cocos2d::Touch* touch, cocos2d::Event* event) {
     }
 
     if (reactsToTouch_) {
-        runAction(cocos2d::ScaleTo::create(AnimationSpeed, 1.0f));
+        runAction(cocos2d::ScaleTo::create(AnimationSpeed, savedScale_));
     }
     if (onTouchCancelled) {
         onTouchCancelled(this);
@@ -82,7 +83,7 @@ void Button::onTouchDidEnd(cocos2d::Touch* touch, cocos2d::Event* event) {
     }
 
     if (reactsToTouch_) {
-        runAction(cocos2d::ScaleTo::create(AnimationSpeed, 1.0f));
+        runAction(cocos2d::ScaleTo::create(AnimationSpeed, savedScale_));
     }
     if (onTouchEnded) {
         onTouchEnded(this);

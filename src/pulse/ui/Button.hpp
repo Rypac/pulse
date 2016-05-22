@@ -28,7 +28,7 @@ class Button : public cocos2d::Sprite {
     }
 
   protected:
-    Button(): reactsToTouch_{true}, touchScale_{-0.1f}, cancelled_{false} {}
+    Button(): reactsToTouch_{true}, touchScale_{-0.1f}, savedScale_{1.0f}, cancelled_{false} {}
     virtual ~Button();
 
     virtual bool initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& rect, bool rotated) override;
@@ -40,6 +40,7 @@ class Button : public cocos2d::Sprite {
   private:
     cocos2d::EventListenerTouchOneByOne* listener_;
     float touchScale_;
+    float savedScale_;
     bool reactsToTouch_;
     bool cancelled_;
 };
