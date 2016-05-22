@@ -12,11 +12,6 @@ class PulseGameScene : public GameScene {
   public:
     static PulseGameScene* create(GameOptions& options);
 
-    void setupScene();
-    void clearScene();
-    void resetScene();
-    void runScene();
-    void stopScene();
     void update(float dt) override;
 
     bool onContactBegan(cocos2d::PhysicsContact& contact);
@@ -33,6 +28,11 @@ class PulseGameScene : public GameScene {
 
     bool init() override;
 
+    void runScene();
+    void stopScene();
+    void clearScene();
+    void resetScene();
+
   private:
     void addBackground();
     void addMenuOptions();
@@ -48,7 +48,6 @@ class PulseGameScene : public GameScene {
     void updateScore();
     void updateSceneTimeScale();
     void scheduleObstacleGeneration();
-    void unscheduleObstacleGeneration();
 
     Obstacle* generateObstacle();
 
@@ -58,7 +57,6 @@ class PulseGameScene : public GameScene {
     GameOptions& options;
     WrappedSprite* player;
     cocos2d::Label* scoreLabel;
-    cocos2d::Action* obstacleGenerator;
     std::list<Obstacle*> obstacles;
     GameState gameState;
 

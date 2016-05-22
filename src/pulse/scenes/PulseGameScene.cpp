@@ -50,12 +50,12 @@ bool PulseGameScene::init() {
     addPlayerMovementListener();
     addCollisionListeners();
     addGameStateListeners();
-    setupScene();
 
+    setOnEnterCallback([this]() {
+        this->runScene();
+    });
     setonEnterTransitionDidFinishCallback([this]() {
-        if (gameState.isGameOver()) {
-            this->runScene();
-        } else {
+        if (not gameState.isGameOver()) {
             this->resumeScene();
         }
     });
@@ -64,11 +64,6 @@ bool PulseGameScene::init() {
     });
 
     return true;
-}
-
-void PulseGameScene::setupScene() {
-    updateScore();
-    addPlayer();
 }
 
 void PulseGameScene::clearScene() {
@@ -84,12 +79,13 @@ void PulseGameScene::clearScene() {
 void PulseGameScene::resetScene() {
     stopScene();
     clearScene();
-    setupScene();
     runScene();
 }
 
 void PulseGameScene::runScene() {
     resumeScene();
+    addPlayer();
+    updateScore();
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
@@ -99,7 +95,6 @@ void PulseGameScene::runScene() {
 void PulseGameScene::stopScene() {
     pauseScene();
     updateListeners(false);
-    unscheduleObstacleGeneration();
 }
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
@@ -166,15 +161,7 @@ void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacle = generateObstacle();
     const auto obstacleSequence = ObstacleSequence::create(obstacle, options.obstacleFrequency);
     const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
-    obstacleGenerator = Sequence::create(obstacleSequence, reschedule, nullptr);
-    runAction(obstacleGenerator);
-}
-
-void PulseGameScene::unscheduleObstacleGeneration() {
-    if (obstacleGenerator) {
-        stopAction(obstacleGenerator);
-        obstacleGenerator = nullptr;
-    }
+    runAction(Sequence::create(obstacleSequence, reschedule, nullptr));
 }
 
 void PulseGameScene::update(float dt) {
