@@ -1,5 +1,4 @@
 #include <string>
-#include "range/v3/algorithm/any_of.hpp"
 #include "range/v3/algorithm/for_each.hpp"
 
 #include "pulse/scenes/PulseGameScene.hpp"
@@ -244,12 +243,6 @@ void PulseGameScene::addGameStateListeners() {
     gameState.onTimeModeChanged = [this](auto mode) {
         this->updateSceneTimeScale();
     };
-}
-
-bool PulseGameScene::onScreenCollision(const PhysicsContact& contact) const {
-    return ranges::any_of(contact.getContactData()->points, [this](auto point) {
-        return point != Vec2::ZERO && this->sceneFrame().containsPoint(point);
-    });
 }
 
 bool PulseGameScene::onContactBegan(PhysicsContact& contact) {

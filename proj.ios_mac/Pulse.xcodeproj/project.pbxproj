@@ -53,6 +53,8 @@
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81827DF61CB11AB2009EA6A7 /* Images.xcassets */; };
+		819765B01CF1548E00DA7534 /* PhysicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */; };
+		819765B11CF1548E00DA7534 /* PhysicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */; };
 		819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29541C93C8AC00EA3D32 /* GameScene.cpp */; };
 		819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819E29581C93D4D700EA3D32 /* Column.cpp */; };
@@ -187,6 +189,8 @@
 		81827DF61CB11AB2009EA6A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = assets/Images.xcassets; sourceTree = "<group>"; };
 		81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Accelerometer.hpp; path = pulse/models/Accelerometer.hpp; sourceTree = "<group>"; };
 		81883C041CA6274A00AF5FD5 /* Direction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = pulse/utilities/Direction.hpp; sourceTree = "<group>"; };
+		819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysicsScene.cpp; path = pulse/scenes/PhysicsScene.cpp; sourceTree = "<group>"; };
+		819765AF1CF1548E00DA7534 /* PhysicsScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PhysicsScene.hpp; path = pulse/scenes/PhysicsScene.hpp; sourceTree = "<group>"; };
 		819E29531C93C69F00EA3D32 /* GameScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameScene.hpp; path = pulse/scenes/GameScene.hpp; sourceTree = "<group>"; };
 		819E29541C93C8AC00EA3D32 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = pulse/scenes/GameScene.cpp; sourceTree = "<group>"; };
 		819E29581C93D4D700EA3D32 /* Column.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Column.cpp; path = pulse/sprites/Column.cpp; sourceTree = "<group>"; };
@@ -451,6 +455,8 @@
 				81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */,
 				819E29541C93C8AC00EA3D32 /* GameScene.cpp */,
 				819E29531C93C69F00EA3D32 /* GameScene.hpp */,
+				819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */,
+				819765AF1CF1548E00DA7534 /* PhysicsScene.hpp */,
 				46880B8619C43A87006E1F66 /* PulseGameScene.cpp */,
 				46880B8719C43A87006E1F66 /* PulseGameScene.hpp */,
 				81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */,
@@ -691,6 +697,7 @@
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
+				819765B01CF1548E00DA7534 /* PhysicsScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				81D8177B1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */,
 				812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */,
@@ -715,6 +722,7 @@
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				81253C1E1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
 				81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */,
+				819765B11CF1548E00DA7534 /* PhysicsScene.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81775EE81CDF26D80011049C /* FollowedBy.cpp in Sources */,
 				81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,

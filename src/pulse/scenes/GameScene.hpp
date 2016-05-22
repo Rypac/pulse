@@ -7,9 +7,7 @@ namespace pulse {
 class GameScene : public cocos2d::Layer {
   public:
     static cocos2d::Scene* createScene(GameScene* scene);
-    static cocos2d::Scene* createPhysicsScene(GameScene* scene, cocos2d::Vec2 gravity = cocos2d::Vec2{}, bool autoStep = false);
 
-    virtual bool init() override;
     virtual void resumeScene();
     virtual void pauseScene();
     virtual void quit();
@@ -21,6 +19,8 @@ class GameScene : public cocos2d::Layer {
     };
 
   protected:
+    virtual bool init() override;
+
     cocos2d::Rect frame;
 };
 

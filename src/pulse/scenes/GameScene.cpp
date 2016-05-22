@@ -9,14 +9,6 @@ Scene* GameScene::createScene(GameScene* gameScene) {
     return scene;
 }
 
-Scene* GameScene::createPhysicsScene(GameScene* gameScene, cocos2d::Vec2 gravity, bool autoStep) {
-    const auto scene = Scene::createWithPhysics();
-    scene->getPhysicsWorld()->setGravity(gravity);
-    scene->getPhysicsWorld()->setAutoStep(autoStep);
-    scene->addChild(gameScene);
-    return scene;
-}
-
 bool GameScene::init() {
     if (!Layer::init()) {
         return false;

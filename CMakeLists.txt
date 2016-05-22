@@ -67,6 +67,7 @@ set(GAME_SRC
     ${PULSE_DIR}/movement/AccelerometerMovementSystem.cpp
     ${PULSE_DIR}/scenes/DeveloperMenuScene.cpp
     ${PULSE_DIR}/scenes/GameScene.cpp
+    ${PULSE_DIR}/scenes/PhysicsScene.cpp
     ${PULSE_DIR}/scenes/PulseGameScene.cpp
     ${PULSE_DIR}/scenes/SplashScene.cpp
     ${PULSE_DIR}/scenes/TitleScene.cpp
@@ -99,6 +100,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/movement/MovementSystem.hpp
     ${PULSE_DIR}/scenes/DeveloperMenuScene.hpp
     ${PULSE_DIR}/scenes/GameScene.hpp
+    ${PULSE_DIR}/scenes/PhysicsScene.hpp
     ${PULSE_DIR}/scenes/PulseGameScene.hpp
     ${PULSE_DIR}/scenes/SplashScene.hpp
     ${PULSE_DIR}/scenes/TitleScene.hpp

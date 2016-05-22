@@ -78,7 +78,7 @@ void AppDelegate::addGameScene() {
     gameScene->onEnterMenu = [this](auto scene) {
         this->addDeveloperMenuScene();
     };
-    Director::getInstance()->replaceScene(GameScene::createPhysicsScene(gameScene));
+    Director::getInstance()->replaceScene(PhysicsScene::createScene(gameScene));
 }
 
 void AppDelegate::addDeveloperMenuScene() {

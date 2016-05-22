@@ -1,14 +1,14 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/PhysicsScene.hpp"
 #include "pulse/sprites/Obstacle.hpp"
 #include "pulse/sprites/WrappedSprite.hpp"
 #include "pulse/models/GameState.hpp"
 
 namespace pulse {
 
-class PulseGameScene : public GameScene {
+class PulseGameScene : public PhysicsScene {
   public:
     static PulseGameScene* create(GameOptions& options);
 
@@ -17,7 +17,6 @@ class PulseGameScene : public GameScene {
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
     void onContactSeparate(cocos2d::PhysicsContact& contact);
-    bool onScreenCollision(const cocos2d::PhysicsContact& contact) const;
 
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;
