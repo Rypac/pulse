@@ -68,7 +68,7 @@ struct GameState {
         return timeMode == TimeMode::Normal ? normalTimeScale : options.slowMotionTimeScale;
     }
 
-    bool gameIsOver{false};
+    bool gameIsOver{true};
     const GameOptions& options;
     const TimeScale normalTimeScale{1.0, 1.0};
     int score{0};

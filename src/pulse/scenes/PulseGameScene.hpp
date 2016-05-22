@@ -15,8 +15,8 @@ class PulseGameScene : public GameScene {
     void setupScene();
     void clearScene();
     void resetScene();
-    void runScene() override;
-    void stopScene() override;
+    void runScene();
+    void stopScene();
     void update(float dt) override;
 
     bool onContactBegan(cocos2d::PhysicsContact& contact);

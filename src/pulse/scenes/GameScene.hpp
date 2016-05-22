@@ -10,10 +10,8 @@ class GameScene : public cocos2d::Layer {
     static cocos2d::Scene* createPhysicsScene(GameScene* scene, cocos2d::Vec2 gravity = cocos2d::Vec2{}, bool autoStep = false);
 
     virtual bool init() override;
-    virtual void onEnter() override;
-    virtual void onExit() override;
-    virtual void runScene();
-    virtual void stopScene();
+    virtual void resumeScene();
+    virtual void pauseScene();
     virtual void quit();
 
     bool residesInSceneBounds(const cocos2d::Node& node) const;

@@ -28,21 +28,11 @@ bool GameScene::init() {
     return true;
 }
 
-void GameScene::onEnter() {
-    Layer::onEnter();
-    runScene();
-}
-
-void GameScene::onExit() {
-    Layer::onExit();
-    stopScene();
-}
-
-void GameScene::runScene() {
+void GameScene::resumeScene() {
     Director::getInstance()->resume();
 }
 
-void GameScene::stopScene() {
+void GameScene::pauseScene() {
     Director::getInstance()->pause();
 }
 

@@ -52,6 +52,17 @@ bool PulseGameScene::init() {
     addGameStateListeners();
     setupScene();
 
+    setonEnterTransitionDidFinishCallback([this]() {
+        if (gameState.isGameOver()) {
+            this->runScene();
+        } else {
+            this->resumeScene();
+        }
+    });
+    setonExitTransitionDidStartCallback([this]() {
+        this->pauseScene();
+    });
+
     return true;
 }
 
@@ -78,11 +89,7 @@ void PulseGameScene::resetScene() {
 }
 
 void PulseGameScene::runScene() {
-    if (gameState.isGameOver()) {
-        return;
-    }
-
-    GameScene::runScene();
+    resumeScene();
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
@@ -90,7 +97,7 @@ void PulseGameScene::runScene() {
 }
 
 void PulseGameScene::stopScene() {
-    GameScene::stopScene();
+    pauseScene();
     updateListeners(false);
     unscheduleObstacleGeneration();
 }
