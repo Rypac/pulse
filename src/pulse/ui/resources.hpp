@@ -52,6 +52,7 @@ namespace Resources {
     namespace Particles {
         static constexpr const auto AmbientBackground = "particles/background_sparkles.plist";
         static constexpr const auto ButtonBackground = "particles/button_sparkles.plist";
+        static constexpr const auto PlayerTrail = "particles/player_trail.plist";
         static constexpr const auto PulseBegan = "particles/pulse_began.plist";
         static constexpr const auto PulseEnded = "particles/pulse_ended.plist";
     }

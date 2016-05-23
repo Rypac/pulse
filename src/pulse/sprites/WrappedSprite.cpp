@@ -2,6 +2,7 @@
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/utilities/Position.hpp"
 #include "pulse/utilities/Rect.hpp"
+#include "pulse/ui/Resources.hpp"
 
 using pulse::WrappedSprite;
 using namespace cocos2d;
@@ -54,7 +55,7 @@ bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool r
         addChild(mirror);
     });
 
-    emitter = ParticleSystemQuad::create("particles/player_trail.plist");
+    emitter = ParticleSystemQuad::create(Resources::Particles::PlayerTrail);
     addChild(emitter, -1);
 
     return true;
