@@ -11,7 +11,10 @@ using namespace pulse;
 
 AppDelegate::AppDelegate() {}
 
-AppDelegate::~AppDelegate() {}
+AppDelegate::~AppDelegate() {
+    CC_SAFE_RELEASE(gameScene);
+    CC_SAFE_RELEASE(titleScene);
+}
 
 void AppDelegate::initGLContextAttrs() {
     GLContextAttrs glContextAttrs{8, 8, 8, 8, 24, 8};
@@ -67,9 +70,11 @@ void AppDelegate::addSplashScene() {
 }
 
 void AppDelegate::addTitleScene() {
-    const auto titleScene = TitleScene::create();
+    titleScene = TitleScene::create();
+    titleScene->retain();
     titleScene->onSceneDismissed = [this](auto scene) {
         this->addGameScene();
+        CC_SAFE_RELEASE_NULL(titleScene);
     };
     Director::getInstance()->replaceScene(GameScene::createScene(titleScene));
 }
@@ -77,12 +82,13 @@ void AppDelegate::addTitleScene() {
 void AppDelegate::addGameScene() {
     gameScene = PulseGameScene::create(options);
     gameScene->retain();
+    gameScene->setBackground(titleScene->background());
     gameScene->onEnterMenu = [this](auto scene) {
         this->addInGameMenuScene();
     };
     gameScene->onSceneDismissed = [this](auto scene) {
         this->addTitleScene();
-        scene->release();
+        CC_SAFE_RELEASE_NULL(gameScene);
     };
     Director::getInstance()->replaceScene(PhysicsScene::createScene(gameScene));
 }

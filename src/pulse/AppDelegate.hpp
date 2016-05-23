@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "pulse/models/GameOptions.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
+#include "pulse/scenes/TitleScene.hpp"
 
 class AppDelegate : private cocos2d::Application {
   public:
@@ -25,4 +26,5 @@ class AppDelegate : private cocos2d::Application {
     pulse::GameOptions options;
 
     pulse::PulseGameScene* gameScene;
+    pulse::TitleScene* titleScene;
 };

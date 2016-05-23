@@ -41,7 +41,6 @@ bool PulseGameScene::init() {
         return false;
     }
 
-    setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
     addMenuOptions();
     addScoreLabel();
     addResetGameTouchListener();
