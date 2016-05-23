@@ -40,7 +40,7 @@ void InGameMenuScene::addResumeButton() {
 }
 
 void InGameMenuScene::addRestartButton() {
-    const auto restartButton = ui::Button::create(Resources::Buttons::Modes);
+    const auto restartButton = ui::Button::create(Resources::Buttons::Retry);
     restartButton->setPosition(sceneFrame().getMidX() + 175, sceneFrame().getMidY());
     restartButton->onTouchEnded = [this](auto ref) {
         if (onRestartGame) {
@@ -51,7 +51,7 @@ void InGameMenuScene::addRestartButton() {
 }
 
 void InGameMenuScene::addQuitButton() {
-    const auto quitButton = ui::Button::create(Resources::Buttons::Settings);
+    const auto quitButton = ui::Button::create(Resources::Buttons::Home);
     quitButton->setPosition(sceneFrame().getMidX() - 175, sceneFrame().getMidY());
     quitButton->onTouchEnded = [this](auto ref) {
         if (onQuitGame) {
