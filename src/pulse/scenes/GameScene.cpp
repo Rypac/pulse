@@ -39,6 +39,8 @@ void GameScene::removeBackground() {
 
 void GameScene::setBackground(Node *background) {
     removeBackground();
+    background->removeFromParent();
+
     background_ = background;
     background_->retain();
     addChild(background_);
