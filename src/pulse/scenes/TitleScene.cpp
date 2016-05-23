@@ -1,7 +1,7 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/actions/AnimatedBackground.hpp"
-#include "pulse/utilities/Geometry.hpp"
 #include "pulse/ui/Resources.hpp"
+#include "pulse/utilities/Geometry.hpp"
 
 using namespace pulse;
 using namespace cocos2d;
@@ -60,7 +60,11 @@ void TitleScene::addTitleAnimation() {
     const auto animation = Animation3D::create(Resources::Animations::Title);
     const auto animate = Animate3D::create(animation);
     animate->setSpeed(0.001);
-    const auto finish = CallFunc::create([this]() { onSceneDismissed(this); });
+    const auto finish = CallFunc::create([this]() {
+        if (onSceneDismissed) {
+            onSceneDismissed(this);
+        }
+    });
 
     titleAnimation = Sequence::create(animate, finish, nullptr);
     titleAnimation->retain();
