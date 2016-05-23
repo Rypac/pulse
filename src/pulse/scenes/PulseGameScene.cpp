@@ -41,7 +41,7 @@ bool PulseGameScene::init() {
         return false;
     }
 
-    addBackground();
+    setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
     addMenuOptions();
     addScoreLabel();
     addResetGameTouchListener();
@@ -101,14 +101,6 @@ void PulseGameScene::updateListeners(bool isGameRunning) {
     resetListener->setEnabled(!isGameRunning);
     timeScaleListener->setEnabled(isGameRunning);
     playerTouchListener->setEnabled(isGameRunning);
-}
-
-void PulseGameScene::addBackground() {
-    const auto particles = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
-    particles->setPosition(sceneFrame().origin);
-    particles->setSourcePosition(geometry::centerOf(sceneFrame()));
-    particles->setPosVar(sceneFrame().size / 2);
-    addChild(particles, -1);
 }
 
 void PulseGameScene::addMenuOptions() {

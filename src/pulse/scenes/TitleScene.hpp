@@ -21,7 +21,6 @@ class TitleScene : public GameScene {
     virtual bool init() override;
 
   private:
-    void addBackground();
     void addTitle();
     void addTitleAnimation();
     void addPlayButton();

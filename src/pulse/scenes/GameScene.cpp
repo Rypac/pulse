@@ -3,6 +3,12 @@
 using namespace cocos2d;
 using namespace pulse;
 
+GameScene::GameScene(): frame_{Rect::ZERO}, background_{nullptr} {}
+
+GameScene::~GameScene() {
+    CC_SAFE_RELEASE(background_);
+}
+
 Scene* GameScene::createScene(GameScene* gameScene) {
     const auto scene = Scene::create();
     scene->addChild(gameScene);
@@ -15,9 +21,27 @@ bool GameScene::init() {
     }
 
     const auto director = Director::getInstance();
-    frame = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
+    frame_ = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
 
     return true;
+}
+
+Node* GameScene::background() const {
+    return background_;
+}
+
+void GameScene::removeBackground() {
+    if (background_) {
+        removeChild(background_);
+        CC_SAFE_RELEASE_NULL(background_);
+    }
+}
+
+void GameScene::setBackground(Node *background) {
+    removeBackground();
+    background_ = background;
+    background_->retain();
+    addChild(background_);
 }
 
 void GameScene::resumeScene() {

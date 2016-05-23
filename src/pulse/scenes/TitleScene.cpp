@@ -32,7 +32,9 @@ bool TitleScene::init() {
     if (!GameScene::init()) {
         return false;
     }
-    addBackground();
+
+    setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
+
     addTitle();
     addTitleAnimation();
     addPlayButton();
@@ -45,11 +47,6 @@ bool TitleScene::init() {
         this->scheduleUpdate();
     });
     return true;
-}
-
-void TitleScene::addBackground() {
-    const auto particles = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
-    runAction(AnimatedBackground::create(particles));
 }
 
 void TitleScene::addTitle() {

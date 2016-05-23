@@ -27,8 +27,7 @@ bool SplashScene::init() {
         return false;
     }
 
-    const auto background = LayerColor::create(Color4B::WHITE);
-    addChild(background);
+    setBackground(LayerColor::create(Color4B::WHITE));
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(Resources::Spritesheets::Intro);
     AnimationCache::getInstance()->addAnimationsWithFile(Resources::Animations::Intro::Properties);

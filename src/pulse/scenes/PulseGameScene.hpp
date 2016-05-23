@@ -36,7 +36,6 @@ class PulseGameScene : public PhysicsScene {
     void clearScene();
 
   private:
-    void addBackground();
     void addMenuOptions();
     void addScoreLabel();
     void addPlayer();
