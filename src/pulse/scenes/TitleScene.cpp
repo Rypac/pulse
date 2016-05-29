@@ -53,7 +53,7 @@ void TitleScene::addTitle() {
     title = Sprite3D::create(Resources::Animations::Title);
     title->retain();
     title->setPosition(geometry::centerOf(sceneFrame()));
-    addChild(title);
+    addChild(title, 1);
 }
 
 void TitleScene::addTitleAnimation() {
@@ -72,7 +72,7 @@ void TitleScene::addTitleAnimation() {
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
-    playButton->setAnchorPoint(Vec2{1.0, 0.5});
+    playButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
     playButton->setPosition(Vec2{sceneFrame().getMaxX(), sceneFrame().getMinY() + 120});
     addChild(playButton);
 

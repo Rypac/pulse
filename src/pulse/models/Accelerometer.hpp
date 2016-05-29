@@ -20,7 +20,7 @@ struct Accelerometer {
     }
 
     cocos2d::Vec3 sensitivity() const {
-        return cocos2d::Vec3{2200, 1500, 0};
+        return cocos2d::Vec3{2500, 1500, 0};
     }
 
     bool isCalibrated() const {
