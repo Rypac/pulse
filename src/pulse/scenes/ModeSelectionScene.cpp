@@ -32,6 +32,8 @@ bool ModeSelectionScene::init() {
         this->addChild(button);
     });
 
+    addDismissListener();
+
     return true;
 }
 
@@ -40,6 +42,17 @@ void ModeSelectionScene::updateSelectedMode(ui::Button* selectedButton) {
         const auto texture = button == selectedButton ? Resources::Buttons::Tick : Resources::Buttons::Blank;
         button->setTexture(texture);
     });
+}
+
+void ModeSelectionScene::addDismissListener() {
+    const auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
+    touchListener->onTouchEnded = [this](auto touch, auto event) {
+        if (onSceneDismissed) {
+            onSceneDismissed(this);
+        }
+    };
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 
 pulse::ui::Button* ModeSelectionScene::resumeButton() {

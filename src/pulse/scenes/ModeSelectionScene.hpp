@@ -23,6 +23,7 @@ class ModeSelectionScene : public GameScene {
     ui::Button* restartButton();
     ui::Button* quitButton();
     void updateSelectedMode(ui::Button* mode);
+    void addDismissListener();
 
     std::vector<ui::Button*> modeButtons;
 };
