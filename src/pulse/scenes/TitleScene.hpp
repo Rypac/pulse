@@ -13,7 +13,10 @@ class TitleScene : public GameScene {
     virtual void update(float dt) override;
 
     using SceneCallback = std::function<void(TitleScene* scene)>;
-    SceneCallback onSceneDismissed;
+    SceneCallback onPlaySelected;
+    SceneCallback onModesSelected;
+    SceneCallback onAchievementsSelected;
+    SceneCallback onSettingsSelected;
 
   protected:
     TitleScene();

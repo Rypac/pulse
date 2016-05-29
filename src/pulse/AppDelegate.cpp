@@ -72,7 +72,7 @@ void AppDelegate::addSplashScene() {
 void AppDelegate::addTitleScene() {
     titleScene = TitleScene::create();
     titleScene->retain();
-    titleScene->onSceneDismissed = [this](auto scene) {
+    titleScene->onPlaySelected = [this](auto scene) {
         this->addGameScene();
         CC_SAFE_RELEASE_NULL(titleScene);
     };
