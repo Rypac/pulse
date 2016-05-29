@@ -103,7 +103,7 @@ void PulseGameScene::updateListeners(bool isGameRunning) {
 }
 
 void PulseGameScene::addMenuOptions() {
-    const auto menuButton = ui::Button::create(Resources::Buttons::Settings);
+    const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
     menuButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
     menuButton->setPosition(Vec2{sceneFrame().getMaxX() - 20, sceneFrame().getMaxY() - 20});

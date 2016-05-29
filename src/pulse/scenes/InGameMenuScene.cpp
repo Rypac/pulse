@@ -29,7 +29,7 @@ bool InGameMenuScene::init() {
 }
 
 void InGameMenuScene::addResumeButton() {
-    const auto resumeButton = ui::Button::create(Resources::Buttons::Achievements);
+    const auto resumeButton = ui::Button::create(Resources::Buttons::Resume);
     resumeButton->setPosition(geometry::centerOf(sceneFrame()));
     resumeButton->onTouchEnded = [this](auto ref) {
         if (onResumeGame) {
