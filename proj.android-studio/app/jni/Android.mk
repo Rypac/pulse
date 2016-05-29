@@ -28,6 +28,7 @@ LOCAL_SRC_FILES := \
     $(PULSE_PATH)/scenes/DeveloperMenuScene.cpp \
     $(PULSE_PATH)/scenes/GameScene.cpp \
     $(PULSE_PATH)/scenes/InGameMenuScene.cpp \
+    $(PULSE_PATH)/scenes/ModeSelectionScene.cpp \
     $(PULSE_PATH)/scenes/PhysicsScene.cpp \
     $(PULSE_PATH)/scenes/PulseGameScene.cpp \
     $(PULSE_PATH)/scenes/SplashScene.cpp \

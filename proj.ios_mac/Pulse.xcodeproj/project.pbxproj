@@ -53,6 +53,8 @@
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81827DF61CB11AB2009EA6A7 /* Images.xcassets */; };
+		81886C951CFAD7FE005617F4 /* ModeSelectionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81886C931CFAD7FE005617F4 /* ModeSelectionScene.cpp */; };
+		81886C961CFAD7FE005617F4 /* ModeSelectionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81886C931CFAD7FE005617F4 /* ModeSelectionScene.cpp */; };
 		819765B01CF1548E00DA7534 /* PhysicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */; };
 		819765B11CF1548E00DA7534 /* PhysicsScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */; };
 		819765B51CF1926500DA7534 /* InGameMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 819765B31CF1926500DA7534 /* InGameMenuScene.cpp */; };
@@ -191,6 +193,8 @@
 		81827DF61CB11AB2009EA6A7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = assets/Images.xcassets; sourceTree = "<group>"; };
 		81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Accelerometer.hpp; path = pulse/models/Accelerometer.hpp; sourceTree = "<group>"; };
 		81883C041CA6274A00AF5FD5 /* Direction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Direction.hpp; path = pulse/utilities/Direction.hpp; sourceTree = "<group>"; };
+		81886C931CFAD7FE005617F4 /* ModeSelectionScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModeSelectionScene.cpp; path = pulse/scenes/ModeSelectionScene.cpp; sourceTree = "<group>"; };
+		81886C941CFAD7FE005617F4 /* ModeSelectionScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ModeSelectionScene.hpp; path = pulse/scenes/ModeSelectionScene.hpp; sourceTree = "<group>"; };
 		819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysicsScene.cpp; path = pulse/scenes/PhysicsScene.cpp; sourceTree = "<group>"; };
 		819765AF1CF1548E00DA7534 /* PhysicsScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PhysicsScene.hpp; path = pulse/scenes/PhysicsScene.hpp; sourceTree = "<group>"; };
 		819765B31CF1926500DA7534 /* InGameMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InGameMenuScene.cpp; path = pulse/scenes/InGameMenuScene.cpp; sourceTree = "<group>"; };
@@ -469,6 +473,8 @@
 				81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */,
 				81C44A441CC311D7006D6F0F /* TitleScene.cpp */,
 				81C44A451CC311D7006D6F0F /* TitleScene.hpp */,
+				81886C931CFAD7FE005617F4 /* ModeSelectionScene.cpp */,
+				81886C941CFAD7FE005617F4 /* ModeSelectionScene.hpp */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -693,6 +699,7 @@
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				819765B51CF1926500DA7534 /* InGameMenuScene.cpp in Sources */,
 				81253C151CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
+				81886C951CFAD7FE005617F4 /* ModeSelectionScene.cpp in Sources */,
 				819E295A1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
@@ -737,6 +744,7 @@
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				81D817831CF024910081C4A1 /* Button.cpp in Sources */,
+				81886C961CFAD7FE005617F4 /* ModeSelectionScene.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81D28F9A1CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
