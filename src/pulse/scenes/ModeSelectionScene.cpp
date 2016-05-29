@@ -46,6 +46,7 @@ void ModeSelectionScene::updateSelectedMode(ui::Button* selectedButton) {
 
 void ModeSelectionScene::addDismissListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->setSwallowTouches(true);
     touchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
     touchListener->onTouchEnded = [this](auto touch, auto event) {
         if (onSceneDismissed) {
