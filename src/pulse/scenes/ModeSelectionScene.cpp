@@ -1,15 +1,18 @@
 #include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/ui/Button.hpp"
+#include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/utilities/Geometry.hpp"
-
-#include "range/v3/algorithm/for_each.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
 
-ModeSelectionScene* ModeSelectionScene::create() {
-    const auto scene = new (std::nothrow) ModeSelectionScene();
+ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name): mode{mode} {
+    label = Label::createWithTTF(name, Font::System, 32);
+    button = ui::Button::create(Resources::Buttons::Blank);
+}
+
+ModeSelectionScene* ModeSelectionScene::create(GameMode mode) {
+    const auto scene = new (std::nothrow) ModeSelectionScene{mode};
     if (scene && scene->init()) {
         scene->autorelease();
         return scene;
@@ -23,25 +26,30 @@ bool ModeSelectionScene::init() {
         return false;
     }
 
-    modeButtons = {
-        resumeButton(),
-        restartButton(),
-        quitButton()
+    modes_ = {
+        {GameMode::FreePlay, "Free Play"},
+        {GameMode::Classic, "Classic"},
+        {GameMode::Reverse, "Reverse"},
     };
-    ranges::for_each(modeButtons, [this](auto button) {
-        this->addChild(button);
-    });
+    for (const auto& mode : modes_) {
+        mode.button->onTouchEnded = [&](auto ref) { this->updateSelectedMode(mode.mode); };
+        addChild(mode.label);
+        addChild(mode.button);
+    }
 
+    layoutModes();
+    updateSelectedMode(selectedMode());
     addDismissListener();
 
     return true;
 }
 
-void ModeSelectionScene::updateSelectedMode(ui::Button* selectedButton) {
-    ranges::for_each(modeButtons, [&](auto button) {
-        const auto texture = button == selectedButton ? Resources::Buttons::Tick : Resources::Buttons::Blank;
-        button->setTexture(texture);
-    });
+void ModeSelectionScene::updateSelectedMode(GameMode selectedMode) {
+    mode_ = selectedMode;
+    for (const auto& mode : modes_) {
+        const auto& texture = mode.mode == selectedMode ? Resources::Buttons::Tick : Resources::Buttons::Blank;
+        mode.button->setTexture(texture);
+    }
 }
 
 void ModeSelectionScene::addDismissListener() {
@@ -56,23 +64,17 @@ void ModeSelectionScene::addDismissListener() {
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
 
-pulse::ui::Button* ModeSelectionScene::resumeButton() {
-    const auto resumeButton = ui::Button::create(Resources::Buttons::Blank);
-    resumeButton->setPosition(geometry::centerOf(sceneFrame()));
-    resumeButton->onTouchEnded = [this](auto ref) { this->updateSelectedMode(ref); };
-    return resumeButton;
-}
+void ModeSelectionScene::layoutModes() {
+    constexpr const auto verticalPadding = 50;
+    constexpr const auto horizontalPadding = 175;
+    const auto midX = sceneFrame().getMidX();
+    const auto midY = sceneFrame().getMidY();
+    modes_[0].button->setPosition(midX - horizontalPadding, midY + verticalPadding);
+    modes_[0].label->setPosition(midX - horizontalPadding, midY - verticalPadding);
 
-pulse::ui::Button* ModeSelectionScene::restartButton() {
-    const auto restartButton = ui::Button::create(Resources::Buttons::Blank);
-    restartButton->setPosition(sceneFrame().getMidX() + 175, sceneFrame().getMidY());
-    restartButton->onTouchEnded = [this](auto ref) { this->updateSelectedMode(ref); };
-    return restartButton;
-}
+    modes_[1].button->setPosition(midX, midY + verticalPadding);
+    modes_[1].label->setPosition(midX, midY - verticalPadding);
 
-pulse::ui::Button* ModeSelectionScene::quitButton() {
-    const auto quitButton = ui::Button::create(Resources::Buttons::Blank);
-    quitButton->setPosition(sceneFrame().getMidX() - 175, sceneFrame().getMidY());
-    quitButton->onTouchEnded = [this](auto ref) { this->updateSelectedMode(ref); };
-    return quitButton;
+    modes_[2].button->setPosition(midX + horizontalPadding, midY + verticalPadding);
+    modes_[2].label->setPosition(midX + horizontalPadding, midY - verticalPadding);
 }
