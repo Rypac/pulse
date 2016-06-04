@@ -22,6 +22,7 @@ bool GameScene::init() {
 
     const auto director = Director::getInstance();
     frame_ = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
+    setContentSize(director->getVisibleSize());
 
     return true;
 }
