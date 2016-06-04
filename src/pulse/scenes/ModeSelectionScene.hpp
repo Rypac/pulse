@@ -13,6 +13,8 @@ class ModeSelectionScene : public GameScene {
     using SceneCallback = std::function<void(ModeSelectionScene* scene)>;
     SceneCallback onSceneDismissed;
 
+    virtual void onEnterTransitionDidFinish() override;
+
     GameMode selectedMode() const {
         return mode_;
     }

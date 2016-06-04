@@ -62,13 +62,23 @@ bool ModeSelectionScene::init() {
     }
 
     setBackground(LayerColor::create(Color4B::BLACK));
-    animate::fadeIn(this->background());
 
     modes_ = {
         {GameMode::FreePlay, "Free Play"},
         {GameMode::Classic, "Classic"},
         {GameMode::Reverse, "Reverse"},
     };
+
+    layoutModes();
+    updateSelectedMode(selectedMode());
+    addDismissListener();
+
+    return true;
+}
+
+void ModeSelectionScene::onEnterTransitionDidFinish() {
+    animate::fadeIn(this->background());
+
     for (const auto& mode : modes_) {
         mode.button->onTouchEnded = [&](auto ref) { this->updateSelectedMode(mode.mode); };
         addChild(mode.label);
@@ -76,12 +86,6 @@ bool ModeSelectionScene::init() {
         animate::scaleIn(mode.button);
         animate::scaleIn(mode.label);
     }
-
-    layoutModes();
-    updateSelectedMode(selectedMode());
-    addDismissListener();
-
-    return true;
 }
 
 void ModeSelectionScene::updateSelectedMode(GameMode selectedMode) {
