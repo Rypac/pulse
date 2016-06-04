@@ -11,7 +11,7 @@
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/utilities/Geometry.hpp"
+#include "pulse/utilities/Rect.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -78,7 +78,7 @@ void PulseGameScene::clearScene() {
 void PulseGameScene::startScene() {
     gameState.reset();
 
-    player->setPosition(geometry::centerOf(sceneFrame()));
+    player->setPosition(rect::center(sceneFrame()));
     updateScore();
     updateListeners(true);
     scheduleUpdate();
@@ -130,7 +130,7 @@ void PulseGameScene::addPlayer() {
     const auto size = Size{30, 30};
     player->setContentSize(size);
     player->setTextureRect(Rect{Vec2::ZERO, size});
-    player->setPosition(geometry::centerOf(sceneFrame()));
+    player->setPosition(rect::center(sceneFrame()));
     player->setPhysicsBody(physics_body::createHero(player->getBoundingBox().size));
     addChild(player, 1);
 }

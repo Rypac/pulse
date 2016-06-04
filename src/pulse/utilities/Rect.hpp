@@ -7,6 +7,10 @@ namespace rect {
 
 using cocos2d::Rect;
 
+static inline cocos2d::Vec2 center(const Rect& rect) {
+    return cocos2d::Vec2{rect.getMidX(), rect.getMidY()};
+}
+
 static inline bool exceedsHorizontalBounds(const Rect& rect, const Rect& bounds) {
     return rect.getMaxX() > bounds.getMaxX() || rect.getMinX() < bounds.getMinX();
 }
