@@ -2,6 +2,7 @@
 #include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
 #include "pulse/scenes/InGameMenuScene.hpp"
+#include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
 #include "pulse/scenes/TitleScene.hpp"
@@ -75,6 +76,14 @@ void AppDelegate::addTitleScene() {
     titleScene->onPlaySelected = [this](auto scene) {
         this->addGameScene();
         CC_SAFE_RELEASE_NULL(titleScene);
+    };
+    titleScene->onModesSelected = [this](auto scene) {
+        const auto modeSelectionScene = ModeSelectionScene::create(options.gameMode);
+        modeSelectionScene->onSceneDismissed = [this](auto scene) {
+            options.gameMode = scene->selectedMode();
+            scene->removeFromParent();
+        };
+        scene->addChild(modeSelectionScene, 10);
     };
     Director::getInstance()->replaceScene(GameScene::createScene(titleScene));
 }
