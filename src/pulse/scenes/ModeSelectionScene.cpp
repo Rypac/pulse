@@ -96,7 +96,7 @@ void ModeSelectionScene::addDismissListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
     touchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    touchListener->onTouchEnded = [&](auto touch, auto event) {
+    touchListener->onTouchEnded = [this](auto touch, auto event) {
         for (const auto& mode : modes_) {
             animate::scaleOut(mode.button);
             animate::scaleOut(mode.label);

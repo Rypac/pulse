@@ -53,7 +53,7 @@ void MenuSlider::addSlider() {
     slider->setAnchorPoint(Vec2{0, 0.5});
     slider->addEventListener([this](auto ref, auto eventType) {
         if (eventType == Slider::EventType::ON_PERCENTAGE_CHANGED) {
-            updateDisplayedValue();
+            this->updateDisplayedValue();
             if (onValueChanged) {
                 onValueChanged(this);
             }

@@ -52,7 +52,7 @@ bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool r
     applyToMirrors([this](auto mirror) {
         mirror->setVisible(false);
         mirror->setColor(Color3B::WHITE);
-        addChild(mirror);
+        this->addChild(mirror);
     });
 
     emitter = ParticleSystemQuad::create(Resources::Particles::PlayerTrail);
