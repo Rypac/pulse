@@ -6,6 +6,41 @@
 using namespace cocos2d;
 using namespace pulse;
 
+namespace animate {
+
+Action* callbackAfter(cocos2d::FiniteTimeAction* action, std::function<void (void)> callback = nullptr) {
+    return Sequence::createWithTwoActions(
+        action,
+        CallFunc::create([callback]() {
+            if (callback) {
+                callback();
+            }
+        })
+    );
+}
+
+void fadeIn(cocos2d::Node* node, std::function<void (void)> onCompletion = nullptr) {
+    node->setCascadeOpacityEnabled(true);
+    node->setOpacity(0);
+    node->runAction(callbackAfter(EaseIn::create(FadeTo::create(0.15, 220), 2), onCompletion));
+}
+
+void fadeOut(cocos2d::Node* node, std::function<void (void)> onCompletion = nullptr) {
+    node->setCascadeOpacityEnabled(true);
+    node->runAction(callbackAfter(EaseIn::create(FadeTo::create(0.15, 0), 2), onCompletion));
+}
+
+void scaleIn(cocos2d::Node* node, std::function<void (void)> onCompletion = nullptr) {
+    node->setScale(0.1);
+    node->runAction(callbackAfter(EaseIn::create(ScaleTo::create(0.15, 1), 2), onCompletion));
+}
+
+void scaleOut(cocos2d::Node* node, std::function<void (void)> onCompletion = nullptr) {
+    node->runAction(callbackAfter(EaseIn::create(ScaleTo::create(0.15, 0.1), 2), onCompletion));
+}
+
+}
+
 ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name): mode{mode} {
     label = Label::createWithTTF(name, Font::System, 32);
     button = ui::Button::create(Resources::Buttons::Blank);
@@ -26,6 +61,9 @@ bool ModeSelectionScene::init() {
         return false;
     }
 
+    setBackground(LayerColor::create(Color4B::BLACK));
+    animate::fadeIn(this->background());
+
     modes_ = {
         {GameMode::FreePlay, "Free Play"},
         {GameMode::Classic, "Classic"},
@@ -35,6 +73,8 @@ bool ModeSelectionScene::init() {
         mode.button->onTouchEnded = [&](auto ref) { this->updateSelectedMode(mode.mode); };
         addChild(mode.label);
         addChild(mode.button);
+        animate::scaleIn(mode.button);
+        animate::scaleIn(mode.label);
     }
 
     layoutModes();
@@ -56,10 +96,16 @@ void ModeSelectionScene::addDismissListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
     touchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    touchListener->onTouchEnded = [this](auto touch, auto event) {
-        if (onSceneDismissed) {
-            onSceneDismissed(this);
+    touchListener->onTouchEnded = [&](auto touch, auto event) {
+        for (const auto& mode : modes_) {
+            animate::scaleOut(mode.button);
+            animate::scaleOut(mode.label);
         }
+        animate::fadeOut(this->background(), [this]() {
+            if (onSceneDismissed) {
+                onSceneDismissed(this);
+            }
+        });
     };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);
 }
