@@ -94,6 +94,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/generators/Generator.hpp
     ${PULSE_DIR}/generators/ObstacleGenerator.hpp
     ${PULSE_DIR}/models/Accelerometer.hpp
+    ${PULSE_DIR}/models/GameMode.hpp
     ${PULSE_DIR}/models/GameOptions.hpp
     ${PULSE_DIR}/models/GameState.hpp
     ${PULSE_DIR}/models/Resolution.hpp

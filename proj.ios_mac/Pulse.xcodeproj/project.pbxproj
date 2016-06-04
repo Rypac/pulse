@@ -180,6 +180,7 @@
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = pulse/utilities/Logger.hpp; sourceTree = "<group>"; };
+		813B51681D0288260023A933 /* GameMode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameMode.hpp; path = pulse/models/GameMode.hpp; sourceTree = "<group>"; };
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = pulse/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = pulse/models/TimeScale.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -549,6 +550,7 @@
 				81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */,
 				81E8F3BE1CD5D9F200DC1689 /* Resolution.hpp */,
 				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
+				813B51681D0288260023A933 /* GameMode.hpp */,
 			);
 			name = models;
 			sourceTree = "<group>";
