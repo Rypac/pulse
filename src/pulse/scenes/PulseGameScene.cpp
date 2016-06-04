@@ -41,6 +41,7 @@ bool PulseGameScene::init() {
         return false;
     }
 
+    addPlayer();
     addMenuOptions();
     addScoreLabel();
     addResetGameTouchListener();
@@ -68,7 +69,6 @@ void PulseGameScene::resetScene() {
 }
 
 void PulseGameScene::clearScene() {
-    removeChild(player);
     ranges::for_each(obstacles, [this](auto obstacle) {
         this->removeChild(obstacle);
     });
@@ -77,7 +77,8 @@ void PulseGameScene::clearScene() {
 
 void PulseGameScene::startScene() {
     gameState.reset();
-    addPlayer();
+
+    player->setPosition(geometry::centerOf(sceneFrame()));
     updateScore();
     updateListeners(true);
     scheduleUpdate();
