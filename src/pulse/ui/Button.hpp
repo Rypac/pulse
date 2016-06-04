@@ -15,6 +15,10 @@ class Button : public cocos2d::Sprite {
     TouchCallback onTouchEnded;
     TouchCallback onTouchCancelled;
 
+    void setTouchEnabled(bool enabled) {
+        listener_->setEnabled(enabled);
+    }
+
     void reactsToTouch(bool reacts) {
         reactsToTouch_ = reacts;
     }
