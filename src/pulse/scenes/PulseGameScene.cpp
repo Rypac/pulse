@@ -66,6 +66,9 @@ void PulseGameScene::resetScene() {
     stopScene();
     clearScene();
     gameState.gameOver();
+
+    player->getPhysicsBody()->setVelocity(Vec2::ZERO);
+    player->setPosition(rect::center(sceneFrame()));
 }
 
 void PulseGameScene::clearScene() {
@@ -78,7 +81,6 @@ void PulseGameScene::clearScene() {
 void PulseGameScene::startScene() {
     gameState.reset();
 
-    player->setPosition(rect::center(sceneFrame()));
     updateScore();
     updateListeners(true);
     scheduleUpdate();
