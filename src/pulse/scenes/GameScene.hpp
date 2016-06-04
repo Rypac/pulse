@@ -4,7 +4,7 @@
 
 namespace pulse {
 
-class GameScene : public cocos2d::Layer {
+class GameScene : public cocos2d::Node {
   public:
     static cocos2d::Scene* createScene(GameScene* scene);
 

@@ -16,7 +16,7 @@ Scene* GameScene::createScene(GameScene* gameScene) {
 }
 
 bool GameScene::init() {
-    if (!Layer::init()) {
+    if (!Node::init()) {
         return false;
     }
 
