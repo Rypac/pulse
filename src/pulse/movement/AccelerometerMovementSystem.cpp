@@ -1,7 +1,7 @@
 #include "pulse/movement/AccelerometerMovementSystem.hpp"
 #include "pulse/utilities/Acceleration.hpp"
 #include "pulse/utilities/Rotation.hpp"
-#include "pulse/utilities/Vec.hpp"
+#include "pulse/extensions/Vec.hpp"
 
 using namespace pulse;
 using namespace cocos2d;

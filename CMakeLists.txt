@@ -91,6 +91,9 @@ set(GAME_HEADERS
     ${PULSE_DIR}/actions/FollowedBy.hpp
     ${PULSE_DIR}/actions/ObstacleSequence.hpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.hpp
+    ${PULSE_DIR}/extensions/Rect.hpp
+    ${PULSE_DIR}/extensions/Vec.hpp
+    ${PULSE_DIR}/extensions/Vector.hpp
     ${PULSE_DIR}/generators/Generator.hpp
     ${PULSE_DIR}/generators/ObstacleGenerator.hpp
     ${PULSE_DIR}/models/Accelerometer.hpp
@@ -126,9 +129,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/utilities/Logger.hpp
     ${PULSE_DIR}/utilities/Position.hpp
     ${PULSE_DIR}/utilities/Random.hpp
-    ${PULSE_DIR}/utilities/Rect.hpp
     ${PULSE_DIR}/utilities/Rotation.hpp
-    ${PULSE_DIR}/utilities/Vec.hpp
     ${PLATFORM_SPECIFIC_HEADERS}
 )
 

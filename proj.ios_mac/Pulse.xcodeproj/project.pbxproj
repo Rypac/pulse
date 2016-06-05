@@ -209,7 +209,7 @@
 		81A319951C94F7C9005708D6 /* Obstacle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Obstacle.hpp; path = pulse/sprites/Obstacle.hpp; sourceTree = "<group>"; };
 		81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SpritePhysicsBody.cpp; path = pulse/sprites/SpritePhysicsBody.cpp; sourceTree = "<group>"; };
 		81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SpritePhysicsBody.hpp; path = pulse/sprites/SpritePhysicsBody.hpp; sourceTree = "<group>"; };
-		81A73DFF1CDF0BA50063CB8D /* Vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vector.hpp; path = pulse/utilities/Vector.hpp; sourceTree = "<group>"; };
+		81A73DFF1CDF0BA50063CB8D /* Vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vector.hpp; path = pulse/extensions/Vector.hpp; sourceTree = "<group>"; };
 		81A76B361CD5F4B400ACA538 /* Acceleration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Acceleration.hpp; path = pulse/utilities/Acceleration.hpp; sourceTree = "<group>"; };
 		81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rotation.hpp; path = pulse/utilities/Rotation.hpp; sourceTree = "<group>"; };
 		81C44A441CC311D7006D6F0F /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleScene.cpp; path = pulse/scenes/TitleScene.cpp; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		81D28F961CDD8E5A00C09896 /* MovementSystem.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = MovementSystem.hpp; path = pulse/movement/MovementSystem.hpp; sourceTree = "<group>"; };
 		81D28F971CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AccelerometerMovementSystem.cpp; path = pulse/movement/AccelerometerMovementSystem.cpp; sourceTree = "<group>"; };
 		81D28F981CDD8F7D00C09896 /* AccelerometerMovementSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AccelerometerMovementSystem.hpp; path = pulse/movement/AccelerometerMovementSystem.hpp; sourceTree = "<group>"; };
-		81D28F9B1CDDB6A500C09896 /* Vec.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vec.hpp; path = pulse/utilities/Vec.hpp; sourceTree = "<group>"; };
+		81D28F9B1CDDB6A500C09896 /* Vec.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vec.hpp; path = pulse/extensions/Vec.hpp; sourceTree = "<group>"; };
 		81D28F9C1CDDC18D00C09896 /* particles */ = {isa = PBXFileReference; lastKnownFileType = folder; path = particles; sourceTree = "<group>"; };
 		81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleIndicator.cpp; path = pulse/sprites/ObstacleIndicator.cpp; sourceTree = "<group>"; };
 		81D28FA01CDDCB3A00C09896 /* ObstacleIndicator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleIndicator.hpp; path = pulse/sprites/ObstacleIndicator.hpp; sourceTree = "<group>"; };
@@ -239,7 +239,7 @@
 		81E8F3BE1CD5D9F200DC1689 /* Resolution.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Resolution.hpp; path = pulse/models/Resolution.hpp; sourceTree = "<group>"; };
 		81EB56BA1C96365F00BE36A4 /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameState.hpp; path = pulse/models/GameState.hpp; sourceTree = "<group>"; };
 		81F6F9501CCDBA3500222C4F /* Position.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Position.hpp; path = pulse/utilities/Position.hpp; sourceTree = "<group>"; };
-		81F6F9511CCDBB3700222C4F /* Rect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rect.hpp; path = pulse/utilities/Rect.hpp; sourceTree = "<group>"; };
+		81F6F9511CCDBB3700222C4F /* Rect.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rect.hpp; path = pulse/extensions/Rect.hpp; sourceTree = "<group>"; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -378,9 +378,10 @@
 		46880B8319C43A87006E1F66 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				81253C0E1CDEB2C70072DBFD /* actions */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.hpp */,
-				81253C0E1CDEB2C70072DBFD /* actions */,
+				81417C691D03BF4B00A9F5E1 /* extensions */,
 				817B8A3A1CA63942003BE291 /* generators */,
 				81EB56B91C96364200BE36A4 /* models */,
 				81D28F951CDD8E3100C09896 /* movement */,
@@ -437,6 +438,16 @@
 			name = actions;
 			sourceTree = "<group>";
 		};
+		81417C691D03BF4B00A9F5E1 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				81F6F9511CCDBB3700222C4F /* Rect.hpp */,
+				81D28F9B1CDDB6A500C09896 /* Vec.hpp */,
+				81A73DFF1CDF0BA50063CB8D /* Vector.hpp */,
+			);
+			name = extensions;
+			sourceTree = "<group>";
+		};
 		81563DE81CBB9E9000B303F9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -489,10 +500,7 @@
 				81382C1A1CA7E27C003C8EFE /* Logger.hpp */,
 				81F6F9501CCDBA3500222C4F /* Position.hpp */,
 				816908C61C9401E10073E4C6 /* Random.hpp */,
-				81F6F9511CCDBB3700222C4F /* Rect.hpp */,
 				81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */,
-				81D28F9B1CDDB6A500C09896 /* Vec.hpp */,
-				81A73DFF1CDF0BA50063CB8D /* Vector.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";

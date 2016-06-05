@@ -1,5 +1,5 @@
 #include "pulse/actions/ObstacleSequence.hpp"
-#include "pulse/utilities/Vector.hpp"
+#include "pulse/extensions/Vector.hpp"
 
 using namespace pulse;
 using namespace cocos2d;

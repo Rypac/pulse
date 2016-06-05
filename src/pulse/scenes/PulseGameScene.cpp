@@ -11,7 +11,7 @@
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/utilities/Rect.hpp"
+#include "pulse/extensions/Rect.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
