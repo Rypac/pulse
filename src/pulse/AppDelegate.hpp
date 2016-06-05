@@ -21,7 +21,6 @@ class AppDelegate : private cocos2d::Application {
     void addTitleScene();
     void addGameScene();
     void addInGameMenuScene();
-    void addDeveloperMenuScene();
 
     pulse::GameOptions options;
 

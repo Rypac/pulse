@@ -86,6 +86,13 @@ void AppDelegate::addTitleScene() {
         };
         scene->addChild(modeSelectionScene, 10);
     };
+    titleScene->onSettingsSelected = [this](auto scene) {
+        const auto developerScene = create<DeveloperMenuScene>(options);
+        developerScene->onSceneDismissed = [](auto scene) {
+            scene->removeFromParent();
+        };
+        scene->addChild(developerScene, 10);
+    };
     Director::getInstance()->replaceScene(titleScene);
 }
 
@@ -117,12 +124,4 @@ void AppDelegate::addInGameMenuScene() {
         gameScene->onSceneDismissed(gameScene);
     };
     Director::getInstance()->pushScene(menuScene);
-}
-
-void AppDelegate::addDeveloperMenuScene() {
-    const auto developerScene = create<DeveloperMenuScene>(options);
-    developerScene->onSceneDismissed = [](auto scene) {
-        Director::getInstance()->popScene();
-    };
-    Director::getInstance()->pushScene(developerScene);
 }
