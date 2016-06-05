@@ -5,8 +5,8 @@
 using namespace cocos2d;
 using namespace pulse;
 
-bool PhysicsScene::init() {
-    return initWithPhysics();
+PhysicsScene::PhysicsScene() {
+    initWithPhysics();
 }
 
 bool PhysicsScene::onScreenCollision(const PhysicsContact& contact) const {

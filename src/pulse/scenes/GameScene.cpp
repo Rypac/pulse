@@ -3,7 +3,7 @@
 using namespace cocos2d;
 using namespace pulse;
 
-GameScene::GameScene(): frame_{Rect::ZERO}, background_{nullptr} {
+GameScene::GameScene(): background_{nullptr} {
     const auto director = Director::getInstance();
     frame_ = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
     init();

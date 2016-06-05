@@ -6,7 +6,7 @@ namespace pulse {
 
 class PhysicsScene : public GameScene {
   public:
-    virtual bool init() override;
+    PhysicsScene();
 
     bool onScreenCollision(const cocos2d::PhysicsContact& contact) const;
 };
