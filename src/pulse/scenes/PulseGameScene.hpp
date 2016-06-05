@@ -10,8 +10,10 @@ namespace pulse {
 
 class PulseGameScene : public PhysicsScene {
   public:
-    static PulseGameScene* create(GameOptions& options);
+    PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {}
+    virtual ~PulseGameScene();
 
+    virtual bool init() override;
     virtual void update(float dt) override;
     virtual void onEnterTransitionDidFinish() override;
 
@@ -26,11 +28,6 @@ class PulseGameScene : public PhysicsScene {
     SceneCallback onSceneDismissed;
 
   protected:
-    PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {}
-    virtual ~PulseGameScene();
-
-    bool init() override;
-
     void startScene();
     void stopScene();
     void clearScene();

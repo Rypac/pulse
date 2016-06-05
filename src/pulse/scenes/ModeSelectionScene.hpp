@@ -8,22 +8,18 @@ namespace pulse {
 
 class ModeSelectionScene : public GameScene {
   public:
-    static ModeSelectionScene* create(GameMode mode = GameMode::FreePlay);
+    ModeSelectionScene(GameMode mode = GameMode::FreePlay): mode_{mode} {}
+    virtual ~ModeSelectionScene() {}
+
+    virtual bool init() override;
+    virtual void onEnterTransitionDidFinish() override;
 
     using SceneCallback = std::function<void(ModeSelectionScene* scene)>;
     SceneCallback onSceneDismissed;
 
-    virtual void onEnterTransitionDidFinish() override;
-
     GameMode selectedMode() const {
         return mode_;
     }
-
-  protected:
-    ModeSelectionScene(GameMode mode): mode_{mode} {}
-    virtual ~ModeSelectionScene() {}
-
-    virtual bool init() override;
 
   private:
     struct Mode {

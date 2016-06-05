@@ -1,4 +1,5 @@
 #include "pulse/AppDelegate.hpp"
+#include "pulse/extensions/Node.hpp"
 #include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
 #include "pulse/scenes/InGameMenuScene.hpp"
@@ -63,7 +64,7 @@ void AppDelegate::gameRunning(bool running) {
 }
 
 void AppDelegate::addSplashScene() {
-    const auto splashScene = SplashScene::create();
+    const auto splashScene = create<SplashScene>();
     splashScene->onSceneDismissed = [this](auto scene) {
         this->addTitleScene();
     };
@@ -71,14 +72,14 @@ void AppDelegate::addSplashScene() {
 }
 
 void AppDelegate::addTitleScene() {
-    titleScene = TitleScene::create();
+    titleScene = create<TitleScene>();
     titleScene->retain();
     titleScene->onPlaySelected = [this](auto scene) {
         this->addGameScene();
         CC_SAFE_RELEASE_NULL(titleScene);
     };
     titleScene->onModesSelected = [this](auto scene) {
-        const auto modeSelectionScene = ModeSelectionScene::create(options.gameMode);
+        const auto modeSelectionScene = create<ModeSelectionScene>(options.gameMode);
         modeSelectionScene->onSceneDismissed = [this](auto scene) {
             options.gameMode = scene->selectedMode();
             scene->removeFromParent();
@@ -89,7 +90,7 @@ void AppDelegate::addTitleScene() {
 }
 
 void AppDelegate::addGameScene() {
-    gameScene = PulseGameScene::create(options);
+    gameScene = create<PulseGameScene>(options);
     gameScene->retain();
     gameScene->setBackground(titleScene->background());
     gameScene->onEnterMenu = [this](auto scene) {
@@ -103,7 +104,7 @@ void AppDelegate::addGameScene() {
 }
 
 void AppDelegate::addInGameMenuScene() {
-    const auto menuScene = InGameMenuScene::create();
+    const auto menuScene = create<InGameMenuScene>();
     menuScene->onResumeGame = [](auto scene) {
         Director::getInstance()->popScene();
     };
@@ -119,7 +120,7 @@ void AppDelegate::addInGameMenuScene() {
 }
 
 void AppDelegate::addDeveloperMenuScene() {
-    const auto developerScene = DeveloperMenuScene::create(options);
+    const auto developerScene = create<DeveloperMenuScene>(options);
     developerScene->onSceneDismissed = [](auto scene) {
         Director::getInstance()->popScene();
     };

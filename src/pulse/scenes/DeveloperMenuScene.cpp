@@ -6,16 +6,6 @@ using namespace cocos2d;
 using namespace pulse;
 using namespace pulse::ui;
 
-DeveloperMenuScene* DeveloperMenuScene::create(GameOptions& options) {
-    const auto scene = new (std::nothrow) DeveloperMenuScene(options);
-    if (scene && scene->init()) {
-        scene->autorelease();
-        return scene;
-    }
-    delete scene;
-    return nullptr;
-}
-
 MenuSlider* obstacleFrequency(GameOptions& options) {
     const auto preferences = MenuSlider::Preferences{0.1f, 2.0f, options.obstacleFrequency, 0.1f};
     const auto obstacleFrequency = MenuSlider::create("Obstacle Frequency", preferences);

@@ -11,8 +11,7 @@ namespace pulse {
 class DeveloperMenuScene : public GameScene {
   public:
     DeveloperMenuScene(GameOptions& options): options(options) {}
-
-    static DeveloperMenuScene* create(GameOptions& options);
+    virtual ~DeveloperMenuScene() {}
 
     virtual bool init() override;
 

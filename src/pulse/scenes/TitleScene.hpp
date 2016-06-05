@@ -8,8 +8,10 @@ namespace pulse {
 
 class TitleScene : public GameScene {
   public:
-    static TitleScene* create();
+    TitleScene();
+    virtual ~TitleScene();
 
+    virtual bool init() override;
     virtual void update(float dt) override;
 
     using SceneCallback = std::function<void(TitleScene* scene)>;
@@ -17,11 +19,6 @@ class TitleScene : public GameScene {
     SceneCallback onModesSelected;
     SceneCallback onAchievementsSelected;
     SceneCallback onSettingsSelected;
-
-  protected:
-    TitleScene();
-    virtual ~TitleScene();
-    virtual bool init() override;
 
   private:
     void addTitle();

@@ -26,16 +26,6 @@ PulseGameScene::~PulseGameScene() {
     CC_SAFE_RELEASE(scoreLabel);
 }
 
-PulseGameScene* PulseGameScene::create(GameOptions& options) {
-    const auto scene = new (std::nothrow) PulseGameScene{options};
-    if (scene && scene->init()) {
-        scene->autorelease();
-        return scene;
-    }
-    delete scene;
-    return nullptr;
-}
-
 bool PulseGameScene::init() {
     if (!GameScene::init()) {
         return false;

@@ -46,16 +46,6 @@ ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name): mode{mod
     button = ui::Button::create(Resources::Buttons::Blank);
 }
 
-ModeSelectionScene* ModeSelectionScene::create(GameMode mode) {
-    const auto scene = new (std::nothrow) ModeSelectionScene{mode};
-    if (scene && scene->init()) {
-        scene->autorelease();
-        return scene;
-    }
-    delete scene;
-    return nullptr;
-}
-
 bool ModeSelectionScene::init() {
     if (!GameScene::init()) {
         return false;

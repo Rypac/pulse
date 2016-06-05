@@ -6,16 +6,6 @@
 using namespace pulse;
 using namespace cocos2d;
 
-SplashScene* SplashScene::create() {
-    const auto scene = new (std::nothrow) SplashScene();
-    if (scene && scene->init()) {
-        scene->autorelease();
-        return scene;
-    }
-    delete scene;
-    return nullptr;
-}
-
 SplashScene::~SplashScene() {
     AnimationCache::getInstance()->removeAnimation(Resources::Animations::Intro::Properties);
     SpriteFrameCache::getInstance()->removeSpriteFramesFromFile(Resources::Spritesheets::Intro);

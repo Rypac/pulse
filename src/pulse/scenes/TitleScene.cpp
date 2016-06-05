@@ -18,16 +18,6 @@ TitleScene::~TitleScene() {
     CC_SAFE_RELEASE(title);
 }
 
-TitleScene* TitleScene::create() {
-    const auto scene = new (std::nothrow) TitleScene();
-    if (scene && scene->init()) {
-        scene->autorelease();
-        return scene;
-    }
-    delete scene;
-    return nullptr;
-}
-
 bool TitleScene::init() {
     if (!GameScene::init()) {
         return false;

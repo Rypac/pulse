@@ -6,16 +6,6 @@
 using namespace cocos2d;
 using namespace pulse;
 
-InGameMenuScene* InGameMenuScene::create() {
-    const auto scene = new (std::nothrow) InGameMenuScene();
-    if (scene && scene->init()) {
-        scene->autorelease();
-        return scene;
-    }
-    delete scene;
-    return nullptr;
-}
-
 bool InGameMenuScene::init() {
     if (!GameScene::init()) {
         return false;

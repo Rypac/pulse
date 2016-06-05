@@ -8,16 +8,13 @@ namespace pulse {
 
 class SplashScene : public GameScene {
   public:
-    static SplashScene* create();
-
-    using SceneCallback = std::function<void(SplashScene* scene)>;
-    SceneCallback onSceneDismissed;
-
-  protected:
     SplashScene() {}
     virtual ~SplashScene();
 
     virtual bool init() override;
+
+    using SceneCallback = std::function<void(SplashScene* scene)>;
+    SceneCallback onSceneDismissed;
 
   private:
     cocos2d::Action* logoAnimation();
