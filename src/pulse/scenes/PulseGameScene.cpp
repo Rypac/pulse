@@ -4,6 +4,7 @@
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
+#include "pulse/extensions/Ref.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
@@ -18,7 +19,7 @@ using namespace pulse;
 
 PulseGameScene::PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {
     getPhysicsWorld()->setGravity(Vec2::ZERO);
-    getPhysicsWorld()->setAutoStep(true);
+    getPhysicsWorld()->setAutoStep(false);
 
     addPlayer();
     addMenuOptions();
@@ -135,7 +136,7 @@ Obstacle* PulseGameScene::generateObstacle() {
 
 void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacle = generateObstacle();
-    const auto obstacleSequence = ObstacleSequence::create(obstacle, options.obstacleFrequency);
+    const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, options.obstacleFrequency);
     const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
     runAction(Sequence::create(obstacleSequence, reschedule, nullptr));
 }
@@ -189,7 +190,7 @@ void PulseGameScene::addPlayerTouchListener() {
     playerTouchListener->retain();
     playerTouchListener->onTouchBegan = [this](auto touch, auto event) {
         const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
-        player->runAction(FollowedBy::create(touchEffect));
+        player->runAction(autoreleased<FollowedBy>(touchEffect));
         return true;
     };
     playerTouchListener->onTouchEnded = [this](auto touch, auto event) {

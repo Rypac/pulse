@@ -4,32 +4,27 @@ using pulse::FollowedBy;
 using cocos2d::Action;
 using cocos2d::Node;
 
-FollowedBy* FollowedBy::create(Node* follower) {
-    const auto action = new (std::nothrow) FollowedBy{follower};
-    if (action) {
-        follower->retain();
-        action->autorelease();
-    }
-    return action;
+FollowedBy::FollowedBy(Node* follower): follower_{follower} {
+    follower_->retain();
 }
 
 FollowedBy::~FollowedBy() {
-    if (follower) {
-        if (follower->getParent() == getTarget()) {
-            follower->removeFromParent();
+    if (follower_) {
+        if (follower_->getParent() == getTarget()) {
+            follower_->removeFromParent();
         }
-        follower->release();
+        follower_->release();
     }
 }
 
-void FollowedBy::startWithTarget(cocos2d::Node* target) {
+void FollowedBy::startWithTarget(Node* target) {
     Action::startWithTarget(target);
-    target->addChild(follower);
+    target->addChild(follower_);
 }
 
 void FollowedBy::stop() {
     Action::stop();
-    follower->removeFromParent();
+    follower_->removeFromParent();
 }
 
 bool FollowedBy::isDone() const {
@@ -38,5 +33,5 @@ bool FollowedBy::isDone() const {
 
 void FollowedBy::step(float dt) {
     const auto targetPosition = getTarget()->convertToNodeSpace(getTarget()->getPosition());
-    follower->setPosition(targetPosition);
+    follower_->setPosition(targetPosition);
 }

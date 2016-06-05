@@ -1,6 +1,7 @@
 #include "pulse/sprites/Obstacle.hpp"
 
 #include "pulse/actions/RemoveSelfWithCallback.hpp"
+#include "pulse/extensions/Ref.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/utilities/Geometry.hpp"
 
@@ -113,7 +114,7 @@ void Obstacle::runActions() {
     });
     const auto scaledDuration = durationForDirection(getSpeed(), direction);
     const auto moveToEdge = MoveTo::create(scaledDuration, destination);
-    const auto removeFromScene = RemoveSelfWithCallback::create([this]() {
+    const auto removeFromScene = autoreleased<RemoveSelfWithCallback>([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
@@ -124,12 +125,12 @@ void Obstacle::runActions() {
 void Obstacle::runDefeatedActions() {
     setCascadeOpacityEnabled(true);
     const auto fadeOut = FadeOut::create(0.5);
-    const auto removeFromScene = RemoveSelfWithCallback::create([this]() {
+    const auto removeFromScene = autoreleased<RemoveSelfWithCallback>([this]() {
         if (onCompletion) {
             onCompletion(this);
         }
     });
-    runAction(Sequence::create(fadeOut, removeFromScene, nullptr));
+    runAction(Sequence::createWithTwoActions(fadeOut, removeFromScene));
 }
 
 void Obstacle::setPhysicsBody(ObstaclePhysicsBody* body) {

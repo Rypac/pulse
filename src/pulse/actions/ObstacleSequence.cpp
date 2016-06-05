@@ -4,43 +4,34 @@
 using namespace pulse;
 using namespace cocos2d;
 
-ObstacleSequence* ObstacleSequence::create(Obstacle* obstacle, float indicatorDurection) {
-    const auto sequence = new (std::nothrow) ObstacleSequence{obstacle, indicatorDurection};
-    if (sequence && sequence->init()) {
-        obstacle->retain();
-        sequence->autorelease();
-        return sequence;
-    }
-    delete sequence;
-    return nullptr;
-}
-
-ObstacleSequence::~ObstacleSequence() {
-    if (obstacle) {
-        obstacle->release();
-    }
-    if (indicator) {
-        if (!isDone()) {
-            indicator->removeFromParent();
-        }
-        indicator->release();
-    }
-}
-
-bool ObstacleSequence::init() {
+ObstacleSequence::ObstacleSequence(Obstacle* obstacle, float indicatorDuration): obstacle_{obstacle} {
+    obstacle_->retain();
     const auto spawnDelay = DelayTime::create(indicatorDuration);
     const auto removalDelay = DelayTime::create(0.25);
     const auto addIndicator = CallFunc::create([this]() {
-        indicator = ObstacleIndicator::create(obstacle->getDirection(), getTarget()->getBoundingBox());
-        indicator->retain();
-        getTarget()->addChild(indicator);
+        indicator_ = ObstacleIndicator::create(obstacle_->getDirection(), getTarget()->getBoundingBox());
+        indicator_->retain();
+        getTarget()->addChild(indicator_);
     });
     const auto removeIndicator = CallFunc::create([this]() {
-        indicator->removeFromParent();
+        indicator_->removeFromParent();
     });
     const auto addObstacle = CallFunc::create([this]() {
-        getTarget()->addChild(obstacle, 2);
+        getTarget()->addChild(obstacle_, 2);
     });
     std::vector<FiniteTimeAction*> actions{addIndicator, spawnDelay, addObstacle, removalDelay, removeIndicator};
-    return Sequence::init(toVector(actions));
+    init(toVector(actions));
 }
+
+ObstacleSequence::~ObstacleSequence() {
+    if (obstacle_) {
+        obstacle_->release();
+    }
+    if (indicator_) {
+        if (!isDone()) {
+            indicator_->removeFromParent();
+        }
+        indicator_->release();
+    }
+}
+

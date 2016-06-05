@@ -1,5 +1,6 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/actions/AnimatedBackground.hpp"
+#include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Geometry.hpp"
 
@@ -64,7 +65,7 @@ void TitleScene::addPlayButton() {
     playButton->onTouchCancelled = [this](auto ref) { animationStep = AnimationStep::Backwards; };
 
     const auto particles = ParticleSystemQuad::create(Resources::Particles::ButtonBackground);
-    playButton->runAction(AnimatedBackground::create(particles));
+    playButton->runAction(autoreleased<AnimatedBackground>(particles));
 }
 
 void TitleScene::addModesButton() {
