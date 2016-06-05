@@ -37,6 +37,12 @@
 		81253C1A1CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */; };
 		81253C1D1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C1B1CDEDD7E0072DBFD /* ObstacleSequence.cpp */; };
 		81253C1E1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81253C1B1CDEDD7E0072DBFD /* ObstacleSequence.cpp */; };
+		8129C73C1D042DC7009648FB /* SplashView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8129C7381D042DC7009648FB /* SplashView.cpp */; };
+		8129C73D1D042DC7009648FB /* SplashView.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8129C7381D042DC7009648FB /* SplashView.cpp */; };
+		8129C73E1D042DC7009648FB /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8129C73A1D042DC7009648FB /* View.cpp */; };
+		8129C73F1D042DC7009648FB /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8129C73A1D042DC7009648FB /* View.cpp */; };
+		8129C7431D042DD8009648FB /* SplashViewController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8129C7401D042DD8009648FB /* SplashViewController.cpp */; };
+		8129C7441D042DD8009648FB /* SplashViewController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8129C7401D042DD8009648FB /* SplashViewController.cpp */; };
 		812BE93E1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE93F1CB8BCE80038D730 /* audio in Resources */ = {isa = PBXBuildFile; fileRef = 812BE93D1CB8BCE80038D730 /* audio */; };
 		812BE9411CB8BCF60038D730 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9401CB8BCF60038D730 /* images */; };
@@ -178,6 +184,13 @@
 		81253C181CDEC7CB0072DBFD /* MirrorSprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MirrorSprite.hpp; path = pulse/sprites/MirrorSprite.hpp; sourceTree = "<group>"; };
 		81253C1B1CDEDD7E0072DBFD /* ObstacleSequence.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleSequence.cpp; path = pulse/actions/ObstacleSequence.cpp; sourceTree = "<group>"; };
 		81253C1C1CDEDD7E0072DBFD /* ObstacleSequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleSequence.hpp; path = pulse/actions/ObstacleSequence.hpp; sourceTree = "<group>"; };
+		8129C7381D042DC7009648FB /* SplashView.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashView.cpp; path = pulse/views/SplashView.cpp; sourceTree = "<group>"; };
+		8129C7391D042DC7009648FB /* SplashView.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SplashView.hpp; path = pulse/views/SplashView.hpp; sourceTree = "<group>"; };
+		8129C73A1D042DC7009648FB /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = View.cpp; path = pulse/views/View.cpp; sourceTree = "<group>"; };
+		8129C73B1D042DC7009648FB /* View.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = View.hpp; path = pulse/views/View.hpp; sourceTree = "<group>"; };
+		8129C7401D042DD8009648FB /* SplashViewController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SplashViewController.cpp; path = pulse/controllers/SplashViewController.cpp; sourceTree = "<group>"; };
+		8129C7411D042DD8009648FB /* SplashViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SplashViewController.hpp; path = pulse/controllers/SplashViewController.hpp; sourceTree = "<group>"; };
+		8129C7421D042DD8009648FB /* ViewController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ViewController.hpp; path = pulse/controllers/ViewController.hpp; sourceTree = "<group>"; };
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
@@ -389,6 +402,7 @@
 				81253C0E1CDEB2C70072DBFD /* actions */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.hpp */,
+				8129C7371D042DA9009648FB /* controllers */,
 				81417C691D03BF4B00A9F5E1 /* extensions */,
 				817B8A3A1CA63942003BE291 /* generators */,
 				81EB56B91C96364200BE36A4 /* models */,
@@ -397,6 +411,7 @@
 				819E29571C93D49600EA3D32 /* sprites */,
 				81D28F8F1CDD8DF500C09896 /* ui */,
 				819E29521C93C60E00EA3D32 /* utilities */,
+				8129C7351D042DA3009648FB /* views */,
 			);
 			name = src;
 			path = ../src;
@@ -445,6 +460,27 @@
 				81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */,
 			);
 			name = actions;
+			sourceTree = "<group>";
+		};
+		8129C7351D042DA3009648FB /* views */ = {
+			isa = PBXGroup;
+			children = (
+				8129C7381D042DC7009648FB /* SplashView.cpp */,
+				8129C7391D042DC7009648FB /* SplashView.hpp */,
+				8129C73A1D042DC7009648FB /* View.cpp */,
+				8129C73B1D042DC7009648FB /* View.hpp */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		8129C7371D042DA9009648FB /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8129C7401D042DD8009648FB /* SplashViewController.cpp */,
+				8129C7411D042DD8009648FB /* SplashViewController.hpp */,
+				8129C7421D042DD8009648FB /* ViewController.hpp */,
+			);
+			name = controllers;
 			sourceTree = "<group>";
 		};
 		81417C691D03BF4B00A9F5E1 /* extensions */ = {
@@ -717,6 +753,7 @@
 			files = (
 				81D817821CF024910081C4A1 /* Button.cpp in Sources */,
 				81775EE71CDF26D80011049C /* FollowedBy.cpp in Sources */,
+				8129C73E1D042DC7009648FB /* View.cpp in Sources */,
 				81D28F991CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				81253C1D1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -733,9 +770,11 @@
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81253C191CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
+				8129C7431D042DD8009648FB /* SplashViewController.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
+				8129C73C1D042DC7009648FB /* SplashView.cpp in Sources */,
 				819765B01CF1548E00DA7534 /* PhysicsScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				81D8177B1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */,
@@ -752,6 +791,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				8129C73D1D042DC7009648FB /* SplashView.cpp in Sources */,
 				819E295B1C93D4D700EA3D32 /* Column.cpp in Sources */,
 				81D8177C1CF014B60081C4A1 /* AnimatedBackground.cpp in Sources */,
 				81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
@@ -766,10 +806,12 @@
 				819765B11CF1548E00DA7534 /* PhysicsScene.cpp in Sources */,
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81775EE81CDF26D80011049C /* FollowedBy.cpp in Sources */,
+				8129C73F1D042DC7009648FB /* View.cpp in Sources */,
 				81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				81D817831CF024910081C4A1 /* Button.cpp in Sources */,
+				8129C7441D042DD8009648FB /* SplashViewController.cpp in Sources */,
 				81886C961CFAD7FE005617F4 /* ModeSelectionScene.cpp in Sources */,
 				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
 				81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */,

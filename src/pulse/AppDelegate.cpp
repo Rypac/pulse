@@ -5,13 +5,12 @@
 #include "pulse/scenes/InGameMenuScene.hpp"
 #include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
-#include "pulse/scenes/SplashScene.hpp"
 #include "pulse/scenes/TitleScene.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
 
-AppDelegate::AppDelegate() {}
+AppDelegate::AppDelegate(): splashController_(SplashViewController{}) {}
 
 AppDelegate::~AppDelegate() {
     CC_SAFE_RELEASE(gameScene);
@@ -43,7 +42,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->setSearchPaths(displayResolution.resourceSearchPaths());
 
     gameRunning(true);
-    addSplashScene();
+    splashController_.onDismissed = [this](auto scene) {
+        this->addTitleScene();
+    };
+    Director::getInstance()->runWithScene(splashController_.view());
 
     return true;
 }
@@ -61,14 +63,6 @@ void AppDelegate::applicationWillEnterForeground() {
 void AppDelegate::gameRunning(bool running) {
     Device::setKeepScreenOn(running);
     Device::setAccelerometerEnabled(running);
-}
-
-void AppDelegate::addSplashScene() {
-    const auto splashScene = autoreleased<SplashScene>();
-    splashScene->onSceneDismissed = [this](auto scene) {
-        this->addTitleScene();
-    };
-    Director::getInstance()->runWithScene(splashScene);
 }
 
 void AppDelegate::addTitleScene() {

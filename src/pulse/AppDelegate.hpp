@@ -4,6 +4,7 @@
 #include "pulse/models/GameOptions.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/TitleScene.hpp"
+#include "pulse/controllers/SplashViewController.hpp"
 
 class AppDelegate : private cocos2d::Application {
   public:
@@ -17,7 +18,6 @@ class AppDelegate : private cocos2d::Application {
 
   private:
     void gameRunning(bool running);
-    void addSplashScene();
     void addTitleScene();
     void addGameScene();
     void addInGameMenuScene();
@@ -26,4 +26,5 @@ class AppDelegate : private cocos2d::Application {
 
     pulse::PulseGameScene* gameScene;
     pulse::TitleScene* titleScene;
+    pulse::SplashViewController splashController_;
 };
