@@ -1,9 +1,9 @@
 #include "pulse/views/View.hpp"
 
 View::View(): background_{nullptr} {
-    init();
     const auto director = cocos2d::Director::getInstance();
     frame_ = cocos2d::Rect{director->getVisibleOrigin(), director->getVisibleSize()};
+    init();
 }
 
 View::~View() {
@@ -12,7 +12,7 @@ View::~View() {
     }
 }
 
-void View::setBackground(Node *background) {
+void View::setBackground(cocos2d::Node *background) {
     removeBackground();
     background_ = background;
     background_->retain();

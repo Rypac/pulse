@@ -13,7 +13,7 @@ SplashView::SplashView() {
     image_ = Sprite::createWithSpriteFrameName(Resources::Images::Intro::Long);
     image_->retain();
     image_->setPosition(rect::center(frame()));
-    image_->setScale(2, 2);
+    image_->setScale(2);
     addChild(image_, 1);
 }
 
