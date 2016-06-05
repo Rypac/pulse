@@ -187,6 +187,8 @@
 		81417C6C1D03C0FF00A9F5E1 /* Node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Node.hpp; path = pulse/extensions/Node.hpp; sourceTree = "<group>"; };
 		81417C6D1D03F3BB00A9F5E1 /* Callback.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Callback.hpp; path = pulse/utilities/Callback.hpp; sourceTree = "<group>"; };
 		81417C6F1D04041C00A9F5E1 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameState.cpp; path = pulse/models/GameState.cpp; sourceTree = "<group>"; };
+		81417C731D041C7500A9F5E1 /* CallbackAfter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = CallbackAfter.hpp; path = pulse/actions/CallbackAfter.hpp; sourceTree = "<group>"; };
+		81417C761D04209F00A9F5E1 /* Resources.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Resources.hpp; sourceTree = "<group>"; };
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = pulse/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = pulse/models/TimeScale.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -432,14 +434,15 @@
 		81253C0E1CDEB2C70072DBFD /* actions */ = {
 			isa = PBXGroup;
 			children = (
-				81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */,
-				81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */,
-				81253C1B1CDEDD7E0072DBFD /* ObstacleSequence.cpp */,
-				81253C1C1CDEDD7E0072DBFD /* ObstacleSequence.hpp */,
-				81775EE51CDF26D80011049C /* FollowedBy.cpp */,
-				81775EE61CDF26D80011049C /* FollowedBy.hpp */,
 				81D817791CF014B60081C4A1 /* AnimatedBackground.cpp */,
 				81D8177A1CF014B60081C4A1 /* AnimatedBackground.hpp */,
+				81417C731D041C7500A9F5E1 /* CallbackAfter.hpp */,
+				81775EE51CDF26D80011049C /* FollowedBy.cpp */,
+				81775EE61CDF26D80011049C /* FollowedBy.hpp */,
+				81253C1B1CDEDD7E0072DBFD /* ObstacleSequence.cpp */,
+				81253C1C1CDEDD7E0072DBFD /* ObstacleSequence.hpp */,
+				81253C131CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp */,
+				81253C141CDEBA7D0072DBFD /* RemoveSelfWithCallback.hpp */,
 			);
 			name = actions;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				81D28F901CDD8DF500C09896 /* Font.hpp */,
 				81D28F911CDD8DF500C09896 /* MenuSlider.cpp */,
 				81D28F921CDD8DF500C09896 /* MenuSlider.hpp */,
+				81417C761D04209F00A9F5E1 /* Resources.hpp */,
 			);
 			name = ui;
 			path = pulse/ui;

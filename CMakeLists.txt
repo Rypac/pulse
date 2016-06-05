@@ -89,6 +89,7 @@ set(GAME_SRC
 set(GAME_HEADERS
     ${PULSE_DIR}/AppDelegate.hpp
     ${PULSE_DIR}/actions/AnimatedBackground.hpp
+    ${PULSE_DIR}/actions/CallbackAfter.hpp
     ${PULSE_DIR}/actions/FollowedBy.hpp
     ${PULSE_DIR}/actions/ObstacleSequence.hpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.hpp
@@ -127,6 +128,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/ui/MenuSlider.hpp
     ${PULSE_DIR}/ui/Resources.hpp
     ${PULSE_DIR}/utilities/Acceleration.hpp
+    ${PULSE_DIR}/utilities/Callback.hpp
     ${PULSE_DIR}/utilities/Direction.hpp
     ${PULSE_DIR}/utilities/Geometry.hpp
     ${PULSE_DIR}/utilities/Logger.hpp
