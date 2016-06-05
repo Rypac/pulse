@@ -91,7 +91,9 @@ set(GAME_HEADERS
     ${PULSE_DIR}/actions/FollowedBy.hpp
     ${PULSE_DIR}/actions/ObstacleSequence.hpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.hpp
+    ${PULSE_DIR}/extensions/Node.hpp
     ${PULSE_DIR}/extensions/Rect.hpp
+    ${PULSE_DIR}/extensions/Ref.hpp
     ${PULSE_DIR}/extensions/Vec.hpp
     ${PULSE_DIR}/extensions/Vector.hpp
     ${PULSE_DIR}/generators/Generator.hpp
