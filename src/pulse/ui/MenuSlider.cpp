@@ -1,6 +1,7 @@
 #include "pulse/ui/MenuSlider.hpp"
 #include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 #include <algorithm>
 #include <iomanip>
@@ -37,9 +38,7 @@ void MenuSlider::addSlider() {
     slider->addEventListener([this](auto ref, auto eventType) {
         if (eventType == Slider::EventType::ON_PERCENTAGE_CHANGED) {
             this->updateDisplayedValue();
-            if (onValueChanged) {
-                onValueChanged(this);
-            }
+            safe_callback(onValueChanged, this);
         }
     });
     addChild(slider);

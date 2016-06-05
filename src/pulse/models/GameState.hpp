@@ -3,6 +3,7 @@
 #include "cocos2d.h"
 #include "pulse/models/GameOptions.hpp"
 #include "pulse/models/Accelerometer.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 namespace pulse {
 
@@ -43,9 +44,7 @@ struct GameState {
 
     void enterMode(TimeMode mode) {
         timeMode = mode;
-        if (onTimeModeChanged) {
-            onTimeModeChanged(mode);
-        }
+        safe_callback(onTimeModeChanged, mode);
     }
 
     float playerTimeScale() const {

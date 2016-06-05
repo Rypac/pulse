@@ -3,6 +3,7 @@
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Geometry.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 using namespace pulse;
 using namespace cocos2d;
@@ -45,9 +46,7 @@ void TitleScene::addTitleAnimation() {
     const auto animate = Animate3D::create(animation);
     animate->setSpeed(0.001);
     const auto finish = CallFunc::create([this]() {
-        if (onPlaySelected) {
-            onPlaySelected(this);
-        }
+        safe_callback(onPlaySelected, this);
     });
 
     titleAnimation = Sequence::create(animate, finish, nullptr);
@@ -72,9 +71,7 @@ void TitleScene::addModesButton() {
     const auto modesButton = ui::Button::create(Resources::Buttons::Modes);
     modesButton->setPosition(Vec2{sceneFrame().getMinX() + 100, sceneFrame().getMinY() + 120});
     modesButton->onTouchEnded = [this](auto ref) {
-        if (onModesSelected) {
-            onModesSelected(this);
-        }
+        safe_callback(onModesSelected, this);
     };
     addChild(modesButton);
 }
@@ -83,9 +80,7 @@ void TitleScene::addAchievmentsButton() {
     const auto achievmentsButton = ui::Button::create(Resources::Buttons::Achievements);
     achievmentsButton->setPosition(Vec2{sceneFrame().getMinX() + 250, sceneFrame().getMinY() + 120});
     achievmentsButton->onTouchEnded = [this](auto ref) {
-        if (onAchievementsSelected) {
-            onAchievementsSelected(this);
-        }
+        safe_callback(onAchievementsSelected, this);
     };
     addChild(achievmentsButton);
 }
@@ -94,9 +89,7 @@ void TitleScene::addSettingsButton() {
     const auto settingsButton = ui::Button::create(Resources::Buttons::Settings);
     settingsButton->setPosition(Vec2{sceneFrame().getMinX() + 400, sceneFrame().getMinY() + 120});
     settingsButton->onTouchEnded = [this](auto ref) {
-        if (onSettingsSelected) {
-            onSettingsSelected(this);
-        }
+        safe_callback(onSettingsSelected, this);
     };
     addChild(settingsButton);
 }

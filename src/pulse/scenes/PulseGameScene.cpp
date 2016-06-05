@@ -4,6 +4,7 @@
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
+#include "pulse/extensions/Rect.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
@@ -12,7 +13,7 @@
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/extensions/Rect.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -99,9 +100,7 @@ void PulseGameScene::addMenuOptions() {
     menuButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
     menuButton->setPosition(Vec2{sceneFrame().getMaxX() - 20, sceneFrame().getMaxY() - 20});
     menuButton->onTouchEnded = [this](auto ref) {
-        if (onEnterMenu) {
-            onEnterMenu(this);
-        }
+        safe_callback(onEnterMenu, this);
     };
     addChild(menuButton, 3);
 }

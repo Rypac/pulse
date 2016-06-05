@@ -1,4 +1,5 @@
 #include "pulse/ui/Button.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 using pulse::ui::Button;
 
@@ -46,9 +47,7 @@ bool Button::onTouchDidBegin(cocos2d::Touch* touch, cocos2d::Event* event) {
         savedScale_ = getScale();
         runAction(cocos2d::ScaleTo::create(AnimationSpeed, savedScale_ + touchScale()));
     }
-    if (onTouchBegan) {
-        onTouchBegan(this);
-    }
+    safe_callback(onTouchBegan, this);
     return true;
 }
 
@@ -62,9 +61,7 @@ void Button::onTouchDidMove(cocos2d::Touch* touch, cocos2d::Event* event) {
     if (reactsToTouch_) {
         runAction(cocos2d::ScaleTo::create(AnimationSpeed, savedScale_));
     }
-    if (onTouchCancelled) {
-        onTouchCancelled(this);
-    }
+    safe_callback(onTouchCancelled, this);
 }
 
 void Button::onTouchDidEnd(cocos2d::Touch* touch, cocos2d::Event* event) {
@@ -76,7 +73,5 @@ void Button::onTouchDidEnd(cocos2d::Touch* touch, cocos2d::Event* event) {
     if (reactsToTouch_) {
         runAction(cocos2d::ScaleTo::create(AnimationSpeed, savedScale_));
     }
-    if (onTouchEnded) {
-        onTouchEnded(this);
-    }
+    safe_callback(onTouchEnded, this);
 }

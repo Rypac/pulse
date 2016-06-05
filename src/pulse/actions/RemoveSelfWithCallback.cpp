@@ -1,14 +1,13 @@
 #include "pulse/actions/RemoveSelfWithCallback.hpp"
 #include "pulse/extensions/Ref.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 using namespace pulse;
 using namespace cocos2d;
 
 void RemoveSelfWithCallback::update(float time) {
     _target->removeFromParentAndCleanup(true);
-    if (onRemoved) {
-        onRemoved();
-    }
+    safe_callback(onRemoved);
 }
 
 RemoveSelfWithCallback* RemoveSelfWithCallback::reverse() const {

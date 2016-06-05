@@ -3,6 +3,7 @@
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/MenuSlider.hpp"
 #include "pulse/ui/Resources.hpp"
+#include "pulse/utilities/Callback.hpp"
 #include "pulse/utilities/Geometry.hpp"
 
 using namespace cocos2d;
@@ -77,9 +78,7 @@ void DeveloperMenuScene::addBackButton() {
     const auto backButton = ui::Button::create(Resources::Buttons::Home);
     backButton->setPosition(Vec2{sceneFrame().getMaxX() - 100, sceneFrame().getMinY() + 100});
     backButton->onTouchEnded = [this](auto ref) {
-        if (onSceneDismissed) {
-            onSceneDismissed(this);
-        }
+        safe_callback(onSceneDismissed, this);
     };
     addChild(backButton);
 }

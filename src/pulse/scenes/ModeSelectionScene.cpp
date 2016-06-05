@@ -2,6 +2,7 @@
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -90,9 +91,7 @@ void ModeSelectionScene::addDismissListener() {
             animate::scaleOut(mode.label);
         }
         animate::fadeOut(this->background(), [this]() {
-            if (onSceneDismissed) {
-                onSceneDismissed(this);
-            }
+            safe_callback(onSceneDismissed, this);
         });
     };
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(touchListener, this);

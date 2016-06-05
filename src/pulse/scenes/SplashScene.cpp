@@ -1,6 +1,7 @@
 #include "pulse/scenes/SplashScene.hpp"
-#include "pulse/utilities/Geometry.hpp"
 #include "pulse/ui/Resources.hpp"
+#include "pulse/utilities/Geometry.hpp"
+#include "pulse/utilities/Callback.hpp"
 #include "SimpleAudioEngine.h"
 
 using namespace pulse;
@@ -35,9 +36,7 @@ void SplashScene::onEnterTransitionDidFinish() {
     });
     const auto introAnimation = Spawn::createWithTwoActions(logoAnimation, logoAudio);
     const auto onCompletion = CallFunc::create([this]() {
-        if (onSceneDismissed) {
-            onSceneDismissed(this);
-        }
+        safe_callback(onSceneDismissed, this);
     });
 
     image_->runAction(Sequence::createWithTwoActions(introAnimation, onCompletion));

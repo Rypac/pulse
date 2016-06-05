@@ -4,6 +4,7 @@
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/utilities/Geometry.hpp"
+#include "pulse/utilities/Callback.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -108,16 +109,12 @@ float durationForDirection(float duration, Direction direction) {
 
 void Obstacle::runActions() {
     const auto actionsStarted = CallFunc::create([this]() {
-        if (onStarted) {
-            onStarted(this);
-        }
+        safe_callback(onStarted, this);
     });
     const auto scaledDuration = durationForDirection(getSpeed(), direction);
     const auto moveToEdge = MoveTo::create(scaledDuration, destination);
     const auto removeFromScene = autoreleased<RemoveSelfWithCallback>([this]() {
-        if (onCompletion) {
-            onCompletion(this);
-        }
+        safe_callback(onCompletion, this);
     });
     runAction(Sequence::create(actionsStarted, moveToEdge, removeFromScene, nullptr));
 }
@@ -126,9 +123,7 @@ void Obstacle::runDefeatedActions() {
     setCascadeOpacityEnabled(true);
     const auto fadeOut = FadeOut::create(0.5);
     const auto removeFromScene = autoreleased<RemoveSelfWithCallback>([this]() {
-        if (onCompletion) {
-            onCompletion(this);
-        }
+        safe_callback(onCompletion, this);
     });
     runAction(Sequence::createWithTwoActions(fadeOut, removeFromScene));
 }
