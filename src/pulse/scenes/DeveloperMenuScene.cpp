@@ -1,5 +1,7 @@
 #include "pulse/scenes/DeveloperMenuScene.hpp"
+#include "pulse/ui/Button.hpp"
 #include "pulse/ui/MenuSlider.hpp"
+#include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Geometry.hpp"
 
 using namespace cocos2d;
@@ -43,13 +45,14 @@ MenuSlider* playerSlowMotionScale(GameOptions& options) {
 }
 
 DeveloperMenuScene::DeveloperMenuScene(GameOptions& options): options(options) {
+    setBackground(LayerColor::create(Color4B::BLACK));
     addSliders({
         obstacleFrequency(options),
         obstacleSpeed(options),
         obstacleSlowMotionScale(options),
         playerSlowMotionScale(options)
     });
-    addExitButton();
+    addBackButton();
 }
 
 void DeveloperMenuScene::addSliders(std::vector<ui::MenuSlider*> sliders) {
@@ -69,19 +72,13 @@ void DeveloperMenuScene::addSliders(std::vector<ui::MenuSlider*> sliders) {
     }
 }
 
-void DeveloperMenuScene::addExitButton() {
-    const auto exitImage = Sprite::create();
-    exitImage->setColor(Color3B::RED);
-    exitImage->setContentSize(Size{40, 40});
-    exitImage->setTextureRect(exitImage->getBoundingBox());
-    const auto exit = MenuItemSprite::create(exitImage, exitImage, [this](auto ref) {
+void DeveloperMenuScene::addBackButton() {
+    const auto backButton = ui::Button::create(Resources::Buttons::Home);
+    backButton->setPosition(Vec2{sceneFrame().getMaxX() - 100, sceneFrame().getMinY() + 100});
+    backButton->onTouchEnded = [this](auto ref) {
         if (onSceneDismissed) {
             onSceneDismissed(this);
         }
-    });
-    exit->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-    exit->setPosition(Vec2{sceneFrame().origin.x + 20, sceneFrame().origin.y + sceneFrame().size.height - 20});
-    const auto menu = Menu::create(exit, nullptr);
-    menu->setPosition(Vec2::ZERO);
-    addChild(menu, 1);
+    };
+    addChild(backButton);
 }
