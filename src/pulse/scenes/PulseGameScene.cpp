@@ -16,21 +16,7 @@
 using namespace cocos2d;
 using namespace pulse;
 
-PulseGameScene::~PulseGameScene() {
-    const auto listeners = {resetListener, timeScaleListener, playerTouchListener};
-    ranges::for_each(listeners, [this](auto listener) {
-        this->getEventDispatcher()->removeEventListener(listener);
-        CC_SAFE_RELEASE(listener);
-    });
-    CC_SAFE_RELEASE(player);
-    CC_SAFE_RELEASE(scoreLabel);
-}
-
-bool PulseGameScene::init() {
-    if (!PhysicsScene::init()) {
-        return false;
-    }
-
+PulseGameScene::PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {
     getPhysicsWorld()->setGravity(Vec2::ZERO);
     getPhysicsWorld()->setAutoStep(true);
 
@@ -43,8 +29,16 @@ bool PulseGameScene::init() {
     addPlayerMovementListener();
     addCollisionListeners();
     addGameStateListeners();
+}
 
-    return true;
+PulseGameScene::~PulseGameScene() {
+    const auto listeners = {resetListener, timeScaleListener, playerTouchListener};
+    ranges::for_each(listeners, [this](auto listener) {
+        this->getEventDispatcher()->removeEventListener(listener);
+        CC_SAFE_RELEASE(listener);
+    });
+    CC_SAFE_RELEASE(player);
+    CC_SAFE_RELEASE(scoreLabel);
 }
 
 void PulseGameScene::onEnterTransitionDidFinish() {
