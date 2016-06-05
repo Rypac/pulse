@@ -10,10 +10,7 @@ using namespace cocos2d;
 AccelerometerMovementSystem::AccelerometerMovementSystem(Accelerometer* accelerometer)
 : accelerometer_{accelerometer} {
     init([this](auto acceleration, auto event) {
-        const auto smoothedReading = accelerometer::filter(*acceleration, previousReading_);
-        previousReading_ = smoothedReading;
-        const auto currentAcceleration = Vec3(smoothedReading.x, smoothedReading.y, smoothedReading.z);
-        const auto rotationAngle = rotation::angle(currentAcceleration);
+        const auto rotationAngle = sample(*acceleration);
 
         if (accelerometer_->isCalibrated()) {
             const auto relativeAngle = rotationAngle - *accelerometer_->offset();
@@ -23,4 +20,11 @@ AccelerometerMovementSystem::AccelerometerMovementSystem(Accelerometer* accelero
             accelerometer_->calibrate(rotationAngle);
         }
     });
+}
+
+Vec3 AccelerometerMovementSystem::sample(const Acceleration& accelerationReading) {
+    const auto smoothedReading = accelerometer::filter(accelerationReading, previousReading_);
+    previousReading_ = smoothedReading;
+    const auto acceleration = Vec3(smoothedReading.x, smoothedReading.y, smoothedReading.z);
+    return rotation::angle(acceleration);
 }

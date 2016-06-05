@@ -10,6 +10,8 @@ class AccelerometerMovementSystem : public cocos2d::EventListenerAcceleration, p
   public:
     AccelerometerMovementSystem(Accelerometer* accelerometer);
 
+    cocos2d::Vec3 sample(const cocos2d::Acceleration& acceleration);
+
   private:
     Accelerometer* accelerometer_;
     cocos2d::Acceleration previousReading_;
