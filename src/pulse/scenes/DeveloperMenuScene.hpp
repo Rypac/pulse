@@ -18,8 +18,6 @@ class DeveloperMenuScene : public GameScene {
   private:
     void addSliders(std::vector<ui::MenuSlider*> sliders);
     void addBackButton();
-
-    GameOptions& options;
 };
 
 }
