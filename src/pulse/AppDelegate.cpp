@@ -68,7 +68,7 @@ void AppDelegate::addSplashScene() {
     splashScene->onSceneDismissed = [this](auto scene) {
         this->addTitleScene();
     };
-    Director::getInstance()->runWithScene(GameScene::createScene(splashScene));
+    Director::getInstance()->runWithScene(splashScene);
 }
 
 void AppDelegate::addTitleScene() {
@@ -86,7 +86,7 @@ void AppDelegate::addTitleScene() {
         };
         scene->addChild(modeSelectionScene, 10);
     };
-    Director::getInstance()->replaceScene(GameScene::createScene(titleScene));
+    Director::getInstance()->replaceScene(titleScene);
 }
 
 void AppDelegate::addGameScene() {
@@ -100,7 +100,7 @@ void AppDelegate::addGameScene() {
         this->addTitleScene();
         CC_SAFE_RELEASE_NULL(gameScene);
     };
-    Director::getInstance()->replaceScene(PhysicsScene::createScene(gameScene));
+    Director::getInstance()->replaceScene(gameScene);
 }
 
 void AppDelegate::addInGameMenuScene() {
@@ -116,7 +116,7 @@ void AppDelegate::addInGameMenuScene() {
         Director::getInstance()->popScene();
         gameScene->onSceneDismissed(gameScene);
     };
-    Director::getInstance()->pushScene(GameScene::createScene(menuScene));
+    Director::getInstance()->pushScene(menuScene);
 }
 
 void AppDelegate::addDeveloperMenuScene() {
@@ -124,5 +124,5 @@ void AppDelegate::addDeveloperMenuScene() {
     developerScene->onSceneDismissed = [](auto scene) {
         Director::getInstance()->popScene();
     };
-    Director::getInstance()->pushScene(GameScene::createScene(developerScene));
+    Director::getInstance()->pushScene(developerScene);
 }

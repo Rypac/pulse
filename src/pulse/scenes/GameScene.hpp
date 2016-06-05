@@ -4,15 +4,15 @@
 
 namespace pulse {
 
-class GameScene : public cocos2d::Node {
+class GameScene : public cocos2d::Scene {
   public:
-    static cocos2d::Scene* createScene(GameScene* scene);
+    GameScene();
+    virtual ~GameScene();
 
     virtual void resumeScene();
     virtual void pauseScene();
     virtual void quit();
 
-    virtual cocos2d::Node* background() const;
     virtual void setBackground(cocos2d::Node* background);
     virtual void removeBackground();
 
@@ -20,17 +20,14 @@ class GameScene : public cocos2d::Node {
 
     const cocos2d::Rect& sceneFrame() const {
         return frame_;
-    };
+    }
 
-  protected:
-    GameScene();
-    virtual ~GameScene();
-
-    virtual bool init() override;
-
-    cocos2d::Rect frame_;
+    cocos2d::Node* background() const {
+        return background_;
+    }
 
   private:
+    cocos2d::Rect frame_;
     cocos2d::Node* background_;
 };
 

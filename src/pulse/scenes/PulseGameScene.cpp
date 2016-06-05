@@ -27,9 +27,12 @@ PulseGameScene::~PulseGameScene() {
 }
 
 bool PulseGameScene::init() {
-    if (!GameScene::init()) {
+    if (!PhysicsScene::init()) {
         return false;
     }
+
+    getPhysicsWorld()->setGravity(Vec2::ZERO);
+    getPhysicsWorld()->setAutoStep(true);
 
     addPlayer();
     addMenuOptions();
@@ -144,7 +147,7 @@ void PulseGameScene::scheduleObstacleGeneration() {
 }
 
 void PulseGameScene::update(float dt) {
-    getScene()->getPhysicsWorld()->step(dt);
+    getPhysicsWorld()->step(dt);
 }
 
 void PulseGameScene::updateScore() {
@@ -152,7 +155,7 @@ void PulseGameScene::updateScore() {
 }
 
 void PulseGameScene::updateSceneTimeScale() {
-    getScene()->getScheduler()->setTimeScale(gameState.environmentTimeScale());
+    getScheduler()->setTimeScale(gameState.environmentTimeScale());
 }
 
 void PulseGameScene::addResetGameTouchListener() {
