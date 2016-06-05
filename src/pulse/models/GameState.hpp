@@ -3,7 +3,6 @@
 #include "cocos2d.h"
 #include "pulse/models/GameOptions.hpp"
 #include "pulse/models/Accelerometer.hpp"
-#include "pulse/utilities/Callback.hpp"
 
 namespace pulse {
 
@@ -14,65 +13,35 @@ struct GameState {
         SlowMotion
     };
 
-    GameState(const GameOptions& options): options(options) {}
+    GameState(const GameOptions& options);
 
     std::function<void(TimeMode)> onTimeModeChanged;
 
-    int currentScore() const {
-        return score;
-    }
+    int currentScore() const;
+    void incrementScore();
 
-    void incrementScore() {
-        score++;
-    }
+    void gameOver();
+    bool isGameOver() const;
 
-    void gameOver() {
-        gameIsOver = true;
-    }
+    TimeMode currentMode() const;
+    void enterMode(TimeMode mode);
 
-    bool isGameOver() const {
-        return gameIsOver;
-    }
+    float playerTimeScale() const;
+    float environmentTimeScale() const;
 
-    Accelerometer& accelerometer() {
-        return accelerometer_;
-    }
+    Accelerometer& accelerometer();
 
-    TimeMode currentMode() const {
-        return timeMode;
-    }
-
-    void enterMode(TimeMode mode) {
-        timeMode = mode;
-        safe_callback(onTimeModeChanged, mode);
-    }
-
-    float playerTimeScale() const {
-        return timeScale().player;
-    }
-
-    float environmentTimeScale() const {
-        return timeScale().environment;
-    }
-
-    void reset() {
-        score = 0;
-        timeMode = TimeMode::Normal;
-        gameIsOver = false;
-        accelerometer_.reset();
-    }
+    void reset();
 
   private:
-    const TimeScale& timeScale() const {
-        return timeMode == TimeMode::Normal ? normalTimeScale : options.slowMotionTimeScale;
-    }
+    const TimeScale& timeScale() const;
 
-    bool gameIsOver{true};
-    const GameOptions& options;
-    const TimeScale normalTimeScale{1.0, 1.0};
-    int score{0};
-    TimeMode timeMode{TimeMode::Normal};
-    Accelerometer accelerometer_{30};
+    bool gameIsOver_;
+    const GameOptions& options_;
+    const TimeScale normalTimeScale_;
+    int score_;
+    TimeMode timeMode_;
+    Accelerometer accelerometer_;
 };
 
 }

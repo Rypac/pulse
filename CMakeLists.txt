@@ -63,6 +63,7 @@ set(GAME_SRC
     ${PULSE_DIR}/actions/ObstacleSequence.cpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.cpp
     ${PULSE_DIR}/generators/ObstacleGenerator.cpp
+    ${PULSE_DIR}/models/GameState.cpp
     ${PULSE_DIR}/models/Resolution.cpp
     ${PULSE_DIR}/movement/AccelerometerMovementSystem.cpp
     ${PULSE_DIR}/scenes/DeveloperMenuScene.cpp

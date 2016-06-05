@@ -45,6 +45,8 @@
 		812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		812BE9491CB8C3640038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
 		812BE94E1CB8D30D0038D730 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
+		81417C701D04041C00A9F5E1 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81417C6F1D04041C00A9F5E1 /* GameState.cpp */; };
+		81417C711D04041C00A9F5E1 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81417C6F1D04041C00A9F5E1 /* GameState.cpp */; };
 		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		81563DF21CBB9ED200B303F9 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DEF1CBB9E9000B303F9 /* libcocos2d iOS.a */; };
 		81563DF51CBB9EE200B303F9 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DED1CBB9E9000B303F9 /* libcocos2d Mac.a */; };
@@ -184,6 +186,7 @@
 		81417C6B1D03C0E900A9F5E1 /* Ref.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Ref.hpp; path = pulse/extensions/Ref.hpp; sourceTree = "<group>"; };
 		81417C6C1D03C0FF00A9F5E1 /* Node.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Node.hpp; path = pulse/extensions/Node.hpp; sourceTree = "<group>"; };
 		81417C6D1D03F3BB00A9F5E1 /* Callback.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Callback.hpp; path = pulse/utilities/Callback.hpp; sourceTree = "<group>"; };
+		81417C6F1D04041C00A9F5E1 /* GameState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameState.cpp; path = pulse/models/GameState.cpp; sourceTree = "<group>"; };
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = pulse/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = pulse/models/TimeScale.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -559,12 +562,13 @@
 			isa = PBXGroup;
 			children = (
 				81844CC21CB5010E00C0A1B2 /* Accelerometer.hpp */,
+				813B51681D0288260023A933 /* GameMode.hpp */,
 				814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */,
+				81417C6F1D04041C00A9F5E1 /* GameState.cpp */,
 				81EB56BA1C96365F00BE36A4 /* GameState.hpp */,
 				81E8F3BD1CD5D9F200DC1689 /* Resolution.cpp */,
 				81E8F3BE1CD5D9F200DC1689 /* Resolution.hpp */,
 				814B54201CAFB16600ABEB4E /* TimeScale.hpp */,
-				813B51681D0288260023A933 /* GameMode.hpp */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -720,6 +724,7 @@
 				81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */,
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
+				81417C701D04041C00A9F5E1 /* GameState.cpp in Sources */,
 				81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
@@ -749,6 +754,7 @@
 				81253C1A1CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				81417C711D04041C00A9F5E1 /* GameState.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				819765B61CF1926500DA7534 /* InGameMenuScene.cpp in Sources */,
 				81253C1E1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
