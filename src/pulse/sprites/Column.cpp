@@ -1,36 +1,16 @@
 #include "pulse/sprites/Column.hpp"
 
 using namespace cocos2d;
-using namespace pulse;
+using pulse::Column;
 
-Column* Column::create() {
-    const auto column = new (std::nothrow) Column();
-    if (column && column->init()) {
-        column->autorelease();
-        return column;
-    }
-    delete column;
-    return nullptr;
-}
+Column::Column(): Column(0) {}
 
-bool Column::init() {
-    if (!Sprite::init()) {
-        return false;
-    }
+Column::Column(float height): Column(Rect{0, 0, defaultLength, height}) {}
 
+Column::Column(const Rect& frame) {
+    init();
     setColor(Color3B::BLUE);
-
-    return true;
-}
-
-Column* Column::create(float height) {
-    return create(Rect{0, 0, defaultLength, height});
-}
-
-Column* Column::create(Rect frame) {
-    const auto column = Column::create();
-    column->setPosition(frame.origin);
-    column->setContentSize(frame.size);
-    column->setTextureRect(frame);
-    return column;
+    setPosition(frame.origin);
+    setContentSize(frame.size);
+    setTextureRect(frame);
 }

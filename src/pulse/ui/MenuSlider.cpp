@@ -9,29 +9,12 @@ using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace pulse::ui;
 
-MenuSlider* MenuSlider::create(const std::string& title, Preferences preferences) {
-    MenuSlider* menuSlider = new (std::nothrow) MenuSlider();
-    if (menuSlider && menuSlider->init(title, preferences)) {
-        menuSlider->autorelease();
-        return menuSlider;
-    }
-    delete menuSlider;
-    return nullptr;
-}
-
-bool MenuSlider::init(const std::string& title, Preferences sliderPreferences) {
-    if (!Node::init()) {
-        return false;
-    }
-
-    preferences = sliderPreferences;
-
+MenuSlider::MenuSlider(const std::string& title, Preferences preferences) {
+    this->preferences = preferences;
     addTitle(title);
     addSlider();
     addCurrentValue();
     reset();
-
-    return true;
 }
 
 void MenuSlider::addTitle(const std::string& text) {

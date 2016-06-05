@@ -4,16 +4,6 @@ using pulse::ui::Button;
 
 static const auto AnimationSpeed = 0.04;
 
-Button* Button::create() {
-    const auto button = new (std::nothrow) Button();
-    if (button && button->init()) {
-        button->autorelease();
-        return button;
-    }
-    delete button;
-    return nullptr;
-}
-
 Button* Button::create(const std::string& filename) {
     const auto button = new (std::nothrow) Button();
     if (button && button->initWithFile(filename)) {

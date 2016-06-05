@@ -128,7 +128,7 @@ void PulseGameScene::addPlayer() {
 Obstacle* PulseGameScene::generateObstacle() {
     const auto obstacle = ObstacleGenerator{sceneFrame()}.generate();
     obstacle->setSpeed(options.obstacleSpeed);
-    obstacle->setPhysicsBody(ObstaclePhysicsBody::create(obstacle));
+    obstacle->setPhysicsBody(autoreleased<ObstaclePhysicsBody>(obstacle));
     obstacle->onStarted = [this](auto obstacle) { obstacles.emplace_back(obstacle); };
     obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
     return obstacle;

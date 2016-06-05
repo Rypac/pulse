@@ -7,7 +7,9 @@ namespace ui {
 
 class Button : public cocos2d::Sprite {
   public:
-    static Button* create();
+    Button(): reactsToTouch_{true}, touchScale_{-0.1f}, savedScale_{1.0f}, cancelled_{false} {}
+    virtual ~Button();
+
     static Button* create(const std::string& filename);
 
     using TouchCallback = std::function<void(Button* self)>;
@@ -32,9 +34,6 @@ class Button : public cocos2d::Sprite {
     }
 
   protected:
-    Button(): reactsToTouch_{true}, touchScale_{-0.1f}, savedScale_{1.0f}, cancelled_{false} {}
-    virtual ~Button();
-
     virtual bool initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& rect, bool rotated) override;
 
     virtual bool onTouchDidBegin(cocos2d::Touch* touch, cocos2d::Event* event);

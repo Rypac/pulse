@@ -23,8 +23,8 @@ bool Obstacle::init() {
         return false;
     }
 
-    top = Column::create();
-    bottom = Column::create();
+    top = autoreleased<Column>();
+    bottom = autoreleased<Column>();
     gap = Sprite::create();
     addChild(top);
     addChild(bottom);

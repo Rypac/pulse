@@ -5,22 +5,11 @@
 using namespace pulse;
 using namespace cocos2d;
 
-ObstaclePhysicsBody* ObstaclePhysicsBody::create(const Obstacle* obstacle) {
-    const auto body = new (std::nothrow) ObstaclePhysicsBody(obstacle);
-    if (body && body->init()) {
-        body->autorelease();
-        return body;
-    }
-    delete body;
-    return nullptr;
-}
-
-bool ObstaclePhysicsBody::init() {
-    if (!PhysicsBody::init()) {
-        return false;
-    }
+ObstaclePhysicsBody::ObstaclePhysicsBody(const Obstacle* obstacle)
+: obstacle{obstacle}
+, state_{ObstacleState::Incoming} {
+    init();
     setState(currentState());
-    return true;
 }
 
 void ObstaclePhysicsBody::defeat() {
@@ -48,5 +37,5 @@ void ObstaclePhysicsBody::setState(ObstacleState newState) {
             preventCollisions(obstacle->getGap());
             break;
     }
-    state = newState;
+    state_ = newState;
 }
