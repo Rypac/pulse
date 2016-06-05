@@ -8,9 +8,13 @@ namespace pulse {
 
 struct GameOptions {
     float obstacleFrequency{1};
+    float obstacleFrequencyStep{0.1};
     float obstacleSpeed{3.5};
+    float obstacleSpeedStep{0.2};
+    int obstacleDefeatedThreshold{10};
     GameMode gameMode{GameMode::Classic};
     TimeScale slowMotionTimeScale{1.0, 0.3};
+    TimeScale reverseModeTimeScale{0.8, 0.05};
 };
 
 }

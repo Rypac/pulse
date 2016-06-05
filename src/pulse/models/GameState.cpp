@@ -49,6 +49,22 @@ float GameState::environmentTimeScale() const {
     return timeScale().environment;
 }
 
+float GameState::obstacleSpeed() const {
+    if (options_.gameMode == GameMode::FreePlay) {
+        return options_.obstacleSpeed;
+    }
+    const auto multiplier = floor(currentScore() / options_.obstacleDefeatedThreshold);
+    return options_.obstacleSpeed - options_.obstacleSpeedStep * multiplier;
+}
+
+float GameState::obstacleFrequency() const {
+    if (options_.gameMode == GameMode::FreePlay) {
+        return options_.obstacleFrequency;
+    }
+    const auto multiplier = floor(currentScore() / options_.obstacleDefeatedThreshold);
+    return options_.obstacleFrequency - options_.obstacleFrequencyStep * multiplier;
+}
+
 void GameState::reset() {
     score_ = 0;
     timeMode_ = TimeMode::Normal;
@@ -57,5 +73,8 @@ void GameState::reset() {
 }
 
 const TimeScale& GameState::timeScale() const {
+    if (options_.gameMode == GameMode::Reverse) {
+        return timeMode_ == TimeMode::Normal ? options_.reverseModeTimeScale : normalTimeScale_;
+    }
     return timeMode_ == TimeMode::Normal ? normalTimeScale_ : options_.slowMotionTimeScale;
 }

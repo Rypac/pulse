@@ -10,7 +10,7 @@ namespace pulse {
 
 class PulseGameScene : public PhysicsScene {
   public:
-    PulseGameScene(GameOptions& options);
+    PulseGameScene(const GameOptions& options);
     virtual ~PulseGameScene();
 
     virtual void update(float dt) override;
@@ -51,7 +51,6 @@ class PulseGameScene : public PhysicsScene {
     void handleGameOver();
     void handlePassedObstacle(Obstacle* obstacle);
 
-    GameOptions& options;
     WrappedSprite* player;
     cocos2d::Label* scoreLabel;
     std::list<Obstacle*> obstacles;

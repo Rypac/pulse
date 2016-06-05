@@ -29,6 +29,9 @@ struct GameState {
     float playerTimeScale() const;
     float environmentTimeScale() const;
 
+    float obstacleSpeed() const;
+    float obstacleFrequency() const;
+
     Accelerometer& accelerometer();
 
     void reset();

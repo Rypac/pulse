@@ -18,7 +18,7 @@
 using namespace cocos2d;
 using namespace pulse;
 
-PulseGameScene::PulseGameScene(GameOptions& options): options{options}, gameState{GameState{options}} {
+PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{options}} {
     getPhysicsWorld()->setGravity(Vec2::ZERO);
     getPhysicsWorld()->setAutoStep(false);
 
@@ -126,7 +126,7 @@ void PulseGameScene::addPlayer() {
 
 Obstacle* PulseGameScene::generateObstacle() {
     const auto obstacle = ObstacleGenerator{sceneFrame()}.generate();
-    obstacle->setSpeed(options.obstacleSpeed);
+    obstacle->setSpeed(gameState.obstacleSpeed());
     obstacle->setPhysicsBody(autoreleased<ObstaclePhysicsBody>(obstacle));
     obstacle->onStarted = [this](auto obstacle) { obstacles.emplace_back(obstacle); };
     obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
@@ -135,7 +135,7 @@ Obstacle* PulseGameScene::generateObstacle() {
 
 void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacle = generateObstacle();
-    const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, options.obstacleFrequency);
+    const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
     const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
     runAction(Sequence::create(obstacleSequence, reschedule, nullptr));
 }
@@ -169,14 +169,6 @@ void PulseGameScene::addTimeScaleTouchListener() {
     timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::SlowMotion);
         return true;
-    };
-    timeScaleListener->onTouchMoved = [this](auto touch, auto event) {
-        if (touch->getMaxForce() > 0) {
-            const auto maxForce = touch->getMaxForce();
-            const auto currentForce = touch->getCurrentForce();
-            options.slowMotionTimeScale.environment = ((maxForce - currentForce) / maxForce) + 0.1;
-            this->updateSceneTimeScale();
-        }
     };
     timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::Normal);
