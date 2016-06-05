@@ -10,10 +10,7 @@ namespace pulse {
 
 class DeveloperMenuScene : public GameScene {
   public:
-    DeveloperMenuScene(GameOptions& options): options(options) {}
-    virtual ~DeveloperMenuScene() {}
-
-    virtual bool init() override;
+    DeveloperMenuScene(GameOptions& options);
 
     using SceneCallback = std::function<void(DeveloperMenuScene* scene)>;
     SceneCallback onSceneDismissed;

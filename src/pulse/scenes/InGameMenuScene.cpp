@@ -1,26 +1,19 @@
 #include "pulse/scenes/InGameMenuScene.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/utilities/Geometry.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
 
-bool InGameMenuScene::init() {
-    if (!GameScene::init()) {
-        return false;
-    }
-
+InGameMenuScene::InGameMenuScene() {
     addResumeButton();
     addRestartButton();
     addQuitButton();
-
-    return true;
 }
 
 void InGameMenuScene::addResumeButton() {
     const auto resumeButton = ui::Button::create(Resources::Buttons::Resume);
-    resumeButton->setPosition(geometry::centerOf(sceneFrame()));
+    resumeButton->setPosition(sceneFrame().getMidX(), sceneFrame().getMidY());
     resumeButton->onTouchEnded = [this](auto ref) {
         if (onResumeGame) {
             onResumeGame(this);

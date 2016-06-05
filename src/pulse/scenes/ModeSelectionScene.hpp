@@ -8,10 +8,8 @@ namespace pulse {
 
 class ModeSelectionScene : public GameScene {
   public:
-    ModeSelectionScene(GameMode mode = GameMode::FreePlay): mode_{mode} {}
-    virtual ~ModeSelectionScene() {}
+    ModeSelectionScene(GameMode mode = GameMode::FreePlay);
 
-    virtual bool init() override;
     virtual void onEnterTransitionDidFinish() override;
 
     using SceneCallback = std::function<void(ModeSelectionScene* scene)>;

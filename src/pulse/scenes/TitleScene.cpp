@@ -11,18 +11,7 @@ namespace AnimationStep {
     const auto Forwards = 3000.0f;
 }
 
-TitleScene::TitleScene(): animationStep{AnimationStep::Backwards} {}
-
-TitleScene::~TitleScene() {
-    CC_SAFE_RELEASE(titleAnimation);
-    CC_SAFE_RELEASE(title);
-}
-
-bool TitleScene::init() {
-    if (!GameScene::init()) {
-        return false;
-    }
-
+TitleScene::TitleScene(): animationStep{AnimationStep::Backwards} {
     setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
 
     addTitle();
@@ -36,7 +25,11 @@ bool TitleScene::init() {
         title->runAction(titleAnimation);
         this->scheduleUpdate();
     });
-    return true;
+}
+
+TitleScene::~TitleScene() {
+    CC_SAFE_RELEASE(titleAnimation);
+    CC_SAFE_RELEASE(title);
 }
 
 void TitleScene::addTitle() {

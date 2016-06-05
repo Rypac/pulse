@@ -6,10 +6,7 @@ namespace pulse {
 
 class InGameMenuScene : public GameScene {
   public:
-    InGameMenuScene() {}
-    virtual ~InGameMenuScene() {}
-
-    virtual bool init() override;
+    InGameMenuScene();
 
     using SceneCallback = std::function<void(InGameMenuScene* scene)>;
     SceneCallback onResumeGame;

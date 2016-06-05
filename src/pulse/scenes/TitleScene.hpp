@@ -11,7 +11,6 @@ class TitleScene : public GameScene {
     TitleScene();
     virtual ~TitleScene();
 
-    virtual bool init() override;
     virtual void update(float dt) override;
 
     using SceneCallback = std::function<void(TitleScene* scene)>;

@@ -6,38 +6,30 @@
 using namespace pulse;
 using namespace cocos2d;
 
-SplashScene::~SplashScene() {
-    AnimationCache::getInstance()->removeAnimation(Resources::Animations::Intro::Properties);
-    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile(Resources::Spritesheets::Intro);
-    CC_SAFE_RELEASE(image);
-}
-
-bool SplashScene::init() {
-    if (!GameScene::init()) {
-        return false;
-    }
-
+SplashScene::SplashScene() {
     setBackground(LayerColor::create(Color4B::WHITE));
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile(Resources::Spritesheets::Intro);
     AnimationCache::getInstance()->addAnimationsWithFile(Resources::Animations::Intro::Properties);
-    image = Sprite::createWithSpriteFrameName(Resources::Images::Intro::Long);
-    image->retain();
-    image->setPosition(geometry::centerOf(sceneFrame()));
-    image->setScale(3, 3);
-    addChild(image, 1);
-
-    setonEnterTransitionDidFinishCallback([this]() {
-        image->runAction(logoAnimation());
-    });
-
-    return true;
+    image_ = Sprite::createWithSpriteFrameName(Resources::Images::Intro::Long);
+    image_->retain();
+    image_->setPosition(geometry::centerOf(sceneFrame()));
+    image_->setScale(3);
+    addChild(image_, 1);
 }
 
-Action* SplashScene::logoAnimation() {
+SplashScene::~SplashScene() {
+    AnimationCache::getInstance()->removeAnimation(Resources::Animations::Intro::Properties);
+    SpriteFrameCache::getInstance()->removeSpriteFramesFromFile(Resources::Spritesheets::Intro);
+    CC_SAFE_RELEASE(image_);
+}
+
+void SplashScene::onEnterTransitionDidFinish() {
+    GameScene::onEnterTransitionDidFinish();
+
     const auto animation = AnimationCache::getInstance()->getAnimation(Resources::Animations::Intro::Long);
     const auto logoAnimation = Animate::create(animation);
-    const auto logoAudio = CallFunc::create([this]() {
+    const auto logoAudio = CallFunc::create([]() {
         const auto audio = CocosDenshion::SimpleAudioEngine::getInstance();
         audio->playEffect(Resources::Audio::Intro::Long, false, 1.0f, 1.0f, 1.0f);
     });
@@ -47,5 +39,6 @@ Action* SplashScene::logoAnimation() {
             onSceneDismissed(this);
         }
     });
-    return Sequence::create(introAnimation, onCompletion, nullptr);
+
+    image_->runAction(Sequence::createWithTwoActions(introAnimation, onCompletion));
 }

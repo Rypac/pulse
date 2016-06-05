@@ -46,11 +46,7 @@ ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name): mode{mod
     button = ui::Button::create(Resources::Buttons::Blank);
 }
 
-bool ModeSelectionScene::init() {
-    if (!GameScene::init()) {
-        return false;
-    }
-
+ModeSelectionScene::ModeSelectionScene(GameMode mode): mode_{mode} {
     setBackground(LayerColor::create(Color4B::BLACK));
 
     modes_ = {
@@ -62,8 +58,6 @@ bool ModeSelectionScene::init() {
     layoutModes();
     updateSelectedMode(selectedMode());
     addDismissListener();
-
-    return true;
 }
 
 void ModeSelectionScene::onEnterTransitionDidFinish() {

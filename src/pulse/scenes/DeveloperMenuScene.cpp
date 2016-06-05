@@ -42,11 +42,7 @@ MenuSlider* playerSlowMotionScale(GameOptions& options) {
     return playerSlowMotionScale;
 }
 
-bool DeveloperMenuScene::init() {
-    if (!GameScene::init()) {
-        return false;
-    }
-
+DeveloperMenuScene::DeveloperMenuScene(GameOptions& options): options(options) {
     addSliders({
         obstacleFrequency(options),
         obstacleSpeed(options),
@@ -54,8 +50,6 @@ bool DeveloperMenuScene::init() {
         playerSlowMotionScale(options)
     });
     addExitButton();
-
-    return true;
 }
 
 void DeveloperMenuScene::addSliders(std::vector<ui::MenuSlider*> sliders) {
@@ -85,7 +79,7 @@ void DeveloperMenuScene::addExitButton() {
             onSceneDismissed(this);
         }
     });
-    exit->setAnchorPoint(Vec2{0, 1.0});
+    exit->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     exit->setPosition(Vec2{sceneFrame().origin.x + 20, sceneFrame().origin.y + sceneFrame().size.height - 20});
     const auto menu = Menu::create(exit, nullptr);
     menu->setPosition(Vec2::ZERO);
