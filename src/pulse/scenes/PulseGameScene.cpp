@@ -203,7 +203,7 @@ void PulseGameScene::addPlayerTouchListener() {
 }
 
 void PulseGameScene::addPlayerMovementListener() {
-    const auto accelerometerListener = AccelerometerMovementSystem::create(&gameState.accelerometer());
+    const auto accelerometerListener = autoreleased<AccelerometerMovementSystem>(&gameState.accelerometer());
     accelerometerListener->onMovement = [this](const auto movedBy) {
         const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
         player->getPhysicsBody()->setVelocity(velocity);

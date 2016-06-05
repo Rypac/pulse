@@ -8,18 +8,11 @@ namespace pulse {
 
 class AccelerometerMovementSystem : public cocos2d::EventListenerAcceleration, public MovementSystem {
   public:
-    static AccelerometerMovementSystem* create(Accelerometer* accelerometer);
-
-  protected:
-    AccelerometerMovementSystem(Accelerometer* accelerometer): accelerometer_{accelerometer} {}
-
-    virtual bool init();
+    AccelerometerMovementSystem(Accelerometer* accelerometer);
 
   private:
-    void onAccelerationDetected(cocos2d::Acceleration*, cocos2d::Event*);
-
     Accelerometer* accelerometer_;
-    cocos2d::Acceleration previousReading;
+    cocos2d::Acceleration previousReading_;
 };
 
 }
