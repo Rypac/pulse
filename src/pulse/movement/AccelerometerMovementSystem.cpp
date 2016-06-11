@@ -10,7 +10,7 @@ using namespace cocos2d;
 AccelerometerMovementSystem::AccelerometerMovementSystem(Accelerometer* accelerometer)
 : accelerometer_{accelerometer} {
     init([this](auto acceleration, auto event) {
-        const auto rotationAngle = sample(*acceleration);
+        const auto rotationAngle = this->sample(*acceleration);
 
         if (accelerometer_->isCalibrated()) {
             const auto relativeAngle = rotationAngle - *accelerometer_->offset();
