@@ -9,15 +9,15 @@ class AnimatedBackground : public cocos2d::Action {
     AnimatedBackground(cocos2d::ParticleSystem* particles);
     virtual ~AnimatedBackground();
 
+    AnimatedBackground(const AnimatedBackground&) = delete;
+    AnimatedBackground& operator=(const AnimatedBackground&) = delete;
+
     virtual void startWithTarget(cocos2d::Node* target) override;
     virtual void stop() override;
     virtual void step(float dt) override {}
     virtual bool isDone() const override;
 
   private:
-    AnimatedBackground(const AnimatedBackground&) = delete;
-    AnimatedBackground& operator=(const AnimatedBackground&) = delete;
-
     cocos2d::ParticleSystem* particles_;
 };
 
