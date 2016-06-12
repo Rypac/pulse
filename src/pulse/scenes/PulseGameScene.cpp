@@ -2,6 +2,7 @@
 #include <range/v3/algorithm/for_each.hpp>
 
 #include "pulse/scenes/PulseGameScene.hpp"
+#include "pulse/actions/CallbackAfter.hpp"
 #include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
 #include "pulse/extensions/Rect.hpp"
@@ -136,8 +137,8 @@ Obstacle* PulseGameScene::generateObstacle() {
 void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacle = generateObstacle();
     const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
-    const auto reschedule = CallFunc::create([this]() { scheduleObstacleGeneration(); });
-    runAction(Sequence::create(obstacleSequence, reschedule, nullptr));
+    const auto reschedule = [this]() { this->scheduleObstacleGeneration(); };
+    runAction(autoreleased<CallbackAfter>(obstacleSequence, reschedule));
 }
 
 void PulseGameScene::update(float dt) {
