@@ -42,7 +42,7 @@
 }
 
 - (NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAllButUpsideDown;
+    return UIInterfaceOrientationMaskLandscape;
 }
 
 - (BOOL)prefersStatusBarHidden {
