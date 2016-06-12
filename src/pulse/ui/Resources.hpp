@@ -5,8 +5,6 @@ namespace pulse {
 namespace Resources {
 
     namespace Animations {
-        static constexpr const auto Title = "animations/title.c3b";
-
         namespace Intro {
             static constexpr const auto Properties = "animations/splash/tandem_intro.plist";
             static constexpr const auto Short = "tandem_intro_short";
