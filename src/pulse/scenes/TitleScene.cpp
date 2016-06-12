@@ -1,6 +1,7 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/actions/AnimatedBackground.hpp"
 #include "pulse/extensions/Ref.hpp"
+#include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Geometry.hpp"
 #include "pulse/utilities/Callback.hpp"
@@ -8,60 +9,22 @@
 using namespace pulse;
 using namespace cocos2d;
 
-namespace AnimationStep {
-    const auto Backwards = -3000.0f;
-    const auto Forwards = 3000.0f;
-}
-
-TitleScene::TitleScene(): animationStep{AnimationStep::Backwards} {
+TitleScene::TitleScene() {
     setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
-
-    addTitle();
-    addTitleAnimation();
     addPlayButton();
     addModesButton();
     addAchievmentsButton();
     addSettingsButton();
-
-    setonEnterTransitionDidFinishCallback([this]() {
-        title->runAction(titleAnimation);
-        this->scheduleUpdate();
-    });
-}
-
-TitleScene::~TitleScene() {
-    CC_SAFE_RELEASE(titleAnimation);
-    CC_SAFE_RELEASE(title);
-}
-
-void TitleScene::addTitle() {
-    title = Sprite3D::create(Resources::Animations::Title);
-    title->retain();
-    title->setPosition(geometry::centerOf(sceneFrame()));
-    addChild(title, 1);
-}
-
-void TitleScene::addTitleAnimation() {
-    const auto animation = Animation3D::create(Resources::Animations::Title);
-    const auto animate = Animate3D::create(animation);
-    animate->setSpeed(0.001);
-    const auto finish = CallFunc::create([this]() {
-        safe_callback(onPlaySelected, this);
-    });
-
-    titleAnimation = Sequence::create(animate, finish, nullptr);
-    titleAnimation->retain();
 }
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
     playButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
     playButton->setPosition(Vec2{sceneFrame().getMaxX(), sceneFrame().getMinY() + 120});
+    playButton->onTouchEnded = [this](auto ref) {
+        safe_callback(onPlaySelected, this);
+    };
     addChild(playButton);
-
-    playButton->onTouchBegan = [this](auto ref) { animationStep = AnimationStep::Forwards; };
-    playButton->onTouchEnded = [this](auto ref) { animationStep = AnimationStep::Backwards; };
-    playButton->onTouchCancelled = [this](auto ref) { animationStep = AnimationStep::Backwards; };
 
     const auto particles = ParticleSystemQuad::create(Resources::Particles::ButtonBackground);
     playButton->runAction(autoreleased<AnimatedBackground>(particles));
@@ -92,19 +55,4 @@ void TitleScene::addSettingsButton() {
         safe_callback(onSettingsSelected, this);
     };
     addChild(settingsButton);
-}
-
-void TitleScene::update(float dt) {
-    if (titleAnimation->isDone()) {
-        return;
-    }
-
-    const auto elapsed = titleAnimation->getElapsed() / titleAnimation->getDuration();
-    if (elapsed > 0 || animationStep > 0) {
-        const auto easeOut = [](auto elapsed) { return 1.0 - elapsed + 0.25; };
-        const auto animationCurve = animationStep > 0 ? easeOut(elapsed) : 1.0;
-        float step = dt * animationStep * animationCurve;
-        const auto remaining = titleAnimation->getDuration() - titleAnimation->getElapsed();
-        titleAnimation->step(std::min(remaining, step));
-    }
 }
