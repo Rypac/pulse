@@ -15,7 +15,6 @@ class Obstacle : public cocos2d::Sprite {
     static Obstacle* create(float topColumnLength, float gapLength, float bottomLength, Direction direction);
 
     virtual bool init() override;
-    virtual void onEnter() override;
 
     using ObstacleCallback = std::function<void(Obstacle*)>;
     ObstacleCallback onStarted;

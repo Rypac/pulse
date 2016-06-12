@@ -31,12 +31,9 @@ bool Obstacle::init() {
     addChild(bottom);
     addChild(gap);
 
-    return true;
-}
+    setOnEnterCallback([this]() { this->runActions(); });
 
-void Obstacle::onEnter() {
-    Sprite::onEnter();
-    runActions();
+    return true;
 }
 
 Obstacle* Obstacle::create(Size size, Direction direction) {
