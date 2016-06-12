@@ -10,7 +10,7 @@ using namespace cocos2d;
 using namespace cocos2d::ui;
 using namespace pulse::ui;
 
-MenuSlider::MenuSlider(const std::string& title, Preferences preferences) {
+MenuSlider::MenuSlider(const std::string& title, const Preferences& preferences) {
     this->preferences = preferences;
     addTitle(title);
     addSlider();

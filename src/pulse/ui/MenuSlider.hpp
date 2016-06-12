@@ -20,7 +20,7 @@ class MenuSlider : public cocos2d::Node {
         }
     };
 
-    MenuSlider(const std::string& title, Preferences preferences);
+    MenuSlider(const std::string& title, const Preferences& preferences);
 
     virtual void setContentSize(const cocos2d::Size& size) override;
 
