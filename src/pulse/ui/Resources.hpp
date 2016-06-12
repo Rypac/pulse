@@ -38,6 +38,10 @@ namespace Resources {
             static constexpr const auto Long = "tandem_intro_long.png";
         }
 
+        namespace Title {
+            static constexpr const auto Logo = "title/logo.png";
+        }
+
         namespace Menu {
             namespace Slider {
                 static constexpr const auto Empty = "menu/slider/empty.png";
