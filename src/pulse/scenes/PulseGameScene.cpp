@@ -1,5 +1,5 @@
 #include <string>
-#include "range/v3/algorithm/for_each.hpp"
+#include <range/v3/algorithm/for_each.hpp>
 
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/actions/FollowedBy.hpp"
