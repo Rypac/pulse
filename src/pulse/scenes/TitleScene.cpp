@@ -11,28 +11,34 @@ using namespace cocos2d;
 
 TitleScene::TitleScene() {
     setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
+    addTitle();
     addPlayButton();
     addModesButton();
     addAchievmentsButton();
     addSettingsButton();
 }
 
+void TitleScene::addTitle() {
+    const auto title = Sprite::create(Resources::Images::Title::Logo);
+    title->retain();
+    title->setPosition(sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80);
+    title->setRotation(-30.0f);
+    addChild(title);
+}
+
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
-    playButton->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
-    playButton->setPosition(Vec2{sceneFrame().getMaxX(), sceneFrame().getMinY() + 120});
+    playButton->setPosition(Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65});
+    playButton->setRotation(-30.0f);
     playButton->onTouchEnded = [this](auto ref) {
         safe_callback(onPlaySelected, this);
     };
     addChild(playButton);
-
-    const auto particles = ParticleSystemQuad::create(Resources::Particles::ButtonBackground);
-    playButton->runAction(autoreleased<AnimatedBackground>(particles));
 }
 
 void TitleScene::addModesButton() {
     const auto modesButton = ui::Button::create(Resources::Buttons::Modes);
-    modesButton->setPosition(Vec2{sceneFrame().getMinX() + 100, sceneFrame().getMinY() + 120});
+    modesButton->setPosition(Vec2{sceneFrame().getMaxX() - 400, sceneFrame().getMinY() + 135});
     modesButton->onTouchEnded = [this](auto ref) {
         safe_callback(onModesSelected, this);
     };
@@ -41,7 +47,7 @@ void TitleScene::addModesButton() {
 
 void TitleScene::addAchievmentsButton() {
     const auto achievmentsButton = ui::Button::create(Resources::Buttons::Achievements);
-    achievmentsButton->setPosition(Vec2{sceneFrame().getMinX() + 250, sceneFrame().getMinY() + 120});
+    achievmentsButton->setPosition(Vec2{sceneFrame().getMaxX() - 240, sceneFrame().getMinY() + 230});
     achievmentsButton->onTouchEnded = [this](auto ref) {
         safe_callback(onAchievementsSelected, this);
     };
@@ -50,7 +56,7 @@ void TitleScene::addAchievmentsButton() {
 
 void TitleScene::addSettingsButton() {
     const auto settingsButton = ui::Button::create(Resources::Buttons::Settings);
-    settingsButton->setPosition(Vec2{sceneFrame().getMinX() + 400, sceneFrame().getMinY() + 120});
+    settingsButton->setPosition(Vec2{sceneFrame().getMaxX() - 80, sceneFrame().getMinY() + 320});
     settingsButton->onTouchEnded = [this](auto ref) {
         safe_callback(onSettingsSelected, this);
     };

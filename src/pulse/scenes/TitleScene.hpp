@@ -16,6 +16,7 @@ class TitleScene : public GameScene {
     SceneCallback onSettingsSelected;
 
   private:
+    void addTitle();
     void addPlayButton();
     void addModesButton();
     void addAchievmentsButton();
