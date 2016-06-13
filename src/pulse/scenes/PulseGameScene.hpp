@@ -39,6 +39,7 @@ class PulseGameScene : public PhysicsScene {
 
     Obstacle* generateObstacle();
 
+    void checkForObstacleCollision(const cocos2d::PhysicsContact& contact);
     void handlePassedObstacle(Obstacle* obstacle);
 
     Player* player;

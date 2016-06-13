@@ -167,12 +167,11 @@ cocos2d::EventListener* PulseGameScene::collisionListener() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->retain();
     contactListener->onContactBegin = [this](auto& contact) {
+        checkForObstacleCollision(contact);
         return !physics_body::collision::heroAndPath(contact);
     };
     contactListener->onContactPreSolve = [this](auto& contact, auto& solve) {
-        if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
-            gameState.gameOver();
-        }
+        checkForObstacleCollision(contact);
         return false;
     };
     contactListener->onContactSeparate = [this](auto& contact) {
@@ -201,6 +200,12 @@ void PulseGameScene::addGameStateListeners() {
     gameState.onTimeModeChanged = [this](auto mode) {
         this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
     };
+}
+
+void PulseGameScene::checkForObstacleCollision(const cocos2d::PhysicsContact& contact) {
+    if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
+        gameState.gameOver();
+    }
 }
 
 void PulseGameScene::handlePassedObstacle(Obstacle* obstacle) {
