@@ -4,7 +4,9 @@
 using namespace pulse;
 using namespace cocos2d;
 
-ObstacleSequence::ObstacleSequence(Obstacle* obstacle, float indicatorDuration): obstacle_{obstacle} {
+ObstacleSequence::ObstacleSequence(Obstacle* obstacle, float indicatorDuration)
+: obstacle_{obstacle}
+, indicator_{nullptr} {
     obstacle_->retain();
     const auto spawnDelay = DelayTime::create(indicatorDuration);
     const auto removalDelay = DelayTime::create(0.25);
@@ -20,18 +22,13 @@ ObstacleSequence::ObstacleSequence(Obstacle* obstacle, float indicatorDuration):
         getTarget()->addChild(obstacle_, 2);
     });
     std::vector<FiniteTimeAction*> actions{addIndicator, spawnDelay, addObstacle, removalDelay, removeIndicator};
-    init(toVector(actions));
+    init(toVector(std::move(actions)));
 }
 
 ObstacleSequence::~ObstacleSequence() {
-    if (obstacle_) {
-        obstacle_->release();
-    }
+    CC_SAFE_RELEASE(obstacle_);
     if (indicator_) {
-        if (!isDone()) {
-            indicator_->removeFromParent();
-        }
+        indicator_->removeFromParent();
         indicator_->release();
     }
 }
-
