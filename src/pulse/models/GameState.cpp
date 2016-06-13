@@ -20,12 +20,18 @@ void GameState::incrementScore() {
     score_++;
 }
 
-void GameState::startGame() {
-    gameStarted_ = true;
-}
-
 bool GameState::hasGameStarted() const {
     return gameStarted_;
+}
+
+void GameState::newGame() {
+    reset();
+    gameStarted_ = true;
+    safe_callback(onNewGame);
+}
+
+void GameState::gameOver() {
+    safe_callback(onGameOver);
 }
 
 Accelerometer& GameState::accelerometer() {
@@ -68,7 +74,6 @@ float GameState::obstacleFrequency() const {
 void GameState::reset() {
     score_ = 0;
     timeMode_ = TimeMode::Normal;
-    gameStarted_ = false;
     accelerometer_.reset();
 }
 

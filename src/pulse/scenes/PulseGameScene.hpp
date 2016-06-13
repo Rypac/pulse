@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
+#include "pulse/movement/AccelerometerMovementSystem.hpp"
 #include "pulse/scenes/PhysicsScene.hpp"
 #include "pulse/sprites/Obstacle.hpp"
 #include "pulse/sprites/WrappedSprite.hpp"
@@ -25,11 +26,11 @@ class PulseGameScene : public PhysicsScene {
     SceneCallback onEnterMenu;
     SceneCallback onSceneDismissed;
 
-  protected:
+  private:
     void startScene();
     void stopScene();
+    void resetScene();
 
-  private:
     void addMenuOptions();
     void addScoreLabel();
     void addPlayer();
@@ -56,6 +57,7 @@ class PulseGameScene : public PhysicsScene {
     cocos2d::EventListenerTouchOneByOne* resetListener;
     cocos2d::EventListenerTouchOneByOne* timeScaleListener;
     cocos2d::EventListenerTouchOneByOne* playerTouchListener;
+    AccelerometerMovementSystem* playerMovementListener;
 };
 
 }

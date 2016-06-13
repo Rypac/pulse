@@ -1,5 +1,4 @@
 #include <string>
-#include <range/v3/algorithm/for_each.hpp>
 
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/actions/CallbackAfter.hpp"
@@ -41,31 +40,20 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
 }
 
 PulseGameScene::~PulseGameScene() {
-    const auto listeners = {resetListener, timeScaleListener, playerTouchListener};
-    ranges::for_each(listeners, [this](auto listener) {
-        this->getEventDispatcher()->removeEventListener(listener);
+    std::vector<EventListener*> listeners{resetListener, timeScaleListener, playerTouchListener, playerMovementListener};
+    for (auto listener : listeners) {
+        getEventDispatcher()->removeEventListener(listener);
         CC_SAFE_RELEASE(listener);
-    });
+    }
     CC_SAFE_RELEASE(player);
     CC_SAFE_RELEASE(scoreLabel);
 }
 
 void PulseGameScene::startNewGame() {
-    stopScene();
-    ranges::for_each(obstacles, [this](auto obstacle) {
-        this->removeChild(obstacle);
-    });
-    obstacles.clear();
-    gameState.reset();
-
-    player->getPhysicsBody()->setVelocity(Vec2::ZERO);
-    player->setPosition(rect::center(sceneFrame()));
-
-    startScene();
+    gameState.newGame();
 }
 
 void PulseGameScene::startScene() {
-    gameState.startGame();
     updateScore();
     updateListeners(true);
     scheduleUpdate();
@@ -76,16 +64,26 @@ void PulseGameScene::startScene() {
 void PulseGameScene::stopScene() {
     stopAllActions();
     player->stopAllActions();
-    ranges::for_each(obstacles, [](auto obstacle) {
+    player->getPhysicsBody()->setVelocity(Vec2::ZERO);
+    for (auto obstacle : obstacles) {
         obstacle->stopAllActions();
-    });
+    }
     updateListeners(false);
+}
+
+void PulseGameScene::resetScene() {
+    for (auto obstacle : obstacles) {
+        removeChild(obstacle);
+    }
+    obstacles.clear();
+    player->setPosition(rect::center(sceneFrame()));
 }
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
     resetListener->setEnabled(!isGameRunning);
     timeScaleListener->setEnabled(isGameRunning);
     playerTouchListener->setEnabled(isGameRunning);
+    playerMovementListener->setEnabled(isGameRunning);
 }
 
 void PulseGameScene::addMenuOptions() {
@@ -135,6 +133,7 @@ void PulseGameScene::scheduleObstacleGeneration() {
 }
 
 void PulseGameScene::update(float dt) {
+    PhysicsScene::update(dt);
     getPhysicsWorld()->step(dt);
 }
 
@@ -151,7 +150,7 @@ void PulseGameScene::addResetGameTouchListener() {
     resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
     resetListener->onTouchEnded = [this](auto touch, auto event) {
-        this->startNewGame();
+        gameState.newGame();
     };
     getEventDispatcher()->addEventListenerWithFixedPriority(resetListener, 1);
 }
@@ -188,12 +187,12 @@ void PulseGameScene::addPlayerTouchListener() {
 }
 
 void PulseGameScene::addPlayerMovementListener() {
-    const auto accelerometerListener = autoreleased<AccelerometerMovementSystem>(&gameState.accelerometer());
-    accelerometerListener->onMovement = [this](const auto movedBy) {
+    playerMovementListener = autoreleased<AccelerometerMovementSystem>(&gameState.accelerometer());
+    playerMovementListener->onMovement = [this](const auto movedBy) {
         const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
         player->getPhysicsBody()->setVelocity(velocity);
     };
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(accelerometerListener, this);
+    getEventDispatcher()->addEventListenerWithSceneGraphPriority(playerMovementListener, this);
 }
 
 void PulseGameScene::addCollisionListeners() {
@@ -205,6 +204,13 @@ void PulseGameScene::addCollisionListeners() {
 }
 
 void PulseGameScene::addGameStateListeners() {
+    gameState.onNewGame = [this]() {
+        this->resetScene();
+        this->startScene();
+    };
+    gameState.onGameOver = [this]() {
+        this->stopScene();
+    };
     gameState.onTimeModeChanged = [this](auto mode) {
         this->updateSceneTimeScale();
     };
@@ -216,7 +222,7 @@ bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
 
 bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
     if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
-        stopScene();
+        gameState.gameOver();
     }
     return false;
 }
