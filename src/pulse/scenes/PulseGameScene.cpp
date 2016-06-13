@@ -212,6 +212,9 @@ void PulseGameScene::addGameStateListeners() {
     gameState.onGameOver = [this]() {
         this->stopScene();
     };
+    gameState.onScoreChanged = [this]() {
+        this->updateScore();
+    };
     gameState.onTimeModeChanged = [this](auto mode) {
         this->updateSceneTimeScale();
     };
@@ -238,7 +241,6 @@ void PulseGameScene::onContactSeparate(PhysicsContact& contact) {
 
 void PulseGameScene::handlePassedObstacle(Obstacle* obstacle) {
     gameState.incrementScore();
-    updateScore();
     obstacle->getPhysicsBody()->defeat();
     obstacle->runDefeatedActions();
 }

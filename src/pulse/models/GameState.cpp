@@ -18,6 +18,7 @@ int GameState::currentScore() const {
 
 void GameState::incrementScore() {
     score_++;
+    safe_callback(onScoreChanged);
 }
 
 bool GameState::hasGameStarted() const {

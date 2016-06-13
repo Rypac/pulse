@@ -15,8 +15,6 @@ struct GameState {
 
     GameState(const GameOptions& options);
 
-    std::function<void(TimeMode)> onTimeModeChanged;
-
     int currentScore() const;
     void incrementScore();
 
@@ -25,8 +23,11 @@ struct GameState {
     void gameOver();
 
     using Callback = std::function<void(void)>;
+    using TimeModeCallback = std::function<void(TimeMode timeMode)>;
     Callback onNewGame;
     Callback onGameOver;
+    Callback onScoreChanged;
+    TimeModeCallback onTimeModeChanged;
 
     TimeMode currentMode() const;
     void enterMode(TimeMode mode);
