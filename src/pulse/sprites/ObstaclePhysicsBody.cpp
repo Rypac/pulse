@@ -5,36 +5,32 @@
 using namespace pulse;
 using namespace cocos2d;
 
-ObstaclePhysicsBody::ObstaclePhysicsBody(const Obstacle* obstacle)
-: obstacle{obstacle}
-, state_{ObstacleState::Incoming} {
+ObstaclePhysicsBody::ObstaclePhysicsBody(const Obstacle* obstacle): obstacle_{obstacle} {
     init();
-    setState(currentState());
+    setState(State::Incoming);
 }
 
 void ObstaclePhysicsBody::defeat() {
-    setState(ObstacleState::Defeated);
+    setState(State::Defeated);
 }
 
-static void applyPhysicsBody(Node* node, std::function<PhysicsBody*(Size)> bodyCreator) {
-    node->setPhysicsBody(bodyCreator(node->getBoundingBox().size));
-}
-
-static void preventCollisions(Node* node) {
-    physics_body::stopCollisions(node->getPhysicsBody());
-}
-
-void ObstaclePhysicsBody::setState(ObstacleState newState) {
+void ObstaclePhysicsBody::setState(State newState) {
+    auto applyPhysicsBody = [](Node* node, const std::function<PhysicsBody*(Size)>& bodyCreator) {
+        node->setPhysicsBody(bodyCreator(node->getBoundingBox().size));
+    };
+    auto preventCollisions = [](Node* node) {
+        physics_body::stopCollisions(node->getPhysicsBody());
+    };
     switch (newState) {
-        case ObstacleState::Incoming:
-            applyPhysicsBody(obstacle->getTop(), physics_body::createObstacle);
-            applyPhysicsBody(obstacle->getBottom(), physics_body::createObstacle);
-            applyPhysicsBody(obstacle->getGap(), physics_body::createPath);
+        case State::Incoming:
+            applyPhysicsBody(obstacle_->getTop(), physics_body::createObstacle);
+            applyPhysicsBody(obstacle_->getBottom(), physics_body::createObstacle);
+            applyPhysicsBody(obstacle_->getGap(), physics_body::createPath);
             break;
-        case ObstacleState::Defeated:
-            preventCollisions(obstacle->getTop());
-            preventCollisions(obstacle->getBottom());
-            preventCollisions(obstacle->getGap());
+        case State::Defeated:
+            preventCollisions(obstacle_->getTop());
+            preventCollisions(obstacle_->getBottom());
+            preventCollisions(obstacle_->getGap());
             break;
     }
     state_ = newState;

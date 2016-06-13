@@ -6,26 +6,22 @@ namespace pulse {
 
 class Obstacle;
 
-enum class ObstacleState {
-    Incoming,
-    Defeated
-};
-
 class ObstaclePhysicsBody : public cocos2d::PhysicsBody {
   public:
     ObstaclePhysicsBody(const Obstacle* obstacle);
 
     void defeat();
 
-    ObstacleState currentState() const {
-        return state_;
-    }
-
   private:
-    void setState(ObstacleState state);
+    enum class State {
+        Incoming,
+        Defeated
+    };
 
-    const Obstacle* const obstacle;
-    ObstacleState state_;
+    void setState(State state);
+
+    const Obstacle* const obstacle_;
+    State state_;
 };
 
 }
