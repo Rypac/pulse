@@ -5,7 +5,7 @@ using namespace pulse;
 
 GameState::GameState(const GameOptions& options)
 : options_{options}
-, gameIsOver_{true}
+, gameStarted_{false}
 , normalTimeScale_{1.0, 1.0}
 , score_{0}
 , timeMode_{TimeMode::Normal}
@@ -20,12 +20,12 @@ void GameState::incrementScore() {
     score_++;
 }
 
-void GameState::gameOver() {
-    gameIsOver_ = true;
+void GameState::startGame() {
+    gameStarted_ = true;
 }
 
-bool GameState::isGameOver() const {
-    return gameIsOver_;
+bool GameState::hasGameStarted() const {
+    return gameStarted_;
 }
 
 Accelerometer& GameState::accelerometer() {
@@ -68,7 +68,7 @@ float GameState::obstacleFrequency() const {
 void GameState::reset() {
     score_ = 0;
     timeMode_ = TimeMode::Normal;
-    gameIsOver_ = false;
+    gameStarted_ = false;
     accelerometer_.reset();
 }
 

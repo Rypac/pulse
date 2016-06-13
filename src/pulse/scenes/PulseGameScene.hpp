@@ -14,9 +14,8 @@ class PulseGameScene : public PhysicsScene {
     virtual ~PulseGameScene();
 
     virtual void update(float dt) override;
-    virtual void onEnterTransitionDidFinish() override;
 
-    void resetScene();
+    void startNewGame();
 
     bool onContactBegan(cocos2d::PhysicsContact& contact);
     bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
@@ -29,7 +28,6 @@ class PulseGameScene : public PhysicsScene {
   protected:
     void startScene();
     void stopScene();
-    void clearScene();
 
   private:
     void addMenuOptions();
@@ -48,7 +46,6 @@ class PulseGameScene : public PhysicsScene {
 
     Obstacle* generateObstacle();
 
-    void handleGameOver();
     void handlePassedObstacle(Obstacle* obstacle);
 
     WrappedSprite* player;

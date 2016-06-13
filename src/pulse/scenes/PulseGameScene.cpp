@@ -32,6 +32,12 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
     addPlayerMovementListener();
     addCollisionListeners();
     addGameStateListeners();
+
+    setonEnterTransitionDidFinishCallback([this]() {
+        if (not gameState.hasGameStarted()) {
+            this->startNewGame();
+        }
+    });
 }
 
 PulseGameScene::~PulseGameScene() {
@@ -44,39 +50,27 @@ PulseGameScene::~PulseGameScene() {
     CC_SAFE_RELEASE(scoreLabel);
 }
 
-void PulseGameScene::onEnterTransitionDidFinish() {
-    if (gameState.isGameOver()) {
-        startScene();
-    } else {
-        resume();
-    }
-}
-
-void PulseGameScene::resetScene() {
+void PulseGameScene::startNewGame() {
     stopScene();
-    clearScene();
-    gameState.gameOver();
-
-    player->getPhysicsBody()->setVelocity(Vec2::ZERO);
-    player->setPosition(rect::center(sceneFrame()));
-}
-
-void PulseGameScene::clearScene() {
     ranges::for_each(obstacles, [this](auto obstacle) {
         this->removeChild(obstacle);
     });
     obstacles.clear();
+    gameState.reset();
+
+    player->getPhysicsBody()->setVelocity(Vec2::ZERO);
+    player->setPosition(rect::center(sceneFrame()));
+
+    startScene();
 }
 
 void PulseGameScene::startScene() {
-    gameState.reset();
-
+    gameState.startGame();
     updateScore();
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
     updateSceneTimeScale();
-    resume();
 }
 
 void PulseGameScene::stopScene() {
@@ -86,7 +80,6 @@ void PulseGameScene::stopScene() {
         obstacle->stopAllActions();
     });
     updateListeners(false);
-    pause();
 }
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
@@ -158,8 +151,7 @@ void PulseGameScene::addResetGameTouchListener() {
     resetListener->retain();
     resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
     resetListener->onTouchEnded = [this](auto touch, auto event) {
-        this->resetScene();
-        this->startScene();
+        this->startNewGame();
     };
     getEventDispatcher()->addEventListenerWithFixedPriority(resetListener, 1);
 }
@@ -224,7 +216,7 @@ bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
 
 bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
     if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
-        handleGameOver();
+        stopScene();
     }
     return false;
 }
@@ -235,11 +227,6 @@ void PulseGameScene::onContactSeparate(PhysicsContact& contact) {
         const auto obstacle = static_cast<Obstacle*>(path->getParent());
         handlePassedObstacle(obstacle);
     }
-}
-
-void PulseGameScene::handleGameOver() {
-    gameState.gameOver();
-    stopScene();
 }
 
 void PulseGameScene::handlePassedObstacle(Obstacle* obstacle) {

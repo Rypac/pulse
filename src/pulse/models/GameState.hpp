@@ -20,8 +20,8 @@ struct GameState {
     int currentScore() const;
     void incrementScore();
 
-    void gameOver();
-    bool isGameOver() const;
+    bool hasGameStarted() const;
+    void startGame();
 
     TimeMode currentMode() const;
     void enterMode(TimeMode mode);
@@ -39,10 +39,10 @@ struct GameState {
   private:
     const TimeScale& timeScale() const;
 
-    bool gameIsOver_;
     const GameOptions& options_;
     const TimeScale normalTimeScale_;
     int score_;
+    bool gameStarted_;
     TimeMode timeMode_;
     Accelerometer accelerometer_;
 };

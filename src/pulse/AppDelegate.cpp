@@ -116,7 +116,7 @@ void AppDelegate::addInGameMenuScene() {
         Director::getInstance()->popScene();
     };
     menuScene->onRestartGame = [this](auto scene) {
-        gameScene->resetScene();
+        gameScene->startNewGame();
         Director::getInstance()->popScene();
     };
     menuScene->onQuitGame = [this](auto scene) {
