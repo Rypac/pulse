@@ -3,7 +3,7 @@
 #include "cocos2d.h"
 #include "pulse/scenes/PhysicsScene.hpp"
 #include "pulse/sprites/Obstacle.hpp"
-#include "pulse/sprites/WrappedSprite.hpp"
+#include "pulse/sprites/Player.hpp"
 #include "pulse/models/GameState.hpp"
 
 namespace pulse {
@@ -47,7 +47,7 @@ class PulseGameScene : public PhysicsScene {
 
     void handlePassedObstacle(Obstacle* obstacle);
 
-    WrappedSprite* player;
+    Player* player;
     cocos2d::Label* scoreLabel;
     std::list<Obstacle*> obstacles;
     GameState gameState;

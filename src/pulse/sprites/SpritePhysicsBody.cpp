@@ -25,7 +25,7 @@ static inline bool isSprite(const PhysicsBody& body, SpriteTag tag) {
 
 static PhysicsBody* create(SpriteTag tag, Size size) {
     const auto body = PhysicsBody::createBox(size);
-    body->setDynamic(true);
+    body->setDynamic(false);
     body->setGravityEnable(false);
     body->setCategoryBitmask(asBitmask(tag));
     body->setCollisionBitmask(asBitmask(SpriteTag::None));

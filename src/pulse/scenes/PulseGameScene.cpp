@@ -72,7 +72,7 @@ void PulseGameScene::startScene() {
 void PulseGameScene::stopScene() {
     stopAllActions();
     player->stopAllActions();
-    player->getPhysicsBody()->setVelocity(Vec2::ZERO);
+    player->setVelocity(Vec2::ZERO);
     for (auto obstacle : obstacles) {
         obstacle->stopAllActions();
     }
@@ -114,7 +114,7 @@ void PulseGameScene::addScoreLabel() {
 }
 
 void PulseGameScene::addPlayer() {
-    player = WrappedSprite::create();
+    player = Player::create();
     player->retain();
     const auto size = Size{30, 30};
     player->setContentSize(size);
@@ -193,7 +193,7 @@ cocos2d::EventListener* PulseGameScene::playerMovementListener() {
     const auto movementListener = retained<AccelerometerMovementSystem>(&gameState.accelerometer());
     movementListener->onMovement = [this](const auto movedBy) {
         const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
-        player->getPhysicsBody()->setVelocity(velocity);
+        player->setVelocity(velocity);
     };
     return movementListener;
 }

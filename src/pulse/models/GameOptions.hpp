@@ -13,8 +13,8 @@ struct GameOptions {
     float obstacleSpeedStep{0.2};
     int obstacleDefeatedThreshold{10};
     GameMode gameMode{GameMode::Classic};
-    TimeScale slowMotionTimeScale{1.0, 0.3};
-    TimeScale reverseModeTimeScale{0.8, 0.05};
+    TimeScale slowMotionTimeScale{0.3, 0.3};
+    TimeScale reverseModeTimeScale{0.2, 0.05};
 };
 
 }

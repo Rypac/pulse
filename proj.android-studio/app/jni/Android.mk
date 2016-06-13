@@ -39,6 +39,7 @@ LOCAL_SRC_FILES := \
     $(PULSE_PATH)/sprites/Obstacle.cpp \
     $(PULSE_PATH)/sprites/ObstacleIndicator.cpp \
     $(PULSE_PATH)/sprites/ObstaclePhysicsBody.cpp \
+    $(PULSE_PATH)/sprites/Player.cpp \
     $(PULSE_PATH)/sprites/SpritePhysicsBody.cpp \
     $(PULSE_PATH)/sprites/WrappedSprite.cpp \
     $(PULSE_PATH)/ui/Button.cpp \

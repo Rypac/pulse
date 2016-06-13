@@ -45,6 +45,8 @@
 		812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		812BE9491CB8C3640038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
 		812BE94E1CB8D30D0038D730 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
+		812FBDD71D0E643100A712DA /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 812FBDD51D0E643100A712DA /* Player.cpp */; };
+		812FBDD81D0E643100A712DA /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 812FBDD51D0E643100A712DA /* Player.cpp */; };
 		81417C701D04041C00A9F5E1 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81417C6F1D04041C00A9F5E1 /* GameState.cpp */; };
 		81417C711D04041C00A9F5E1 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81417C6F1D04041C00A9F5E1 /* GameState.cpp */; };
 		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
@@ -181,6 +183,8 @@
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
 		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
+		812FBDD51D0E643100A712DA /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = pulse/sprites/Player.cpp; sourceTree = "<group>"; };
+		812FBDD61D0E643100A712DA /* Player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Player.hpp; path = pulse/sprites/Player.hpp; sourceTree = "<group>"; };
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = pulse/utilities/Logger.hpp; sourceTree = "<group>"; };
 		813B51681D0288260023A933 /* GameMode.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameMode.hpp; path = pulse/models/GameMode.hpp; sourceTree = "<group>"; };
 		81417C6B1D03C0E900A9F5E1 /* Ref.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Ref.hpp; path = pulse/extensions/Ref.hpp; sourceTree = "<group>"; };
@@ -522,18 +526,20 @@
 			children = (
 				819E29581C93D4D700EA3D32 /* Column.cpp */,
 				819E29591C93D4D700EA3D32 /* Column.hpp */,
+				81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */,
+				81253C181CDEC7CB0072DBFD /* MirrorSprite.hpp */,
 				81A319941C94F7C9005708D6 /* Obstacle.cpp */,
 				81A319951C94F7C9005708D6 /* Obstacle.hpp */,
 				81D28F9F1CDDCB3A00C09896 /* ObstacleIndicator.cpp */,
 				81D28FA01CDDCB3A00C09896 /* ObstacleIndicator.hpp */,
 				81DF8E011CB101BA0092FA2B /* ObstaclePhysicsBody.cpp */,
 				81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */,
+				812FBDD51D0E643100A712DA /* Player.cpp */,
+				812FBDD61D0E643100A712DA /* Player.hpp */,
 				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 				81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */,
 				81110ECD1CCCA17400BB0C9D /* WrappedSprite.hpp */,
-				81253C171CDEC7CB0072DBFD /* MirrorSprite.cpp */,
-				81253C181CDEC7CB0072DBFD /* MirrorSprite.hpp */,
 			);
 			name = sprites;
 			sourceTree = "<group>";
@@ -729,6 +735,7 @@
 				819E29551C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				81417C701D04041C00A9F5E1 /* GameState.cpp in Sources */,
+				812FBDD71D0E643100A712DA /* Player.cpp in Sources */,
 				81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
@@ -759,6 +766,7 @@
 				819E29561C93C8AC00EA3D32 /* GameScene.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				81417C711D04041C00A9F5E1 /* GameState.cpp in Sources */,
+				812FBDD81D0E643100A712DA /* Player.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
 				819765B61CF1926500DA7534 /* InGameMenuScene.cpp in Sources */,
 				81253C1E1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
