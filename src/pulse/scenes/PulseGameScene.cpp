@@ -20,7 +20,6 @@ using namespace pulse;
 
 PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{options}} {
     getPhysicsWorld()->setGravity(Vec2::ZERO);
-    getPhysicsWorld()->setAutoStep(false);
 
     addPlayer();
     addMenuOptions();
@@ -139,11 +138,6 @@ void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
     const auto reschedule = [this]() { this->scheduleObstacleGeneration(); };
     runAction(autoreleased<CallbackAfter>(obstacleSequence, reschedule));
-}
-
-void PulseGameScene::update(float dt) {
-    PhysicsScene::update(dt);
-    getPhysicsWorld()->step(dt);
 }
 
 void PulseGameScene::updateScore() {

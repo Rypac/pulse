@@ -1,7 +1,6 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "pulse/movement/AccelerometerMovementSystem.hpp"
 #include "pulse/scenes/PhysicsScene.hpp"
 #include "pulse/sprites/Obstacle.hpp"
 #include "pulse/sprites/WrappedSprite.hpp"
@@ -13,8 +12,6 @@ class PulseGameScene : public PhysicsScene {
   public:
     PulseGameScene(const GameOptions& options);
     virtual ~PulseGameScene();
-
-    virtual void update(float dt) override;
 
     void startNewGame();
 
