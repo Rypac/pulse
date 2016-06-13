@@ -166,9 +166,22 @@ cocos2d::EventListener* PulseGameScene::playerMovementListener() {
 cocos2d::EventListener* PulseGameScene::collisionListener() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->retain();
-    contactListener->onContactBegin = CC_CALLBACK_1(PulseGameScene::onContactBegan, this);
-    contactListener->onContactPreSolve = CC_CALLBACK_2(PulseGameScene::onContactPreSolve, this);
-    contactListener->onContactSeparate = CC_CALLBACK_1(PulseGameScene::onContactSeparate, this);
+    contactListener->onContactBegin = [this](auto& contact) {
+        return !physics_body::collision::heroAndPath(contact);
+    };
+    contactListener->onContactPreSolve = [this](auto& contact, auto& solve) {
+        if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
+            gameState.gameOver();
+        }
+        return false;
+    };
+    contactListener->onContactSeparate = [this](auto& contact) {
+        if (physics_body::collision::heroAndPath(contact)) {
+            const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
+            const auto obstacle = static_cast<Obstacle*>(path->getParent());
+            handlePassedObstacle(obstacle);
+        }
+    };
     return contactListener;
 }
 
@@ -188,25 +201,6 @@ void PulseGameScene::addGameStateListeners() {
     gameState.onTimeModeChanged = [this](auto mode) {
         this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
     };
-}
-
-bool PulseGameScene::onContactBegan(PhysicsContact& contact) {
-    return !physics_body::collision::heroAndPath(contact);
-}
-
-bool PulseGameScene::onContactPreSolve(PhysicsContact& contact, PhysicsContactPreSolve& solve) {
-    if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
-        gameState.gameOver();
-    }
-    return false;
-}
-
-void PulseGameScene::onContactSeparate(PhysicsContact& contact) {
-    if (physics_body::collision::heroAndPath(contact)) {
-        const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
-        const auto obstacle = static_cast<Obstacle*>(path->getParent());
-        handlePassedObstacle(obstacle);
-    }
 }
 
 void PulseGameScene::handlePassedObstacle(Obstacle* obstacle) {

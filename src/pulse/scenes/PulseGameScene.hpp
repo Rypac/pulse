@@ -15,10 +15,6 @@ class PulseGameScene : public PhysicsScene {
 
     void startNewGame();
 
-    bool onContactBegan(cocos2d::PhysicsContact& contact);
-    bool onContactPreSolve(cocos2d::PhysicsContact& contact, cocos2d::PhysicsContactPreSolve& solve);
-    void onContactSeparate(cocos2d::PhysicsContact& contact);
-
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;
     SceneCallback onSceneDismissed;
