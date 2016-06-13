@@ -31,8 +31,6 @@ bool Obstacle::init() {
     addChild(bottom);
     addChild(gap);
 
-    setOnEnterCallback([this]() { this->runActions(); });
-
     return true;
 }
 

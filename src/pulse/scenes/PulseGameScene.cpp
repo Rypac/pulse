@@ -62,8 +62,6 @@ void PulseGameScene::startNewGame() {
 
 void PulseGameScene::startScene() {
     updateScore();
-    getEventDispatcher()->resumeEventListenersForTarget(this);
-    resetListener->setEnabled(false);
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();

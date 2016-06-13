@@ -20,6 +20,7 @@ ObstacleSequence::ObstacleSequence(Obstacle* obstacle, float indicatorDuration)
     });
     const auto addObstacle = CallFunc::create([this]() {
         getTarget()->addChild(obstacle_, 2);
+        obstacle_->runActions();
     });
     std::vector<FiniteTimeAction*> actions{addIndicator, spawnDelay, addObstacle, removalDelay, removeIndicator};
     init(toVector(std::move(actions)));
