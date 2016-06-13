@@ -27,7 +27,7 @@ namespace Resources {
         static constexpr const auto Pause = "buttons/pause.png";
         static constexpr const auto Play = "buttons/play.png";
         static constexpr const auto Resume = "buttons/resume.png";
-        static constexpr const auto Retry = "buttons/retry.png";
+        static constexpr const auto Reset = "buttons/reset.png";
         static constexpr const auto Settings = "buttons/settings.png";
         static constexpr const auto Tick = "buttons/tick.png";
     }

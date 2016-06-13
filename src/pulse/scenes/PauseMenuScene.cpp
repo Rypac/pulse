@@ -22,7 +22,7 @@ void PauseMenuScene::addResumeButton() {
 }
 
 void PauseMenuScene::addRestartButton() {
-    const auto restartButton = ui::Button::create(Resources::Buttons::Retry);
+    const auto restartButton = ui::Button::create(Resources::Buttons::Reset);
     restartButton->setPosition(sceneFrame().getMidX() + 175, sceneFrame().getMidY());
     restartButton->onTouchEnded = [this](auto ref) {
         safe_callback(onRestartGame, this);
