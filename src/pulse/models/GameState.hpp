@@ -18,7 +18,6 @@ struct GameState {
     int currentScore() const;
     void incrementScore();
 
-    bool hasGameStarted() const;
     void newGame();
     void gameOver();
 
@@ -48,7 +47,6 @@ struct GameState {
     const GameOptions& options_;
     const TimeScale normalTimeScale_;
     int score_;
-    bool gameStarted_;
     TimeMode timeMode_;
     Accelerometer accelerometer_;
 };

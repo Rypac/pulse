@@ -37,12 +37,6 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
     for (auto listener : gameListeners) {
         getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     }
-
-    setonEnterTransitionDidFinishCallback([this]() {
-        if (not gameState.hasGameStarted()) {
-            this->startNewGame();
-        }
-    });
 }
 
 PulseGameScene::~PulseGameScene() {

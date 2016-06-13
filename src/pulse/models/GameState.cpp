@@ -5,7 +5,6 @@ using namespace pulse;
 
 GameState::GameState(const GameOptions& options)
 : options_{options}
-, gameStarted_{false}
 , normalTimeScale_{1.0, 1.0}
 , score_{0}
 , timeMode_{TimeMode::Normal}
@@ -21,13 +20,8 @@ void GameState::incrementScore() {
     safe_callback(onScoreChanged);
 }
 
-bool GameState::hasGameStarted() const {
-    return gameStarted_;
-}
-
 void GameState::newGame() {
     reset();
-    gameStarted_ = true;
     safe_callback(onNewGame);
 }
 

@@ -107,6 +107,7 @@ void AppDelegate::addGameScene() {
         this->addTitleScene();
         CC_SAFE_RELEASE_NULL(gameScene);
     };
+    gameScene->startNewGame();
     Director::getInstance()->replaceScene(gameScene);
 }
 
