@@ -167,18 +167,18 @@ cocos2d::EventListener* PulseGameScene::collisionListener() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->retain();
     contactListener->onContactBegin = [this](auto& contact) {
-        checkForObstacleCollision(contact);
+        this->checkForObstacleCollision(contact);
         return !physics_body::collision::heroAndPath(contact);
     };
     contactListener->onContactPreSolve = [this](auto& contact, auto& solve) {
-        checkForObstacleCollision(contact);
+        this->checkForObstacleCollision(contact);
         return false;
     };
     contactListener->onContactSeparate = [this](auto& contact) {
         if (physics_body::collision::heroAndPath(contact)) {
             const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
             const auto obstacle = static_cast<Obstacle*>(path->getParent());
-            handlePassedObstacle(obstacle);
+            this->handlePassedObstacle(obstacle);
         }
     };
     return contactListener;
