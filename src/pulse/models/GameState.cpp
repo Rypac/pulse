@@ -16,7 +16,11 @@ int GameState::currentScore() const {
 }
 
 void GameState::incrementScore() {
-    score_++;
+    setScore(score_ + 1);
+}
+
+void GameState::setScore(int score) {
+    score_ = score;
     safe_callback(onScoreChanged);
 }
 
@@ -67,8 +71,8 @@ float GameState::obstacleFrequency() const {
 }
 
 void GameState::reset() {
-    score_ = 0;
-    timeMode_ = TimeMode::Normal;
+    setScore(0);
+    enterMode(TimeMode::Normal);
     accelerometer_.reset();
 }
 

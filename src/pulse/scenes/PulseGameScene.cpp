@@ -55,11 +55,9 @@ void PulseGameScene::startNewGame() {
 }
 
 void PulseGameScene::startScene() {
-    updateScore();
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
-    updateSceneTimeScale();
 }
 
 void PulseGameScene::stopScene() {
@@ -127,14 +125,6 @@ void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
     const auto reschedule = [this]() { this->scheduleObstacleGeneration(); };
     runAction(autoreleased<CallbackAfter>(obstacleSequence, reschedule));
-}
-
-void PulseGameScene::updateScore() {
-    scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
-}
-
-void PulseGameScene::updateSceneTimeScale() {
-    getScheduler()->setTimeScale(gameState.environmentTimeScale());
 }
 
 void PulseGameScene::addResetGameTouchListener() {
@@ -205,10 +195,10 @@ void PulseGameScene::addGameStateListeners() {
         this->stopScene();
     };
     gameState.onScoreChanged = [this]() {
-        this->updateScore();
+        scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
     };
     gameState.onTimeModeChanged = [this](auto mode) {
-        this->updateSceneTimeScale();
+        this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
     };
 }
 

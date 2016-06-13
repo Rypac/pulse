@@ -34,8 +34,6 @@ class PulseGameScene : public PhysicsScene {
     void addResetGameTouchListener();
     void addGameStateListeners();
     void updateListeners(bool isGameRunning);
-    void updateScore();
-    void updateSceneTimeScale();
     void scheduleObstacleGeneration();
 
     cocos2d::EventListener* timeScaleTouchListener();

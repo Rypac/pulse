@@ -42,6 +42,7 @@ struct GameState {
     void reset();
 
   private:
+    void setScore(int score);
     const TimeScale& timeScale() const;
 
     const GameOptions& options_;
