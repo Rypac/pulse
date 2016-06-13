@@ -71,6 +71,8 @@
 		81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A319941C94F7C9005708D6 /* Obstacle.cpp */; };
 		81A709401CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */; };
 		81A709411CA8F3B600E51821 /* SpritePhysicsBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */; };
+		81AAFBF21D0EA06A00E70FF7 /* GameOverScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81AAFBF01D0EA06A00E70FF7 /* GameOverScene.cpp */; };
+		81AAFBF31D0EA06A00E70FF7 /* GameOverScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81AAFBF01D0EA06A00E70FF7 /* GameOverScene.cpp */; };
 		81C44A461CC311D7006D6F0F /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81C44A441CC311D7006D6F0F /* TitleScene.cpp */; };
 		81C44A471CC311D7006D6F0F /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81C44A441CC311D7006D6F0F /* TitleScene.cpp */; };
 		81C44A4D1CC31421006D6F0F /* animations in Resources */ = {isa = PBXBuildFile; fileRef = 81C44A4C1CC31421006D6F0F /* animations */; };
@@ -224,6 +226,8 @@
 		81A73DFF1CDF0BA50063CB8D /* Vector.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Vector.hpp; path = pulse/extensions/Vector.hpp; sourceTree = "<group>"; };
 		81A76B361CD5F4B400ACA538 /* Acceleration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Acceleration.hpp; path = pulse/utilities/Acceleration.hpp; sourceTree = "<group>"; };
 		81A8D9DB1C981F2E00A30FB2 /* Rotation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Rotation.hpp; path = pulse/utilities/Rotation.hpp; sourceTree = "<group>"; };
+		81AAFBF01D0EA06A00E70FF7 /* GameOverScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameOverScene.cpp; path = pulse/scenes/GameOverScene.cpp; sourceTree = "<group>"; };
+		81AAFBF11D0EA06A00E70FF7 /* GameOverScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GameOverScene.hpp; path = pulse/scenes/GameOverScene.hpp; sourceTree = "<group>"; };
 		81C44A441CC311D7006D6F0F /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleScene.cpp; path = pulse/scenes/TitleScene.cpp; sourceTree = "<group>"; };
 		81C44A451CC311D7006D6F0F /* TitleScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TitleScene.hpp; path = pulse/scenes/TitleScene.hpp; sourceTree = "<group>"; };
 		81C44A4C1CC31421006D6F0F /* animations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = animations; sourceTree = "<group>"; };
@@ -488,8 +492,12 @@
 			children = (
 				81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */,
 				81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */,
+				81AAFBF01D0EA06A00E70FF7 /* GameOverScene.cpp */,
+				81AAFBF11D0EA06A00E70FF7 /* GameOverScene.hpp */,
 				819E29541C93C8AC00EA3D32 /* GameScene.cpp */,
 				819E29531C93C69F00EA3D32 /* GameScene.hpp */,
+				81886C931CFAD7FE005617F4 /* ModeSelectionScene.cpp */,
+				81886C941CFAD7FE005617F4 /* ModeSelectionScene.hpp */,
 				819765B31CF1926500DA7534 /* PauseMenuScene.cpp */,
 				819765B41CF1926500DA7534 /* PauseMenuScene.hpp */,
 				819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */,
@@ -500,8 +508,6 @@
 				81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */,
 				81C44A441CC311D7006D6F0F /* TitleScene.cpp */,
 				81C44A451CC311D7006D6F0F /* TitleScene.hpp */,
-				81886C931CFAD7FE005617F4 /* ModeSelectionScene.cpp */,
-				81886C941CFAD7FE005617F4 /* ModeSelectionScene.hpp */,
 			);
 			name = scenes;
 			sourceTree = "<group>";
@@ -738,6 +744,7 @@
 				812FBDD71D0E643100A712DA /* Player.cpp in Sources */,
 				81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81A319961C94F7C9005708D6 /* Obstacle.cpp in Sources */,
+				81AAFBF21D0EA06A00E70FF7 /* GameOverScene.cpp in Sources */,
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81253C191CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
@@ -768,6 +775,7 @@
 				81417C711D04041C00A9F5E1 /* GameState.cpp in Sources */,
 				812FBDD81D0E643100A712DA /* Player.cpp in Sources */,
 				81A319971C94F7C9005708D6 /* Obstacle.cpp in Sources */,
+				81AAFBF31D0EA06A00E70FF7 /* GameOverScene.cpp in Sources */,
 				819765B61CF1926500DA7534 /* PauseMenuScene.cpp in Sources */,
 				81253C1E1CDEDD7E0072DBFD /* ObstacleSequence.cpp in Sources */,
 				81D28FA21CDDCB3A00C09896 /* ObstacleIndicator.cpp in Sources */,

@@ -25,7 +25,6 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
     addPlayer();
     addMenuOptions();
     addScoreLabel();
-    addResetGameTouchListener();
     addGameStateListeners();
 
     gameListeners = {
@@ -44,8 +43,6 @@ PulseGameScene::~PulseGameScene() {
         getEventDispatcher()->removeEventListener(listener);
         CC_SAFE_RELEASE(listener);
     }
-    getEventDispatcher()->removeEventListener(resetListener);
-    CC_SAFE_RELEASE(resetListener);
     CC_SAFE_RELEASE(player);
     CC_SAFE_RELEASE(scoreLabel);
 }
@@ -75,7 +72,6 @@ void PulseGameScene::resetScene() {
 }
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
-    resetListener->setEnabled(!isGameRunning);
     for (auto listener : gameListeners) {
         listener->setEnabled(isGameRunning);
     }
@@ -125,16 +121,6 @@ void PulseGameScene::scheduleObstacleGeneration() {
     const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
     const auto reschedule = [this]() { this->scheduleObstacleGeneration(); };
     runAction(autoreleased<CallbackAfter>(obstacleSequence, reschedule));
-}
-
-void PulseGameScene::addResetGameTouchListener() {
-    resetListener = EventListenerTouchOneByOne::create();
-    resetListener->retain();
-    resetListener->onTouchBegan = [this](auto touch, auto event) { return true; };
-    resetListener->onTouchEnded = [this](auto touch, auto event) {
-        gameState.newGame();
-    };
-    getEventDispatcher()->addEventListenerWithFixedPriority(resetListener, 1);
 }
 
 cocos2d::EventListener* PulseGameScene::timeScaleTouchListener() {
@@ -188,11 +174,13 @@ cocos2d::EventListener* PulseGameScene::collisionListener() {
 
 void PulseGameScene::addGameStateListeners() {
     gameState.onNewGame = [this]() {
+        this->stopScene();
         this->resetScene();
         this->startScene();
     };
     gameState.onGameOver = [this]() {
         this->stopScene();
+        safe_callback(onGameOver, this);
     };
     gameState.onScoreChanged = [this]() {
         scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));

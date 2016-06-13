@@ -22,6 +22,7 @@ class PulseGameScene : public PhysicsScene {
     using SceneCallback = std::function<void(PulseGameScene* scene)>;
     SceneCallback onEnterMenu;
     SceneCallback onSceneDismissed;
+    SceneCallback onGameOver;
 
   private:
     void startScene();
@@ -31,7 +32,6 @@ class PulseGameScene : public PhysicsScene {
     void addMenuOptions();
     void addScoreLabel();
     void addPlayer();
-    void addResetGameTouchListener();
     void addGameStateListeners();
     void updateListeners(bool isGameRunning);
     void scheduleObstacleGeneration();
@@ -49,8 +49,6 @@ class PulseGameScene : public PhysicsScene {
     cocos2d::Label* scoreLabel;
     std::list<Obstacle*> obstacles;
     GameState gameState;
-
-    cocos2d::EventListenerTouchOneByOne* resetListener;
     std::vector<cocos2d::EventListener*> gameListeners;
 };
 

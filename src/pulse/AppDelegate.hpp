@@ -21,7 +21,8 @@ class AppDelegate : private cocos2d::Application {
     void addSplashScene();
     void addTitleScene();
     void addGameScene();
-    void addInGameMenuScene();
+    void addGameOverScene();
+    void addPauseMenuScene();
 
     cocos2d::Node* sharedAnimatedBackground() const;
 

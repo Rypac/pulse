@@ -2,6 +2,7 @@
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
+#include "pulse/scenes/GameOverScene.hpp"
 #include "pulse/scenes/PauseMenuScene.hpp"
 #include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
@@ -112,7 +113,11 @@ void AppDelegate::addGameScene() {
     gameScene = retained<PulseGameScene>(options);
     gameScene->setBackground(sharedAnimatedBackground());
     gameScene->onEnterMenu = [this](auto scene) {
-        this->addInGameMenuScene();
+        this->addPauseMenuScene();
+    };
+    gameScene->onGameOver = [this](auto scene) {
+        this->addGameOverScene();
+        CC_SAFE_RELEASE_NULL(gameScene);
     };
     gameScene->onSceneDismissed = [this](auto scene) {
         this->addTitleScene();
@@ -122,7 +127,7 @@ void AppDelegate::addGameScene() {
     Director::getInstance()->replaceScene(gameScene);
 }
 
-void AppDelegate::addInGameMenuScene() {
+void AppDelegate::addPauseMenuScene() {
     const auto menuScene = autoreleased<PauseMenuScene>();
     menuScene->onResumeGame = [](auto scene) {
         Director::getInstance()->popScene();
@@ -136,4 +141,13 @@ void AppDelegate::addInGameMenuScene() {
         gameScene->onSceneDismissed(gameScene);
     };
     Director::getInstance()->pushScene(menuScene);
+}
+
+void AppDelegate::addGameOverScene() {
+    const auto scene = autoreleased<GameOverScene>();
+    scene->setBackground(sharedAnimatedBackground());
+    scene->onRestartGame = [this](auto scene) {
+        this->addGameScene();
+    };
+    Director::getInstance()->replaceScene(scene);
 }

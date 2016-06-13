@@ -27,6 +27,7 @@ LOCAL_SRC_FILES := \
     $(PULSE_PATH)/models/Resolution.cpp \
     $(PULSE_PATH)/movement/AccelerometerMovementSystem.cpp \
     $(PULSE_PATH)/scenes/DeveloperMenuScene.cpp \
+    $(PULSE_PATH)/scenes/GameOverScene.cpp \
     $(PULSE_PATH)/scenes/GameScene.cpp \
     $(PULSE_PATH)/scenes/PauseMenuScene.cpp \
     $(PULSE_PATH)/scenes/ModeSelectionScene.cpp \
