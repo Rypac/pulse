@@ -7,6 +7,7 @@
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
 #include "pulse/scenes/TitleScene.hpp"
+#include "pulse/ui/Resources.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -16,6 +17,7 @@ AppDelegate::AppDelegate() {}
 AppDelegate::~AppDelegate() {
     CC_SAFE_RELEASE(gameScene);
     CC_SAFE_RELEASE(titleScene);
+    CC_SAFE_RELEASE(animatedBackground_);
 }
 
 void AppDelegate::initGLContextAttrs() {
@@ -43,6 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->setSearchPaths(displayResolution.resourceSearchPaths());
 
     gameRunning(true);
+    allocatedResources();
     addSplashScene();
 
     return true;
@@ -63,6 +66,15 @@ void AppDelegate::gameRunning(bool running) {
     Device::setAccelerometerEnabled(running);
 }
 
+void AppDelegate::allocatedResources() {
+    animatedBackground_ = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
+    animatedBackground_->retain();
+}
+
+Node* AppDelegate::sharedAnimatedBackground() const {
+    return animatedBackground_;
+}
+
 void AppDelegate::addSplashScene() {
     const auto splashScene = autoreleased<SplashScene>();
     splashScene->onSceneDismissed = [this](auto scene) {
@@ -72,8 +84,8 @@ void AppDelegate::addSplashScene() {
 }
 
 void AppDelegate::addTitleScene() {
-    titleScene = autoreleased<TitleScene>();
-    titleScene->retain();
+    titleScene = retained<TitleScene>();
+    titleScene->setBackground(sharedAnimatedBackground());
     titleScene->onPlaySelected = [this](auto scene) {
         this->addGameScene();
         CC_SAFE_RELEASE_NULL(titleScene);
@@ -97,9 +109,8 @@ void AppDelegate::addTitleScene() {
 }
 
 void AppDelegate::addGameScene() {
-    gameScene = autoreleased<PulseGameScene>(options);
-    gameScene->retain();
-    gameScene->setBackground(titleScene->background());
+    gameScene = retained<PulseGameScene>(options);
+    gameScene->setBackground(sharedAnimatedBackground());
     gameScene->onEnterMenu = [this](auto scene) {
         this->addInGameMenuScene();
     };

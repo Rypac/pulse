@@ -25,7 +25,7 @@ void GameScene::setBackground(Node *background) {
     background_ = background;
     background_->retain();
     background_->removeFromParent();
-    addChild(background_);
+    addChild(background_, -1);
 }
 
 void GameScene::resumeScene() {

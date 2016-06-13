@@ -17,12 +17,16 @@ class AppDelegate : private cocos2d::Application {
 
   private:
     void gameRunning(bool running);
+    void allocatedResources();
     void addSplashScene();
     void addTitleScene();
     void addGameScene();
     void addInGameMenuScene();
 
+    cocos2d::Node* sharedAnimatedBackground() const;
+
     pulse::GameOptions options;
+    cocos2d::Node* animatedBackground_;
 
     pulse::PulseGameScene* gameScene;
     pulse::TitleScene* titleScene;

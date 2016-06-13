@@ -10,7 +10,6 @@ using namespace pulse;
 using namespace cocos2d;
 
 TitleScene::TitleScene() {
-    setBackground(ParticleSystemQuad::create(Resources::Particles::AmbientBackground));
     addTitle();
     addPlayButton();
     addModesButton();
