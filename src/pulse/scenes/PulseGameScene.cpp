@@ -26,11 +26,17 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
     addMenuOptions();
     addScoreLabel();
     addResetGameTouchListener();
-    addTimeScaleTouchListener();
-    addPlayerTouchListener();
-    addPlayerMovementListener();
-    addCollisionListeners();
     addGameStateListeners();
+
+    gameListeners = {
+        timeScaleTouchListener(),
+        playerTouchListener(),
+        playerMovementListener(),
+        collisionListener()
+    };
+    for (auto listener : gameListeners) {
+        getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+    }
 
     setonEnterTransitionDidFinishCallback([this]() {
         if (not gameState.hasGameStarted()) {
@@ -40,11 +46,12 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
 }
 
 PulseGameScene::~PulseGameScene() {
-    std::vector<EventListener*> listeners{resetListener, timeScaleListener, playerTouchListener, playerMovementListener};
-    for (auto listener : listeners) {
+    for (auto listener : gameListeners) {
         getEventDispatcher()->removeEventListener(listener);
         CC_SAFE_RELEASE(listener);
     }
+    getEventDispatcher()->removeEventListener(resetListener);
+    CC_SAFE_RELEASE(resetListener);
     CC_SAFE_RELEASE(player);
     CC_SAFE_RELEASE(scoreLabel);
 }
@@ -55,6 +62,8 @@ void PulseGameScene::startNewGame() {
 
 void PulseGameScene::startScene() {
     updateScore();
+    getEventDispatcher()->resumeEventListenersForTarget(this);
+    resetListener->setEnabled(false);
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
@@ -81,9 +90,9 @@ void PulseGameScene::resetScene() {
 
 void PulseGameScene::updateListeners(bool isGameRunning) {
     resetListener->setEnabled(!isGameRunning);
-    timeScaleListener->setEnabled(isGameRunning);
-    playerTouchListener->setEnabled(isGameRunning);
-    playerMovementListener->setEnabled(isGameRunning);
+    for (auto listener : gameListeners) {
+        listener->setEnabled(isGameRunning);
+    }
 }
 
 void PulseGameScene::addMenuOptions() {
@@ -155,8 +164,8 @@ void PulseGameScene::addResetGameTouchListener() {
     getEventDispatcher()->addEventListenerWithFixedPriority(resetListener, 1);
 }
 
-void PulseGameScene::addTimeScaleTouchListener() {
-    timeScaleListener = EventListenerTouchOneByOne::create();
+cocos2d::EventListener* PulseGameScene::timeScaleTouchListener() {
+    const auto timeScaleListener = EventListenerTouchOneByOne::create();
     timeScaleListener->retain();
     timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::SlowMotion);
@@ -165,42 +174,43 @@ void PulseGameScene::addTimeScaleTouchListener() {
     timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::Normal);
     };
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(timeScaleListener, this);
+    return timeScaleListener;
 }
 
-void PulseGameScene::addPlayerTouchListener() {
-    playerTouchListener = EventListenerTouchOneByOne::create();
-    playerTouchListener->retain();
-    playerTouchListener->onTouchBegan = [this](auto touch, auto event) {
+cocos2d::EventListener* PulseGameScene::playerTouchListener() {
+    const auto touchListener = EventListenerTouchOneByOne::create();
+    touchListener->retain();
+    touchListener->onTouchBegan = [this](auto touch, auto event) {
         const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
         player->runAction(autoreleased<FollowedBy>(touchEffect));
         return true;
     };
-    playerTouchListener->onTouchEnded = [this](auto touch, auto event) {
+    touchListener->onTouchEnded = [this](auto touch, auto event) {
         player->stopAllActions();
         const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseEnded);
         touchEffect->setAutoRemoveOnFinish(true);
         touchEffect->setPosition(player->getPosition());
         this->addChild(touchEffect);
     };
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(playerTouchListener, this);
+    return touchListener;
 }
 
-void PulseGameScene::addPlayerMovementListener() {
-    playerMovementListener = autoreleased<AccelerometerMovementSystem>(&gameState.accelerometer());
-    playerMovementListener->onMovement = [this](const auto movedBy) {
+cocos2d::EventListener* PulseGameScene::playerMovementListener() {
+    const auto movementListener = retained<AccelerometerMovementSystem>(&gameState.accelerometer());
+    movementListener->onMovement = [this](const auto movedBy) {
         const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
         player->getPhysicsBody()->setVelocity(velocity);
     };
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(playerMovementListener, this);
+    return movementListener;
 }
 
-void PulseGameScene::addCollisionListeners() {
+cocos2d::EventListener* PulseGameScene::collisionListener() {
     auto contactListener = EventListenerPhysicsContact::create();
+    contactListener->retain();
     contactListener->onContactBegin = CC_CALLBACK_1(PulseGameScene::onContactBegan, this);
     contactListener->onContactPreSolve = CC_CALLBACK_2(PulseGameScene::onContactPreSolve, this);
     contactListener->onContactSeparate = CC_CALLBACK_1(PulseGameScene::onContactSeparate, this);
-    getEventDispatcher()->addEventListenerWithSceneGraphPriority(contactListener, this);
+    return contactListener;
 }
 
 void PulseGameScene::addGameStateListeners() {

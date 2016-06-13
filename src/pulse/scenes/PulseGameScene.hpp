@@ -35,15 +35,16 @@ class PulseGameScene : public PhysicsScene {
     void addScoreLabel();
     void addPlayer();
     void addResetGameTouchListener();
-    void addTimeScaleTouchListener();
-    void addPlayerTouchListener();
-    void addPlayerMovementListener();
-    void addCollisionListeners();
     void addGameStateListeners();
     void updateListeners(bool isGameRunning);
     void updateScore();
     void updateSceneTimeScale();
     void scheduleObstacleGeneration();
+
+    cocos2d::EventListener* timeScaleTouchListener();
+    cocos2d::EventListener* playerTouchListener();
+    cocos2d::EventListener* playerMovementListener();
+    cocos2d::EventListener* collisionListener();
 
     Obstacle* generateObstacle();
 
@@ -55,9 +56,7 @@ class PulseGameScene : public PhysicsScene {
     GameState gameState;
 
     cocos2d::EventListenerTouchOneByOne* resetListener;
-    cocos2d::EventListenerTouchOneByOne* timeScaleListener;
-    cocos2d::EventListenerTouchOneByOne* playerTouchListener;
-    AccelerometerMovementSystem* playerMovementListener;
+    std::vector<cocos2d::EventListener*> gameListeners;
 };
 
 }
