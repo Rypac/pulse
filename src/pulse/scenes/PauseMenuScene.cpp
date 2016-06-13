@@ -1,4 +1,4 @@
-#include "pulse/scenes/InGameMenuScene.hpp"
+#include "pulse/scenes/PauseMenuScene.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
@@ -6,13 +6,13 @@
 using namespace cocos2d;
 using namespace pulse;
 
-InGameMenuScene::InGameMenuScene() {
+PauseMenuScene::PauseMenuScene() {
     addResumeButton();
     addRestartButton();
     addQuitButton();
 }
 
-void InGameMenuScene::addResumeButton() {
+void PauseMenuScene::addResumeButton() {
     const auto resumeButton = ui::Button::create(Resources::Buttons::Resume);
     resumeButton->setPosition(sceneFrame().getMidX(), sceneFrame().getMidY());
     resumeButton->onTouchEnded = [this](auto ref) {
@@ -21,7 +21,7 @@ void InGameMenuScene::addResumeButton() {
     addChild(resumeButton);
 }
 
-void InGameMenuScene::addRestartButton() {
+void PauseMenuScene::addRestartButton() {
     const auto restartButton = ui::Button::create(Resources::Buttons::Retry);
     restartButton->setPosition(sceneFrame().getMidX() + 175, sceneFrame().getMidY());
     restartButton->onTouchEnded = [this](auto ref) {
@@ -30,7 +30,7 @@ void InGameMenuScene::addRestartButton() {
     addChild(restartButton);
 }
 
-void InGameMenuScene::addQuitButton() {
+void PauseMenuScene::addQuitButton() {
     const auto quitButton = ui::Button::create(Resources::Buttons::Home);
     quitButton->setPosition(sceneFrame().getMidX() - 175, sceneFrame().getMidY());
     quitButton->onTouchEnded = [this](auto ref) {

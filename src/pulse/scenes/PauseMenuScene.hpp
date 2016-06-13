@@ -4,11 +4,11 @@
 
 namespace pulse {
 
-class InGameMenuScene : public GameScene {
+class PauseMenuScene : public GameScene {
   public:
-    InGameMenuScene();
+    PauseMenuScene();
 
-    using SceneCallback = std::function<void(InGameMenuScene* scene)>;
+    using SceneCallback = std::function<void(PauseMenuScene* scene)>;
     SceneCallback onResumeGame;
     SceneCallback onRestartGame;
     SceneCallback onQuitGame;

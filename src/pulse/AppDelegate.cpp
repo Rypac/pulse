@@ -2,7 +2,7 @@
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
-#include "pulse/scenes/InGameMenuScene.hpp"
+#include "pulse/scenes/PauseMenuScene.hpp"
 #include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
@@ -112,7 +112,7 @@ void AppDelegate::addGameScene() {
 }
 
 void AppDelegate::addInGameMenuScene() {
-    const auto menuScene = autoreleased<InGameMenuScene>();
+    const auto menuScene = autoreleased<PauseMenuScene>();
     menuScene->onResumeGame = [](auto scene) {
         Director::getInstance()->popScene();
     };
