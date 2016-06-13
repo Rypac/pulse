@@ -4,6 +4,7 @@
 #include "pulse/actions/CallbackAfter.hpp"
 #include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
+#include "pulse/extensions/Node.hpp"
 #include "pulse/extensions/Rect.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
@@ -70,12 +71,8 @@ void PulseGameScene::startScene() {
 }
 
 void PulseGameScene::stopScene() {
-    stopAllActions();
-    player->stopAllActions();
+    node::stopAllActionsRecursively(this);
     player->setVelocity(Vec2::ZERO);
-    for (auto obstacle : obstacles) {
-        obstacle->stopAllActions();
-    }
     updateListeners(false);
 }
 
