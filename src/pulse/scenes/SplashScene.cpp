@@ -1,6 +1,6 @@
 #include "pulse/scenes/SplashScene.hpp"
+#include "pulse/extensions/Rect.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/utilities/Geometry.hpp"
 #include "pulse/utilities/Callback.hpp"
 #include "SimpleAudioEngine.h"
 
@@ -14,7 +14,7 @@ SplashScene::SplashScene() {
     AnimationCache::getInstance()->addAnimationsWithFile(Resources::Animations::Intro::Properties);
     image_ = Sprite::createWithSpriteFrameName(Resources::Images::Intro::Long);
     image_->retain();
-    image_->setPosition(geometry::centerOf(sceneFrame()));
+    image_->setPosition(rect::center(sceneFrame()));
     image_->setScale(3);
     addChild(image_, 1);
 

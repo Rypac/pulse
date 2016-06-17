@@ -1,5 +1,5 @@
 #include "pulse/actions/AnimatedBackground.hpp"
-#include "pulse/utilities/Geometry.hpp"
+#include "pulse/extensions/Rect.hpp"
 
 using pulse::AnimatedBackground;
 using cocos2d::Action;
@@ -23,7 +23,7 @@ void AnimatedBackground::startWithTarget(cocos2d::Node* target) {
     auto targetFrame = target->getBoundingBox();
     targetFrame.origin = target->convertToNodeSpace(targetFrame.origin);
     particles_->setPosition(targetFrame.origin);
-    particles_->setSourcePosition(geometry::centerOf(targetFrame));
+    particles_->setSourcePosition(rect::center(targetFrame));
     particles_->setPosVar(targetFrame.size / 2);
     target->addChild(particles_, -1);
 }
