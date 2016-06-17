@@ -1,11 +1,10 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 
 namespace pulse {
 
-class TitleScene : public GameScene {
+class TitleScene : public BaseScene {
   public:
     TitleScene();
 

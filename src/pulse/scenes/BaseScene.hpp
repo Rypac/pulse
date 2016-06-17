@@ -4,10 +4,10 @@
 
 namespace pulse {
 
-class GameScene : public cocos2d::Scene {
+class BaseScene : public cocos2d::Scene {
   public:
-    GameScene();
-    virtual ~GameScene();
+    BaseScene();
+    virtual ~BaseScene();
 
     virtual void resumeScene();
     virtual void pauseScene();

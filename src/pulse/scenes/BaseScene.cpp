@@ -1,26 +1,26 @@
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
 
-GameScene::GameScene(): background_{nullptr} {
+BaseScene::BaseScene(): background_{nullptr} {
     const auto director = Director::getInstance();
     frame_ = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
     init();
 }
 
-GameScene::~GameScene() {
+BaseScene::~BaseScene() {
     CC_SAFE_RELEASE(background_);
 }
 
-void GameScene::removeBackground() {
+void BaseScene::removeBackground() {
     if (background_) {
         removeChild(background_);
         CC_SAFE_RELEASE_NULL(background_);
     }
 }
 
-void GameScene::setBackground(Node *background) {
+void BaseScene::setBackground(Node *background) {
     removeBackground();
     background_ = background;
     background_->retain();
@@ -28,15 +28,15 @@ void GameScene::setBackground(Node *background) {
     addChild(background_, -1);
 }
 
-void GameScene::resumeScene() {
+void BaseScene::resumeScene() {
     Director::getInstance()->resume();
 }
 
-void GameScene::pauseScene() {
+void BaseScene::pauseScene() {
     Director::getInstance()->pause();
 }
 
-void GameScene::quit() {
+void BaseScene::quit() {
     Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -44,6 +44,6 @@ void GameScene::quit() {
 #endif
 }
 
-bool GameScene::residesInSceneBounds(const Node& node) const {
+bool BaseScene::residesInSceneBounds(const Node& node) const {
     return node.getBoundingBox().intersectsRect(sceneFrame());
 }

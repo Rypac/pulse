@@ -1,10 +1,10 @@
 #pragma once
 
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 
 namespace pulse {
 
-class PauseMenuScene : public GameScene {
+class PauseMenuScene : public BaseScene {
   public:
     PauseMenuScene();
 

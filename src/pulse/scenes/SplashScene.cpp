@@ -26,7 +26,7 @@ SplashScene::~SplashScene() {
 }
 
 void SplashScene::onEnterTransitionDidFinish() {
-    GameScene::onEnterTransitionDidFinish();
+    BaseScene::onEnterTransitionDidFinish();
 
     const auto animation = AnimationCache::getInstance()->getAnimation(Resources::Animations::Intro::Long);
     const auto logoAnimation = Animate::create(animation);

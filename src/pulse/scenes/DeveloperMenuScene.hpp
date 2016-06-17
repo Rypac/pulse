@@ -1,14 +1,13 @@
 #pragma once
 
 #include <vector>
-#include "cocos2d.h"
 #include "pulse/models/GameOptions.hpp"
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 #include "pulse/ui/MenuSlider.hpp"
 
 namespace pulse {
 
-class DeveloperMenuScene : public GameScene {
+class DeveloperMenuScene : public BaseScene {
   public:
     DeveloperMenuScene(GameOptions& options);
 

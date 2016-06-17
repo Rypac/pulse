@@ -1,12 +1,10 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "ui/CocosGUI.h"
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 
 namespace pulse {
 
-class SplashScene : public GameScene {
+class SplashScene : public BaseScene {
   public:
     SplashScene();
     virtual ~SplashScene();

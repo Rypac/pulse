@@ -1,12 +1,12 @@
 #pragma once
 
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 #include "pulse/models/GameMode.hpp"
 #include "pulse/ui/Button.hpp"
 
 namespace pulse {
 
-class ModeSelectionScene : public GameScene {
+class ModeSelectionScene : public BaseScene {
   public:
     ModeSelectionScene(GameMode mode = GameMode::FreePlay);
 

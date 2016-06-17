@@ -1,10 +1,10 @@
 #pragma once
 
-#include "pulse/scenes/GameScene.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 
 namespace pulse {
 
-class PhysicsScene : public GameScene {
+class PhysicsScene : public BaseScene {
   public:
     PhysicsScene();
 
