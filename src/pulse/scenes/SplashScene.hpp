@@ -9,12 +9,12 @@ class SplashScene : public BaseScene {
     SplashScene();
     virtual ~SplashScene();
 
-    virtual void onEnterTransitionDidFinish() override;
-
     using SceneCallback = std::function<void(SplashScene* scene)>;
     SceneCallback onSceneDismissed;
 
   private:
+    void playLogoAnimation();
+
     cocos2d::Sprite* image_;
 };
 

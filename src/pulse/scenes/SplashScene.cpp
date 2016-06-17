@@ -17,6 +17,10 @@ SplashScene::SplashScene() {
     image_->setPosition(geometry::centerOf(sceneFrame()));
     image_->setScale(3);
     addChild(image_, 1);
+
+    setonEnterTransitionDidFinishCallback([this]() {
+        this->playLogoAnimation();
+    });
 }
 
 SplashScene::~SplashScene() {
@@ -25,9 +29,7 @@ SplashScene::~SplashScene() {
     CC_SAFE_RELEASE(image_);
 }
 
-void SplashScene::onEnterTransitionDidFinish() {
-    BaseScene::onEnterTransitionDidFinish();
-
+void SplashScene::playLogoAnimation() {
     const auto animation = AnimationCache::getInstance()->getAnimation(Resources::Animations::Intro::Long);
     const auto logoAnimation = Animate::create(animation);
     const auto logoAudio = CallFunc::create([]() {
