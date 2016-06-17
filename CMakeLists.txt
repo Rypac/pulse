@@ -72,7 +72,7 @@ set(GAME_SRC
     ${PULSE_DIR}/scenes/PauseMenuScene.cpp
     ${PULSE_DIR}/scenes/ModeSelectionScene.cpp
     ${PULSE_DIR}/scenes/PhysicsScene.cpp
-    ${PULSE_DIR}/scenes/PulseGameScene.cpp
+    ${PULSE_DIR}/scenes/GameScene.cpp
     ${PULSE_DIR}/scenes/SplashScene.cpp
     ${PULSE_DIR}/scenes/TitleScene.cpp
     ${PULSE_DIR}/sprites/Column.cpp
@@ -116,7 +116,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/scenes/PauseMenuScene.hpp
     ${PULSE_DIR}/scenes/ModeSelectionScene.hpp
     ${PULSE_DIR}/scenes/PhysicsScene.hpp
-    ${PULSE_DIR}/scenes/PulseGameScene.hpp
+    ${PULSE_DIR}/scenes/GameScene.hpp
     ${PULSE_DIR}/scenes/SplashScene.hpp
     ${PULSE_DIR}/scenes/TitleScene.hpp
     ${PULSE_DIR}/sprites/Column.hpp

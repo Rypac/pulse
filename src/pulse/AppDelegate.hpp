@@ -1,8 +1,6 @@
 #pragma once
 
-#include "cocos2d.h"
-#include "pulse/models/GameOptions.hpp"
-#include "pulse/scenes/PulseGameScene.hpp"
+#include "pulse/scenes/GameScene.hpp"
 #include "pulse/scenes/TitleScene.hpp"
 
 class AppDelegate : private cocos2d::Application {
@@ -29,6 +27,6 @@ class AppDelegate : private cocos2d::Application {
     pulse::GameOptions options;
     cocos2d::Node* animatedBackground_;
 
-    pulse::PulseGameScene* gameScene;
+    pulse::GameScene* gameScene;
     pulse::TitleScene* titleScene;
 };

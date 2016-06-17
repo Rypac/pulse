@@ -7,14 +7,14 @@
 
 namespace pulse {
 
-class PulseGameScene : public PhysicsScene {
+class GameScene : public PhysicsScene {
   public:
-    PulseGameScene(const GameOptions& options);
-    virtual ~PulseGameScene();
+    GameScene(const GameOptions& options);
+    virtual ~GameScene();
 
     void startNewGame();
 
-    using SceneCallback = std::function<void(PulseGameScene* scene)>;
+    using SceneCallback = std::function<void(GameScene* scene)>;
     SceneCallback onEnterMenu;
     SceneCallback onSceneDismissed;
     SceneCallback onGameOver;

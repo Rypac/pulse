@@ -5,9 +5,7 @@
 #include "pulse/scenes/GameOverScene.hpp"
 #include "pulse/scenes/PauseMenuScene.hpp"
 #include "pulse/scenes/ModeSelectionScene.hpp"
-#include "pulse/scenes/PulseGameScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
-#include "pulse/scenes/TitleScene.hpp"
 #include "pulse/ui/Resources.hpp"
 
 using namespace cocos2d;
@@ -110,7 +108,7 @@ void AppDelegate::addTitleScene() {
 }
 
 void AppDelegate::addGameScene() {
-    gameScene = retained<PulseGameScene>(options);
+    gameScene = retained<GameScene>(options);
     gameScene->setBackground(sharedAnimatedBackground());
     gameScene->onEnterMenu = [this](auto scene) {
         this->addPauseMenuScene();

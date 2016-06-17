@@ -12,8 +12,8 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
-		46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* PulseGameScene.cpp */; };
-		46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* PulseGameScene.cpp */; };
+		46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* GameScene.cpp */; };
+		46880B8B19C43A87006E1F66 /* GameScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* GameScene.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -154,8 +154,8 @@
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate.cpp; path = pulse/AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AppDelegate.hpp; path = pulse/AppDelegate.hpp; sourceTree = "<group>"; };
-		46880B8619C43A87006E1F66 /* PulseGameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PulseGameScene.cpp; path = pulse/scenes/PulseGameScene.cpp; sourceTree = "<group>"; };
-		46880B8719C43A87006E1F66 /* PulseGameScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PulseGameScene.hpp; path = pulse/scenes/PulseGameScene.hpp; sourceTree = "<group>"; };
+		46880B8619C43A87006E1F66 /* GameScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameScene.cpp; path = pulse/scenes/GameScene.cpp; sourceTree = "<group>"; };
+		46880B8719C43A87006E1F66 /* GameScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GameScene.hpp; path = pulse/scenes/GameScene.hpp; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -502,8 +502,8 @@
 				819765B41CF1926500DA7534 /* PauseMenuScene.hpp */,
 				819765AE1CF1548E00DA7534 /* PhysicsScene.cpp */,
 				819765AF1CF1548E00DA7534 /* PhysicsScene.hpp */,
-				46880B8619C43A87006E1F66 /* PulseGameScene.cpp */,
-				46880B8719C43A87006E1F66 /* PulseGameScene.hpp */,
+				46880B8619C43A87006E1F66 /* GameScene.cpp */,
+				46880B8719C43A87006E1F66 /* GameScene.hpp */,
 				81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */,
 				81E8AFC21CAD2AC700609D88 /* SplashScene.hpp */,
 				81C44A441CC311D7006D6F0F /* TitleScene.cpp */,
@@ -748,7 +748,7 @@
 				817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81253C191CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
-				46880B8A19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
+				46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
 				819765B01CF1548E00DA7534 /* PhysicsScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -787,7 +787,7 @@
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				81D817831CF024910081C4A1 /* Button.cpp in Sources */,
 				81886C961CFAD7FE005617F4 /* ModeSelectionScene.cpp in Sources */,
-				46880B8B19C43A87006E1F66 /* PulseGameScene.cpp in Sources */,
+				46880B8B19C43A87006E1F66 /* GameScene.cpp in Sources */,
 				81D28F941CDD8DF500C09896 /* MenuSlider.cpp in Sources */,
 				81D28F9A1CDD8F7D00C09896 /* AccelerometerMovementSystem.cpp in Sources */,
 				81E8F3C01CD5D9F200DC1689 /* Resolution.cpp in Sources */,

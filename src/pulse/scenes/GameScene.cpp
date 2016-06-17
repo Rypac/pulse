@@ -1,6 +1,6 @@
 #include <string>
 
-#include "pulse/scenes/PulseGameScene.hpp"
+#include "pulse/scenes/GameScene.hpp"
 #include "pulse/actions/CallbackAfter.hpp"
 #include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
@@ -19,7 +19,7 @@
 using namespace cocos2d;
 using namespace pulse;
 
-PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{options}} {
+GameScene::GameScene(const GameOptions& options): gameState{GameState{options}} {
     getPhysicsWorld()->setGravity(Vec2::ZERO);
 
     addPlayer();
@@ -38,7 +38,7 @@ PulseGameScene::PulseGameScene(const GameOptions& options): gameState{GameState{
     }
 }
 
-PulseGameScene::~PulseGameScene() {
+GameScene::~GameScene() {
     for (auto listener : gameListeners) {
         getEventDispatcher()->removeEventListener(listener);
         CC_SAFE_RELEASE(listener);
@@ -47,23 +47,23 @@ PulseGameScene::~PulseGameScene() {
     CC_SAFE_RELEASE(scoreLabel);
 }
 
-void PulseGameScene::startNewGame() {
+void GameScene::startNewGame() {
     gameState.newGame();
 }
 
-void PulseGameScene::startScene() {
+void GameScene::startScene() {
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
 }
 
-void PulseGameScene::stopScene() {
+void GameScene::stopScene() {
     node::stopAllActionsRecursively(this);
     player->setVelocity(Vec2::ZERO);
     updateListeners(false);
 }
 
-void PulseGameScene::resetScene() {
+void GameScene::resetScene() {
     for (auto obstacle : obstacles) {
         removeChild(obstacle);
     }
@@ -71,13 +71,13 @@ void PulseGameScene::resetScene() {
     player->setPosition(rect::center(sceneFrame()));
 }
 
-void PulseGameScene::updateListeners(bool isGameRunning) {
+void GameScene::updateListeners(bool isGameRunning) {
     for (auto listener : gameListeners) {
         listener->setEnabled(isGameRunning);
     }
 }
 
-void PulseGameScene::addMenuOptions() {
+void GameScene::addMenuOptions() {
     const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
     menuButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
@@ -88,7 +88,7 @@ void PulseGameScene::addMenuOptions() {
     addChild(menuButton, 3);
 }
 
-void PulseGameScene::addScoreLabel() {
+void GameScene::addScoreLabel() {
     scoreLabel = Label::createWithTTF("", Font::System, 28);
     scoreLabel->retain();
     scoreLabel->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
@@ -96,7 +96,7 @@ void PulseGameScene::addScoreLabel() {
     addChild(scoreLabel, 3);
 }
 
-void PulseGameScene::addPlayer() {
+void GameScene::addPlayer() {
     player = Player::create();
     player->retain();
     const auto size = Size{30, 30};
@@ -107,7 +107,7 @@ void PulseGameScene::addPlayer() {
     addChild(player, 1);
 }
 
-Obstacle* PulseGameScene::generateObstacle() {
+Obstacle* GameScene::generateObstacle() {
     const auto obstacle = ObstacleGenerator{sceneFrame()}.generate();
     obstacle->setSpeed(gameState.obstacleSpeed());
     obstacle->setPhysicsBody(autoreleased<ObstaclePhysicsBody>(obstacle));
@@ -116,14 +116,14 @@ Obstacle* PulseGameScene::generateObstacle() {
     return obstacle;
 }
 
-void PulseGameScene::scheduleObstacleGeneration() {
+void GameScene::scheduleObstacleGeneration() {
     const auto obstacle = generateObstacle();
     const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
     const auto reschedule = [this]() { this->scheduleObstacleGeneration(); };
     runAction(autoreleased<CallbackAfter>(obstacleSequence, reschedule));
 }
 
-cocos2d::EventListener* PulseGameScene::timeScaleTouchListener() {
+cocos2d::EventListener* GameScene::timeScaleTouchListener() {
     const auto timeScaleListener = EventListenerTouchOneByOne::create();
     timeScaleListener->retain();
     timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
@@ -136,7 +136,7 @@ cocos2d::EventListener* PulseGameScene::timeScaleTouchListener() {
     return timeScaleListener;
 }
 
-cocos2d::EventListener* PulseGameScene::playerTouchListener() {
+cocos2d::EventListener* GameScene::playerTouchListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->retain();
     touchListener->onTouchBegan = [this](auto touch, auto event) {
@@ -154,7 +154,7 @@ cocos2d::EventListener* PulseGameScene::playerTouchListener() {
     return touchListener;
 }
 
-cocos2d::EventListener* PulseGameScene::playerMovementListener() {
+cocos2d::EventListener* GameScene::playerMovementListener() {
     const auto movementListener = retained<AccelerometerMovementSystem>(&gameState.accelerometer());
     movementListener->onMovement = [this](const auto movedBy) {
         const auto velocity = Vec2{movedBy.x, movedBy.y} * gameState.playerTimeScale();
@@ -163,7 +163,7 @@ cocos2d::EventListener* PulseGameScene::playerMovementListener() {
     return movementListener;
 }
 
-cocos2d::EventListener* PulseGameScene::collisionListener() {
+cocos2d::EventListener* GameScene::collisionListener() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->retain();
     contactListener->onContactBegin = [this](auto& contact) {
@@ -184,7 +184,7 @@ cocos2d::EventListener* PulseGameScene::collisionListener() {
     return contactListener;
 }
 
-void PulseGameScene::addGameStateListeners() {
+void GameScene::addGameStateListeners() {
     gameState.onNewGame = [this]() {
         this->stopScene();
         this->resetScene();
@@ -202,13 +202,13 @@ void PulseGameScene::addGameStateListeners() {
     };
 }
 
-void PulseGameScene::checkForObstacleCollision(const cocos2d::PhysicsContact& contact) {
+void GameScene::checkForObstacleCollision(const cocos2d::PhysicsContact& contact) {
     if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
         gameState.gameOver();
     }
 }
 
-void PulseGameScene::handlePassedObstacle(Obstacle* obstacle) {
+void GameScene::handlePassedObstacle(Obstacle* obstacle) {
     gameState.incrementScore();
     obstacle->getPhysicsBody()->defeat();
     obstacle->runDefeatedActions();

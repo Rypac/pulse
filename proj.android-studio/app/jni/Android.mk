@@ -32,7 +32,7 @@ LOCAL_SRC_FILES := \
     $(PULSE_PATH)/scenes/PauseMenuScene.cpp \
     $(PULSE_PATH)/scenes/ModeSelectionScene.cpp \
     $(PULSE_PATH)/scenes/PhysicsScene.cpp \
-    $(PULSE_PATH)/scenes/PulseGameScene.cpp \
+    $(PULSE_PATH)/scenes/GameScene.cpp \
     $(PULSE_PATH)/scenes/SplashScene.cpp \
     $(PULSE_PATH)/scenes/TitleScene.cpp \
     $(PULSE_PATH)/sprites/Column.cpp \
