@@ -30,7 +30,6 @@ class WrappedSprite : public cocos2d::Sprite {
   private:
     void applyToMirrors(const std::function<void(cocos2d::Sprite* mirror)> func);
 
-    cocos2d::ParticleSystemQuad* emitter;
     MirrorSprite* horizontalMirror;
     MirrorSprite* verticalMirror;
     MirrorSprite* diagonalMirror;

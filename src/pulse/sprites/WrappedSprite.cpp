@@ -2,7 +2,6 @@
 #include "pulse/2d/Position.hpp"
 #include "pulse/extensions/Rect.hpp"
 #include "pulse/sprites/SpritePhysicsBody.hpp"
-#include "pulse/ui/Resources.hpp"
 
 using pulse::WrappedSprite;
 using namespace cocos2d;
@@ -55,9 +54,6 @@ bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool r
         this->addChild(mirror);
     });
 
-    emitter = ParticleSystemQuad::create(Resources::Particles::PlayerTrail);
-    addChild(emitter, -1);
-
     return true;
 }
 
@@ -71,7 +67,6 @@ void WrappedSprite::setPosition(const Vec2& position) {
 
 void WrappedSprite::setPosition(float x, float y) {
     Sprite::setPosition(x, y);
-    emitter->setPosition(convertToNodeSpace(getPosition()));
 
     const auto parent = getParent();
     if (parent != nullptr) {
