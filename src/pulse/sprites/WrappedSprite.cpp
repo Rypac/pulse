@@ -1,7 +1,7 @@
 #include "pulse/sprites/WrappedSprite.hpp"
-#include "pulse/sprites/SpritePhysicsBody.hpp"
-#include "pulse/utilities/Position.hpp"
+#include "pulse/2d/Position.hpp"
 #include "pulse/extensions/Rect.hpp"
+#include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/ui/Resources.hpp"
 
 using pulse::WrappedSprite;

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "pulse/utilities/Direction.hpp"
+#include "pulse/2d/Direction.hpp"
 
 namespace pulse {
 namespace random {

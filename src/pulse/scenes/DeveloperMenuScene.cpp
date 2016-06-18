@@ -1,10 +1,10 @@
 #include "pulse/scenes/DeveloperMenuScene.hpp"
+#include "pulse/2d/Geometry.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/MenuSlider.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
-#include "pulse/utilities/Geometry.hpp"
 
 using namespace cocos2d;
 using namespace pulse;

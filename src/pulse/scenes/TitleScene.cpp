@@ -1,9 +1,9 @@
 #include "pulse/scenes/TitleScene.hpp"
+#include "pulse/2d/Geometry.hpp"
 #include "pulse/actions/AnimatedBackground.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
-#include "pulse/utilities/Geometry.hpp"
 #include "pulse/utilities/Callback.hpp"
 
 using namespace pulse;

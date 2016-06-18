@@ -90,6 +90,10 @@ set(GAME_SRC
 
 set(GAME_HEADERS
     ${PULSE_DIR}/AppDelegate.hpp
+    ${PULSE_DIR}/2d/Direction.hpp
+    ${PULSE_DIR}/2d/Geometry.hpp
+    ${PULSE_DIR}/2d/Position.hpp
+    ${PULSE_DIR}/2d/Rotation.hpp
     ${PULSE_DIR}/actions/AnimatedBackground.hpp
     ${PULSE_DIR}/actions/CallbackAfter.hpp
     ${PULSE_DIR}/actions/FollowedBy.hpp
@@ -133,12 +137,8 @@ set(GAME_HEADERS
     ${PULSE_DIR}/ui/Resources.hpp
     ${PULSE_DIR}/utilities/Acceleration.hpp
     ${PULSE_DIR}/utilities/Callback.hpp
-    ${PULSE_DIR}/utilities/Direction.hpp
-    ${PULSE_DIR}/utilities/Geometry.hpp
     ${PULSE_DIR}/utilities/Logger.hpp
-    ${PULSE_DIR}/utilities/Position.hpp
     ${PULSE_DIR}/utilities/Random.hpp
-    ${PULSE_DIR}/utilities/Rotation.hpp
     ${PLATFORM_SPECIFIC_HEADERS}
 )
 

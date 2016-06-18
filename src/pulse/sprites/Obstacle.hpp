@@ -1,7 +1,7 @@
 #pragma once
 
+#include "pulse/2d/Direction.hpp"
 #include "pulse/sprites/Column.hpp"
-#include "pulse/utilities/Direction.hpp"
 
 namespace pulse {
 

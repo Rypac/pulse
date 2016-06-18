@@ -1,9 +1,8 @@
 #include "pulse/sprites/Obstacle.hpp"
-
+#include "pulse/2d/Geometry.hpp"
 #include "pulse/actions/RemoveSelfWithCallback.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/sprites/ObstaclePhysicsBody.hpp"
-#include "pulse/utilities/Geometry.hpp"
 #include "pulse/utilities/Callback.hpp"
 
 using namespace cocos2d;

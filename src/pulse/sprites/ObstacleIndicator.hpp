@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "pulse/utilities/Direction.hpp"
+#include "pulse/2d/Direction.hpp"
 
 namespace pulse {
 

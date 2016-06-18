@@ -1,5 +1,5 @@
 #include "pulse/sprites/ObstacleIndicator.hpp"
-#include "pulse/utilities/Geometry.hpp"
+#include "pulse/2d/Geometry.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
