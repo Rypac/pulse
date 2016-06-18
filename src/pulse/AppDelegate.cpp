@@ -102,9 +102,9 @@ void AppDelegate::addTitleScene() {
     titleScene->onSettingsSelected = [this](auto scene) {
         const auto developerScene = autoreleased<DeveloperMenuScene>(options);
         developerScene->onSceneDismissed = [](auto scene) {
-            scene->removeFromParent();
+            Director::getInstance()->popScene();
         };
-        scene->addChild(developerScene, 10);
+        Director::getInstance()->pushScene(developerScene);
     };
     Director::getInstance()->replaceScene(titleScene);
 }
