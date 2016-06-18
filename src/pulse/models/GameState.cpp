@@ -5,7 +5,7 @@ using namespace pulse;
 
 GameState::GameState(const GameOptions& options)
 : options_{options}
-, normalTimeScale_{1.0, 1.0}
+, normalTimeScale_{1.0, 1.0, 1.0}
 , score_{0}
 , timeMode_{TimeMode::Normal}
 , accelerometer_{30}
@@ -48,6 +48,10 @@ void GameState::enterMode(TimeMode mode) {
 
 float GameState::playerTimeScale() const {
     return timeScale().player;
+}
+
+float GameState::obstacleTimeScale() const {
+    return timeScale().obstacle;
 }
 
 float GameState::environmentTimeScale() const {

@@ -31,6 +31,7 @@ struct GameState {
     void enterMode(TimeMode mode);
 
     float playerTimeScale() const;
+    float obstacleTimeScale() const;
     float environmentTimeScale() const;
 
     float obstacleSpeed() const;
