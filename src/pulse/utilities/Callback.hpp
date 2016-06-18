@@ -2,9 +2,16 @@
 
 #include <type_traits>
 
-template <typename T, typename... Args>
-inline void safe_callback(T callback, Args&&... args) {
+template <typename Fn, typename... Args>
+inline void safe_callback(Fn callback, Args&&... args) {
     if (callback) {
         callback(std::forward<Args>(args)...);
     }
+}
+
+template <typename T, typename Fn>
+inline auto member_callback(T obj, Fn func) {
+    return [obj, func](auto&&... args) {
+        return ((obj)->*(func))(std::forward<decltype(args)>(args)...);
+    };
 }

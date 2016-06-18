@@ -23,9 +23,9 @@ bool Button::initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& r
     listener_ = cocos2d::EventListenerTouchOneByOne::create();
     listener_->retain();
     listener_->setSwallowTouches(true);
-    listener_->onTouchBegan = CC_CALLBACK_2(Button::onTouchDidBegin, this);
-    listener_->onTouchMoved = CC_CALLBACK_2(Button::onTouchDidMove, this);
-    listener_->onTouchEnded = CC_CALLBACK_2(Button::onTouchDidEnd, this);
+    listener_->onTouchBegan = member_callback(this, &Button::onTouchDidBegin);
+    listener_->onTouchMoved = member_callback(this, &Button::onTouchDidMove);
+    listener_->onTouchEnded = member_callback(this, &Button::onTouchDidEnd);
     getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener_, this);
 
     return true;
