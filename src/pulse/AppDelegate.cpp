@@ -84,7 +84,9 @@ void AppDelegate::addSplashScene() {
 
 void AppDelegate::addTitleScene() {
     titleScene = retained<TitleScene>();
-    titleScene->setBackground(sharedAnimatedBackground());
+    titleScene->setOnEnterCallback([this]() {
+        titleScene->setBackground(this->sharedAnimatedBackground());
+    });
     titleScene->onPlaySelected = [this](auto scene) {
         this->addGameScene();
         CC_SAFE_RELEASE_NULL(titleScene);
@@ -109,7 +111,9 @@ void AppDelegate::addTitleScene() {
 
 void AppDelegate::addGameScene() {
     gameScene = retained<GameScene>(options);
-    gameScene->setBackground(sharedAnimatedBackground());
+    gameScene->setOnEnterCallback([this]() {
+        gameScene->setBackground(this->sharedAnimatedBackground());
+    });
     gameScene->onEnterMenu = [this](auto scene) {
         this->addPauseMenuScene();
     };
@@ -127,14 +131,14 @@ void AppDelegate::addGameScene() {
 
 void AppDelegate::addPauseMenuScene() {
     const auto menuScene = autoreleased<PauseMenuScene>();
-    menuScene->setBackground(sharedAnimatedBackground());
+    menuScene->setOnEnterCallback([=]() {
+        menuScene->setBackground(this->sharedAnimatedBackground());
+    });
     menuScene->onResumeGame = [this](auto scene) {
-        gameScene->setBackground(this->sharedAnimatedBackground());
         Director::getInstance()->popScene();
     };
     menuScene->onRestartGame = [this](auto scene) {
         gameScene->startNewGame();
-        gameScene->setBackground(this->sharedAnimatedBackground());
         Director::getInstance()->popScene();
     };
     menuScene->onQuitGame = [this](auto scene) {
@@ -146,7 +150,9 @@ void AppDelegate::addPauseMenuScene() {
 
 void AppDelegate::addGameOverScene() {
     const auto scene = autoreleased<GameOverScene>();
-    scene->setBackground(sharedAnimatedBackground());
+    scene->setOnEnterCallback([=]() {
+        scene->setBackground(this->sharedAnimatedBackground());
+    });
     scene->onRestartGame = [this](auto scene) {
         this->addGameScene();
     };
