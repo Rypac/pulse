@@ -34,7 +34,7 @@ bool Obstacle::init() {
     return true;
 }
 
-Obstacle* Obstacle::create(Size size, Direction direction) {
+Obstacle* Obstacle::create(const Size& size, Direction direction) {
     const auto obstacle = Obstacle::create();
     obstacle->setPosition(0, 0);
     obstacle->setContentSize(size);
@@ -42,13 +42,13 @@ Obstacle* Obstacle::create(Size size, Direction direction) {
     return obstacle;
 }
 
-static void setFrameForTextureSprite(Sprite* sprite, Vec2 position, Size size) {
+static void setFrameForTextureSprite(Sprite* sprite, const Vec2& position, const Size& size) {
     sprite->setPosition(position);
     sprite->setContentSize(size);
     sprite->setTextureRect(sprite->getBoundingBox());
 }
 
-static void setFrameForGap(Node* node, Vec2 position, Size size) {
+static void setFrameForGap(Node* node, const Vec2& position, const Size& size) {
     node->setPosition(position);
     node->setContentSize(size);
     node->setVisible(false);
@@ -60,7 +60,7 @@ static void setRotationForDirection(Obstacle* obstacle) {
     }
 }
 
-float gapOffset(Size obstacle, Size gap, Direction direction) {
+float gapOffset(const Size& obstacle, const Size& gap, Direction direction) {
     switch (direction) {
         case Direction::North:
         case Direction::West: return obstacle.width + gap.width;
@@ -87,7 +87,7 @@ Obstacle* Obstacle::create(float topLength, float gapLength, float bottomLength,
     return obstacle;
 }
 
-void Obstacle::positionInWorld(Rect world) {
+void Obstacle::positionInWorld(const Rect& world) {
     const auto body = getBoundingBox();
     setPosition(geometry::origin(body, world, direction));
     destination = geometry::destination(body, world, direction);

@@ -23,7 +23,7 @@ static inline bool isSprite(const PhysicsBody& body, SpriteTag tag) {
     return body.getCategoryBitmask() == asBitmask(tag);
 }
 
-static PhysicsBody* create(SpriteTag tag, Size size) {
+static PhysicsBody* create(SpriteTag tag, const Size& size) {
     const auto body = PhysicsBody::createBox(size);
     body->setDynamic(false);
     body->setGravityEnable(false);
@@ -33,27 +33,27 @@ static PhysicsBody* create(SpriteTag tag, Size size) {
     return body;
 }
 
-PhysicsBody* createHero(Size size) {
+PhysicsBody* createHero(const Size& size) {
     const auto body = create(SpriteTag::Hero, size);
     body->setCollisionBitmask(asBitmask(SpriteTag::Obstacle));
     body->setContactTestBitmask(asBitmask(SpriteTag::Obstacle) | asBitmask(SpriteTag::Path));
     return body;
 }
 
-PhysicsBody* createObstacle(Size size) {
+PhysicsBody* createObstacle(const Size& size) {
     const auto body = create(SpriteTag::Obstacle, size);
     body->setCollisionBitmask(asBitmask(SpriteTag::Hero));
     body->setContactTestBitmask(asBitmask(SpriteTag::Hero));
     return body;
 }
 
-PhysicsBody* createPath(Size size) {
+PhysicsBody* createPath(const Size& size) {
     const auto body = create(SpriteTag::Path, size);
     body->setContactTestBitmask(asBitmask(SpriteTag::Hero));
     return body;
 }
 
-PhysicsBody* clone(PhysicsBody* body, cocos2d::Size size) {
+PhysicsBody* clone(PhysicsBody* body, const Size& size) {
     const auto clone = PhysicsBody::createBox(size);
     clone->setDynamic(body->isDynamic());
     clone->setGravityEnable(body->isGravityEnabled());
@@ -75,7 +75,7 @@ bool isPath(const PhysicsBody& body) {
     return isSprite(body, SpriteTag::Path);
 }
 
-void stopCollisions(PhysicsBody *body) {
+void stopCollisions(PhysicsBody* body) {
     body->setCollisionBitmask(asBitmask(SpriteTag::None));
     body->setContactTestBitmask(asBitmask(SpriteTag::None));
 }

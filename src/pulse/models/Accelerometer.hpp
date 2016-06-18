@@ -16,7 +16,7 @@ struct Accelerometer {
 
     void reset() {
         totalReadings = 0;
-        aggregateReading = cocos2d::Vec3{};
+        aggregateReading = cocos2d::Vec3::ZERO;
     }
 
     cocos2d::Vec3 sensitivity() const {

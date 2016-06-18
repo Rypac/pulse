@@ -28,7 +28,7 @@ class WrappedSprite : public cocos2d::Sprite {
     virtual bool initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& rect, bool rotated) override;
 
   private:
-    void applyToMirrors(const std::function<void (cocos2d::Sprite* mirror)> func);
+    void applyToMirrors(const std::function<void(cocos2d::Sprite* mirror)> func);
 
     cocos2d::ParticleSystemQuad* emitter;
     MirrorSprite* horizontalMirror;

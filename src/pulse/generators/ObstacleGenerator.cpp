@@ -3,7 +3,7 @@
 
 using namespace pulse;
 
-static float worldLength(cocos2d::Size world, Direction direction) {
+static float worldLength(const cocos2d::Size& world, Direction direction) {
     switch (direction) {
         case Direction::North:
         case Direction::South:

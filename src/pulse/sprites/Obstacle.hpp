@@ -10,7 +10,7 @@ class ObstaclePhysicsBody;
 class Obstacle : public cocos2d::Sprite {
   public:
     static Obstacle* create();
-    static Obstacle* create(cocos2d::Size frame, Direction direction);
+    static Obstacle* create(const cocos2d::Size& frame, Direction direction);
     static Obstacle* create(float topColumnLength, float gapLength, float bottomLength, Direction direction);
 
     virtual bool init() override;
@@ -21,7 +21,7 @@ class Obstacle : public cocos2d::Sprite {
 
     void runActions();
     void runDefeatedActions();
-    void positionInWorld(cocos2d::Rect world);
+    void positionInWorld(const cocos2d::Rect& world);
 
     void setPhysicsBody(ObstaclePhysicsBody* body);
     ObstaclePhysicsBody* getPhysicsBody() const;

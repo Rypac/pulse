@@ -69,7 +69,7 @@ static inline Vec2 below(const Rect& body, const Rect& frame) {
     return bottomCenterOf(frame) - bodyHeight(body);
 }
 
-static inline Vec2 origin(Rect body, Rect world, Direction direction) {
+static inline Vec2 origin(const Rect& body, const Rect& world, Direction direction) {
     switch (direction) {
         case Direction::North: return geometry::below(body, world);
         case Direction::South: return geometry::above(body, world);
@@ -78,7 +78,7 @@ static inline Vec2 origin(Rect body, Rect world, Direction direction) {
     }
 }
 
-static inline Vec2 destination(Rect body, Rect world, Direction direction) {
+static inline Vec2 destination(const Rect& body, const Rect& world, Direction direction) {
     switch (direction) {
         case Direction::North: return geometry::above(body, world);
         case Direction::South: return geometry::below(body, world);
