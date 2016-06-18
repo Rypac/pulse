@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "pulse/movement/MovementSystem.hpp"
 #include "pulse/models/Accelerometer.hpp"
 

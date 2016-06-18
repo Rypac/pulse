@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "pulse/models/GameMode.hpp"
 #include "pulse/models/TimeScale.hpp"
 

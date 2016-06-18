@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "pulse/generators/Generator.hpp"
 #include "pulse/sprites/Obstacle.hpp"
 

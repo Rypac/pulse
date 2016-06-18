@@ -1,6 +1,5 @@
 #pragma once
 
-#include "cocos2d.h"
 #include "pulse/sprites/Column.hpp"
 #include "pulse/utilities/Direction.hpp"
 
