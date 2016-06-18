@@ -127,11 +127,14 @@ void AppDelegate::addGameScene() {
 
 void AppDelegate::addPauseMenuScene() {
     const auto menuScene = autoreleased<PauseMenuScene>();
-    menuScene->onResumeGame = [](auto scene) {
+    menuScene->setBackground(sharedAnimatedBackground());
+    menuScene->onResumeGame = [this](auto scene) {
+        gameScene->setBackground(this->sharedAnimatedBackground());
         Director::getInstance()->popScene();
     };
     menuScene->onRestartGame = [this](auto scene) {
         gameScene->startNewGame();
+        gameScene->setBackground(this->sharedAnimatedBackground());
         Director::getInstance()->popScene();
     };
     menuScene->onQuitGame = [this](auto scene) {
