@@ -36,14 +36,6 @@ void BaseScene::pauseScene() {
     Director::getInstance()->pause();
 }
 
-void BaseScene::quit() {
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-}
-
 bool BaseScene::residesInSceneBounds(const Node& node) const {
     return node.getBoundingBox().intersectsRect(sceneFrame());
 }

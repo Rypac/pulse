@@ -11,7 +11,6 @@ class BaseScene : public cocos2d::Scene {
 
     virtual void resumeScene();
     virtual void pauseScene();
-    virtual void quit();
 
     virtual void setBackground(cocos2d::Node* background);
     virtual void removeBackground();
