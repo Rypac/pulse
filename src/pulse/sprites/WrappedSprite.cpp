@@ -76,7 +76,6 @@ void WrappedSprite::setPosition(float x, float y) {
     const auto parent = getParent();
     if (parent != nullptr) {
         normalisePositionInBounds(parent->getBoundingBox());
-        return;
     }
 }
 
