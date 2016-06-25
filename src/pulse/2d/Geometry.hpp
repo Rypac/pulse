@@ -116,4 +116,12 @@ static inline Vec2 rightEntryPosition(const Rect& frame, const Vec2& destination
     return Vec2{origin.x + sizeOffset.width / 2.0f, origin.y + sizeOffset.height / 2.0f};
 }
 
+static inline Vec2 entryPosition(Direction direction, const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
+    switch (direction) {
+        case Direction::East: return leftEntryPosition(frame, destination, size, angle);
+        case Direction::West: return rightEntryPosition(frame, destination, size, angle);
+        default: return Vec2::ZERO;
+    }
+}
+
 } }

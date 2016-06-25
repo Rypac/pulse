@@ -24,7 +24,7 @@ void TitleScene::addTitle() {
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = title->getContentSize();
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = geometry::leftEntryPosition(sceneFrame(), destination, size, radians);
+    const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, radians);
 
     title->setPosition(start);
     title->setRotation(-angle);
@@ -41,7 +41,7 @@ void TitleScene::addPlayButton() {
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = playButton->getContentSize();
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
-    const auto start = geometry::rightEntryPosition(sceneFrame(), destination, size, radians);
+    const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, radians);
 
     playButton->setPosition(start);
     playButton->setRotation(-angle);
