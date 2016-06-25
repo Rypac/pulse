@@ -10,7 +10,7 @@ PhysicsScene::PhysicsScene() {
 }
 
 bool PhysicsScene::onScreenCollision(const PhysicsContact& contact) const {
-    return ranges::any_of(contact.getContactData()->points, [&frame = sceneFrame()](auto point) {
-        return point != Vec2::ZERO and frame.containsPoint(point);
+    return ranges::any_of(contact.getContactData()->points, [this](auto point) {
+        return point != Vec2::ZERO and this->sceneFrame().containsPoint(point);
     });
 }
