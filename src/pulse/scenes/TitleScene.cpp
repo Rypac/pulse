@@ -25,29 +25,44 @@ Size rotatedSize(const Size& size, float angle) {
     return Size{x, y};
 }
 
-Vec2 offset(const Vec2& destination, float angle) {
+Vec2 rotatedOffset(const Vec2& destination, float angle) {
     const auto x = destination.y / std::tan(angle);
     const auto y = destination.x * std::tan(angle);
     return Vec2{x, y};
 }
 
-Vec2 startFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
+Vec2 displacementOffset(const Size& size, float angle) {
+    const auto x = size.height / 2.0f * std::sin(angle);
+    const auto y = x * std::tan(angle);
+    return Vec2{x, y};
+}
+
+Vec2 bottomLeftStartFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
     const auto sizeOffset = rotatedSize(size, angle);
-    const auto widthOffset = destination.x - offset(destination, angle).x;
-    return Vec2{origin.x - sizeOffset.width + widthOffset, origin.y - sizeOffset.height};
+    const auto offset = rotatedOffset(destination, angle);
+    const auto diffY = destination.y - offset.y;
+    const auto rotationOffset = displacementOffset(size, angle);
+    return Vec2{origin.x - sizeOffset.width - rotationOffset.x, origin.y - sizeOffset.height + diffY + rotationOffset.y};
+}
+
+Vec2 topRightStartFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
+    const auto sizeOffset = rotatedSize(size, angle);
+    const auto diff = destination - rotatedOffset(destination, angle);
+    return Vec2{origin.x + sizeOffset.width, origin.y + sizeOffset.height - diff.y};
 }
 
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
 
-    const auto angle = MATH_DEG_TO_RAD(30.0f);
+    const auto angle = 30.0f;
+    const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = title->getContentSize();
     const auto origin = Vec2{sceneFrame().getMinX(), sceneFrame().getMinY()};
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = startFor(origin, destination, size, angle);
+    const auto start = bottomLeftStartFor(origin, destination, size, radians);
 
     title->setPosition(start);
-    title->setRotation(-30.0f);
+    title->setRotation(-angle);
     title->setonEnterTransitionDidFinishCallback([=]() {
         title->runAction(MoveTo::create(0.5, destination));
     });
