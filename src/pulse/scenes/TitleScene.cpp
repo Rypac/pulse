@@ -18,34 +18,31 @@ TitleScene::TitleScene() {
 }
 
 Size rotatedSize(const Size& size, float angle) {
-    const auto height = size.height / 2.0f;
-    const auto width = size.width / 2.0f;
-    const auto x = width * std::cos(angle) + height * std::tan(angle);
-    const auto y = width * std::sin(angle) + height * std::cos(angle);
-    return Size{x, y};
+    const auto width = size.width * std::cos(angle);
+    const auto height = size.width * std::sin(angle);
+    return Size{width, height};
 }
 
-Vec2 rotatedOffset(const Vec2& destination, float angle) {
-    const auto x = destination.y / std::tan(angle);
-    const auto y = destination.x * std::tan(angle);
-    return Vec2{x, y};
-}
-
-Vec2 displacementOffset(const Size& size, float angle) {
+Vec2 rotatedOffset(const Size& size, float angle) {
     const auto x = size.height / 2.0f * std::sin(angle);
     const auto y = x * std::tan(angle);
     return Vec2{x, y};
 }
 
-Vec2 startFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
+Vec2 leftEntryPosition(const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
     const auto sizeOffset = rotatedSize(size, angle);
-    const auto offset = rotatedOffset(destination, angle);
-    const auto diffY = destination.y - offset.y;
-    const auto rotationOffset = displacementOffset(size, angle);
-    if (origin.x < destination.x or origin.y < destination.y) {
-        return Vec2{origin.x - sizeOffset.width - rotationOffset.x, origin.y - sizeOffset.height + diffY + rotationOffset.y};
-    }
-    return Vec2{origin.x + sizeOffset.width + rotationOffset.x, origin.y + sizeOffset.height + diffY - rotationOffset.y};
+    const auto offset = rotatedOffset(size, angle);
+    const auto origin = Vec2{frame.getMinX() - offset.x, destination.y - (destination.x - frame.getMinX()) * std::tan(angle) - offset.y};
+
+    return Vec2{origin.x - sizeOffset.width / 2.0f, origin.y - sizeOffset.height / 2.0f};
+}
+
+Vec2 rightEntryPosition(const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
+    const auto sizeOffset = rotatedSize(size, angle);
+    const auto offset = rotatedOffset(size, angle);
+    const auto origin = Vec2{frame.getMaxX() + offset.x, destination.y + (frame.getMaxX() - destination.x) * std::tan(angle) + offset.y};
+
+    return Vec2{origin.x + sizeOffset.width / 2.0f, origin.y + sizeOffset.height / 2.0f};
 }
 
 void TitleScene::addTitle() {
@@ -54,9 +51,8 @@ void TitleScene::addTitle() {
     const auto angle = 30.0f;
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = title->getContentSize();
-    const auto origin = Vec2{sceneFrame().getMinX(), sceneFrame().getMinY()};
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = startFor(origin, destination, size, radians);
+    const auto start = leftEntryPosition(sceneFrame(), destination, size, radians);
 
     title->setPosition(start);
     title->setRotation(-angle);
@@ -72,12 +68,11 @@ void TitleScene::addPlayButton() {
     const auto angle = 30.0f;
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = playButton->getContentSize();
-    const auto origin = Vec2{sceneFrame().getMaxX(), sceneFrame().getMaxY()};
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
-    const auto start = startFor(origin, destination, size, radians);
+    const auto start = rightEntryPosition(sceneFrame(), destination, size, radians);
 
     playButton->setPosition(start);
-    playButton->setRotation(-30.0f);
+    playButton->setRotation(-angle);
     playButton->setonEnterTransitionDidFinishCallback([=]() {
         playButton->runAction(MoveTo::create(0.5, destination));
     });
