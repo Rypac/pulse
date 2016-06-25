@@ -14,8 +14,8 @@ using namespace pulse;
 AppDelegate::AppDelegate() {}
 
 AppDelegate::~AppDelegate() {
-    CC_SAFE_RELEASE(gameScene);
-    CC_SAFE_RELEASE(titleScene);
+    CC_SAFE_RELEASE(gameScene_);
+    CC_SAFE_RELEASE(titleScene_);
     CC_SAFE_RELEASE(animatedBackground_);
 }
 
@@ -83,50 +83,50 @@ void AppDelegate::addSplashScene() {
 }
 
 void AppDelegate::addTitleScene() {
-    titleScene = retained<TitleScene>();
-    titleScene->setOnEnterCallback([this]() {
-        titleScene->setBackground(this->sharedAnimatedBackground());
+    titleScene_ = retained<TitleScene>();
+    titleScene_->setOnEnterCallback([this]() {
+        titleScene_->setBackground(this->sharedAnimatedBackground());
     });
-    titleScene->onPlaySelected = [this](auto scene) {
+    titleScene_->onPlaySelected = [this](auto scene) {
         this->addGameScene();
-        CC_SAFE_RELEASE_NULL(titleScene);
+        CC_SAFE_RELEASE_NULL(titleScene_);
     };
-    titleScene->onModesSelected = [this](auto scene) {
-        const auto modeSelectionScene = autoreleased<ModeSelectionScene>(options.gameMode);
+    titleScene_->onModesSelected = [this](auto scene) {
+        const auto modeSelectionScene = autoreleased<ModeSelectionScene>(options_.gameMode);
         modeSelectionScene->onSceneDismissed = [this](auto scene) {
-            options.gameMode = scene->selectedMode();
+            options_.gameMode = scene->selectedMode();
             scene->removeFromParent();
         };
         scene->addChild(modeSelectionScene, 10);
     };
-    titleScene->onSettingsSelected = [this](auto scene) {
-        const auto developerScene = autoreleased<DeveloperMenuScene>(options);
+    titleScene_->onSettingsSelected = [this](auto scene) {
+        const auto developerScene = autoreleased<DeveloperMenuScene>(options_);
         developerScene->onSceneDismissed = [](auto scene) {
             Director::getInstance()->popScene();
         };
         Director::getInstance()->pushScene(developerScene);
     };
-    Director::getInstance()->replaceScene(titleScene);
+    Director::getInstance()->replaceScene(titleScene_);
 }
 
 void AppDelegate::addGameScene() {
-    gameScene = retained<GameScene>(options);
-    gameScene->setOnEnterCallback([this]() {
-        gameScene->setBackground(this->sharedAnimatedBackground());
+    gameScene_ = retained<GameScene>(options_);
+    gameScene_->setOnEnterCallback([this]() {
+        gameScene_->setBackground(this->sharedAnimatedBackground());
     });
-    gameScene->onEnterMenu = [this](auto scene) {
+    gameScene_->onEnterMenu = [this](auto scene) {
         this->addPauseMenuScene();
     };
-    gameScene->onGameOver = [this](auto scene) {
+    gameScene_->onGameOver = [this](auto scene) {
         this->addGameOverScene();
-        CC_SAFE_RELEASE_NULL(gameScene);
+        CC_SAFE_RELEASE_NULL(gameScene_);
     };
-    gameScene->onSceneDismissed = [this](auto scene) {
+    gameScene_->onSceneDismissed = [this](auto scene) {
         this->addTitleScene();
-        CC_SAFE_RELEASE_NULL(gameScene);
+        CC_SAFE_RELEASE_NULL(gameScene_);
     };
-    gameScene->startNewGame();
-    Director::getInstance()->replaceScene(gameScene);
+    gameScene_->startNewGame();
+    Director::getInstance()->replaceScene(gameScene_);
 }
 
 void AppDelegate::addPauseMenuScene() {
@@ -138,12 +138,12 @@ void AppDelegate::addPauseMenuScene() {
         Director::getInstance()->popScene();
     };
     menuScene->onRestartGame = [this](auto scene) {
-        gameScene->startNewGame();
+        gameScene_->startNewGame();
         Director::getInstance()->popScene();
     };
     menuScene->onQuitGame = [this](auto scene) {
         Director::getInstance()->popScene();
-        gameScene->onSceneDismissed(gameScene);
+        gameScene_->onSceneDismissed(gameScene_);
     };
     Director::getInstance()->pushScene(menuScene);
 }

@@ -24,9 +24,9 @@ class AppDelegate : private cocos2d::Application {
 
     cocos2d::Node* sharedAnimatedBackground() const;
 
-    pulse::GameOptions options;
+    pulse::GameOptions options_;
     cocos2d::Node* animatedBackground_;
 
-    pulse::GameScene* gameScene;
-    pulse::TitleScene* titleScene;
+    pulse::GameScene* gameScene_;
+    pulse::TitleScene* titleScene_;
 };
