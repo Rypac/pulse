@@ -10,7 +10,7 @@ struct Resolution {
     const cocos2d::Size size;
     const std::string path;
 
-    static Resolution forFrame(const cocos2d::Size& frame);
+    static const Resolution& forFrame(const cocos2d::Size& frame);
     static const Resolution& design();
 
     float contentScaleFactor() const;

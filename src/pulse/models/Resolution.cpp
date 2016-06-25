@@ -14,7 +14,7 @@ const Resolution& Resolution::design() {
     return SupportedResolutions::Medium;
 }
 
-Resolution Resolution::forFrame(const Size& frame) {
+const Resolution& Resolution::forFrame(const Size& frame) {
     if (frame.height > SupportedResolutions::Large.size.height) {
         return SupportedResolutions::ExtraLarge;
     } else if (frame.height > SupportedResolutions::Medium.size.height) {

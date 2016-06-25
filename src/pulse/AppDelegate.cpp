@@ -39,7 +39,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     const auto& designResolution = Resolution::design();
     glview->setDesignResolutionSize(designResolution.size.width, designResolution.size.height, ResolutionPolicy::FIXED_HEIGHT);
 
-    const auto displayResolution = Resolution::forFrame(glview->getFrameSize());
+    const auto& displayResolution = Resolution::forFrame(glview->getFrameSize());
     director->setContentScaleFactor(displayResolution.contentScaleFactor());
     FileUtils::getInstance()->setSearchPaths(displayResolution.resourceSearchPaths());
 
