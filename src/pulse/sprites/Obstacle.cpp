@@ -19,7 +19,7 @@ Obstacle* Obstacle::create() {
 }
 
 bool Obstacle::init() {
-    if (!Sprite::init()) {
+    if (not Sprite::init()) {
         return false;
     }
 

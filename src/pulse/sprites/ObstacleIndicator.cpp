@@ -15,7 +15,7 @@ ObstacleIndicator* ObstacleIndicator::create(Direction direction, const Rect& fr
 }
 
 bool ObstacleIndicator::initWithFrame(const Rect& frame) {
-    if (!initWithFile(particleFilePath())) {
+    if (not initWithFile(particleFilePath())) {
         return false;
     }
 

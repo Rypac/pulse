@@ -16,7 +16,7 @@ Button* Button::create(const std::string& filename) {
 }
 
 bool Button::initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& rect, bool rotated) {
-    if (!Sprite::initWithTexture(texture, rect, rotated)) {
+    if (not Sprite::initWithTexture(texture, rect, rotated)) {
         return false;
     }
 

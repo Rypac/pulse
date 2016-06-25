@@ -41,7 +41,7 @@ static inline bool intersects(const Rect& rect1, const Rect& rect2) {
 }
 
 static inline Rect intersection(const Rect& rect1, const Rect& rect2) {
-    if (!intersects(rect1, rect2)) {
+    if (not intersects(rect1, rect2)) {
         return Rect::ZERO;
     }
     const auto x = std::max(rect1.getMinX(), rect2.getMinX());

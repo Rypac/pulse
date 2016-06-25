@@ -27,7 +27,7 @@ void AppDelegate::initGLContextAttrs() {
 bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
-    if (!glview) {
+    if (not glview) {
         glview = GLViewImpl::create("Pulse");
         director->setOpenGLView(glview);
     }

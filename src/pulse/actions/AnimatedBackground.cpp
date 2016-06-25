@@ -34,5 +34,5 @@ void AnimatedBackground::stop() {
 }
 
 bool AnimatedBackground::isDone() const {
-    return !getTarget()->isRunning();
+    return not getTarget()->isRunning();
 }

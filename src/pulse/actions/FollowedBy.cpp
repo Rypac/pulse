@@ -28,7 +28,7 @@ void FollowedBy::stop() {
 }
 
 bool FollowedBy::isDone() const {
-    return !getTarget()->isRunning();
+    return not getTarget()->isRunning();
 }
 
 void FollowedBy::step(float dt) {

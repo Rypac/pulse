@@ -168,7 +168,7 @@ cocos2d::EventListener* GameScene::collisionListener() {
     contactListener->retain();
     contactListener->onContactBegin = [this](auto& contact) {
         this->checkForObstacleCollision(contact);
-        return !physics_body::collision::heroAndPath(contact);
+        return not physics_body::collision::heroAndPath(contact);
     };
     contactListener->onContactPreSolve = [this](auto& contact, auto& solve) {
         this->checkForObstacleCollision(contact);
