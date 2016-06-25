@@ -106,11 +106,11 @@ static inline Vec2 entryPosition(Direction direction, const Rect& frame, const V
     const auto offset = rotatedOffset(size, radians);
 
     switch (direction) {
-        case Direction::East: {
+        case Direction::West: {
             const auto origin = Vec2{frame.getMinX() - offset.x, destination.y - (destination.x - frame.getMinX()) * std::tan(angle) - offset.y};
             return Vec2{origin.x - sizeOffset.width / 2.0f, origin.y - sizeOffset.height / 2.0f};
         }
-        case Direction::West: {
+        case Direction::East: {
             const auto origin = Vec2{frame.getMaxX() + offset.x, destination.y + (frame.getMaxX() - destination.x) * std::tan(angle) + offset.y};
             return Vec2{origin.x + sizeOffset.width / 2.0f, origin.y + sizeOffset.height / 2.0f};
         }
