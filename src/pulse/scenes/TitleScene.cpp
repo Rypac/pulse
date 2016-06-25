@@ -71,8 +71,19 @@ void TitleScene::addTitle() {
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
-    playButton->setPosition(Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65});
+
+    const auto angle = 30.0f;
+    const auto radians = MATH_DEG_TO_RAD(angle);
+    const auto& size = playButton->getContentSize();
+    const auto origin = Vec2{sceneFrame().getMaxX(), sceneFrame().getMaxY()};
+    const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
+    const auto start = topRightStartFor(origin, destination, size, radians);
+
+    playButton->setPosition(start);
     playButton->setRotation(-30.0f);
+    playButton->setonEnterTransitionDidFinishCallback([=]() {
+        playButton->runAction(MoveTo::create(2.5, destination));
+    });
     playButton->onTouchEnded = [this](auto ref) {
         safe_callback(onPlaySelected, this);
     };
