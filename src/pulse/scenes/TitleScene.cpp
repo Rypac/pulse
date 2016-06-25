@@ -17,11 +17,40 @@ TitleScene::TitleScene() {
     addSettingsButton();
 }
 
+Size rotatedSize(const Size& size, float angle) {
+    const auto width = size.width / 2.0f;
+    const auto x = width * std::cos(angle);
+    const auto y = width * std::sin(angle);
+    return Size{x, y};
+}
+
+Vec2 offset(const Vec2& destination, float angle) {
+    const auto x = destination.y / std::tan(angle);
+    const auto y = destination.x * std::tan(angle);
+    return Vec2{x, y};
+}
+
+Vec2 startFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
+    const auto sizeOffset = rotatedSize(size, angle);
+    const auto widthOffset = destination.x - offset(destination, angle).x;
+    return Vec2{origin.x - sizeOffset.width + widthOffset, origin.y - sizeOffset.height};
+}
+
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
     title->retain();
-    title->setPosition(sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80);
+
+    const auto angle = MATH_DEG_TO_RAD(30.0f);
+    const auto size = title->getContentSize();
+    const auto origin = Vec2{sceneFrame().getMinX(), sceneFrame().getMinY()};
+    const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
+    const auto start = startFor(origin, destination, size, angle);
+
+    title->setPosition(start);
     title->setRotation(-30.0f);
+    title->setonEnterTransitionDidFinishCallback([=]() {
+        title->runAction(MoveTo::create(0.5, destination));
+    });
     addChild(title);
 }
 
