@@ -55,7 +55,7 @@ ModeSelectionScene::ModeSelectionScene(GameMode mode): mode_{mode} {
 void ModeSelectionScene::onEnterTransitionDidFinish() {
     animate::fadeIn(this->background());
 
-    for (const auto& mode : modes_) {
+    for (auto&& mode : modes_) {
         mode.button->onTouchEnded = [&](auto ref) { this->updateSelectedMode(mode.mode); };
         addChild(mode.label);
         addChild(mode.button);
@@ -66,7 +66,7 @@ void ModeSelectionScene::onEnterTransitionDidFinish() {
 
 void ModeSelectionScene::updateSelectedMode(GameMode selectedMode) {
     mode_ = selectedMode;
-    for (const auto& mode : modes_) {
+    for (auto&& mode : modes_) {
         const auto& texture = mode.mode == selectedMode ? Resources::Buttons::Tick : Resources::Buttons::Blank;
         mode.button->setTexture(texture);
     }
@@ -77,7 +77,7 @@ void ModeSelectionScene::addDismissListener() {
     touchListener->setSwallowTouches(true);
     touchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
     touchListener->onTouchEnded = [this](auto touch, auto event) {
-        for (const auto& mode : modes_) {
+        for (auto&& mode : modes_) {
             animate::scaleOut(mode.button);
             animate::scaleOut(mode.label);
         }

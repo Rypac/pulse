@@ -94,7 +94,7 @@ void DeveloperMenuScene::addSliders(std::vector<ui::MenuSlider*> sliders) {
     const auto sliderSize = Size{sceneFrame().size.width - horizontalInset * 2, 80};
     auto sliderOrigin = Vec2{origin.x + horizontalInset, origin.y - verticalInset};
 
-    for (const auto slider : sliders) {
+    for (auto&& slider : sliders) {
         slider->setAnchorPoint(Vec2::ANCHOR_BOTTOM_LEFT);
         slider->setPosition(sliderOrigin);
         slider->setContentSize(sliderSize);

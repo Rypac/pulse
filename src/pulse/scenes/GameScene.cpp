@@ -33,13 +33,13 @@ GameScene::GameScene(const GameOptions& options): gameState{GameState{options}} 
         playerMovementListener(),
         collisionListener()
     };
-    for (auto listener : gameListeners) {
+    for (auto&& listener : gameListeners) {
         getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
     }
 }
 
 GameScene::~GameScene() {
-    for (auto listener : gameListeners) {
+    for (auto&& listener : gameListeners) {
         getEventDispatcher()->removeEventListener(listener);
         CC_SAFE_RELEASE(listener);
     }
@@ -64,7 +64,7 @@ void GameScene::stopScene() {
 }
 
 void GameScene::resetScene() {
-    for (auto obstacle : obstacles) {
+    for (auto&& obstacle : obstacles) {
         removeChild(obstacle);
     }
     obstacles.clear();
@@ -72,7 +72,7 @@ void GameScene::resetScene() {
 }
 
 void GameScene::updateListeners(bool isGameRunning) {
-    for (auto listener : gameListeners) {
+    for (auto&& listener : gameListeners) {
         listener->setEnabled(isGameRunning);
     }
 }

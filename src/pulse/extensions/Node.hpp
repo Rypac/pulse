@@ -17,7 +17,7 @@ inline T* create(Args&&... args) {
 namespace node {
 
 void stopAllActionsRecursively(cocos2d::Node* node) {
-    for (auto child : node->getChildren()) {
+    for (auto&& child : node->getChildren()) {
         stopAllActionsRecursively(child);
     }
     node->stopAllActions();
