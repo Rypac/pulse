@@ -101,16 +101,18 @@ static inline Vec2 rotatedOffset(const Size& size, float angle) {
 }
 
 static inline Vec2 leftEntryPosition(const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
-    const auto sizeOffset = rotatedSize(size, angle);
-    const auto offset = rotatedOffset(size, angle);
+    const auto radians = MATH_DEG_TO_RAD(angle);
+    const auto sizeOffset = rotatedSize(size, radians);
+    const auto offset = rotatedOffset(size, radians);
     const auto origin = Vec2{frame.getMinX() - offset.x, destination.y - (destination.x - frame.getMinX()) * std::tan(angle) - offset.y};
 
     return Vec2{origin.x - sizeOffset.width / 2.0f, origin.y - sizeOffset.height / 2.0f};
 }
 
 static inline Vec2 rightEntryPosition(const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
-    const auto sizeOffset = rotatedSize(size, angle);
-    const auto offset = rotatedOffset(size, angle);
+    const auto radians = MATH_DEG_TO_RAD(angle);
+    const auto sizeOffset = rotatedSize(size, radians);
+    const auto offset = rotatedOffset(size, radians);
     const auto origin = Vec2{frame.getMaxX() + offset.x, destination.y + (frame.getMaxX() - destination.x) * std::tan(angle) + offset.y};
     
     return Vec2{origin.x + sizeOffset.width / 2.0f, origin.y + sizeOffset.height / 2.0f};

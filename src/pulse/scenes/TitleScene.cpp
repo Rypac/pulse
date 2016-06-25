@@ -21,10 +21,9 @@ void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
 
     const auto angle = 30.0f;
-    const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = title->getContentSize();
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, radians);
+    const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, angle);
 
     title->setPosition(start);
     title->setRotation(-angle);
@@ -38,10 +37,9 @@ void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
 
     const auto angle = 30.0f;
-    const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = playButton->getContentSize();
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
-    const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, radians);
+    const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, angle);
 
     playButton->setPosition(start);
     playButton->setRotation(-angle);
