@@ -18,9 +18,10 @@ TitleScene::TitleScene() {
 }
 
 Size rotatedSize(const Size& size, float angle) {
+    const auto height = size.height / 2.0f;
     const auto width = size.width / 2.0f;
-    const auto x = width * std::cos(angle);
-    const auto y = width * std::sin(angle);
+    const auto x = width * std::cos(angle) + height * std::tan(angle);
+    const auto y = width * std::sin(angle) + height * std::cos(angle);
     return Size{x, y};
 }
 
