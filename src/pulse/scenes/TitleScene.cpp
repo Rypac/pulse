@@ -17,34 +17,6 @@ TitleScene::TitleScene() {
     addSettingsButton();
 }
 
-Size rotatedSize(const Size& size, float angle) {
-    const auto width = size.width * std::cos(angle);
-    const auto height = size.width * std::sin(angle);
-    return Size{width, height};
-}
-
-Vec2 rotatedOffset(const Size& size, float angle) {
-    const auto x = size.height / 2.0f * std::sin(angle);
-    const auto y = x * std::tan(angle);
-    return Vec2{x, y};
-}
-
-Vec2 leftEntryPosition(const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
-    const auto sizeOffset = rotatedSize(size, angle);
-    const auto offset = rotatedOffset(size, angle);
-    const auto origin = Vec2{frame.getMinX() - offset.x, destination.y - (destination.x - frame.getMinX()) * std::tan(angle) - offset.y};
-
-    return Vec2{origin.x - sizeOffset.width / 2.0f, origin.y - sizeOffset.height / 2.0f};
-}
-
-Vec2 rightEntryPosition(const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
-    const auto sizeOffset = rotatedSize(size, angle);
-    const auto offset = rotatedOffset(size, angle);
-    const auto origin = Vec2{frame.getMaxX() + offset.x, destination.y + (frame.getMaxX() - destination.x) * std::tan(angle) + offset.y};
-
-    return Vec2{origin.x + sizeOffset.width / 2.0f, origin.y + sizeOffset.height / 2.0f};
-}
-
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
 
@@ -52,7 +24,7 @@ void TitleScene::addTitle() {
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = title->getContentSize();
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = leftEntryPosition(sceneFrame(), destination, size, radians);
+    const auto start = geometry::leftEntryPosition(sceneFrame(), destination, size, radians);
 
     title->setPosition(start);
     title->setRotation(-angle);
@@ -69,7 +41,7 @@ void TitleScene::addPlayButton() {
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto& size = playButton->getContentSize();
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
-    const auto start = rightEntryPosition(sceneFrame(), destination, size, radians);
+    const auto start = geometry::rightEntryPosition(sceneFrame(), destination, size, radians);
 
     playButton->setPosition(start);
     playButton->setRotation(-angle);
