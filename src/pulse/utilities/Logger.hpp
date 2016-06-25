@@ -12,6 +12,10 @@ static inline void log(const char* format, ...) {
     va_end(args);
 }
 
+static inline void log(float f) {
+    cocos2d::log("%f", f);
+}
+
 static inline void log(const cocos2d::Vec2& vec) {
     cocos2d::log("x = %f, y = %f", vec.x, vec.y);
 }
