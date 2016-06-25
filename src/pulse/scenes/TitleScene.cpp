@@ -37,19 +37,14 @@ Vec2 displacementOffset(const Size& size, float angle) {
     return Vec2{x, y};
 }
 
-Vec2 bottomLeftStartFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
+Vec2 startFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
     const auto sizeOffset = rotatedSize(size, angle);
     const auto offset = rotatedOffset(destination, angle);
     const auto diffY = destination.y - offset.y;
     const auto rotationOffset = displacementOffset(size, angle);
-    return Vec2{origin.x - sizeOffset.width - rotationOffset.x, origin.y - sizeOffset.height + diffY + rotationOffset.y};
-}
-
-Vec2 topRightStartFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
-    const auto sizeOffset = rotatedSize(size, angle);
-    const auto offset = rotatedOffset(destination, angle);
-    const auto diffY = destination.y - offset.y;
-    const auto rotationOffset = displacementOffset(size, angle);
+    if (origin.x < destination.x or origin.y < destination.y) {
+        return Vec2{origin.x - sizeOffset.width - rotationOffset.x, origin.y - sizeOffset.height + diffY + rotationOffset.y};
+    }
     return Vec2{origin.x + sizeOffset.width + rotationOffset.x, origin.y + sizeOffset.height + diffY - rotationOffset.y};
 }
 
@@ -61,7 +56,7 @@ void TitleScene::addTitle() {
     const auto& size = title->getContentSize();
     const auto origin = Vec2{sceneFrame().getMinX(), sceneFrame().getMinY()};
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = bottomLeftStartFor(origin, destination, size, radians);
+    const auto start = startFor(origin, destination, size, radians);
 
     title->setPosition(start);
     title->setRotation(-angle);
@@ -79,7 +74,7 @@ void TitleScene::addPlayButton() {
     const auto& size = playButton->getContentSize();
     const auto origin = Vec2{sceneFrame().getMaxX(), sceneFrame().getMaxY()};
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
-    const auto start = topRightStartFor(origin, destination, size, radians);
+    const auto start = startFor(origin, destination, size, radians);
 
     playButton->setPosition(start);
     playButton->setRotation(-30.0f);
