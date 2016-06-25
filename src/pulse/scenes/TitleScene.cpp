@@ -38,7 +38,6 @@ Vec2 startFor(const Vec2& origin, const Vec2& destination, const Size& size, flo
 
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
-    title->retain();
 
     const auto angle = MATH_DEG_TO_RAD(30.0f);
     const auto& size = title->getContentSize();
