@@ -46,7 +46,7 @@ void MenuSlider::addSlider() {
 
 void MenuSlider::addCurrentValue() {
     currentValue = Label::createWithTTF("", Font::System, 28);
-    currentValue->setAnchorPoint(Vec2{1.0, 0.5});
+    currentValue->setAnchorPoint(Vec2::ANCHOR_MIDDLE_RIGHT);
     addChild(currentValue);
 }
 
@@ -58,7 +58,7 @@ void MenuSlider::setContentSize(const Size& frame) {
     const auto valueWidth = frame.width * 0.05f;
     const auto sliderWidth = frame.width - titleWidth - valueWidth - padding * 2;
 
-    title->setPosition(Vec2{0, 0});
+    title->setPosition(Vec2::ZERO);
     title->setContentSize(Size{titleWidth, frame.height});
 
     slider->setPosition(Vec2{titleWidth + padding, 0});
