@@ -44,7 +44,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     FileUtils::getInstance()->setSearchPaths(displayResolution.resourceSearchPaths());
 
     gameRunning(true);
-    allocatedResources();
+    allocateResources();
     addSplashScene();
 
     return true;
@@ -65,7 +65,7 @@ void AppDelegate::gameRunning(bool running) {
     Device::setAccelerometerEnabled(running);
 }
 
-void AppDelegate::allocatedResources() {
+void AppDelegate::allocateResources() {
     animatedBackground_ = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
     animatedBackground_->retain();
 }

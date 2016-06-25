@@ -15,7 +15,7 @@ class AppDelegate : private cocos2d::Application {
 
   private:
     void gameRunning(bool running);
-    void allocatedResources();
+    void allocateResources();
     void addSplashScene();
     void addTitleScene();
     void addGameScene();
