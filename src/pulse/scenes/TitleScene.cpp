@@ -47,8 +47,10 @@ Vec2 bottomLeftStartFor(const Vec2& origin, const Vec2& destination, const Size&
 
 Vec2 topRightStartFor(const Vec2& origin, const Vec2& destination, const Size& size, float angle) {
     const auto sizeOffset = rotatedSize(size, angle);
-    const auto diff = destination - rotatedOffset(destination, angle);
-    return Vec2{origin.x + sizeOffset.width, origin.y + sizeOffset.height - diff.y};
+    const auto offset = rotatedOffset(destination, angle);
+    const auto diffY = destination.y - offset.y;
+    const auto rotationOffset = displacementOffset(size, angle);
+    return Vec2{origin.x + sizeOffset.width + rotationOffset.x, origin.y + sizeOffset.height + diffY - rotationOffset.y};
 }
 
 void TitleScene::addTitle() {
@@ -82,7 +84,7 @@ void TitleScene::addPlayButton() {
     playButton->setPosition(start);
     playButton->setRotation(-30.0f);
     playButton->setonEnterTransitionDidFinishCallback([=]() {
-        playButton->runAction(MoveTo::create(2.5, destination));
+        playButton->runAction(MoveTo::create(0.5, destination));
     });
     playButton->onTouchEnded = [this](auto ref) {
         safe_callback(onPlaySelected, this);
