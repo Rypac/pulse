@@ -41,7 +41,7 @@ void TitleScene::addTitle() {
     title->retain();
 
     const auto angle = MATH_DEG_TO_RAD(30.0f);
-    const auto size = title->getContentSize();
+    const auto& size = title->getContentSize();
     const auto origin = Vec2{sceneFrame().getMinX(), sceneFrame().getMinY()};
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
     const auto start = startFor(origin, destination, size, angle);
