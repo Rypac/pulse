@@ -39,7 +39,7 @@ bool WrappedSprite::initMirrors(Texture2D* texture, const Rect& rect, bool rotat
     horizontalMirror->retain();
     verticalMirror->retain();
     diagonalMirror->retain();
-    return horizontalMirror != nullptr and verticalMirror != nullptr and diagonalMirror != nullptr;
+    return horizontalMirror and verticalMirror and diagonalMirror;
 }
 
 bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool rotated) {
@@ -69,7 +69,7 @@ void WrappedSprite::setPosition(float x, float y) {
     Sprite::setPosition(x, y);
 
     const auto parent = getParent();
-    if (parent != nullptr) {
+    if (parent) {
         normalisePositionInBounds(parent->getBoundingBox());
     }
 }
