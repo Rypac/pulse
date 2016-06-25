@@ -10,7 +10,7 @@ using namespace pulse;
 
 Obstacle* Obstacle::create() {
     const auto obstacle = new (std::nothrow) Obstacle();
-    if (obstacle && obstacle->init()) {
+    if (obstacle and obstacle->init()) {
         obstacle->autorelease();
         return obstacle;
     }
@@ -54,7 +54,7 @@ static void setFrameForGap(Node* node, const Vec2& position, const Size& size) {
 }
 
 static void setRotationForDirection(Obstacle* obstacle) {
-    if (obstacle->getDirection() == Direction::North || obstacle->getDirection() == Direction::South) {
+    if (obstacle->getDirection() == Direction::North or obstacle->getDirection() == Direction::South) {
         obstacle->setRotation(90);
     }
 }

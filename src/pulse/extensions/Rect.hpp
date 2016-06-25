@@ -12,32 +12,32 @@ static inline cocos2d::Vec2 center(const Rect& rect) {
 }
 
 static inline bool exceedsHorizontalBounds(const Rect& rect, const Rect& bounds) {
-    return rect.getMaxX() > bounds.getMaxX() || rect.getMinX() < bounds.getMinX();
+    return rect.getMaxX() > bounds.getMaxX() or rect.getMinX() < bounds.getMinX();
 }
 
 static inline bool exceedsVerticalBounds(const Rect& rect, const Rect& bounds) {
-    return rect.getMaxY() > bounds.getMaxY() || rect.getMinY() < bounds.getMinY();
+    return rect.getMaxY() > bounds.getMaxY() or rect.getMinY() < bounds.getMinY();
 }
 
 static inline bool exceedsBounds(const Rect& rect, const Rect& bounds) {
-    return exceedsVerticalBounds(rect, bounds) || exceedsHorizontalBounds(rect, bounds);
+    return exceedsVerticalBounds(rect, bounds) or exceedsHorizontalBounds(rect, bounds);
 }
 
 static inline bool withinHorizontalBounds(const Rect& rect, const Rect& bounds) {
-    return rect.getMinX() > bounds.getMinX() && rect.getMaxX() < bounds.getMaxX();
+    return rect.getMinX() > bounds.getMinX() and rect.getMaxX() < bounds.getMaxX();
 }
 
 static inline bool withinVerticalBounds(const Rect& rect, const Rect& bounds) {
-    return rect.getMinY() > bounds.getMinY() && rect.getMaxY() < bounds.getMaxY();
+    return rect.getMinY() > bounds.getMinY() and rect.getMaxY() < bounds.getMaxY();
 }
 
 static inline bool withinBounds(const Rect& rect, const Rect& bounds) {
-    return withinHorizontalBounds(rect, bounds) && withinVerticalBounds(rect, bounds);
+    return withinHorizontalBounds(rect, bounds) and withinVerticalBounds(rect, bounds);
 }
 
 static inline bool intersects(const Rect& rect1, const Rect& rect2) {
-    return rect1.getMinX() < rect2.getMaxX() && rect1.getMaxX() > rect2.getMinX() &&
-        rect1.getMinY() < rect2.getMaxY() && rect1.getMaxY() > rect2.getMinY();
+    return rect1.getMinX() < rect2.getMaxX() and rect1.getMaxX() > rect2.getMinX() and
+        rect1.getMinY() < rect2.getMaxY() and rect1.getMaxY() > rect2.getMinY();
 }
 
 static inline Rect intersection(const Rect& rect1, const Rect& rect2) {

@@ -4,7 +4,7 @@ using namespace pulse;
 
 Player* Player::create() {
     const auto sprite = new (std::nothrow) Player();
-    if (sprite && sprite->init()) {
+    if (sprite and sprite->init()) {
         sprite->autorelease();
         return sprite;
     }

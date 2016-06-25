@@ -6,7 +6,7 @@ using namespace pulse;
 
 ObstacleIndicator* ObstacleIndicator::create(Direction direction, const Rect& frame) {
     const auto column = new (std::nothrow) ObstacleIndicator{direction};
-    if (column && column->initWithFrame(frame)) {
+    if (column and column->initWithFrame(frame)) {
         column->autorelease();
         return column;
     }

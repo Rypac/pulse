@@ -5,7 +5,7 @@ using namespace cocos2d;
 
 MirrorSprite* MirrorSprite::createWithTexture(Texture2D* texture, const Rect& rect, bool rotated) {
     const auto sprite = new (std::nothrow) MirrorSprite();
-    if (sprite && sprite->initWithTexture(texture, rect, rotated)) {
+    if (sprite and sprite->initWithTexture(texture, rect, rotated)) {
         sprite->autorelease();
         return sprite;
     }

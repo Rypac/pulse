@@ -8,7 +8,7 @@ using namespace cocos2d;
 
 WrappedSprite* WrappedSprite::create() {
     const auto sprite = new (std::nothrow) WrappedSprite();
-    if (sprite && sprite->init()) {
+    if (sprite and sprite->init()) {
         sprite->autorelease();
         return sprite;
     }
@@ -18,7 +18,7 @@ WrappedSprite* WrappedSprite::create() {
 
 WrappedSprite* WrappedSprite::create(const std::string& filename) {
     const auto sprite = new (std::nothrow) WrappedSprite();
-    if (sprite && sprite->initWithFile(filename)) {
+    if (sprite and sprite->initWithFile(filename)) {
         sprite->autorelease();
         return sprite;
     }
@@ -39,11 +39,11 @@ bool WrappedSprite::initMirrors(Texture2D* texture, const Rect& rect, bool rotat
     horizontalMirror->retain();
     verticalMirror->retain();
     diagonalMirror->retain();
-    return horizontalMirror != nullptr && verticalMirror != nullptr && diagonalMirror != nullptr;
+    return horizontalMirror != nullptr and verticalMirror != nullptr and diagonalMirror != nullptr;
 }
 
 bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool rotated) {
-    if (!(initMirrors(texture, rect, rotated) && Sprite::initWithTexture(texture, rect, rotated))) {
+    if (!(initMirrors(texture, rect, rotated) and Sprite::initWithTexture(texture, rect, rotated))) {
         return false;
     }
 
@@ -88,7 +88,7 @@ void WrappedSprite::normalisePositionInBounds(const Rect& bounds) {
 
     horizontalMirror->setVisible(rect::exceedsHorizontalBounds(frame, bounds));
     verticalMirror->setVisible(rect::exceedsVerticalBounds(frame, bounds));
-    diagonalMirror->setVisible(horizontalMirror->isVisible() && verticalMirror->isVisible());
+    diagonalMirror->setVisible(horizontalMirror->isVisible() and verticalMirror->isVisible());
 }
 
 void WrappedSprite::setContentSize(const Size& size) {

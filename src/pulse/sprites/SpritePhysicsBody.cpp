@@ -97,7 +97,7 @@ namespace collision {
     }
 
     bool heroAndObstacle(const PhysicsBody& body1, const PhysicsBody& body2) {
-        return isHero(body1) || isHero(body2) ? isObstacle(body1) || isObstacle(body2) : false;
+        return isHero(body1) or isHero(body2) ? isObstacle(body1) or isObstacle(body2) : false;
     }
 
     bool heroAndPath(const PhysicsContact& contact) {
@@ -105,7 +105,7 @@ namespace collision {
     }
 
     bool heroAndPath(const PhysicsBody& body1, const PhysicsBody& body2) {
-        return isHero(body1) || isHero(body2) ? isPath(body1) || isPath(body2) : false;
+        return isHero(body1) or isHero(body2) ? isPath(body1) or isPath(body2) : false;
     }
 
 }

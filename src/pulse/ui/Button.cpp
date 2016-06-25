@@ -7,7 +7,7 @@ static const auto AnimationSpeed = 0.04;
 
 Button* Button::create(const std::string& filename) {
     const auto button = new (std::nothrow) Button();
-    if (button && button->initWithFile(filename)) {
+    if (button and button->initWithFile(filename)) {
         button->autorelease();
         return button;
     }

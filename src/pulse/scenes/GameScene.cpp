@@ -203,7 +203,7 @@ void GameScene::addGameStateListeners() {
 }
 
 void GameScene::checkForObstacleCollision(const cocos2d::PhysicsContact& contact) {
-    if (physics_body::collision::heroAndObstacle(contact) && onScreenCollision(contact)) {
+    if (physics_body::collision::heroAndObstacle(contact) and onScreenCollision(contact)) {
         gameState.gameOver();
     }
 }
