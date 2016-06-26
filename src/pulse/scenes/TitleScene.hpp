@@ -8,7 +8,6 @@ namespace pulse {
 class TitleScene : public BaseScene {
   public:
     TitleScene();
-    virtual ~TitleScene();
 
     using SceneCallback = std::function<void(TitleScene* scene)>;
     SceneCallback onPlaySelected;

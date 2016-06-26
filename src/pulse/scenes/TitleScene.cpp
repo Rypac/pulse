@@ -8,7 +8,7 @@
 using namespace pulse;
 using namespace cocos2d;
 
-TitleScene::TitleScene() {
+TitleScene::TitleScene(): titleAnimator_(), playAnimator_() {
     addTitle();
     addPlayButton();
     addModesButton();
@@ -16,41 +16,42 @@ TitleScene::TitleScene() {
     addSettingsButton();
 
     setonEnterTransitionDidFinishCallback([this]() {
-        titleAnimator_.runEntryAnimation();
-        playAnimator_.runEntryAnimation();
+        const auto animations = Sequence::create(
+            CallFunc::create([this]() { titleAnimator_.runEntryAnimation(); }),
+            DelayTime::create(0.5),
+            CallFunc::create([this]() { playAnimator_.runEntryAnimation(); }),
+            nullptr
+        );
+        this->runAction(animations);
     });
-}
-
-TitleScene::~TitleScene() {
-    CC_SAFE_RELEASE(titleAnimator_.node);
-    CC_SAFE_RELEASE(playAnimator_.node);
 }
 
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
-    title->retain();
 
     const auto angle = 30.0f;
     const auto& size = title->getContentSize();
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
     const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, angle);
+    const auto end = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, angle);
 
     title->setPosition(start);
     title->setRotation(-angle);
     addChild(title);
 
-    titleAnimator_.node = title;
-    titleAnimator_.entryAnimation = MoveTo::create(0.5, destination);
+    titleAnimator_ = NodeAnimator(title);
+    titleAnimator_.setEntryAnimation(MoveTo::create(0.5, destination));
+    titleAnimator_.setExitAnimation(MoveTo::create(0.5, end));
 }
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
-    playButton->retain();
 
     const auto angle = 30.0f;
     const auto& size = playButton->getContentSize();
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
     const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, angle);
+    const auto end = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, angle);
 
     playButton->setPosition(start);
     playButton->setRotation(-angle);
@@ -59,8 +60,9 @@ void TitleScene::addPlayButton() {
     };
     addChild(playButton);
 
-    playAnimator_.node = playButton;
-    playAnimator_.entryAnimation = MoveTo::create(0.5, destination);
+    playAnimator_ = NodeAnimator(playButton);
+    playAnimator_.setEntryAnimation(MoveTo::create(0.5, destination));
+    playAnimator_.setExitAnimation(MoveTo::create(0.5, end));
 }
 
 void TitleScene::addModesButton() {
