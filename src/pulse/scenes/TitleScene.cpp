@@ -1,6 +1,5 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/2d/Geometry.hpp"
-#include "pulse/actions/AnimatedBackground.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
@@ -15,10 +14,21 @@ TitleScene::TitleScene() {
     addModesButton();
     addAchievmentsButton();
     addSettingsButton();
+
+    setonEnterTransitionDidFinishCallback([this]() {
+        titleAnimator_.runEntryAnimation();
+        playAnimator_.runEntryAnimation();
+    });
+}
+
+TitleScene::~TitleScene() {
+    CC_SAFE_RELEASE(titleAnimator_.node);
+    CC_SAFE_RELEASE(playAnimator_.node);
 }
 
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
+    title->retain();
 
     const auto angle = 30.0f;
     const auto& size = title->getContentSize();
@@ -27,14 +37,15 @@ void TitleScene::addTitle() {
 
     title->setPosition(start);
     title->setRotation(-angle);
-    title->setonEnterTransitionDidFinishCallback([=]() {
-        title->runAction(MoveTo::create(0.5, destination));
-    });
     addChild(title);
+
+    titleAnimator_.node = title;
+    titleAnimator_.entryAnimation = MoveTo::create(0.5, destination);
 }
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
+    playButton->retain();
 
     const auto angle = 30.0f;
     const auto& size = playButton->getContentSize();
@@ -43,13 +54,13 @@ void TitleScene::addPlayButton() {
 
     playButton->setPosition(start);
     playButton->setRotation(-angle);
-    playButton->setonEnterTransitionDidFinishCallback([=]() {
-        playButton->runAction(MoveTo::create(0.5, destination));
-    });
     playButton->onTouchEnded = [this](auto ref) {
         safe_callback(onPlaySelected, this);
     };
     addChild(playButton);
+
+    playAnimator_.node = playButton;
+    playAnimator_.entryAnimation = MoveTo::create(0.5, destination);
 }
 
 void TitleScene::addModesButton() {
