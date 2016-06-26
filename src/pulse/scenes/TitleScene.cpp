@@ -55,7 +55,7 @@ void TitleScene::addPlayButton() {
 
     playAnimator_ = NodeAnimator(playButton);
     playAnimator_.setEntryAnimation(MoveTo::create(0.2, destination));
-    playAnimator_.setExitAnimation(MoveTo::create(0.2, end));
+    playAnimator_.setExitAnimation(MoveTo::create(0.4, end));
 }
 
 void TitleScene::addModesButton() {
