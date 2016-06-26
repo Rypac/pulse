@@ -1,5 +1,6 @@
 #include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/actions/CallbackAfter.hpp"
+#include "pulse/extensions/Animate.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Font.hpp"
@@ -8,30 +9,6 @@
 
 using namespace cocos2d;
 using namespace pulse;
-
-namespace animate {
-
-void fadeIn(cocos2d::Node* node, std::function<void()> onCompletion = nullptr) {
-    node->setCascadeOpacityEnabled(true);
-    node->setOpacity(0);
-    node->runAction(autoreleased<CallbackAfter>(EaseIn::create(FadeTo::create(0.15, 220), 2), onCompletion));
-}
-
-void fadeOut(cocos2d::Node* node, std::function<void()> onCompletion = nullptr) {
-    node->setCascadeOpacityEnabled(true);
-    node->runAction(autoreleased<CallbackAfter>(EaseIn::create(FadeTo::create(0.15, 0), 2), onCompletion));
-}
-
-void scaleIn(cocos2d::Node* node, std::function<void()> onCompletion = nullptr) {
-    node->setScale(0.1);
-    node->runAction(autoreleased<CallbackAfter>(EaseIn::create(ScaleTo::create(0.15, 1), 2), onCompletion));
-}
-
-void scaleOut(cocos2d::Node* node, std::function<void()> onCompletion = nullptr) {
-    node->runAction(autoreleased<CallbackAfter>(EaseIn::create(ScaleTo::create(0.15, 0.1), 2), onCompletion));
-}
-
-}
 
 ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name): mode{mode} {
     label = Label::createWithTTF(name, Font::System, 32);
