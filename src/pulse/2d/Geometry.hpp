@@ -10,67 +10,67 @@ using cocos2d::Size;
 using cocos2d::Rect;
 using cocos2d::Vec2;
 
-static inline Vec2 topLeftOf(const Rect& frame) {
+inline Vec2 topLeftOf(const Rect& frame) {
     return Vec2{frame.getMinX(), frame.getMaxY()};
 }
 
-static inline Vec2 topCenterOf(const Rect& frame) {
+inline Vec2 topCenterOf(const Rect& frame) {
     return Vec2{frame.getMidX(), frame.getMaxY()};
 }
 
-static inline Vec2 topRightOf(const Rect& frame) {
+inline Vec2 topRightOf(const Rect& frame) {
     return Vec2{frame.getMaxX(), frame.getMaxY()};
 }
 
-static inline Vec2 centerLeftOf(const Rect& frame) {
+inline Vec2 centerLeftOf(const Rect& frame) {
     return Vec2{frame.getMinX(), frame.getMidY()};
 }
 
-static inline Vec2 centerOf(const Rect& frame) {
+inline Vec2 centerOf(const Rect& frame) {
     return Vec2{frame.getMidX(), frame.getMidY()};
 }
 
-static inline Vec2 centerRightOf(const Rect& frame) {
+inline Vec2 centerRightOf(const Rect& frame) {
     return Vec2{frame.getMaxX(), frame.getMidY()};
 }
 
-static inline Vec2 bottomLeftOf(const Rect& frame) {
+inline Vec2 bottomLeftOf(const Rect& frame) {
     return Vec2{frame.getMinX(), frame.getMinY()};
 }
 
-static inline Vec2 bottomCenterOf(const Rect& frame) {
+inline Vec2 bottomCenterOf(const Rect& frame) {
     return Vec2{frame.getMidX(), frame.getMinY()};
 }
 
-static inline Vec2 bottomRightOf(const Rect& frame) {
+inline Vec2 bottomRightOf(const Rect& frame) {
     return Vec2{frame.getMaxX(), frame.getMinY()};
 }
 
-static inline Vec2 bodyWidth(const Rect& frame) {
+inline Vec2 bodyWidth(const Rect& frame) {
     return Vec2{frame.size.width / 2, 0};
 }
 
-static inline Vec2 bodyHeight(const Rect& frame) {
+inline Vec2 bodyHeight(const Rect& frame) {
     return Vec2{0, frame.size.height / 2};
 }
 
-static inline Vec2 leftOf(const Rect& body, const Rect& frame) {
+inline Vec2 leftOf(const Rect& body, const Rect& frame) {
     return centerLeftOf(frame) - bodyWidth(body);
 }
 
-static inline Vec2 rightOf(const Rect& body, const Rect& frame) {
+inline Vec2 rightOf(const Rect& body, const Rect& frame) {
     return centerRightOf(frame) + bodyWidth(body);
 }
 
-static inline Vec2 above(const Rect& body, const Rect& frame) {
+inline Vec2 above(const Rect& body, const Rect& frame) {
     return topCenterOf(frame) + bodyHeight(body);
 }
 
-static inline Vec2 below(const Rect& body, const Rect& frame) {
+inline Vec2 below(const Rect& body, const Rect& frame) {
     return bottomCenterOf(frame) - bodyHeight(body);
 }
 
-static inline Vec2 origin(const Rect& body, const Rect& world, Direction direction) {
+inline Vec2 origin(const Rect& body, const Rect& world, Direction direction) {
     switch (direction) {
         case Direction::North: return geometry::below(body, world);
         case Direction::South: return geometry::above(body, world);
@@ -79,7 +79,7 @@ static inline Vec2 origin(const Rect& body, const Rect& world, Direction directi
     }
 }
 
-static inline Vec2 destination(const Rect& body, const Rect& world, Direction direction) {
+inline Vec2 destination(const Rect& body, const Rect& world, Direction direction) {
     switch (direction) {
         case Direction::North: return geometry::above(body, world);
         case Direction::South: return geometry::below(body, world);
@@ -88,19 +88,19 @@ static inline Vec2 destination(const Rect& body, const Rect& world, Direction di
     }
 }
 
-static inline Size rotatedSize(const Size& size, float angle) {
+inline Size rotatedSize(const Size& size, float angle) {
     const auto width = size.width * std::cos(angle);
     const auto height = size.width * std::sin(angle);
     return Size{width, height};
 }
 
-static inline Vec2 rotatedOffset(const Size& size, float angle) {
+inline Vec2 rotatedOffset(const Size& size, float angle) {
     const auto x = size.height / 2.0f * std::sin(angle);
     const auto y = x * std::tan(angle);
     return Vec2{x, y};
 }
 
-static inline Vec2 entryPosition(Direction direction, const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
+inline Vec2 entryPosition(Direction direction, const Rect& frame, const Vec2& destination, const Size& size, float angle = 0.0f) {
     const auto radians = MATH_DEG_TO_RAD(angle);
     const auto sizeOffset = rotatedSize(size, radians);
     const auto offset = rotatedOffset(size, radians);
