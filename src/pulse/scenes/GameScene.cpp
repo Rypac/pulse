@@ -80,8 +80,7 @@ void GameScene::updateListeners(bool isGameRunning) {
 void GameScene::addMenuOptions() {
     const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
-    menuButton->setAnchorPoint(Vec2::ANCHOR_TOP_RIGHT);
-    menuButton->setPosition(Vec2{sceneFrame().getMaxX() - 20, sceneFrame().getMaxY() - 20});
+    menuButton->setPosition(Vec2{sceneFrame().getMaxX() - 50, sceneFrame().getMaxY() - 50});
     menuButton->onTouchEnded = [this](auto ref) {
         safe_callback(onEnterMenu, this);
     };
