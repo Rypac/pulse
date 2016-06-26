@@ -27,7 +27,6 @@ void TitleScene::addTitle() {
     const auto& size = title->getContentSize();
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
     const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, angle);
-    const auto end = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, angle);
 
     title->setPosition(start);
     title->setRotation(-angle);
@@ -35,7 +34,7 @@ void TitleScene::addTitle() {
 
     titleAnimator_ = NodeAnimator(title);
     titleAnimator_.setEntryAnimation(MoveTo::create(0.25, destination));
-    titleAnimator_.setExitAnimation(MoveTo::create(0.25, end));
+    titleAnimator_.setExitAnimation(MoveTo::create(0.25, start));
 }
 
 void TitleScene::addPlayButton() {
@@ -45,7 +44,6 @@ void TitleScene::addPlayButton() {
     const auto& size = playButton->getContentSize();
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
     const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, angle);
-    const auto end = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, angle);
 
     playButton->setPosition(start);
     playButton->setRotation(-angle);
@@ -56,7 +54,7 @@ void TitleScene::addPlayButton() {
 
     playAnimator_ = NodeAnimator(playButton);
     playAnimator_.setEntryAnimation(MoveTo::create(0.2, destination));
-    playAnimator_.setExitAnimation(MoveTo::create(0.4, end));
+    playAnimator_.setExitAnimation(MoveTo::create(0.2, start));
 }
 
 void TitleScene::addModesButton() {
@@ -105,7 +103,7 @@ void TitleScene::runEntryAnimation() {
     runAction(SequenceBuilder()
         .add(DelayTime::create(0.05))
         .add([this]() { titleAnimator_.runEntryAnimation(); })
-        .add(DelayTime::create(0.5))
+        .add(DelayTime::create(0.6))
         .add([this]() { playAnimator_.runEntryAnimation(); })
         .add(DelayTime::create(0.4))
         .add([this]() { modeAnimator_.runEntryAnimation(); })
@@ -119,17 +117,17 @@ void TitleScene::runEntryAnimation() {
 
 void TitleScene::runExitAnimation() {
     runAction(SequenceBuilder()
-        .add(DelayTime::create(0.05))
-        .add([this]() { titleAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.4))
-        .add([this]() { playAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.3))
+        .add(DelayTime::create(0.08))
         .add([this]() { modeAnimator_.runExitAnimation(); })
         .add(DelayTime::create(0.1))
         .add([this]() { settingsAnimator_.runExitAnimation(); })
         .add(DelayTime::create(0.1))
         .add([this]() { achievementsAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.3))
+        .add(DelayTime::create(0.2))
+        .add([this]() { playAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.4))
+        .add([this]() { titleAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.4))
         .add([this]() { safe_callback(onPlaySelected, this); })
         .build()
     );
