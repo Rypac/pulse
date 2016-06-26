@@ -27,6 +27,9 @@ class TitleScene : public BaseScene {
 
     NodeAnimator titleAnimator_;
     NodeAnimator playAnimator_;
+    NodeAnimator modeAnimator_;
+    NodeAnimator settingsAnimator_;
+    NodeAnimator achievementsAnimator_;
 };
 
 }
