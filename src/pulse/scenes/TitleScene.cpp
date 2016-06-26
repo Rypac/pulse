@@ -15,9 +15,7 @@ TitleScene::TitleScene(): titleAnimator_(), playAnimator_() {
     addAchievmentsButton();
     addSettingsButton();
 
-    setonEnterTransitionDidFinishCallback([this]() {
-        this->runEntryAnimation();
-    });
+    runEntryAnimation();
 }
 
 void TitleScene::addTitle() {
