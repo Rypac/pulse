@@ -1,5 +1,6 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/2d/Geometry.hpp"
+#include "pulse/actions/SequenceBuilder.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
@@ -101,37 +102,35 @@ void TitleScene::addSettingsButton() {
 }
 
 void TitleScene::runEntryAnimation() {
-    const auto animations = Sequence::create(
-        DelayTime::create(0.05),
-        CallFunc::create([this]() { titleAnimator_.runEntryAnimation(); }),
-        DelayTime::create(0.5),
-        CallFunc::create([this]() { playAnimator_.runEntryAnimation(); }),
-        DelayTime::create(0.4),
-        CallFunc::create([this]() { modeAnimator_.runEntryAnimation(); }),
-        DelayTime::create(0.1),
-        CallFunc::create([this]() { settingsAnimator_.runEntryAnimation(); }),
-        DelayTime::create(0.1),
-        CallFunc::create([this]() { achievementsAnimator_.runEntryAnimation(); }),
-        nullptr
+    runAction(SequenceBuilder()
+        .add(DelayTime::create(0.05))
+        .add([this]() { titleAnimator_.runEntryAnimation(); })
+        .add(DelayTime::create(0.5))
+        .add([this]() { playAnimator_.runEntryAnimation(); })
+        .add(DelayTime::create(0.4))
+        .add([this]() { modeAnimator_.runEntryAnimation(); })
+        .add(DelayTime::create(0.1))
+        .add([this]() { settingsAnimator_.runEntryAnimation(); })
+        .add(DelayTime::create(0.1))
+        .add([this]() { achievementsAnimator_.runEntryAnimation(); })
+        .build()
     );
-    runAction(animations);
 }
 
 void TitleScene::runExitAnimation() {
-    const auto animations = Sequence::create(
-        DelayTime::create(0.05),
-        CallFunc::create([this]() { titleAnimator_.runExitAnimation(); }),
-        DelayTime::create(0.4),
-        CallFunc::create([this]() { playAnimator_.runExitAnimation(); }),
-        DelayTime::create(0.3),
-        CallFunc::create([this]() { modeAnimator_.runExitAnimation(); }),
-        DelayTime::create(0.1),
-        CallFunc::create([this]() { settingsAnimator_.runExitAnimation(); }),
-        DelayTime::create(0.1),
-        CallFunc::create([this]() { achievementsAnimator_.runExitAnimation(); }),
-        DelayTime::create(0.3),
-        CallFunc::create([this]() { safe_callback(onPlaySelected, this); }),
-        nullptr
+    runAction(SequenceBuilder()
+        .add(DelayTime::create(0.05))
+        .add([this]() { titleAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.4))
+        .add([this]() { playAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.3))
+        .add([this]() { modeAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.1))
+        .add([this]() { settingsAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.1))
+        .add([this]() { achievementsAnimator_.runExitAnimation(); })
+        .add(DelayTime::create(0.3))
+        .add([this]() { safe_callback(onPlaySelected, this); })
+        .build()
     );
-    runAction(animations);
 }
