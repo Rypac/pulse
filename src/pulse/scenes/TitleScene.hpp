@@ -22,6 +22,9 @@ class TitleScene : public BaseScene {
     void addAchievmentsButton();
     void addSettingsButton();
 
+    void runEntryAnimation();
+    void runExitAnimation();
+
     NodeAnimator titleAnimator_;
     NodeAnimator playAnimator_;
 };

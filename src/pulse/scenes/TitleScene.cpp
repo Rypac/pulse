@@ -1,6 +1,5 @@
 #include "pulse/scenes/TitleScene.hpp"
 #include "pulse/2d/Geometry.hpp"
-#include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
@@ -16,13 +15,7 @@ TitleScene::TitleScene(): titleAnimator_(), playAnimator_() {
     addSettingsButton();
 
     setonEnterTransitionDidFinishCallback([this]() {
-        const auto animations = Sequence::create(
-            CallFunc::create([this]() { titleAnimator_.runEntryAnimation(); }),
-            DelayTime::create(0.5),
-            CallFunc::create([this]() { playAnimator_.runEntryAnimation(); }),
-            nullptr
-        );
-        this->runAction(animations);
+        this->runEntryAnimation();
     });
 }
 
@@ -40,8 +33,8 @@ void TitleScene::addTitle() {
     addChild(title);
 
     titleAnimator_ = NodeAnimator(title);
-    titleAnimator_.setEntryAnimation(MoveTo::create(0.5, destination));
-    titleAnimator_.setExitAnimation(MoveTo::create(0.5, end));
+    titleAnimator_.setEntryAnimation(MoveTo::create(0.25, destination));
+    titleAnimator_.setExitAnimation(MoveTo::create(0.25, end));
 }
 
 void TitleScene::addPlayButton() {
@@ -56,13 +49,13 @@ void TitleScene::addPlayButton() {
     playButton->setPosition(start);
     playButton->setRotation(-angle);
     playButton->onTouchEnded = [this](auto ref) {
-        safe_callback(onPlaySelected, this);
+        this->runExitAnimation();
     };
     addChild(playButton);
 
     playAnimator_ = NodeAnimator(playButton);
-    playAnimator_.setEntryAnimation(MoveTo::create(0.5, destination));
-    playAnimator_.setExitAnimation(MoveTo::create(0.5, end));
+    playAnimator_.setEntryAnimation(MoveTo::create(0.2, destination));
+    playAnimator_.setExitAnimation(MoveTo::create(0.2, end));
 }
 
 void TitleScene::addModesButton() {
@@ -90,4 +83,28 @@ void TitleScene::addSettingsButton() {
         safe_callback(onSettingsSelected, this);
     };
     addChild(settingsButton);
+}
+
+void TitleScene::runEntryAnimation() {
+    const auto animations = Sequence::create(
+        DelayTime::create(0.1),
+        CallFunc::create([this]() { titleAnimator_.runEntryAnimation(); }),
+        DelayTime::create(0.5),
+        CallFunc::create([this]() { playAnimator_.runEntryAnimation(); }),
+        nullptr
+    );
+    runAction(animations);
+}
+
+void TitleScene::runExitAnimation() {
+    const auto animations = Sequence::create(
+        DelayTime::create(0.1),
+        CallFunc::create([this]() { titleAnimator_.runExitAnimation(); }),
+        DelayTime::create(0.4),
+        CallFunc::create([this]() { playAnimator_.runExitAnimation(); }),
+        DelayTime::create(0.3),
+        CallFunc::create([this]() { safe_callback(onPlaySelected, this); }),
+        nullptr
+    );
+    runAction(animations);
 }
