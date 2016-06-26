@@ -1,4 +1,5 @@
 #include "pulse/ui/Button.hpp"
+#include "pulse/extensions/Node.hpp"
 #include "pulse/utilities/Callback.hpp"
 
 using pulse::ui::Button;
@@ -39,7 +40,7 @@ Button::~Button() {
 }
 
 bool Button::onTouchDidBegin(cocos2d::Touch* touch, cocos2d::Event* event) {
-    if (not getBoundingBox().containsPoint(touch->getLocation())) {
+    if (not node::containsPoint(this, touch->getLocation())) {
         return false;
     }
 
@@ -52,7 +53,7 @@ bool Button::onTouchDidBegin(cocos2d::Touch* touch, cocos2d::Event* event) {
 }
 
 void Button::onTouchDidMove(cocos2d::Touch* touch, cocos2d::Event* event) {
-    if (cancelled_ or getBoundingBox().containsPoint(touch->getLocation())) {
+    if (cancelled_ or node::containsPoint(this, touch->getLocation())) {
         return;
     } else {
         cancelled_ = true;
