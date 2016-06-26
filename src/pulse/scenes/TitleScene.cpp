@@ -115,7 +115,7 @@ void TitleScene::runEntryAnimation() {
 
 void TitleScene::runExitAnimation() {
     runAction(SequenceBuilder()
-        .add(DelayTime::create(0.08))
+        .add(DelayTime::create(0.05))
         .add([this]() { modeAnimator_.runExitAnimation(); })
         .add(DelayTime::create(0.1))
         .add([this]() { settingsAnimator_.runExitAnimation(); })
