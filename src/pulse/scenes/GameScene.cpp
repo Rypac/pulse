@@ -44,7 +44,7 @@ GameScene::~GameScene() {
         CC_SAFE_RELEASE(listener);
     }
     CC_SAFE_RELEASE(player);
-    CC_SAFE_RELEASE(scoreLabel);
+    CC_SAFE_RELEASE(score);
 }
 
 void GameScene::startNewGame() {
@@ -80,7 +80,7 @@ void GameScene::updateListeners(bool isGameRunning) {
 void GameScene::addMenuOptions() {
     const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
-    menuButton->setPosition(Vec2{sceneFrame().getMaxX() - 50, sceneFrame().getMaxY() - 50});
+    menuButton->setPosition(sceneFrame().getMaxX() - 50, sceneFrame().getMaxY() - 50);
     menuButton->onTouchEnded = [this](auto ref) {
         safe_callback(onEnterMenu, this);
     };
@@ -88,11 +88,12 @@ void GameScene::addMenuOptions() {
 }
 
 void GameScene::addScoreLabel() {
-    scoreLabel = Label::createWithTTF("", Font::System, 28);
-    scoreLabel->retain();
-    scoreLabel->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-    scoreLabel->setPosition(Vec2{sceneFrame().getMinX() + 20, sceneFrame().getMaxY() - 20});
-    addChild(scoreLabel, 3);
+    score = Score::create(0);
+    score->retain();
+    score->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+    score->setScale(0.2);
+    score->setPosition(sceneFrame().getMinX() + 10, sceneFrame().getMaxY() - 10);
+    addChild(score, 3);
 }
 
 void GameScene::addPlayer() {
@@ -196,7 +197,7 @@ void GameScene::addGameStateListeners() {
         }));
     };
     gameState.onScoreChanged = [this]() {
-        scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
+        score->setScore(gameState.currentScore());
     };
     gameState.onTimeModeChanged = [this](auto mode) {
         this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
