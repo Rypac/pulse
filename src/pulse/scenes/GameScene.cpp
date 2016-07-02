@@ -196,6 +196,7 @@ void GameScene::addGameStateListeners() {
         this->runAction(autoreleased<CallbackAfterDelay>(0.5, [this]() {
             safe_callback(onGameOver, this, gameState.currentScore());
         }));
+        player->setColor(Color3B::RED);
     };
     gameState.onScoreChanged = [this]() {
         score->setScore(gameState.currentScore());
