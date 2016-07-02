@@ -97,34 +97,34 @@ void TitleScene::addSettingsButton() {
     achievementsAnimator_.setExitAnimation(ScaleTo::create(0.1, 0));
 }
 
-        .add(DelayTime::create(0.05))
 Action* TitleScene::entryAnimation() {
     return SequenceBuilder()
+        .delay(0.05)
         .add([this]() { titleAnimator_.runEntryAnimation(); })
-        .add(DelayTime::create(0.6))
+        .delay(0.6)
         .add([this]() { playAnimator_.runEntryAnimation(); })
-        .add(DelayTime::create(0.4))
+        .delay(0.4)
         .add([this]() { modeAnimator_.runEntryAnimation(); })
-        .add(DelayTime::create(0.1))
+        .delay(0.1)
         .add([this]() { settingsAnimator_.runEntryAnimation(); })
-        .add(DelayTime::create(0.1))
+        .delay(0.1)
         .add([this]() { achievementsAnimator_.runEntryAnimation(); })
         .build();
 }
 
-        .add(DelayTime::create(0.05))
 Action* TitleScene::exitAnimation() {
     return SequenceBuilder()
+        .delay(0.05)
         .add([this]() { modeAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.1))
+        .delay(0.1)
         .add([this]() { settingsAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.1))
+        .delay(0.1)
         .add([this]() { achievementsAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.2))
+        .delay(0.2)
         .add([this]() { playAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.4))
+        .delay(0.4)
         .add([this]() { titleAnimator_.runExitAnimation(); })
-        .add(DelayTime::create(0.4))
+        .delay(0.4)
         .add([this]() { safe_callback(onPlaySelected, this); })
         .build();
 }

@@ -16,6 +16,10 @@ struct SequenceBuilder {
         return add(cocos2d::CallFunc::create(action));
     }
 
+    SequenceBuilder& delay(float delay) {
+        return add(cocos2d::DelayTime::create(delay));
+    }
+
     cocos2d::Action* build() const {
         return cocos2d::Sequence::create(toVector(actions));
     }
