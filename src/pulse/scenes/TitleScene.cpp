@@ -34,6 +34,7 @@ void TitleScene::addTitle() {
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
+    playButton->disableAfterClick(true);
     playButton->setRotation(-30.0f);
     playButton->onTouchEnded = [this](auto ref) {
         this->runAction(this->exitAnimation());

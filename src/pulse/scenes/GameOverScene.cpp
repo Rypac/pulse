@@ -41,6 +41,7 @@ void GameOverScene::addBanner(int score) {
 
 void GameOverScene::addRestartButton() {
     const auto restartButton = ui::Button::create(Resources::Buttons::Restart);
+    restartButton->disableAfterClick(true);
     restartButton->setRotation(-30.0f);
     restartButton->onTouchEnded = [this](auto ref) {
         this->runAction(autoreleased<CallbackAfter>(this->exitAnimation(), [this]() {
@@ -60,6 +61,7 @@ void GameOverScene::addRestartButton() {
 
 void GameOverScene::addHomeButton() {
     const auto homeButton = ui::Button::create(Resources::Buttons::Home);
+    homeButton->disableAfterClick(true);
     homeButton->setScale(0.0f);
     homeButton->setPosition(sceneFrame().getMinX() + 80, sceneFrame().getMaxY() - 80);
     homeButton->onTouchEnded = [this](auto ref) {
