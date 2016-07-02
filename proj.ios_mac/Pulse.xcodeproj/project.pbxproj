@@ -54,6 +54,8 @@
 		81563DF51CBB9EE200B303F9 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DED1CBB9E9000B303F9 /* libcocos2d Mac.a */; };
 		81775EE71CDF26D80011049C /* FollowedBy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81775EE51CDF26D80011049C /* FollowedBy.cpp */; };
 		81775EE81CDF26D80011049C /* FollowedBy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81775EE51CDF26D80011049C /* FollowedBy.cpp */; };
+		81794FAC1D27748A00124969 /* Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81794FAA1D27748A00124969 /* Score.cpp */; };
+		81794FAD1D27748A00124969 /* Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81794FAA1D27748A00124969 /* Score.cpp */; };
 		817B8A3D1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */; };
 		81827DF71CB11AB2009EA6A7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81827DF61CB11AB2009EA6A7 /* Images.xcassets */; };
@@ -203,6 +205,8 @@
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
 		81775EE51CDF26D80011049C /* FollowedBy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FollowedBy.cpp; path = pulse/actions/FollowedBy.cpp; sourceTree = "<group>"; };
 		81775EE61CDF26D80011049C /* FollowedBy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FollowedBy.hpp; path = pulse/actions/FollowedBy.hpp; sourceTree = "<group>"; };
+		81794FAA1D27748A00124969 /* Score.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Score.cpp; path = pulse/sprites/Score.cpp; sourceTree = "<group>"; };
+		81794FAB1D27748A00124969 /* Score.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Score.hpp; path = pulse/sprites/Score.hpp; sourceTree = "<group>"; };
 		817B8A3B1CA63961003BE291 /* ObstacleGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ObstacleGenerator.cpp; path = pulse/generators/ObstacleGenerator.cpp; sourceTree = "<group>"; };
 		817B8A3C1CA63961003BE291 /* ObstacleGenerator.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleGenerator.hpp; path = pulse/generators/ObstacleGenerator.hpp; sourceTree = "<group>"; };
 		817B8A3F1CA639F2003BE291 /* Generator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Generator.hpp; path = pulse/generators/Generator.hpp; sourceTree = "<group>"; };
@@ -552,6 +556,8 @@
 				81DF8E021CB101BA0092FA2B /* ObstaclePhysicsBody.hpp */,
 				812FBDD51D0E643100A712DA /* Player.cpp */,
 				812FBDD61D0E643100A712DA /* Player.hpp */,
+				81794FAA1D27748A00124969 /* Score.cpp */,
+				81794FAB1D27748A00124969 /* Score.hpp */,
 				81A7093E1CA8F3B600E51821 /* SpritePhysicsBody.cpp */,
 				81A7093F1CA8F3B600E51821 /* SpritePhysicsBody.hpp */,
 				81110ECC1CCCA17400BB0C9D /* WrappedSprite.cpp */,
@@ -759,6 +765,7 @@
 				81253C191CDEC7CB0072DBFD /* MirrorSprite.cpp in Sources */,
 				81DF8E031CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* GameScene.cpp in Sources */,
+				81794FAC1D27748A00124969 /* Score.cpp in Sources */,
 				81E8F3BF1CD5D9F200DC1689 /* Resolution.cpp in Sources */,
 				819765B01CF1548E00DA7534 /* PhysicsScene.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
@@ -793,6 +800,7 @@
 				817B8A3E1CA63961003BE291 /* ObstacleGenerator.cpp in Sources */,
 				81775EE81CDF26D80011049C /* FollowedBy.cpp in Sources */,
 				81253C161CDEBA7D0072DBFD /* RemoveSelfWithCallback.cpp in Sources */,
+				81794FAD1D27748A00124969 /* Score.cpp in Sources */,
 				81110ECF1CCCA17400BB0C9D /* WrappedSprite.cpp in Sources */,
 				81DF8E041CB101BA0092FA2B /* ObstaclePhysicsBody.cpp in Sources */,
 				81D817831CF024910081C4A1 /* Button.cpp in Sources */,
