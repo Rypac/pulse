@@ -15,4 +15,11 @@ class CallbackAfter : public cocos2d::Sequence {
     }
 };
 
+class CallbackAfterDelay : public cocos2d::Sequence {
+  public:
+    CallbackAfterDelay(float delay, const std::function<void()>& callback) {
+        initWithTwoActions(cocos2d::DelayTime::create(delay), cocos2d::CallFunc::create(callback));
+    }
+};
+
 }
