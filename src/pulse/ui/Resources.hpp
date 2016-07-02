@@ -55,7 +55,7 @@ namespace Resources {
             static constexpr const auto Seven = "score/7.png";
             static constexpr const auto Eight = "score/8.png";
             static constexpr const auto Nine = "score/9.png";
-            static constexpr const char* Numbers[] = {
+            static constexpr const char* Digits[] = {
                 Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine
             };
         }
