@@ -7,7 +7,7 @@ namespace ui {
 
 class Button : public cocos2d::Sprite {
   public:
-    Button(): reactsToTouch_{true}, touchScale_{-0.1f}, savedScale_{1.0f}, cancelled_{false} {}
+    Button();
     virtual ~Button();
 
     static Button* create(const std::string& filename);
@@ -16,6 +16,10 @@ class Button : public cocos2d::Sprite {
     TouchCallback onTouchBegan;
     TouchCallback onTouchEnded;
     TouchCallback onTouchCancelled;
+
+    void disableAfterClick(bool disable) {
+        disableAfterClick_ = disable;
+    }
 
     void setTouchEnabled(bool enabled) {
         listener_->setEnabled(enabled);
@@ -46,6 +50,7 @@ class Button : public cocos2d::Sprite {
     float savedScale_;
     bool reactsToTouch_;
     bool cancelled_;
+    bool disableAfterClick_;
 };
 
 } }

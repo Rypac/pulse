@@ -34,6 +34,14 @@ bool Button::initWithTexture(cocos2d::Texture2D* texture, const cocos2d::Rect& r
     return true;
 }
 
+Button::Button()
+: reactsToTouch_{true}
+, touchScale_{-0.1f}
+, savedScale_{1.0f}
+, cancelled_{false}
+, disableAfterClick_{false}
+{}
+
 Button::~Button() {
     if (listener_) {
         getEventDispatcher()->removeEventListener(listener_);
@@ -84,5 +92,9 @@ void Button::onTouchDidEnd(cocos2d::Touch* touch, cocos2d::Event* event) {
         ));
     } else {
         safe_callback(onTouchEnded, this);
+    }
+
+    if (disableAfterClick_) {
+        setTouchEnabled(false);
     }
 }
