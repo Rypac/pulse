@@ -8,24 +8,25 @@ using namespace cocos2d;
 
 Score* Score::create(int score) {
     const auto sprite = owned<Score>();
-    if (sprite and sprite->initWithScore(score)) {
+    if (sprite and sprite->init()) {
         sprite->autorelease();
+        sprite->setScore(score);
         return sprite;
     }
     delete sprite;
     return nullptr;
 }
 
-bool Score::initWithScore(int score) {
-    if (not Sprite::init()) {
-        return false;
+void Score::setScore(int score) {
+    for (auto&& digit : digits_) {
+        digit->removeFromParent();
     }
+    digits_.clear();
 
-    const auto& digitImages = Resources::Images::Score::Digits;
     do {
         auto digit = score % 10;
         score /= 10;
-        digits_.emplace_back(Sprite::create(digitImages[digit]));
+        digits_.emplace_back(Sprite::create(Resources::Images::Score::Digits[digit]));
     } while (score != 0);
 
     ranges::reverse(digits_);
@@ -37,12 +38,13 @@ bool Score::initWithScore(int score) {
     const auto digitSize = digits_[0]->getContentSize();
     const auto combinedDigitSize = Size{digitSize.width * digits_.size(), digitSize.height};
     setContentSize(combinedDigitSize);
-
-    return true;
 }
 
 void Score::setContentSize(const cocos2d::Size& size) {
     Sprite::setContentSize(size);
+    if (digits_.empty()) {
+        return;
+    }
 
     const auto digitSize = Size{size.width / digits_.size(), size.height};
     auto position = Vec2{digitSize.width / 2, digitSize.height / 2};
