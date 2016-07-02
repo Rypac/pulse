@@ -7,14 +7,15 @@ namespace pulse {
 
 class GameOverScene : public BaseScene {
   public:
-    GameOverScene();
+    GameOverScene(): GameOverScene(0) {}
+    GameOverScene(int score);
 
     using SceneCallback = std::function<void(GameOverScene* scene)>;
     SceneCallback onRestartGame;
     SceneCallback onQuitGame;
 
   private:
-    void addBanner();
+    void addBanner(int score);
     void addRestartButton();
     void addHomeButton();
 

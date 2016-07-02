@@ -192,7 +192,7 @@ void GameScene::addGameStateListeners() {
     gameState.onGameOver = [this]() {
         this->stopScene();
         this->runAction(autoreleased<CallbackAfter>(DelayTime::create(0.5), [this]() {
-            safe_callback(onGameOver, this);
+            safe_callback(onGameOver, this, gameState.currentScore());
         }));
     };
     gameState.onScoreChanged = [this]() {

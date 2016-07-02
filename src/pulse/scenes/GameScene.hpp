@@ -17,7 +17,9 @@ class GameScene : public PhysicsScene {
     using SceneCallback = std::function<void(GameScene* scene)>;
     SceneCallback onEnterMenu;
     SceneCallback onSceneDismissed;
-    SceneCallback onGameOver;
+
+    using GameOverCallback = std::function<void(GameScene* scene, int score)>;
+    GameOverCallback onGameOver;
 
   private:
     void startScene();

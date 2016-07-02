@@ -1,8 +1,11 @@
 #include "pulse/scenes/GameOverScene.hpp"
 #include "pulse/2d/Geometry.hpp"
 #include "pulse/actions/CallbackAfter.hpp"
+#include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/SequenceBuilder.hpp"
 #include "pulse/extensions/Ref.hpp"
+#include "pulse/extensions/Node.hpp"
+#include "pulse/sprites/Score.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
@@ -10,17 +13,18 @@
 using namespace pulse;
 using namespace cocos2d;
 
-GameOverScene::GameOverScene() {
-    addBanner();
+GameOverScene::GameOverScene(int score) {
+    addBanner(score);
     addRestartButton();
     addHomeButton();
 
     runAction(entryAnimation());
 }
 
-void GameOverScene::addBanner() {
+void GameOverScene::addBanner(int score) {
     const auto banner = Sprite::create(Resources::Images::Score::Banner);
     banner->setRotation(-30.0f);
+    banner->runAction(autoreleased<FollowedBy>(Score::create(score), Vec2{-80, 0}));
 
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
     const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, banner);

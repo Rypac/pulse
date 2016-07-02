@@ -117,8 +117,8 @@ void AppDelegate::addGameScene() {
     gameScene_->onEnterMenu = [this](auto scene) {
         this->addPauseMenuScene();
     };
-    gameScene_->onGameOver = [this](auto scene) {
-        this->addGameOverScene();
+    gameScene_->onGameOver = [this](auto scene, auto score) {
+        this->addGameOverScene(score);
         CC_SAFE_RELEASE_NULL(gameScene_);
     };
     gameScene_->onSceneDismissed = [this](auto scene) {
@@ -148,8 +148,8 @@ void AppDelegate::addPauseMenuScene() {
     Director::getInstance()->pushScene(menuScene);
 }
 
-void AppDelegate::addGameOverScene() {
-    const auto scene = autoreleased<GameOverScene>();
+void AppDelegate::addGameOverScene(int score) {
+    const auto scene = autoreleased<GameOverScene>(score);
     scene->setOnEnterCallback([=]() {
         scene->setBackground(this->sharedAnimatedBackground());
     });
