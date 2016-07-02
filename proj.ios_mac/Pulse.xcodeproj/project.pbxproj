@@ -236,6 +236,7 @@
 		81C44A441CC311D7006D6F0F /* TitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TitleScene.cpp; path = pulse/scenes/TitleScene.cpp; sourceTree = "<group>"; };
 		81C44A451CC311D7006D6F0F /* TitleScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TitleScene.hpp; path = pulse/scenes/TitleScene.hpp; sourceTree = "<group>"; };
 		81C44A4C1CC31421006D6F0F /* animations */ = {isa = PBXFileReference; lastKnownFileType = folder; path = animations; sourceTree = "<group>"; };
+		81C74A061D27A16A0072BEFA /* TextureAllocator.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TextureAllocator.hpp; path = pulse/utilities/TextureAllocator.hpp; sourceTree = "<group>"; };
 		81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DeveloperMenuScene.cpp; path = pulse/scenes/DeveloperMenuScene.cpp; sourceTree = "<group>"; };
 		81CAD93E1CACC0440010BA03 /* DeveloperMenuScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = DeveloperMenuScene.hpp; path = pulse/scenes/DeveloperMenuScene.hpp; sourceTree = "<group>"; };
 		81D28F901CDD8DF500C09896 /* Font.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Font.hpp; sourceTree = "<group>"; };
@@ -537,6 +538,7 @@
 				81417C6D1D03F3BB00A9F5E1 /* Callback.hpp */,
 				81382C1A1CA7E27C003C8EFE /* Logger.hpp */,
 				816908C61C9401E10073E4C6 /* Random.hpp */,
+				81C74A061D27A16A0072BEFA /* TextureAllocator.hpp */,
 			);
 			name = utilities;
 			sourceTree = "<group>";

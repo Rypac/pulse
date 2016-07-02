@@ -141,6 +141,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/utilities/Callback.hpp
     ${PULSE_DIR}/utilities/Logger.hpp
     ${PULSE_DIR}/utilities/Random.hpp
+    ${PULSE_DIR}/utilities/TextureAllocator.hpp
     ${PLATFORM_SPECIFIC_HEADERS}
 )
 

@@ -7,6 +7,7 @@
 #include "pulse/scenes/ModeSelectionScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
 #include "pulse/ui/Resources.hpp"
+#include "pulse/utilities/TextureAllocator.hpp"
 
 using namespace cocos2d;
 using namespace pulse;
@@ -68,6 +69,7 @@ void AppDelegate::gameRunning(bool running) {
 void AppDelegate::allocateResources() {
     animatedBackground_ = ParticleSystemQuad::create(Resources::Particles::AmbientBackground);
     animatedBackground_->retain();
+    TextureAllocator::initialiseResources();
 }
 
 Node* AppDelegate::sharedAnimatedBackground() const {
