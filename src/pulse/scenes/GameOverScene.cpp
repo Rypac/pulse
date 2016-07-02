@@ -1,10 +1,8 @@
 #include "pulse/scenes/GameOverScene.hpp"
 #include "pulse/2d/Geometry.hpp"
 #include "pulse/actions/CallbackAfter.hpp"
-#include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/SequenceBuilder.hpp"
 #include "pulse/extensions/Ref.hpp"
-#include "pulse/extensions/Node.hpp"
 #include "pulse/sprites/Score.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Resources.hpp"
@@ -24,7 +22,12 @@ GameOverScene::GameOverScene(int score) {
 void GameOverScene::addBanner(int score) {
     const auto banner = Sprite::create(Resources::Images::Score::Banner);
     banner->setRotation(-30.0f);
-    banner->runAction(autoreleased<FollowedBy>(Score::create(score), Vec2{-80, 0}));
+
+    const auto center = banner->getContentSize() / 2;
+    const auto position = Vec2{center.width - 80, center.height};
+    const auto bannerScore = Score::create(score);
+    bannerScore->setPosition(position);
+    banner->addChild(bannerScore);
 
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
     const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, banner);
