@@ -191,7 +191,9 @@ void GameScene::addGameStateListeners() {
     };
     gameState.onGameOver = [this]() {
         this->stopScene();
-        safe_callback(onGameOver, this);
+        this->runAction(autoreleased<CallbackAfter>(DelayTime::create(0.5), [this]() {
+            safe_callback(onGameOver, this);
+        }));
     };
     gameState.onScoreChanged = [this]() {
         scoreLabel->setString("Score: " + std::to_string(gameState.currentScore()));
