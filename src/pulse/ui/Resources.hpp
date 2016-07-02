@@ -45,6 +45,19 @@ namespace Resources {
 
         namespace Score {
             static constexpr const auto Banner = "score/banner.png";
+            static constexpr const auto Zero = "score/0.png";
+            static constexpr const auto One = "score/1.png";
+            static constexpr const auto Two = "score/2.png";
+            static constexpr const auto Three = "score/3.png";
+            static constexpr const auto Four = "score/4.png";
+            static constexpr const auto Five = "score/5.png";
+            static constexpr const auto Six = "score/6.png";
+            static constexpr const auto Seven = "score/7.png";
+            static constexpr const auto Eight = "score/8.png";
+            static constexpr const auto Nine = "score/9.png";
+            static constexpr const char* Numbers[] = {
+                Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine
+            };
         }
 
         namespace Menu {
