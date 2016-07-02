@@ -20,7 +20,7 @@ struct SequenceBuilder {
         return add(cocos2d::DelayTime::create(delay));
     }
 
-    cocos2d::Action* build() const {
+    cocos2d::FiniteTimeAction* build() const {
         return cocos2d::Sequence::create(toVector(actions));
     }
 

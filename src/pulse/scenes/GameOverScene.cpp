@@ -1,5 +1,6 @@
 #include "pulse/scenes/GameOverScene.hpp"
 #include "pulse/2d/Geometry.hpp"
+#include "pulse/actions/CallbackAfter.hpp"
 #include "pulse/actions/SequenceBuilder.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Button.hpp"
@@ -12,6 +13,7 @@ using namespace cocos2d;
 GameOverScene::GameOverScene() {
     addBanner();
     addRestartButton();
+    addHomeButton();
 
     runAction(entryAnimation());
 }
@@ -34,7 +36,9 @@ void GameOverScene::addRestartButton() {
     const auto restartButton = ui::Button::create(Resources::Buttons::Restart);
     restartButton->setRotation(-30.0f);
     restartButton->onTouchEnded = [this](auto ref) {
-        this->runAction(this->exitAnimation());
+        this->runAction(autoreleased<CallbackAfter>(this->exitAnimation(), [this]() {
+            safe_callback(onRestartGame, this);
+        }));
     };
 
     const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
@@ -47,23 +51,42 @@ void GameOverScene::addRestartButton() {
     restartAnimator_.setExitAnimation(MoveTo::create(0.2, start));
 }
 
-Action* GameOverScene::entryAnimation() {
+void GameOverScene::addHomeButton() {
+    const auto homeButton = ui::Button::create(Resources::Buttons::Home);
+    homeButton->setScale(0.0f);
+    homeButton->setPosition(sceneFrame().getMinX() + 80, sceneFrame().getMaxY() - 80);
+    homeButton->onTouchEnded = [this](auto ref) {
+        this->runAction(autoreleased<CallbackAfter>(this->exitAnimation(), [this]() {
+            safe_callback(onQuitGame, this);
+        }));
+    };
+    addChild(homeButton);
+
+    homeAnimator_ = NodeAnimator(homeButton);
+    homeAnimator_.setEntryAnimation(ScaleTo::create(0.1, 1));
+    homeAnimator_.setExitAnimation(ScaleTo::create(0.1, 0));
+}
+
+FiniteTimeAction* GameOverScene::entryAnimation() {
     return SequenceBuilder()
         .delay(0.05)
         .add([this]() { scoreAnimator_.runEntryAnimation(); })
         .delay(0.6)
         .add([this]() { restartAnimator_.runEntryAnimation(); })
         .delay(0.4)
+        .add([this]() { homeAnimator_.runEntryAnimation(); })
+        .delay(0.1)
         .build();
 }
 
-Action* GameOverScene::exitAnimation() {
+FiniteTimeAction* GameOverScene::exitAnimation() {
     return SequenceBuilder()
-        .delay(0.05)
+        .delay(0.1)
+        .add([this]() { homeAnimator_.runExitAnimation(); })
+        .delay(0.1)
         .add([this]() { restartAnimator_.runExitAnimation(); })
         .delay(0.4)
         .add([this]() { scoreAnimator_.runExitAnimation(); })
         .delay(0.4)
-        .add([this]() { safe_callback(onRestartGame, this); })
         .build();
 }

@@ -156,5 +156,8 @@ void AppDelegate::addGameOverScene() {
     scene->onRestartGame = [this](auto scene) {
         this->addGameScene();
     };
+    scene->onQuitGame = [this](auto scene) {
+        this->addTitleScene();
+    };
     Director::getInstance()->replaceScene(scene);
 }
