@@ -15,7 +15,7 @@ TitleScene::TitleScene(): titleAnimator_(), playAnimator_() {
     addAchievmentsButton();
     addSettingsButton();
 
-    runEntryAnimation();
+    runAction(entryAnimation());
 }
 
 void TitleScene::addTitle() {
@@ -46,7 +46,7 @@ void TitleScene::addPlayButton() {
     playButton->setPosition(start);
     playButton->setRotation(-angle);
     playButton->onTouchEnded = [this](auto ref) {
-        this->runExitAnimation();
+        this->runAction(this->exitAnimation());
     };
     addChild(playButton);
 
@@ -97,9 +97,9 @@ void TitleScene::addSettingsButton() {
     achievementsAnimator_.setExitAnimation(ScaleTo::create(0.1, 0));
 }
 
-void TitleScene::runEntryAnimation() {
-    runAction(SequenceBuilder()
         .add(DelayTime::create(0.05))
+Action* TitleScene::entryAnimation() {
+    return SequenceBuilder()
         .add([this]() { titleAnimator_.runEntryAnimation(); })
         .add(DelayTime::create(0.6))
         .add([this]() { playAnimator_.runEntryAnimation(); })
@@ -109,13 +109,12 @@ void TitleScene::runEntryAnimation() {
         .add([this]() { settingsAnimator_.runEntryAnimation(); })
         .add(DelayTime::create(0.1))
         .add([this]() { achievementsAnimator_.runEntryAnimation(); })
-        .build()
-    );
+        .build();
 }
 
-void TitleScene::runExitAnimation() {
-    runAction(SequenceBuilder()
         .add(DelayTime::create(0.05))
+Action* TitleScene::exitAnimation() {
+    return SequenceBuilder()
         .add([this]() { modeAnimator_.runExitAnimation(); })
         .add(DelayTime::create(0.1))
         .add([this]() { settingsAnimator_.runExitAnimation(); })
@@ -127,6 +126,5 @@ void TitleScene::runExitAnimation() {
         .add([this]() { titleAnimator_.runExitAnimation(); })
         .add(DelayTime::create(0.4))
         .add([this]() { safe_callback(onPlaySelected, this); })
-        .build()
-    );
+        .build();
 }

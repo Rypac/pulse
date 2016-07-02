@@ -199,6 +199,7 @@
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = pulse/models/TimeScale.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../libs/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
+		8163C2F81D1FA606000C5287 /* Animate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Animate.hpp; path = pulse/extensions/Animate.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
 		81775EE51CDF26D80011049C /* FollowedBy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FollowedBy.cpp; path = pulse/actions/FollowedBy.cpp; sourceTree = "<group>"; };
 		81775EE61CDF26D80011049C /* FollowedBy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FollowedBy.hpp; path = pulse/actions/FollowedBy.hpp; sourceTree = "<group>"; };
@@ -470,6 +471,7 @@
 		81417C691D03BF4B00A9F5E1 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				8163C2F81D1FA606000C5287 /* Animate.hpp */,
 				81417C6C1D03C0FF00A9F5E1 /* Node.hpp */,
 				81F6F9511CCDBB3700222C4F /* Rect.hpp */,
 				81417C6B1D03C0E900A9F5E1 /* Ref.hpp */,
