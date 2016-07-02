@@ -43,6 +43,10 @@ namespace Resources {
             static constexpr const auto Logo = "title/logo.png";
         }
 
+        namespace Score {
+            static constexpr const auto Banner = "score/banner.png";
+        }
+
         namespace Menu {
             namespace Slider {
                 static constexpr const auto Empty = "menu/slider/empty.png";
