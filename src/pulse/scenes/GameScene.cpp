@@ -61,6 +61,7 @@ void GameScene::stopScene() {
     node::stopAllActionsRecursively(this);
     player->setVelocity(Vec2::ZERO);
     updateListeners(false);
+    getScheduler()->setTimeScale(1.0);
 }
 
 void GameScene::resetScene() {
