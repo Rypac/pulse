@@ -119,4 +119,8 @@ inline Vec2 entryPosition(Direction direction, const Rect& frame, const Vec2& de
     }
 }
 
+inline Vec2 entryPosition(Direction direction, const Rect& frame, const Vec2& destination, const cocos2d::Node* node) {
+    return entryPosition(direction, frame, destination, node->getContentSize(), -node->getRotation());
+}
+
 } }

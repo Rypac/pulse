@@ -20,14 +20,11 @@ TitleScene::TitleScene() {
 
 void TitleScene::addTitle() {
     const auto title = Sprite::create(Resources::Images::Title::Logo);
+    title->setRotation(-30.0f);
 
-    const auto angle = 30.0f;
-    const auto& size = title->getContentSize();
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};
-    const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, size, angle);
-
+    const auto start = geometry::entryPosition(Direction::West, sceneFrame(), destination, title);
     title->setPosition(start);
-    title->setRotation(-angle);
     addChild(title);
 
     titleAnimator_ = NodeAnimator(title);
@@ -37,17 +34,14 @@ void TitleScene::addTitle() {
 
 void TitleScene::addPlayButton() {
     const auto playButton = ui::Button::create(Resources::Buttons::Play);
-
-    const auto angle = 30.0f;
-    const auto& size = playButton->getContentSize();
-    const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
-    const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, size, angle);
-
-    playButton->setPosition(start);
-    playButton->setRotation(-angle);
+    playButton->setRotation(-30.0f);
     playButton->onTouchEnded = [this](auto ref) {
         this->runAction(this->exitAnimation());
     };
+
+    const auto destination = Vec2{sceneFrame().getMaxX() - 195, sceneFrame().getMinY() + 65};
+    const auto start = geometry::entryPosition(Direction::East, sceneFrame(), destination, playButton);
+    playButton->setPosition(start);
     addChild(playButton);
 
     playAnimator_ = NodeAnimator(playButton);
