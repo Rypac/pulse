@@ -6,7 +6,7 @@ namespace pulse {
 
 class FollowedBy : public cocos2d::Action {
   public:
-    FollowedBy(cocos2d::Node* follower);
+    FollowedBy(cocos2d::Node* follower, const cocos2d::Vec2& offset = cocos2d::Vec2::ZERO);
     virtual ~FollowedBy();
 
     FollowedBy(const FollowedBy&) = delete;
@@ -19,6 +19,7 @@ class FollowedBy : public cocos2d::Action {
 
   private:
     cocos2d::Node* follower_;
+    cocos2d::Vec2 offset_;
 };
 
 }
