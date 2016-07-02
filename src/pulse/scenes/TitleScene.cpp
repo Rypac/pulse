@@ -8,7 +8,7 @@
 using namespace pulse;
 using namespace cocos2d;
 
-TitleScene::TitleScene(): titleAnimator_(), playAnimator_() {
+TitleScene::TitleScene() {
     addTitle();
     addPlayButton();
     addModesButton();
