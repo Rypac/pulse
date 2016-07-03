@@ -45,7 +45,7 @@ void ModeSelectionScene::updateSelectedMode(GameMode selectedMode) {
     mode_ = selectedMode;
     for (auto&& mode : modes_) {
         const auto& texture = mode.mode == selectedMode ? Resources::Buttons::Tick : Resources::Buttons::Blank;
-        mode.button->setTexture(texture);
+        mode.button->setSpriteFrame(texture);
     }
 }
 

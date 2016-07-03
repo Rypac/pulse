@@ -26,7 +26,7 @@ void Score::setScore(int score) {
     do {
         const auto digit = score % 10;
         score /= 10;
-        digits_.emplace_back(Sprite::create(Resources::Images::Score::Digits[digit]));
+        digits_.emplace_back(Sprite::createWithSpriteFrameName(Resources::Images::Digits[digit]));
     } while (score != 0);
 
     ranges::reverse(digits_);

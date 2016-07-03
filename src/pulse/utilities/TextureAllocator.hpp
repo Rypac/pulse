@@ -7,26 +7,17 @@ namespace pulse {
 
 struct TextureAllocator {
 
-    static void initialiseResources(cocos2d::TextureCache* textureCache = cocos2d::Director::getInstance()->getTextureCache()) {
-        initialiseDigits(textureCache);
-        initialiseButtons(textureCache);
+    static void initialiseResources() {
+        initialiseSpritesheet(cocos2d::SpriteFrameCache::getInstance());
     }
 
-    static void initialiseDigits(cocos2d::TextureCache* textureCache) {
-        for (auto&& digit : Resources::Images::Score::Digits) {
-            textureCache->addImageAsync(digit, nullptr);
-        }
-    }
-
-    static void initialiseButtons(cocos2d::TextureCache* textureCache) {
-        textureCache->addImageAsync(Resources::Buttons::Achievements, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Blank, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Home, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Modes, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Pause, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Play, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Reset, nullptr);
-        textureCache->addImageAsync(Resources::Buttons::Restart, nullptr);
+    static void initialiseSpritesheet(cocos2d::SpriteFrameCache* spriteCache) {
+        spriteCache->addSpriteFramesWithFile(Resources::Spritesheets::Banner);
+        spriteCache->addSpriteFramesWithFile(Resources::Spritesheets::Buttons);
+        spriteCache->addSpriteFramesWithFile(Resources::Spritesheets::Digits);
+        spriteCache->addSpriteFramesWithFile(Resources::Spritesheets::Intro);
+        spriteCache->addSpriteFramesWithFile(Resources::Spritesheets::Letters);
+        spriteCache->addSpriteFramesWithFile(Resources::Spritesheets::Menu);
     }
 };
 

@@ -20,17 +20,17 @@ namespace Resources {
     }
 
     namespace Buttons {
-        static constexpr const auto Achievements = "buttons/achievements.png";
-        static constexpr const auto Blank = "buttons/blank.png";
-        static constexpr const auto Home = "buttons/home.png";
-        static constexpr const auto Modes = "buttons/modes.png";
-        static constexpr const auto Pause = "buttons/pause.png";
-        static constexpr const auto Play = "buttons/play.png";
-        static constexpr const auto Resume = "buttons/resume.png";
-        static constexpr const auto Reset = "buttons/reset.png";
-        static constexpr const auto Restart = "buttons/restart.png";
-        static constexpr const auto Settings = "buttons/settings.png";
-        static constexpr const auto Tick = "buttons/tick.png";
+        static constexpr const auto Achievements = "achievements.png";
+        static constexpr const auto Blank = "blank.png";
+        static constexpr const auto Home = "home.png";
+        static constexpr const auto Modes = "modes.png";
+        static constexpr const auto Pause = "pause.png";
+        static constexpr const auto Play = "play.png";
+        static constexpr const auto Resume = "resume.png";
+        static constexpr const auto Reset = "reset.png";
+        static constexpr const auto Restart = "restart.png";
+        static constexpr const auto Settings = "settings.png";
+        static constexpr const auto Tick = "tick.png";
     }
 
     namespace Images {
@@ -39,34 +39,19 @@ namespace Resources {
             static constexpr const auto Long = "tandem_intro_long.png";
         }
 
-        namespace Title {
-            static constexpr const auto Logo = "title/logo.png";
-        }
-
-        namespace Score {
-            static constexpr const auto Banner = "score/banner.png";
-            static constexpr const auto Zero = "score/0.png";
-            static constexpr const auto One = "score/1.png";
-            static constexpr const auto Two = "score/2.png";
-            static constexpr const auto Three = "score/3.png";
-            static constexpr const auto Four = "score/4.png";
-            static constexpr const auto Five = "score/5.png";
-            static constexpr const auto Six = "score/6.png";
-            static constexpr const auto Seven = "score/7.png";
-            static constexpr const auto Eight = "score/8.png";
-            static constexpr const auto Nine = "score/9.png";
-            static constexpr const char* Digits[] = {
-                Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine
-            };
-        }
+        static constexpr const auto Banner = "banner.png";
+        static constexpr const auto Logo = "letters.png";
+        static constexpr const char* Digits[] = {
+            "0.png", "1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png", "9.png"
+        };
 
         namespace Menu {
             namespace Slider {
-                static constexpr const auto Empty = "menu/slider/empty.png";
-                static constexpr const auto Filled = "menu/slider/filled.png";
-                static constexpr const auto Normal = "menu/slider/ball/normal.png";
-                static constexpr const auto Selected = "menu/slider/ball/selected.png";
-                static constexpr const auto Disabled = "menu/slider/ball/disabled.png";
+                static constexpr const auto Disabled = "slider/disabled.png";
+                static constexpr const auto Empty = "slider/empty.png";
+                static constexpr const auto Filled = "slider/filled.png";
+                static constexpr const auto Normal = "slider/normal.png";
+                static constexpr const auto Selected = "slider/selected.png";
             }
         }
     }
@@ -80,7 +65,12 @@ namespace Resources {
     }
 
     namespace Spritesheets {
+        static constexpr const auto Banner = "banner.plist";
+        static constexpr const auto Buttons = "buttons.plist";
+        static constexpr const auto Digits = "digits.plist";
         static constexpr const auto Intro = "animations/splash/tandem_intro_spritesheet.plist";
+        static constexpr const auto Letters = "letters.plist";
+        static constexpr const auto Menu = "menu.plist";
     }
 }
 

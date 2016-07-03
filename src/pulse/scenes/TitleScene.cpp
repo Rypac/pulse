@@ -19,7 +19,14 @@ TitleScene::TitleScene() {
 }
 
 void TitleScene::addTitle() {
-    const auto title = Sprite::create(Resources::Images::Title::Logo);
+    const auto title = Sprite::createWithSpriteFrameName(Resources::Images::Banner);
+    const auto logo = Sprite::createWithSpriteFrameName(Resources::Images::Logo);
+    const auto center = title->getContentSize() / 2;
+    const auto position = Vec2{center.width - 80, center.height};
+    logo->setPosition(position);
+    logo->setScale(0.5f);
+    title->setScale(2.0f);
+    title->addChild(logo);
     title->setRotation(-30.0f);
 
     const auto destination = Vec2{sceneFrame().getMidX() + 20, sceneFrame().getMidY() + 80};

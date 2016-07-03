@@ -20,12 +20,14 @@ GameOverScene::GameOverScene(int score) {
 }
 
 void GameOverScene::addBanner(int score) {
-    const auto banner = Sprite::create(Resources::Images::Score::Banner);
+    const auto banner = Sprite::createWithSpriteFrameName(Resources::Images::Banner);
+    banner->setScale(2.0f);
     banner->setRotation(-30.0f);
 
     const auto center = banner->getContentSize() / 2;
     const auto position = Vec2{center.width - 80, center.height};
     const auto bannerScore = Score::create(score);
+    bannerScore->setScale(0.5f);
     bannerScore->setPosition(position);
     banner->addChild(bannerScore);
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>banner.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{474,100}</string>
+                <key>spriteSourceSize</key>
+                <string>{474,100}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{474,100}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>3 4 5 2 3 5 1 2 5 0 1 5</string>
+                <key>vertices</key>
+                <string>474 30 474 70 450 100 0 100 0 0 450 0</string>
+                <key>verticesUV</key>
+                <string>475 31 475 71 451 101 1 101 1 1 451 1</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>banner.png</string>
+            <key>size</key>
+            <string>{476,102}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:7f0774922fe63e08f14b94052499cb90:78599ba3978d237ae2f0dd07b726f4fb:0176001ba5b4c0b0916890d608783050$</string>
+            <key>textureFileName</key>
+            <string>banner.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>slider/disabled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{45,45}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,45}</string>
+                <key>textureRect</key>
+                <string>{{678,1},{45,45}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>45 45 0 45 0 0 45 0</string>
+                <key>verticesUV</key>
+                <string>723 46 678 46 678 1 723 1</string>
+            </dict>
+            <key>slider/empty.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{675,32}</string>
+                <key>spriteSourceSize</key>
+                <string>{675,32}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{675,32}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>5 0 1 5 1 2 4 5 2 4 2 3 7 4 3 6 7 3 0 5 6 3 0 6</string>
+                <key>vertices</key>
+                <string>675 32 0 32 0 0 675 0 19 6 19 26 656 26 656 6</string>
+                <key>verticesUV</key>
+                <string>676 33 1 33 1 1 676 1 20 7 20 27 657 27 657 7</string>
+            </dict>
+            <key>slider/filled.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0.5,0}</string>
+                <key>spriteSize</key>
+                <string>{658,22}</string>
+                <key>spriteSourceSize</key>
+                <string>{675,32}</string>
+                <key>textureRect</key>
+                <string>{{1,35},{658,22}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>667 27 9 27 9 5 667 5</string>
+                <key>verticesUV</key>
+                <string>659 57 1 57 1 35 659 35</string>
+            </dict>
+            <key>slider/normal.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{45,45}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,45}</string>
+                <key>textureRect</key>
+                <string>{{725,1},{45,45}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>1 2 3 0 1 3</string>
+                <key>vertices</key>
+                <string>45 45 0 45 0 0 45 0</string>
+                <key>verticesUV</key>
+                <string>770 46 725 46 725 1 770 1</string>
+            </dict>
+            <key>slider/selected.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{43,45}</string>
+                <key>spriteSourceSize</key>
+                <string>{45,45}</string>
+                <key>textureRect</key>
+                <string>{{772,2},{43,45}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>0 4 5 0 1 3 1 2 3 0 3 4</string>
+                <key>vertices</key>
+                <string>44 12 44 44 5 45 1 33 1 1 39 0</string>
+                <key>verticesUV</key>
+                <string>815 14 815 46 776 47 772 35 772 3 810 2</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>menu.png</string>
+            <key>size</key>
+            <string>{816,58}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:d7753f976ddffdb03cef76001593b0f1:1b32ecc3b78a885c6ce54dc78d756eed:36e9f8543085153a83e3dd182968e505$</string>
+            <key>textureFileName</key>
+            <string>menu.png</string>
+        </dict>
+    </dict>
+</plist>

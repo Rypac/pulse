@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>letters.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-6,-1}</string>
+                <key>spriteSize</key>
+                <string>{955,302}</string>
+                <key>spriteSourceSize</key>
+                <string>{1009,324}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{955,302}}</string>
+                <key>textureRotated</key>
+                <false/>
+                <key>triangles</key>
+                <string>2 39 40 34 36 37 34 35 36 9 34 37 32 33 34 37 8 9 2 38 39 29 30 31 18 28 29 29 13 18 12 31 32 18 27 28 18 26 27 22 23 24 21 22 24 21 24 25 19 20 21 26 19 21 26 18 19 26 21 25 18 16 17 18 13 16 13 14 15 13 15 16 29 12 13 29 31 12 9 32 34 11 12 32 32 9 10 32 10 11 37 38 8 2 8 38 3 5 6 3 4 5 8 3 6 8 2 3 8 6 7 0 1 2 0 2 40</string>
+                <key>vertices</key>
+                <string>976 70 964 106 922 117 924 202 967 210 976 274 959 302 827 304 823 254 736 257 729 302 455 302 434 256 361 259 346 303 266 302 244 254 213 254 203 156 183 163 153 205 117 209 115 293 81 314 21 299 22 71 63 47 72 12 490 13 504 63 542 61 545 140 591 165 591 66 638 56 636 13 770 14 799 63 819 59 832 14 964 12</string>
+                <key>verticesUV</key>
+                <string>956 59 944 95 902 106 904 191 947 199 956 263 939 291 807 293 803 243 716 246 709 291 435 291 414 245 341 248 326 292 246 291 224 243 193 243 183 145 163 152 133 194 97 198 95 282 61 303 1 288 2 60 43 36 52 1 470 2 484 52 522 50 525 129 571 154 571 55 618 45 616 2 750 3 779 52 799 48 812 3 944 1</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>letters.png</string>
+            <key>size</key>
+            <string>{957,304}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:d1c32d75fd6faa0d604590de0b8d3718:e21d862502f746ef1fd52d9281c11d90:d84be5a61064880062d45a97cebea365$</string>
+            <key>textureFileName</key>
+            <string>letters.png</string>
+        </dict>
+    </dict>
+</plist>
