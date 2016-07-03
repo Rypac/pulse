@@ -12,6 +12,7 @@
 #include "pulse/generators/ObstacleGenerator.hpp"
 #include "pulse/movement/AccelerometerMovementSystem.hpp"
 #include "pulse/ui/Button.hpp"
+#include "pulse/ui/Colour.hpp"
 #include "pulse/ui/Font.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
@@ -196,7 +197,7 @@ void GameScene::addGameStateListeners() {
         this->runAction(autoreleased<CallbackAfterDelay>(0.5, [this]() {
             safe_callback(onGameOver, this, gameState.currentScore());
         }));
-        player->setColor(Color3B::RED);
+        player->setColor(Colour::Blue);
     };
     gameState.onScoreChanged = [this]() {
         score->setScore(gameState.currentScore());

@@ -1,4 +1,5 @@
 #include "pulse/sprites/Column.hpp"
+#include "pulse/ui/Colour.hpp"
 
 using namespace cocos2d;
 using pulse::Column;
@@ -9,7 +10,7 @@ Column::Column(float height): Column(Rect{0, 0, defaultLength, height}) {}
 
 Column::Column(const Rect& frame) {
     init();
-    setColor(Color3B::BLUE);
+    setColor(Colour::Orange);
     setPosition(frame.origin);
     setContentSize(frame.size);
     setTextureRect(frame);

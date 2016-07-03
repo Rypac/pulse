@@ -133,8 +133,9 @@ set(GAME_HEADERS
     ${PULSE_DIR}/sprites/Score.hpp
     ${PULSE_DIR}/sprites/SpritePhysicsBody.hpp
     ${PULSE_DIR}/sprites/WrappedSprite.hpp
-    ${PULSE_DIR}/ui/Font.hpp
     ${PULSE_DIR}/ui/Button.hpp
+    ${PULSE_DIR}/ui/Colour.hpp
+    ${PULSE_DIR}/ui/Font.hpp
     ${PULSE_DIR}/ui/MenuSlider.hpp
     ${PULSE_DIR}/ui/Resources.hpp
     ${PULSE_DIR}/utilities/Acceleration.hpp

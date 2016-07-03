@@ -216,6 +216,7 @@
 		819765AF1CF1548E00DA7534 /* PhysicsScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PhysicsScene.hpp; path = pulse/scenes/PhysicsScene.hpp; sourceTree = "<group>"; };
 		819765B31CF1926500DA7534 /* PauseMenuScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PauseMenuScene.cpp; path = pulse/scenes/PauseMenuScene.cpp; sourceTree = "<group>"; };
 		819765B41CF1926500DA7534 /* PauseMenuScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PauseMenuScene.hpp; path = pulse/scenes/PauseMenuScene.hpp; sourceTree = "<group>"; };
+		819CEED11D29D71000523321 /* Colour.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Colour.hpp; sourceTree = "<group>"; };
 		819E29531C93C69F00EA3D32 /* BaseScene.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = BaseScene.hpp; path = pulse/scenes/BaseScene.hpp; sourceTree = "<group>"; };
 		819E29541C93C8AC00EA3D32 /* BaseScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseScene.cpp; path = pulse/scenes/BaseScene.cpp; sourceTree = "<group>"; };
 		819E29581C93D4D700EA3D32 /* Column.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Column.cpp; path = pulse/sprites/Column.cpp; sourceTree = "<group>"; };
@@ -569,6 +570,7 @@
 			children = (
 				81D817801CF024910081C4A1 /* Button.cpp */,
 				81D817811CF024910081C4A1 /* Button.hpp */,
+				819CEED11D29D71000523321 /* Colour.hpp */,
 				81D28F901CDD8DF500C09896 /* Font.hpp */,
 				81D28F911CDD8DF500C09896 /* MenuSlider.cpp */,
 				81D28F921CDD8DF500C09896 /* MenuSlider.hpp */,
