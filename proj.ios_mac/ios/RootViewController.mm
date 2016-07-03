@@ -51,14 +51,11 @@
         return bounds;
     }
 
-    CGFloat width = CGRectGetWidth(bounds);
-    CGFloat height = CGRectGetHeight(bounds);
     UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
-
     if (UIInterfaceOrientationIsPortrait(orientation)) {
-        bounds.size = CGSizeMake(width, height);
+        bounds.size = CGSizeMake(bounds.size.width, bounds.size.height);
     } else if (UIInterfaceOrientationIsLandscape(orientation)) {
-        bounds.size = CGSizeMake(height, width);
+        bounds.size = CGSizeMake(bounds.size.height, bounds.size.width);
     }
     return bounds;
 }
