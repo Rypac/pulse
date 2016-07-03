@@ -60,7 +60,7 @@ void TitleScene::addPlayButton() {
 void TitleScene::addModesButton() {
     const auto modesButton = ui::Button::create(Resources::Buttons::Modes);
     modesButton->setScale(0.0f);
-    modesButton->setPosition(Vec2{sceneFrame().getMaxX() - 400, sceneFrame().getMinY() + 135});
+    modesButton->setPosition(Vec2{sceneFrame().getMaxX() - 448, sceneFrame().getMinY() + 115});
     modesButton->onTouchEnded = [this](auto ref) {
         safe_callback(onModesSelected, this);
     };
@@ -74,7 +74,7 @@ void TitleScene::addModesButton() {
 void TitleScene::addAchievmentsButton() {
     const auto achievementsButton = ui::Button::create(Resources::Buttons::Achievements);
     achievementsButton->setScale(0.0f);
-    achievementsButton->setPosition(Vec2{sceneFrame().getMaxX() - 240, sceneFrame().getMinY() + 230});
+    achievementsButton->setPosition(Vec2{sceneFrame().getMaxX() - 280, sceneFrame().getMinY() + 212});
     achievementsButton->onTouchEnded = [this](auto ref) {
         safe_callback(onAchievementsSelected, this);
     };
@@ -88,7 +88,7 @@ void TitleScene::addAchievmentsButton() {
 void TitleScene::addSettingsButton() {
     const auto settingsButton = ui::Button::create(Resources::Buttons::Settings);
     settingsButton->setScale(0.0f);
-    settingsButton->setPosition(Vec2{sceneFrame().getMaxX() - 80, sceneFrame().getMinY() + 320});
+    settingsButton->setPosition(Vec2{sceneFrame().getMaxX() - 112, sceneFrame().getMinY() + 309});
     settingsButton->onTouchEnded = [this](auto ref) {
         safe_callback(onSettingsSelected, this);
     };
