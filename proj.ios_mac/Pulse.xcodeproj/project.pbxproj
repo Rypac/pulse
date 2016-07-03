@@ -43,7 +43,6 @@
 		812BE9421CB8BCF60038D730 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9401CB8BCF60038D730 /* images */; };
 		812BE9431CB8BF9F0038D730 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
 		812BE9441CB8C0040038D730 /* SplashScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81E8AFC11CAD2AC700609D88 /* SplashScene.cpp */; };
-		812BE9491CB8C3640038D730 /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
 		812BE94E1CB8D30D0038D730 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
 		812FBDD71D0E643100A712DA /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 812FBDD51D0E643100A712DA /* Player.cpp */; };
 		812FBDD81D0E643100A712DA /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 812FBDD51D0E643100A712DA /* Player.cpp */; };
@@ -79,7 +78,6 @@
 		81C44A471CC311D7006D6F0F /* TitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81C44A441CC311D7006D6F0F /* TitleScene.cpp */; };
 		81C44A4D1CC31421006D6F0F /* animations in Resources */ = {isa = PBXBuildFile; fileRef = 81C44A4C1CC31421006D6F0F /* animations */; };
 		81C44A4E1CC31421006D6F0F /* animations in Resources */ = {isa = PBXBuildFile; fileRef = 81C44A4C1CC31421006D6F0F /* animations */; };
-		81C44A4F1CC31445006D6F0F /* videos in Resources */ = {isa = PBXBuildFile; fileRef = 812BE9481CB8C3640038D730 /* videos */; };
 		81CAD93F1CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */; };
 		81CAD9401CACC0440010BA03 /* DeveloperMenuScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81CAD93D1CACC0440010BA03 /* DeveloperMenuScene.cpp */; };
 		81D28F931CDD8DF500C09896 /* MenuSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81D28F911CDD8DF500C09896 /* MenuSlider.cpp */; };
@@ -186,7 +184,6 @@
 		81253C1C1CDEDD7E0072DBFD /* ObstacleSequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ObstacleSequence.hpp; path = pulse/actions/ObstacleSequence.hpp; sourceTree = "<group>"; };
 		812BE93D1CB8BCE80038D730 /* audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = audio; sourceTree = "<group>"; };
 		812BE9401CB8BCF60038D730 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = images; sourceTree = "<group>"; };
-		812BE9481CB8C3640038D730 /* videos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = videos; sourceTree = "<group>"; };
 		812FBDD51D0E643100A712DA /* Player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Player.cpp; path = pulse/sprites/Player.cpp; sourceTree = "<group>"; };
 		812FBDD61D0E643100A712DA /* Player.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Player.hpp; path = pulse/sprites/Player.hpp; sourceTree = "<group>"; };
 		81382C1A1CA7E27C003C8EFE /* Logger.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = pulse/utilities/Logger.hpp; sourceTree = "<group>"; };
@@ -391,7 +388,6 @@
 				814FF98C1CB5291C00820727 /* fonts */,
 				812BE9401CB8BCF60038D730 /* images */,
 				81D28F9C1CDDC18D00C09896 /* particles */,
-				812BE9481CB8C3640038D730 /* videos */,
 			);
 			name = resources;
 			path = ../resources;
@@ -714,7 +710,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				812BE9491CB8C3640038D730 /* videos in Resources */,
 				812BE9411CB8BCF60038D730 /* images in Resources */,
 				812BE93E1CB8BCE80038D730 /* audio in Resources */,
 				81C44A4D1CC31421006D6F0F /* animations in Resources */,
@@ -730,7 +725,6 @@
 			files = (
 				812BE9421CB8BCF60038D730 /* images in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
-				81C44A4F1CC31445006D6F0F /* videos in Resources */,
 				81C44A4E1CC31421006D6F0F /* animations in Resources */,
 				81D28F9E1CDDC18D00C09896 /* particles in Resources */,
 				812BE93F1CB8BCE80038D730 /* audio in Resources */,
