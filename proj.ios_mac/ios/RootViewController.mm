@@ -8,7 +8,7 @@
     cocos2d::Application::getInstance()->initGLContextAttrs();
     cocos2d::GLViewImpl::convertAttrs();
 
-    self.view = [CCEAGLView viewWithFrame:[UIScreen mainScreen].bounds
+    self.view = [CCEAGLView viewWithFrame:[self currentScreenBoundsDependOnOrientation]
                               pixelFormat:(NSString *)cocos2d::GLViewImpl::_pixelFormat
                               depthFormat:cocos2d::GLViewImpl::_depthFormat
                        preserveBackbuffer:NO
@@ -43,6 +43,24 @@
 
     CCEAGLView *view = (__bridge CCEAGLView *)cocos2d::Director::getInstance()->getOpenGLView()->getEAGLView();
     cocos2d::Application::getInstance()->applicationScreenSizeChanged([view getWidth], [view getHeight]);
+}
+
+- (CGRect)currentScreenBoundsDependOnOrientation {
+    CGRect bounds = [UIScreen mainScreen].bounds;
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        return bounds;
+    }
+
+    CGFloat width = CGRectGetWidth(bounds);
+    CGFloat height = CGRectGetHeight(bounds);
+    UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+
+    if (UIInterfaceOrientationIsPortrait(orientation)) {
+        bounds.size = CGSizeMake(width, height);
+    } else if (UIInterfaceOrientationIsLandscape(orientation)) {
+        bounds.size = CGSizeMake(height, width);
+    }
+    return bounds;
 }
 
 @end
