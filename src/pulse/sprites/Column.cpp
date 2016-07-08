@@ -1,7 +1,7 @@
 #include "pulse/sprites/Column.hpp"
 #include "pulse/ui/Colour.hpp"
 
-using namespace cocos2d;
+using cocos2d::Rect;
 using pulse::Column;
 
 Column::Column(): Column(0) {}
