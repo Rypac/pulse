@@ -49,6 +49,7 @@
 		81417C701D04041C00A9F5E1 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81417C6F1D04041C00A9F5E1 /* GameState.cpp */; };
 		81417C711D04041C00A9F5E1 /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81417C6F1D04041C00A9F5E1 /* GameState.cpp */; };
 		814FF98D1CB5291C00820727 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 814FF98C1CB5291C00820727 /* fonts */; };
+		8150E2871D2FADC600398ED5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8150E2861D2FADC600398ED5 /* CoreText.framework */; };
 		81563DF21CBB9ED200B303F9 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DEF1CBB9E9000B303F9 /* libcocos2d iOS.a */; };
 		81563DF51CBB9EE200B303F9 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81563DED1CBB9E9000B303F9 /* libcocos2d Mac.a */; };
 		81775EE71CDF26D80011049C /* FollowedBy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81775EE51CDF26D80011049C /* FollowedBy.cpp */; };
@@ -197,6 +198,7 @@
 		814B541F1CAFAF7E00ABEB4E /* GameOptions.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = GameOptions.hpp; path = pulse/models/GameOptions.hpp; sourceTree = "<group>"; };
 		814B54201CAFB16600ABEB4E /* TimeScale.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = TimeScale.hpp; path = pulse/models/TimeScale.hpp; sourceTree = "<group>"; };
 		814FF98C1CB5291C00820727 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		8150E2861D2FADC600398ED5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = ../libs/cocos2d/build/cocos2d_libs.xcodeproj; sourceTree = "<group>"; };
 		8163C2F81D1FA606000C5287 /* Animate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Animate.hpp; path = pulse/extensions/Animate.hpp; sourceTree = "<group>"; };
 		816908C61C9401E10073E4C6 /* Random.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Random.hpp; path = pulse/utilities/Random.hpp; sourceTree = "<group>"; };
@@ -277,6 +279,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8150E2871D2FADC600398ED5 /* CoreText.framework in Frameworks */,
 				81563DF21CBB9ED200B303F9 /* libcocos2d iOS.a in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
@@ -357,6 +360,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8150E2861D2FADC600398ED5 /* CoreText.framework */,
 				81563DE71CBB9E9000B303F9 /* cocos2d_libs.xcodeproj */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
 				ED545A7B1B68A1F400C3958E /* libiconv.dylib */,
