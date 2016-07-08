@@ -1,22 +1,22 @@
-From e4446c9416beaaf737c7d96cb8bc3300696a7999 Mon Sep 17 00:00:00 2001
+From 11bd303f68da755b22752e419b61a6f4693de770 Mon Sep 17 00:00:00 2001
 From: Ryan Davis <ryan.davis.dev@gmail.com>
-Date: Mon, 11 Apr 2016 21:55:28 +1000
-Subject: [PATCH] Add fixes for 3.10
+Date: Fri, 8 Jul 2016 14:28:58 +1000
+Subject: [PATCH] Fix static analyzer issues
 
 ---
- build/cocos2d_libs.xcodeproj/project.pbxproj           | 4 ++--
+ build/cocos2d_libs.xcodeproj/project.pbxproj           | 2 ++
+ cocos/2d/CCCamera.h                                    | 2 +-
  cocos/2d/CCLight.h                                     | 2 +-
  cocos/3d/CCAnimationCurve.inl                          | 2 +-
  cocos/editor-support/cocostudio/CocosStudioExtension.h | 2 +-
  cocos/ui/GUIExport.h                                   | 2 +-
- cocos/ui/UIWebViewImpl-android.h                       | 1 +
- 6 files changed, 7 insertions(+), 6 deletions(-)
+ 6 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/build/cocos2d_libs.xcodeproj/project.pbxproj b/build/cocos2d_libs.xcodeproj/project.pbxproj
-index 027713d..8493062 100644
+index 3145eb2..e48ff81 100644
 --- a/build/cocos2d_libs.xcodeproj/project.pbxproj
 +++ b/build/cocos2d_libs.xcodeproj/project.pbxproj
-@@ -12844,6 +12842,7 @@
+@@ -17054,6 +17054,7 @@
  				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
  				GCC_WARN_ABOUT_RETURN_TYPE = YES;
  				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -24,7 +24,7 @@ index 027713d..8493062 100644
  				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
  				GCC_WARN_SHADOW = YES;
  				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-@@ -12879,6 +12878,7 @@
+@@ -17088,6 +17089,7 @@
  				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
  				GCC_WARN_ABOUT_RETURN_TYPE = YES;
  				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = YES;
@@ -32,14 +32,25 @@ index 027713d..8493062 100644
  				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
  				GCC_WARN_SHADOW = YES;
  				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+diff --git a/cocos/2d/CCCamera.h b/cocos/2d/CCCamera.h
+index 1a720c6..057bcaf 100644
+--- a/cocos/2d/CCCamera.h
++++ b/cocos/2d/CCCamera.h
+@@ -337,4 +337,4 @@ protected:
+ 
+ NS_CC_END
+ 
+-#endif// __CCCAMERA_H_
+\ No newline at end of file
++#endif// __CCCAMERA_H_
 diff --git a/cocos/2d/CCLight.h b/cocos/2d/CCLight.h
 index 1c5eeec..1e8111e 100644
 --- a/cocos/2d/CCLight.h
 +++ b/cocos/2d/CCLight.h
 @@ -291,4 +291,4 @@ CC_CONSTRUCTOR_ACCESS:
-
+ 
  NS_CC_END
-
+ 
 -#endif
 \ No newline at end of file
 +#endif
@@ -50,7 +61,7 @@ index 9b14ef0..f0ee3c8 100644
 @@ -141,4 +141,4 @@ int AnimationCurve<componentSize>::determineIndex(float time) const
      return -1;
  }
-
+ 
 -NS_CC_END
 \ No newline at end of file
 +NS_CC_END
@@ -60,8 +71,8 @@ index 8a8e870..0ab3060 100644
 +++ b/cocos/editor-support/cocostudio/CocosStudioExtension.h
 @@ -41,4 +41,4 @@ private:
  NS_CC_END
-
-
+ 
+ 
 -#endif
 \ No newline at end of file
 +#endif
@@ -72,7 +83,10 @@ index 7b86aea..dd421db 100644
 @@ -30,4 +30,4 @@
      #define CC_GUI_DLL
  #endif
-
+ 
 -#endif /* __CCEXTENSIONEXPORT_H__*/
 \ No newline at end of file
 +#endif /* __CCEXTENSIONEXPORT_H__*/
+-- 
+2.9.0
+
