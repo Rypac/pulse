@@ -51,6 +51,7 @@ LOCAL_C_INCLUDES := \
     $(INC_PATH) \
     $(LIB_PATH)/cpputils/include \
     $(LIB_PATH)/GSL/include \
+    $(LIB_PATH)/json/src \
     $(LIB_PATH)/range-v3/include
 
 LOCAL_STATIC_LIBRARIES := cocos2dx_static

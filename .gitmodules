@@ -11,3 +11,6 @@
 	path = libs/cocos2d
 	url = https://github.com/cocos2d/cocos2d-x.git
 	ignore = dirty
+[submodule "libs/json"]
+	path = libs/json
+	url = https://github.com/nlohmann/json
