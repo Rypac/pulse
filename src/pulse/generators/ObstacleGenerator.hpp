@@ -1,16 +1,15 @@
 #pragma once
 
-#include "pulse/generators/Generator.hpp"
 #include "pulse/sprites/Obstacle.hpp"
 
 namespace pulse {
 
-class ObstacleGenerator : public Generator<Obstacle*> {
+class ObstacleGenerator {
   public:
     ObstacleGenerator() = delete;
     ObstacleGenerator(const cocos2d::Rect& world) : world(world) {};
 
-    virtual Obstacle* generate() const override;
+    Obstacle* generate() const;
 
   private:
     cocos2d::Rect world;
