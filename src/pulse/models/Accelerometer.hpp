@@ -1,12 +1,12 @@
 #pragma once
 
 #include "cocos2d.h"
-#include <cpputils/optional.hpp>
+#include "pulse/extensions/Optional.hpp"
 
 namespace pulse {
 
 struct Accelerometer {
-  public:
+
     Accelerometer(int requiredCalibrationReadings): requiredCalibrationReadings{requiredCalibrationReadings} {}
 
     void calibrate(const cocos2d::Vec3& currentReading) {

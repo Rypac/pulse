@@ -1,6 +1,5 @@
 -Isrc/pulse
 -Ilibs/cocos2d/cocos
--Ilibs/cpputils/include
 -Ilibs/GSL/include
 -Ilibs/range-v3/include
 -Ilibs/json/src

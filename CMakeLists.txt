@@ -51,7 +51,6 @@ include_directories(
     ${COCOS2D_ROOT}/cocos/platform
     ${COCOS2D_ROOT}/cocos/audio/include
     ${SRC_DIR}
-    ${LIB_DIR}/cpputils/include
     ${LIB_DIR}/GSL/include
     ${LIB_DIR}/range-v3/include
     ${LIB_DIR}/json/src
@@ -102,6 +101,7 @@ set(GAME_HEADERS
     ${PULSE_DIR}/actions/ObstacleSequence.hpp
     ${PULSE_DIR}/actions/RemoveSelfWithCallback.hpp
     ${PULSE_DIR}/extensions/Node.hpp
+    ${PULSE_DIR}/extensions/Optional.hpp
     ${PULSE_DIR}/extensions/Rect.hpp
     ${PULSE_DIR}/extensions/Ref.hpp
     ${PULSE_DIR}/extensions/Vec.hpp

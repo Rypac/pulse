@@ -657,7 +657,7 @@
 				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = XHJG8KJBE5;
+						DevelopmentTeam = 8PMW33R44A;
 					};
 				};
 			};
@@ -1051,7 +1051,6 @@
 					"$(SRCROOT)/../libs/cocos2d/extensions",
 					"$(SRCROOT)/../libs/cocos2d/external",
 					"$(SRCROOT)/../libs/cocos2d/external/chipmunk/include/chipmunk",
-					"$(SRCROOT)/../libs/cpputils/include",
 					"$(SRCROOT)/../libs/GSL/include",
 					"$(SRCROOT)/../libs/range-v3/include",
 					"$(SRCROOT)/../src",
@@ -1127,7 +1126,6 @@
 					"$(SRCROOT)/../libs/cocos2d/extensions",
 					"$(SRCROOT)/../libs/cocos2d/external",
 					"$(SRCROOT)/../libs/cocos2d/external/chipmunk/include/chipmunk",
-					"$(SRCROOT)/../libs/cpputils/include",
 					"$(SRCROOT)/../libs/GSL/include",
 					"$(SRCROOT)/../libs/range-v3/include",
 					"$(SRCROOT)/../src",
