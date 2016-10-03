@@ -18,21 +18,24 @@ Created with love by Tandem. Enjoy!
 The entire codebase is fairly large, mainly due to the inclusion of the entire Cocos2d-x project. This is done to aid development, remedy the fairly mediocre documentation and fix the occasional bug. Don't be alarmed if the initial clone takes some time.
 
 1. Download the Pulse repository and all of its dependencies.
-``` shell
-$ git clone --recursive https://github.com/Rypac/pulse.git
-```
+
+    ``` shell
+    $ git clone --recursive https://github.com/Rypac/pulse.git
+    ```
 
 2. Setup Cocos2d-x by downloading its dependencies (repeat after each update).
-``` shell
-$ cd pulse
-$ python libs/cocos2d/download-deps.py
-```
+
+    ``` shell
+    $ cd pulse
+    $ python libs/cocos2d/download-deps.py
+    ```
 
 3. Update all of the cocos2d dependencies.
-``` shell
-$ cd libs/cocos2d
-$ git submodule update --init
-```
+
+    ``` shell
+    $ cd libs/cocos2d
+    $ git submodule update --init
+    ```
 
 ## iOS
 
