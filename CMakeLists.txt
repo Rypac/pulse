@@ -54,6 +54,7 @@ include_directories(
     ${LIB_DIR}/cpputils/include
     ${LIB_DIR}/GSL/include
     ${LIB_DIR}/range-v3/include
+    ${LIB_DIR}/json/src
 )
 
 set(GAME_SRC

@@ -3,5 +3,4 @@
 -Ilibs/cpputils/include
 -Ilibs/GSL/include
 -Ilibs/range-v3/include
--I/usr/include/c++/4.2.1
--I/usr/local/include
+-Ilibs/json/src
