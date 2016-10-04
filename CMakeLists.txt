@@ -1,6 +1,6 @@
 cmake_policy(SET CMP0017 NEW)
 
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 
 set(APP_NAME Pulse)
 project(${APP_NAME})
@@ -11,15 +11,23 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${COCOS2D_ROOT}/cmake/Modules/")
 include(CocosBuildHelpers)
 
 # libcocos2d
+set(BUILD_CPP_EMPTY_TEST OFF CACHE BOOL "turn off build cpp-empty-test")
 set(BUILD_CPP_TESTS OFF CACHE BOOL "turn off build cpp-tests")
 set(BUILD_LUA_LIBS OFF CACHE BOOL "turn off build lua related targets")
 set(BUILD_JS_LIBS OFF CACHE BOOL "turn off build js related targets")
 add_subdirectory(${COCOS2D_ROOT})
 
 # Some macro definitions
-ADD_DEFINITIONS(-DCC_TARGET_OS_MAC)
-ADD_DEFINITIONS(-DUSE_FILE32API)
-set(PLATFORM_FOLDER mac)
+if(MACOSX OR APPLE)
+    add_definitions(-DCC_TARGET_OS_MAC)
+    add_definitions(-DUSE_FILE32API)
+    set(PLATFORM_FOLDER mac)
+elseif(ANDROID)
+    add_definitions(-DUSE_FILE32API)
+    set(PLATFORM_FOLDER android)
+else()
+    message( FATAL_ERROR "Unsupported platform, CMake will exit" )
+endif()
 
 # Compiler options
 set(CMAKE_C_FLAGS_DEBUG "-g -Wall -DCOCOS2D_DEBUG=1")
@@ -30,15 +38,24 @@ if(CLANG)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-set(PLATFORM_SPECIFIC_SRC
-    proj.ios_mac/ios/main.m
-    proj.ios_mac/ios/RootViewController.mm
-    proj.ios_mac/ios/AppController.mm
-)
-set(PLATFORM_SPECIFIC_HEADERS
-    proj.ios_mac/ios/RootViewController.h
-    proj.ios_mac/ios/AppController.h
-)
+set(PLATFORM_SPECIFIC_SRC)
+set(PLATFORM_SPECIFIC_HEADERS)
+
+if(MACOSX OR APPLE)
+    set(PLATFORM_SPECIFIC_SRC
+        proj.ios_mac/ios/main.m
+        proj.ios_mac/ios/RootViewController.mm
+        proj.ios_mac/ios/AppController.mm
+    )
+    set(PLATFORM_SPECIFIC_HEADERS
+        proj.ios_mac/ios/RootViewController.h
+        proj.ios_mac/ios/AppController.h
+    )
+elseif(ANDROID)
+    set(PLATFORM_SPECIFIC_SRC
+        proj.android-studio/app/jni/hellocpp/main.cpp
+    )
+endif()
 
 set(LIB_DIR ${CMAKE_SOURCE_DIR}/libs)
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
@@ -146,15 +163,24 @@ set(GAME_HEADERS
     ${PLATFORM_SPECIFIC_HEADERS}
 )
 
-add_executable(${APP_NAME} ${GAME_SRC} ${GAME_HEADERS})
+if(ANDROID)
+    add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
+    if(CMAKE_BUILD_TYPE MATCHES RELEASE)
+        add_custom_command(TARGET ${APP_NAME} POST_BUILD COMMAND ${CMAKE_STRIP} lib${APP_NAME}.so)
+    endif()
+else()
+    add_executable(${APP_NAME} ${GAME_SRC} ${GAME_HEADERS})
+endif()
 
 target_link_libraries(${APP_NAME} cocos2d)
 
 set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
 
-set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${APP_BIN_DIR}")
+set_target_properties(${APP_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY  "${APP_BIN_DIR}")
 
-pre_build(${APP_NAME}
-    COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/resources
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources ${APP_BIN_DIR}/resources
-)
+if(NOT ANDROID)
+    pre_build(${APP_NAME}
+        COMMAND ${CMAKE_COMMAND} -E remove_directory ${APP_BIN_DIR}/resources
+        COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources ${APP_BIN_DIR}/resources
+    )
+endif()
