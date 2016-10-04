@@ -80,7 +80,7 @@ void GameState::reset() {
     accelerometer_.reset();
 }
 
-const TimeScale& GameState::timeScale() const {
+const pulse::TimeScale& GameState::timeScale() const {
     if (options_.gameMode == GameMode::Reverse) {
         return timeMode_ == TimeMode::Normal ? options_.reverseModeTimeScale : normalTimeScale_;
     }
