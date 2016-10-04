@@ -106,7 +106,6 @@ set(GAME_HEADERS
     ${PULSE_DIR}/extensions/Ref.hpp
     ${PULSE_DIR}/extensions/Vec.hpp
     ${PULSE_DIR}/extensions/Vector.hpp
-    ${PULSE_DIR}/generators/Generator.hpp
     ${PULSE_DIR}/generators/ObstacleGenerator.hpp
     ${PULSE_DIR}/models/Accelerometer.hpp
     ${PULSE_DIR}/models/GameMode.hpp
