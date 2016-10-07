@@ -1,5 +1,6 @@
 #pragma once
 
+// clang-format off
 namespace pulse {
 
 namespace Resources {
@@ -74,4 +75,5 @@ namespace Resources {
     }
 }
 
-}
+}  // pulse
+// clang-format on
