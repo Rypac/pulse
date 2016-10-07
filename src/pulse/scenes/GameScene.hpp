@@ -41,8 +41,8 @@ class GameScene : public PhysicsScene {
 
     Obstacle* generateObstacle();
 
-    void checkForObstacleCollision(const cocos2d::PhysicsContact& contact);
-    void handlePassedObstacle(Obstacle* obstacle);
+    bool isObstacleCollision(const cocos2d::PhysicsContact& contact) const;
+    bool isPathCollision(const cocos2d::PhysicsContact& contact) const;
 
     Player* player;
     Score* score;

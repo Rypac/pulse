@@ -176,18 +176,24 @@ cocos2d::EventListener* GameScene::collisionListener() {
     auto contactListener = EventListenerPhysicsContact::create();
     contactListener->retain();
     contactListener->onContactBegin = [this](auto& contact) {
-        this->checkForObstacleCollision(contact);
+        if (this->isObstacleCollision(contact)) {
+            gameState.gameOver();
+        }
         return not physics_body::collision::heroAndPath(contact);
     };
     contactListener->onContactPreSolve = [this](auto& contact, auto& solve) {
-        this->checkForObstacleCollision(contact);
+        if (this->isObstacleCollision(contact)) {
+            gameState.gameOver();
+        }
         return false;
     };
     contactListener->onContactSeparate = [this](auto& contact) {
-        if (physics_body::collision::heroAndPath(contact)) {
+        if (this->isPathCollision(contact)) {
             const auto path = *physics_body::nodeInContact(contact, physics_body::isPath);
             const auto obstacle = static_cast<Obstacle*>(path->getParent());
-            this->handlePassedObstacle(obstacle);
+            obstacle->getPhysicsBody()->defeat();
+            obstacle->runDefeatedActions();
+            gameState.incrementScore();
         }
     };
     return contactListener;
@@ -214,14 +220,10 @@ void GameScene::addGameStateListeners() {
     };
 }
 
-void GameScene::checkForObstacleCollision(const cocos2d::PhysicsContact& contact) {
-    if (physics_body::collision::heroAndObstacle(contact) and onScreenCollision(contact)) {
-        gameState.gameOver();
-    }
+bool GameScene::isObstacleCollision(const cocos2d::PhysicsContact& contact) const {
+    return physics_body::collision::heroAndObstacle(contact) and onScreenCollision(contact);
 }
 
-void GameScene::handlePassedObstacle(Obstacle* obstacle) {
-    gameState.incrementScore();
-    obstacle->getPhysicsBody()->defeat();
-    obstacle->runDefeatedActions();
+bool GameScene::isPathCollision(const cocos2d::PhysicsContact& contact) const {
+    return physics_body::collision::heroAndPath(contact);
 }
