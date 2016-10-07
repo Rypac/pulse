@@ -93,12 +93,16 @@ void WrappedSprite::normalisePositionInBounds(const Rect& bounds) {
 
 void WrappedSprite::setContentSize(const Size& size) {
     Sprite::setContentSize(size);
-    applyToMirrors([&](auto mirror) { mirror->setContentSize(size); });
+    applyToMirrors([&](auto mirror) {
+        mirror->setContentSize(size);
+    });
 }
 
 void WrappedSprite::setTextureRect(const Rect& rect) {
     Sprite::setTextureRect(rect);
-    applyToMirrors([&](auto mirror) { mirror->setTextureRect(rect); });
+    applyToMirrors([&](auto mirror) {
+        mirror->setTextureRect(rect);
+    });
 }
 
 void WrappedSprite::setPhysicsBody(PhysicsBody* physicsBody) {
