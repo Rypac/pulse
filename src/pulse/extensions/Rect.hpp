@@ -51,4 +51,5 @@ inline Rect intersection(const Rect& rect1, const Rect& rect2) {
     return Rect{x, y, width, height};
 }
 
-} }
+}  // rect
+}  // pulse

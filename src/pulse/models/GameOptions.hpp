@@ -16,4 +16,4 @@ struct GameOptions {
     TimeScale reverseModeTimeScale{0.2, 0.05, 0.05};
 };
 
-}
+}  // pulse

@@ -17,4 +17,4 @@ struct Resolution {
     std::vector<std::string> resourceSearchPaths() const;
 };
 
-}
+}  // pulse

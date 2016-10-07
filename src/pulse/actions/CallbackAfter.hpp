@@ -22,4 +22,4 @@ class CallbackAfterDelay : public cocos2d::Sequence {
     }
 };
 
-}
+}  // pulse

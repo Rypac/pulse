@@ -37,4 +37,5 @@ inline cocos2d::Vec3 angle(const cocos2d::Vec3& point) {
     return cocos2d::Vec3{roll(point), pitch(point), yaw(point)};
 }
 
-} }
+}  // rotation
+}  // pulse

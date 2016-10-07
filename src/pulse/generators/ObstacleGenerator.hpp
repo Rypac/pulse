@@ -7,7 +7,8 @@ namespace pulse {
 class ObstacleGenerator {
   public:
     ObstacleGenerator() = delete;
-    ObstacleGenerator(const cocos2d::Rect& world) : world(world) {};
+    ObstacleGenerator(const cocos2d::Rect& world)
+    : world(world) {}
 
     Obstacle* generate() const;
 
@@ -15,4 +16,4 @@ class ObstacleGenerator {
     cocos2d::Rect world;
 };
 
-}
+}  // pulse

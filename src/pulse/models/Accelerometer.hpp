@@ -6,8 +6,8 @@
 namespace pulse {
 
 struct Accelerometer {
-
-    Accelerometer(int requiredCalibrationReadings): requiredCalibrationReadings{requiredCalibrationReadings} {}
+    Accelerometer(int requiredCalibrationReadings)
+    : requiredCalibrationReadings{requiredCalibrationReadings} {}
 
     void calibrate(const cocos2d::Vec3& currentReading) {
         aggregateReading += currentReading;
@@ -41,4 +41,4 @@ struct Accelerometer {
     cocos2d::Vec3 aggregateReading{};
 };
 
-}
+}  // pulse

@@ -32,4 +32,4 @@ class TitleScene : public BaseScene {
     NodeAnimator achievementsAnimator_;
 };
 
-}
+}  // pulse

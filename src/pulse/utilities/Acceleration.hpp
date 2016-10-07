@@ -16,4 +16,5 @@ inline Acceleration filter(const Acceleration& acceleration, const Acceleration&
     return filtered;
 }
 
-} }
+}  // accelerometer
+}  // pulse

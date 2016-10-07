@@ -6,7 +6,6 @@
 namespace pulse {
 
 struct SequenceBuilder {
-
     SequenceBuilder& add(cocos2d::FiniteTimeAction* action) {
         actions.emplace_back(action);
         return *this;
@@ -28,4 +27,4 @@ struct SequenceBuilder {
     std::vector<cocos2d::FiniteTimeAction*> actions;
 };
 
-}
+}  // pulse

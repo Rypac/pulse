@@ -3,8 +3,8 @@
 #include "pulse/models/Resolution.hpp"
 #include "pulse/scenes/DeveloperMenuScene.hpp"
 #include "pulse/scenes/GameOverScene.hpp"
-#include "pulse/scenes/PauseMenuScene.hpp"
 #include "pulse/scenes/ModeSelectionScene.hpp"
+#include "pulse/scenes/PauseMenuScene.hpp"
 #include "pulse/scenes/SplashScene.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/TextureAllocator.hpp"
@@ -38,7 +38,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0f / 60);
 
     const auto& designResolution = Resolution::design();
-    glview->setDesignResolutionSize(designResolution.size.width, designResolution.size.height, ResolutionPolicy::FIXED_HEIGHT);
+    glview->setDesignResolutionSize(
+        designResolution.size.width,
+        designResolution.size.height,
+        ResolutionPolicy::FIXED_HEIGHT);
 
     const auto& displayResolution = Resolution::forFrame(glview->getFrameSize());
     director->setContentScaleFactor(displayResolution.contentScaleFactor());

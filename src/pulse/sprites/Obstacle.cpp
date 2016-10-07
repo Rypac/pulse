@@ -62,9 +62,11 @@ static void setRotationForDirection(Obstacle* obstacle) {
 float gapOffset(const Size& obstacle, const Size& gap, Direction direction) {
     switch (direction) {
         case Direction::North:
-        case Direction::West: return obstacle.width + gap.width;
+        case Direction::West:
+            return obstacle.width + gap.width;
         case Direction::South:
-        case Direction::East: return -gap.width;
+        case Direction::East:
+            return -gap.width;
     }
 }
 
@@ -95,9 +97,11 @@ void Obstacle::positionInWorld(const Rect& world) {
 float durationForDirection(float duration, Direction direction) {
     switch (direction) {
         case Direction::North:
-        case Direction::South: return duration;
+        case Direction::South:
+            return duration;
         case Direction::East:
-        case Direction::West: return duration * 1.5f;
+        case Direction::West:
+            return duration * 1.5f;
     }
 }
 

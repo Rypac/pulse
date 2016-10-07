@@ -24,4 +24,4 @@ class ObstaclePhysicsBody : public cocos2d::PhysicsBody {
     State state_;
 };
 
-}
+}  // pulse

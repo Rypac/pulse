@@ -13,4 +13,4 @@ inline cocos2d::Vector<T> toVector(const std::vector<T>& vec) {
     return out;
 }
 
-}
+}  // pulse

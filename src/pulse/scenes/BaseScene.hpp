@@ -30,4 +30,4 @@ class BaseScene : public cocos2d::Scene {
     cocos2d::Node* background_;
 };
 
-}
+}  // pulse

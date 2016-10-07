@@ -15,4 +15,4 @@ class Score : public cocos2d::Sprite {
     std::vector<cocos2d::Node*> digits_;
 };
 
-}
+}  // pulse

@@ -10,12 +10,14 @@
 using namespace cocos2d;
 using namespace pulse;
 
-ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name): mode{mode} {
+ModeSelectionScene::Mode::Mode(GameMode mode, const std::string& name)
+: mode{mode} {
     label = Label::createWithTTF(name, Font::System, 32);
     button = ui::Button::create(Resources::Buttons::Blank);
 }
 
-ModeSelectionScene::ModeSelectionScene(GameMode mode): mode_{mode} {
+ModeSelectionScene::ModeSelectionScene(GameMode mode)
+: mode_{mode} {
     setBackground(LayerColor::create(Color4B::BLACK));
 
     modes_ = {

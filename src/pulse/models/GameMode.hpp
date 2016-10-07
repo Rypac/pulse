@@ -10,7 +10,7 @@ enum class GameMode {
     Impossible,
     MovingObstacles,
     SquareObstacles,
-    ShrinkingObstables
+    ShrinkingObstables,
 };
 
-}
+}  // pulse

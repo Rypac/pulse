@@ -18,7 +18,7 @@ inline auto member_callback(T* obj, Fn func) {
 
 template <typename T, typename Fn>
 inline auto member_callback(T&& obj, Fn func) {
-    return [obj = std::forward<T>(obj), func](auto&&... args) mutable {
+    return [ obj = std::forward<T>(obj), func ](auto&&... args) mutable {
         return (obj.*func)(std::forward<decltype(args)>(args)...);
     };
 }

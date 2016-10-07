@@ -1,15 +1,14 @@
 #pragma once
 
-#include "pulse/models/GameOptions.hpp"
 #include "pulse/models/Accelerometer.hpp"
+#include "pulse/models/GameOptions.hpp"
 
 namespace pulse {
 
 struct GameState {
-
     enum class TimeMode {
         Normal,
-        SlowMotion
+        SlowMotion,
     };
 
     GameState(const GameOptions& options);
@@ -52,4 +51,4 @@ struct GameState {
     Accelerometer accelerometer_;
 };
 
-}
+}  // pulse

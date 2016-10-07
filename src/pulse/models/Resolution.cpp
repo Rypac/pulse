@@ -4,11 +4,13 @@ using pulse::Resolution;
 using cocos2d::Size;
 
 namespace SupportedResolutions {
-    static const auto Small = Resolution{Size{960, 540}, "small"};
-    static const auto Medium = Resolution{Size{1280, 720}, "medium"};
-    static const auto Large = Resolution{Size{1920, 1080}, "large"};
-    static const auto ExtraLarge = Resolution{Size{2560, 1440}, "extra_large"};
-}
+
+static const auto Small = Resolution{Size{960, 540}, "small"};
+static const auto Medium = Resolution{Size{1280, 720}, "medium"};
+static const auto Large = Resolution{Size{1920, 1080}, "large"};
+static const auto ExtraLarge = Resolution{Size{2560, 1440}, "extra_large"};
+
+}  // SupportedResolutions
 
 const Resolution& Resolution::design() {
     return SupportedResolutions::Medium;

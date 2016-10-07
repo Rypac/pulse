@@ -29,4 +29,5 @@ inline void log(const cocos2d::Rect& rect) {
     logger::log(rect.size);
 }
 
-} }
+}  // logger
+}  // pulse

@@ -43,7 +43,7 @@ bool WrappedSprite::initMirrors(Texture2D* texture, const Rect& rect, bool rotat
 }
 
 bool WrappedSprite::initWithTexture(Texture2D* texture, const Rect& rect, bool rotated) {
-    if (not (initMirrors(texture, rect, rotated) and Sprite::initWithTexture(texture, rect, rotated))) {
+    if (not(initMirrors(texture, rect, rotated) and Sprite::initWithTexture(texture, rect, rotated))) {
         return false;
     }
 

@@ -1,7 +1,9 @@
 #pragma once
 
-#include "cocos2d.h"
 #include <type_traits>
+#include "cocos2d.h"
+
+namespace pulse {
 
 template <typename T, typename... Args, typename = std::enable_if_t<std::is_base_of<cocos2d::Ref, T>::value>>
 inline T* owned(Args&&... args) {
@@ -25,3 +27,5 @@ inline T* retained(Args&&... args) {
     }
     return object;
 }
+
+}  // pulse

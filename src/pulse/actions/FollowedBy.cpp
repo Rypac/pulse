@@ -3,7 +3,9 @@
 using pulse::FollowedBy;
 using namespace cocos2d;
 
-FollowedBy::FollowedBy(Node* follower, const Vec2& offset): follower_{follower}, offset_(offset) {
+FollowedBy::FollowedBy(Node* follower, const Vec2& offset)
+: follower_{follower}
+, offset_(offset) {
     follower_->retain();
 }
 

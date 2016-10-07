@@ -21,4 +21,4 @@ class AnimatedBackground : public cocos2d::Action {
     cocos2d::ParticleSystem* particles_;
 };
 
-}
+}  // pulse

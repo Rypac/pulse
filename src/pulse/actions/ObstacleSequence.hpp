@@ -15,4 +15,4 @@ class ObstacleSequence : public cocos2d::Sequence {
     ObstacleIndicator* indicator_;
 };
 
-}
+}  // pulse

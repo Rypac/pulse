@@ -35,4 +35,4 @@ class WrappedSprite : public cocos2d::Sprite {
     MirrorSprite* diagonalMirror;
 };
 
-}
+}  // pulse

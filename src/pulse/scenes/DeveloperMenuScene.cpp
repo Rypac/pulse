@@ -82,7 +82,7 @@ DeveloperMenuScene::DeveloperMenuScene(GameOptions& options) {
         obstacleSpeedStep(options),
         obstacleDefeatedThreshold(options),
         obstacleSlowMotionScale(options),
-        playerSlowMotionScale(options)
+        playerSlowMotionScale(options),
     });
     addBackButton();
 }

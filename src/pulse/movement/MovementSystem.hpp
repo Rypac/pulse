@@ -8,4 +8,4 @@ struct MovementSystem {
     std::function<void(const cocos2d::Vec3& movementVector)> onMovement;
 };
 
-}
+}  // pulse

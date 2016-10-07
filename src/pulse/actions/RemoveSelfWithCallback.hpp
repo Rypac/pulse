@@ -7,7 +7,8 @@ namespace pulse {
 class RemoveSelfWithCallback : public cocos2d::ActionInstant {
   public:
     using Callback = std::function<void(void)>;
-    RemoveSelfWithCallback(Callback callback = nullptr): onRemoved(callback) {}
+    RemoveSelfWithCallback(Callback callback = nullptr)
+    : onRemoved(callback) {}
 
     RemoveSelfWithCallback(const RemoveSelfWithCallback&) = delete;
     RemoveSelfWithCallback& operator=(const RemoveSelfWithCallback&) = delete;
@@ -19,4 +20,4 @@ class RemoveSelfWithCallback : public cocos2d::ActionInstant {
     virtual RemoveSelfWithCallback* reverse() const override;
 };
 
-}
+}  // pulse

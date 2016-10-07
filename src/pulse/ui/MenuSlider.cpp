@@ -28,18 +28,15 @@ void MenuSlider::addSlider() {
     slider = Slider::create();
     slider->loadBarTexture(
         Resources::Images::Menu::Slider::Empty,
-        Widget::TextureResType::PLIST
-    );
+        Widget::TextureResType::PLIST);
     slider->loadSlidBallTextures(
         Resources::Images::Menu::Slider::Normal,
         Resources::Images::Menu::Slider::Selected,
         Resources::Images::Menu::Slider::Disabled,
-        Widget::TextureResType::PLIST
-    );
+        Widget::TextureResType::PLIST);
     slider->loadProgressBarTexture(
         Resources::Images::Menu::Slider::Filled,
-        Widget::TextureResType::PLIST
-    );
+        Widget::TextureResType::PLIST);
     slider->setScale9Enabled(true);
     slider->setAnchorPoint(Vec2{0, 0.5});
     slider->addEventListener([this](auto ref, auto eventType) {

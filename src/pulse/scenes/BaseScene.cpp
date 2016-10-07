@@ -3,7 +3,8 @@
 using namespace cocos2d;
 using namespace pulse;
 
-BaseScene::BaseScene(): background_{nullptr} {
+BaseScene::BaseScene()
+: background_{nullptr} {
     const auto director = Director::getInstance();
     frame_ = Rect{director->getVisibleOrigin(), director->getVisibleSize()};
     init();
@@ -20,7 +21,7 @@ void BaseScene::removeBackground() {
     }
 }
 
-void BaseScene::setBackground(Node *background) {
+void BaseScene::setBackground(Node* background) {
     removeBackground();
     background_ = background;
     background_->retain();

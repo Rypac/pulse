@@ -14,7 +14,9 @@ class ObstacleIndicator : public cocos2d::ParticleSystemQuad {
     std::string particleFilePath() const;
 
   protected:
-    ObstacleIndicator(Direction direction): direction{direction} {}
+    ObstacleIndicator(Direction direction)
+    : direction{direction} {}
+
     virtual bool initWithFrame(const cocos2d::Rect& frame);
 
   private:
@@ -22,4 +24,4 @@ class ObstacleIndicator : public cocos2d::ParticleSystemQuad {
     const float thickness{80};
 };
 
-}
+}  // pulse

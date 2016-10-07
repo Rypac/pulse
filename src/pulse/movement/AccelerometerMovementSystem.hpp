@@ -1,7 +1,7 @@
 #pragma once
 
-#include "pulse/movement/MovementSystem.hpp"
 #include "pulse/models/Accelerometer.hpp"
+#include "pulse/movement/MovementSystem.hpp"
 
 namespace pulse {
 
@@ -16,4 +16,4 @@ class AccelerometerMovementSystem : public cocos2d::EventListenerAcceleration, p
     cocos2d::Acceleration previousReading_;
 };
 
-}
+}  // pulse

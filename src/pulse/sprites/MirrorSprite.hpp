@@ -12,4 +12,4 @@ class MirrorSprite : public cocos2d::Sprite {
     void setPhysicsBody(cocos2d::PhysicsBody* physicsBody);
 };
 
-}
+}  // pulse

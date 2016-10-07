@@ -6,9 +6,13 @@ namespace pulse {
 
 class NodeAnimator {
   public:
-    NodeAnimator(): NodeAnimator{nullptr} {}
+    NodeAnimator()
+    : NodeAnimator{nullptr} {}
 
-    NodeAnimator(cocos2d::Node* node): node_{node}, entryAnimation_{nullptr}, exitAnimation_{nullptr} {
+    NodeAnimator(cocos2d::Node* node)
+    : node_{node}
+    , entryAnimation_{nullptr}
+    , exitAnimation_{nullptr} {
         if (node_) {
             node_->retain();
         }
@@ -58,4 +62,4 @@ class NodeAnimator {
     cocos2d::Action* exitAnimation_;
 };
 
-}
+}  // pulse

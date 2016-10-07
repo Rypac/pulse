@@ -5,7 +5,8 @@
 using namespace pulse;
 using namespace cocos2d;
 
-ObstaclePhysicsBody::ObstaclePhysicsBody(const Obstacle* obstacle): obstacle_{obstacle} {
+ObstaclePhysicsBody::ObstaclePhysicsBody(const Obstacle* obstacle)
+: obstacle_{obstacle} {
     init();
     setState(State::Incoming);
 }

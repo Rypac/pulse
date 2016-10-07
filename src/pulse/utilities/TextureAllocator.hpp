@@ -6,7 +6,6 @@
 namespace pulse {
 
 struct TextureAllocator {
-
     static void initialiseResources() {
         initialiseSpritesheet(cocos2d::SpriteFrameCache::getInstance());
     }
@@ -21,4 +20,4 @@ struct TextureAllocator {
     }
 };
 
-}
+}  // pulse

@@ -18,4 +18,4 @@ class SplashScene : public BaseScene {
     cocos2d::Sprite* image_;
 };
 
-}
+}  // pulse

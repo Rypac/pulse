@@ -19,4 +19,4 @@ class DeveloperMenuScene : public BaseScene {
     void addBackButton();
 };
 
-}
+}  // pulse

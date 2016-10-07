@@ -1,7 +1,9 @@
 #pragma once
 
-#include "cocos2d.h"
 #include <type_traits>
+#include "cocos2d.h"
+
+namespace pulse {
 
 template <typename T, typename... Args, typename = std::enable_if_t<std::is_base_of<cocos2d::Node, T>::value>>
 inline T* create(Args&&... args) {
@@ -32,4 +34,5 @@ inline void stopAllActionsRecursively(cocos2d::Node* node) {
     node->stopAllActions();
 }
 
-}
+}  // node
+}  // pulse

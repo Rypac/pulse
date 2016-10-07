@@ -1,8 +1,8 @@
 #pragma once
 
+#include <string>
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include <string>
 
 namespace pulse {
 namespace ui {
@@ -44,4 +44,5 @@ class MenuSlider : public cocos2d::Node {
     Preferences preferences;
 };
 
-} }
+}  // ui
+}  // pulse

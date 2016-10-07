@@ -4,7 +4,8 @@
 using pulse::AnimatedBackground;
 using cocos2d::Action;
 
-AnimatedBackground::AnimatedBackground(cocos2d::ParticleSystem* particles): particles_{particles} {
+AnimatedBackground::AnimatedBackground(cocos2d::ParticleSystem* particles)
+: particles_{particles} {
     particles_->retain();
 }
 

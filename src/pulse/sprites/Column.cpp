@@ -4,9 +4,11 @@
 using cocos2d::Rect;
 using pulse::Column;
 
-Column::Column(): Column(0) {}
+Column::Column()
+: Column(0) {}
 
-Column::Column(float height): Column(Rect{0, 0, defaultLength, height}) {}
+Column::Column(float height)
+: Column(Rect{0, 0, defaultLength, height}) {}
 
 Column::Column(const Rect& frame) {
     init();

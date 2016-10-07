@@ -81,9 +81,10 @@ void stopCollisions(PhysicsBody* body) {
 }
 
 std::optional<Node*> nodeInContact(const PhysicsBody& body1, const PhysicsBody& body2, NodePredicate isNode) {
-    return isNode(body1) ? std::make_optional(body1.getNode())
-         : isNode(body2) ? std::make_optional(body2.getNode())
-         : std::nullopt;
+    if (isNode(body1)) {
+        return std::make_optional(body1.getNode());
+    }
+    return isNode(body2) ? std::make_optional(body2.getNode()) : std::nullopt;
 }
 
 std::optional<Node*> nodeInContact(const PhysicsContact& contact, const NodePredicate isNode) {
@@ -92,22 +93,23 @@ std::optional<Node*> nodeInContact(const PhysicsContact& contact, const NodePred
 
 namespace collision {
 
-    bool heroAndObstacle(const PhysicsContact& contact) {
-        return heroAndObstacle(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody());
-    }
-
-    bool heroAndObstacle(const PhysicsBody& body1, const PhysicsBody& body2) {
-        return isHero(body1) or isHero(body2) ? isObstacle(body1) or isObstacle(body2) : false;
-    }
-
-    bool heroAndPath(const PhysicsContact& contact) {
-        return heroAndPath(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody());
-    }
-
-    bool heroAndPath(const PhysicsBody& body1, const PhysicsBody& body2) {
-        return isHero(body1) or isHero(body2) ? isPath(body1) or isPath(body2) : false;
-    }
-
+bool heroAndObstacle(const PhysicsContact& contact) {
+    return heroAndObstacle(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody());
 }
 
-} }
+bool heroAndObstacle(const PhysicsBody& body1, const PhysicsBody& body2) {
+    return isHero(body1) or isHero(body2) ? isObstacle(body1) or isObstacle(body2) : false;
+}
+
+bool heroAndPath(const PhysicsContact& contact) {
+    return heroAndPath(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody());
+}
+
+bool heroAndPath(const PhysicsBody& body1, const PhysicsBody& body2) {
+    return isHero(body1) or isHero(body2) ? isPath(body1) or isPath(body2) : false;
+}
+
+}  // collision
+
+}  // physics_body
+}  // pulse

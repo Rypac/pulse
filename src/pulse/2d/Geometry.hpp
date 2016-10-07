@@ -72,19 +72,27 @@ inline Vec2 below(const Rect& body, const Rect& frame) {
 
 inline Vec2 origin(const Rect& body, const Rect& world, Direction direction) {
     switch (direction) {
-        case Direction::North: return geometry::below(body, world);
-        case Direction::South: return geometry::above(body, world);
-        case Direction::East: return geometry::leftOf(body, world);
-        case Direction::West: return geometry::rightOf(body, world);
+        case Direction::North:
+            return geometry::below(body, world);
+        case Direction::South:
+            return geometry::above(body, world);
+        case Direction::East:
+            return geometry::leftOf(body, world);
+        case Direction::West:
+            return geometry::rightOf(body, world);
     }
 }
 
 inline Vec2 destination(const Rect& body, const Rect& world, Direction direction) {
     switch (direction) {
-        case Direction::North: return geometry::above(body, world);
-        case Direction::South: return geometry::below(body, world);
-        case Direction::East: return geometry::rightOf(body, world);
-        case Direction::West: return geometry::leftOf(body, world);
+        case Direction::North:
+            return geometry::above(body, world);
+        case Direction::South:
+            return geometry::below(body, world);
+        case Direction::East:
+            return geometry::rightOf(body, world);
+        case Direction::West:
+            return geometry::leftOf(body, world);
     }
 }
 
@@ -123,4 +131,5 @@ inline Vec2 entryPosition(Direction direction, const Rect& frame, const Vec2& de
     return entryPosition(direction, frame, destination, node->getContentSize() * node->getScale(), -node->getRotation());
 }
 
-} }
+}  // geometry
+}  // pulse

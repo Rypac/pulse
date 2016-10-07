@@ -22,11 +22,11 @@ std::optional<cocos2d::Node*> nodeInContact(const cocos2d::PhysicsContact& conta
 
 namespace collision {
 
-    bool heroAndObstacle(const cocos2d::PhysicsContact& contact);
-    bool heroAndObstacle(const cocos2d::PhysicsBody& body1, const cocos2d::PhysicsBody& body2);
-    bool heroAndPath(const cocos2d::PhysicsContact& contact);
-    bool heroAndPath(const cocos2d::PhysicsBody& body1, const cocos2d::PhysicsBody& body2);
+bool heroAndObstacle(const cocos2d::PhysicsContact& contact);
+bool heroAndObstacle(const cocos2d::PhysicsBody& body1, const cocos2d::PhysicsBody& body2);
+bool heroAndPath(const cocos2d::PhysicsContact& contact);
+bool heroAndPath(const cocos2d::PhysicsBody& body1, const cocos2d::PhysicsBody& body2);
+}  // collision
 
-}
-
-} }
+}  // physics_body
+}  // pulse

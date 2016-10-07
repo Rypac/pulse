@@ -19,4 +19,4 @@ class PauseMenuScene : public BaseScene {
     void addQuitButton();
 };
 
-}
+}  // pulse

@@ -1,7 +1,7 @@
 #include "pulse/sprites/Score.hpp"
+#include <range/v3/algorithm/reverse.hpp>
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Resources.hpp"
-#include <range/v3/algorithm/reverse.hpp>
 
 using pulse::Score;
 using namespace cocos2d;

@@ -7,7 +7,8 @@ namespace pulse {
 
 class GameOverScene : public BaseScene {
   public:
-    GameOverScene(): GameOverScene(0) {}
+    GameOverScene()
+    : GameOverScene(0) {}
     GameOverScene(int score);
 
     using SceneCallback = std::function<void(GameOverScene* scene)>;
@@ -27,4 +28,4 @@ class GameOverScene : public BaseScene {
     NodeAnimator homeAnimator_;
 };
 
-}
+}  // pulse

@@ -8,8 +8,7 @@ GameState::GameState(const GameOptions& options)
 , normalTimeScale_{1.0, 1.0, 1.0}
 , score_{0}
 , timeMode_{TimeMode::Normal}
-, accelerometer_{30}
-{}
+, accelerometer_{30} {}
 
 int GameState::currentScore() const {
     return score_;

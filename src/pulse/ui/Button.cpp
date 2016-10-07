@@ -39,8 +39,7 @@ Button::Button()
 , touchScale_{-0.1f}
 , savedScale_{1.0f}
 , cancelled_{false}
-, disableAfterClick_{false}
-{}
+, disableAfterClick_{false} {}
 
 Button::~Button() {
     if (listener_) {
@@ -72,8 +71,9 @@ void Button::onTouchDidMove(cocos2d::Touch* touch, cocos2d::Event* event) {
     if (reactsToTouch_) {
         runAction(autoreleased<CallbackAfter>(
             cocos2d::ScaleTo::create(AnimationSpeed, savedScale_),
-            [this]() { safe_callback(onTouchCancelled, this); }
-        ));
+            [this]() {
+                safe_callback(onTouchCancelled, this);
+            }));
     } else {
         safe_callback(onTouchCancelled, this);
     }
@@ -88,8 +88,9 @@ void Button::onTouchDidEnd(cocos2d::Touch* touch, cocos2d::Event* event) {
     if (reactsToTouch_) {
         runAction(autoreleased<CallbackAfter>(
             cocos2d::ScaleTo::create(AnimationSpeed, savedScale_),
-            [this]() { safe_callback(onTouchEnded, this); }
-        ));
+            [this]() {
+                safe_callback(onTouchEnded, this);
+            }));
     } else {
         safe_callback(onTouchEnded, this);
     }

@@ -1,10 +1,10 @@
 #include "pulse/scenes/SplashScene.hpp"
+#include "SimpleAudioEngine.h"
 #include "pulse/actions/CallbackAfter.hpp"
 #include "pulse/extensions/Rect.hpp"
 #include "pulse/extensions/Ref.hpp"
 #include "pulse/ui/Resources.hpp"
 #include "pulse/utilities/Callback.hpp"
-#include "SimpleAudioEngine.h"
 
 using namespace pulse;
 using namespace cocos2d;

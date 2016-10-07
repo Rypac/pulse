@@ -53,4 +53,5 @@ class Button : public cocos2d::Sprite {
     bool disableAfterClick_;
 };
 
-} }
+}  // pulse
+}  // ui

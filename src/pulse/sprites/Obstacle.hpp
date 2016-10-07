@@ -65,4 +65,4 @@ class Obstacle : public cocos2d::Sprite {
     cocos2d::Node* gap;
 };
 
-}
+}  // pulse

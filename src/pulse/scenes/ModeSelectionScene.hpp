@@ -1,7 +1,7 @@
 #pragma once
 
-#include "pulse/scenes/BaseScene.hpp"
 #include "pulse/models/GameMode.hpp"
+#include "pulse/scenes/BaseScene.hpp"
 #include "pulse/ui/Button.hpp"
 
 namespace pulse {
@@ -36,4 +36,4 @@ class ModeSelectionScene : public BaseScene {
     GameMode mode_;
 };
 
-}
+}  // pulse

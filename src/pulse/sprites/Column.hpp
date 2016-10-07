@@ -13,4 +13,4 @@ class Column : public cocos2d::Sprite {
     constexpr static const float defaultLength{50.0};
 };
 
-}
+}  // pulse

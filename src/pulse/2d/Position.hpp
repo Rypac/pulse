@@ -44,4 +44,5 @@ inline Vec2 relativeToAnchorPoint(const Vec2& position, const Size& size, const 
     return relativePosition;
 }
 
-} }
+}  // position
+}  // pulse

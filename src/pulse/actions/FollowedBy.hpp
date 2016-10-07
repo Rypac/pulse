@@ -22,4 +22,4 @@ class FollowedBy : public cocos2d::Action {
     cocos2d::Vec2 offset_;
 };
 
-}
+}  // pulse

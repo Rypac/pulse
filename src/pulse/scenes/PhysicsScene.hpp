@@ -11,4 +11,4 @@ class PhysicsScene : public BaseScene {
     bool onScreenCollision(const cocos2d::PhysicsContact& contact) const;
 };
 
-}
+}  // pulse

@@ -28,4 +28,5 @@ inline void scaleOut(cocos2d::Node* node, const std::function<void()>& onComplet
     node->runAction(autoreleased<CallbackAfter>(cocos2d::ScaleTo::create(AnimationDuration, 0), onCompletion));
 }
 
-} }
+}  // animate
+}  // pulse

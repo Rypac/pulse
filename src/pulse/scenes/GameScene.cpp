@@ -1,16 +1,16 @@
 #include <string>
 
-#include "pulse/scenes/GameScene.hpp"
 #include "pulse/actions/CallbackAfter.hpp"
 #include "pulse/actions/FollowedBy.hpp"
 #include "pulse/actions/ObstacleSequence.hpp"
 #include "pulse/extensions/Node.hpp"
 #include "pulse/extensions/Rect.hpp"
 #include "pulse/extensions/Ref.hpp"
-#include "pulse/sprites/SpritePhysicsBody.hpp"
-#include "pulse/sprites/ObstaclePhysicsBody.hpp"
 #include "pulse/generators/ObstacleGenerator.hpp"
 #include "pulse/movement/AccelerometerMovementSystem.hpp"
+#include "pulse/scenes/GameScene.hpp"
+#include "pulse/sprites/ObstaclePhysicsBody.hpp"
+#include "pulse/sprites/SpritePhysicsBody.hpp"
 #include "pulse/ui/Button.hpp"
 #include "pulse/ui/Colour.hpp"
 #include "pulse/ui/Font.hpp"
@@ -20,7 +20,8 @@
 using namespace cocos2d;
 using namespace pulse;
 
-GameScene::GameScene(const GameOptions& options): gameState{GameState{options}} {
+GameScene::GameScene(const GameOptions& options)
+: gameState{GameState{options}} {
     getPhysicsWorld()->setGravity(Vec2::ZERO);
 
     addPlayer();
@@ -32,7 +33,7 @@ GameScene::GameScene(const GameOptions& options): gameState{GameState{options}} 
         timeScaleTouchListener(),
         playerTouchListener(),
         playerMovementListener(),
-        collisionListener()
+        collisionListener(),
     };
     for (auto&& listener : gameListeners) {
         getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
