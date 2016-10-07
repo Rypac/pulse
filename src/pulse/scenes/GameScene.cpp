@@ -114,15 +114,21 @@ Obstacle* GameScene::generateObstacle() {
     const auto obstacle = ObstacleGenerator{sceneFrame()}.generate();
     obstacle->setSpeed(gameState.obstacleSpeed());
     obstacle->setPhysicsBody(autoreleased<ObstaclePhysicsBody>(obstacle));
-    obstacle->onStarted = [this](auto obstacle) { obstacles.emplace_back(obstacle); };
-    obstacle->onCompletion = [this](auto obstacle) { obstacles.remove(obstacle); };
+    obstacle->onStarted = [this](auto obstacle) {
+        obstacles.emplace_back(obstacle);
+    };
+    obstacle->onCompletion = [this](auto obstacle) {
+        obstacles.remove(obstacle);
+    };
     return obstacle;
 }
 
 void GameScene::scheduleObstacleGeneration() {
     const auto obstacle = generateObstacle();
     const auto obstacleSequence = autoreleased<ObstacleSequence>(obstacle, gameState.obstacleFrequency());
-    const auto reschedule = [this]() { this->scheduleObstacleGeneration(); };
+    const auto reschedule = [this]() {
+        this->scheduleObstacleGeneration();
+    };
     runAction(autoreleased<CallbackAfter>(obstacleSequence, reschedule));
 }
 

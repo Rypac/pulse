@@ -35,7 +35,9 @@ void ModeSelectionScene::onEnterTransitionDidFinish() {
     animate::fadeIn(this->background());
 
     for (auto&& mode : modes_) {
-        mode.button->onTouchEnded = [&](auto ref) { this->updateSelectedMode(mode.mode); };
+        mode.button->onTouchEnded = [&](auto ref) {
+            this->updateSelectedMode(mode.mode);
+        };
         addChild(mode.label);
         addChild(mode.button);
         animate::scaleIn(mode.button);
@@ -54,7 +56,9 @@ void ModeSelectionScene::updateSelectedMode(GameMode selectedMode) {
 void ModeSelectionScene::addDismissListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
-    touchListener->onTouchBegan = [this](auto touch, auto event) { return true; };
+    touchListener->onTouchBegan = [this](auto touch, auto event) {
+        return true;
+    };
     touchListener->onTouchEnded = [this](auto touch, auto event) {
         for (auto&& mode : modes_) {
             animate::scaleOut(mode.button);
