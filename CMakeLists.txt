@@ -61,6 +61,11 @@ set(LIB_DIR ${CMAKE_SOURCE_DIR}/libs)
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(PULSE_DIR ${SRC_DIR}/pulse)
 
+# Libraries
+add_subdirectory(${LIB_DIR}/GSL)
+add_subdirectory(${LIB_DIR}/range-v3)
+add_subdirectory(${LIB_DIR}/json)
+
 include_directories(
     /usr/local/include/GLFW
     /usr/include/GLFW
