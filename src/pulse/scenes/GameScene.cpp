@@ -27,11 +27,11 @@ GameScene::GameScene(const GameOptions& options)
     addPlayer();
     addMenuOptions();
     addScoreLabel();
+    addPowerupMeter();
     addGameStateListeners();
 
     gameListeners = {
         timeScaleTouchListener(),
-        playerTouchListener(),
         playerMovementListener(),
         collisionListener(),
     };
@@ -46,7 +46,6 @@ GameScene::~GameScene() {
         CC_SAFE_RELEASE(listener);
     }
     CC_SAFE_RELEASE(player);
-    CC_SAFE_RELEASE(score);
 }
 
 void GameScene::startNewGame() {
@@ -91,9 +90,21 @@ void GameScene::addMenuOptions() {
     addChild(menuButton, 3);
 }
 
+void GameScene::addPowerupMeter() {
+    powerupMeter = Sprite::create();
+    powerupMeter->setColor(Colour::Blue);
+    const auto origin = Vec2{sceneFrame().getMidX(), sceneFrame().getMaxY() - 45};
+    const auto size = Size{sceneFrame().size.width * 0.75f, 20};
+    const auto frame = Rect{origin, size};
+    powerupMeter->setPosition(frame.origin);
+    powerupMeter->setContentSize(frame.size);
+    powerupMeter->setTextureRect(frame);
+    powerupMeter->setPhysicsBody(physics_body::createUI(frame.size));
+    addChild(powerupMeter, 3);
+}
+
 void GameScene::addScoreLabel() {
     score = Score::create(0);
-    score->retain();
     score->setCascadeOpacityEnabled(true);
     score->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     score->setScale(0.2);
@@ -143,33 +154,14 @@ cocos2d::EventListener* GameScene::timeScaleTouchListener() {
             return false;
         }
         gameState.enterMode(GameState::TimeMode::SlowMotion);
+        this->playSlowdownAnimation();
         return true;
     };
     timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::Normal);
+        this->playSpeedupAnimation();
     };
     return timeScaleListener;
-}
-
-cocos2d::EventListener* GameScene::playerTouchListener() {
-    const auto touchListener = EventListenerTouchOneByOne::create();
-    touchListener->retain();
-    touchListener->onTouchBegan = [this](auto touch, auto event) {
-        if (not gameState.powerup().isActive()) {
-            return false;
-        }
-        const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
-        player->runAction(autoreleased<FollowedBy>(touchEffect));
-        return true;
-    };
-    touchListener->onTouchEnded = [this](auto touch, auto event) {
-        player->stopAllActions();
-        const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseEnded);
-        touchEffect->setAutoRemoveOnFinish(true);
-        touchEffect->setPosition(player->getPosition());
-        this->addChild(touchEffect);
-    };
-    return touchListener;
 }
 
 cocos2d::EventListener* GameScene::playerMovementListener() {
@@ -237,7 +229,7 @@ void GameScene::addGameStateListeners() {
         if (mode == GameState::TimeMode::SlowMotion) {
             this->startPowerupTimer();
         } else {
-            this->unschedule("TimerSchedule");
+            this->unschedule("PowerupTimer");
         }
     };
 }
@@ -247,10 +239,26 @@ void GameScene::startPowerupTimer() {
         [this](auto dt) {
             gameState.powerup().elapse(dt);
             if (not gameState.powerup().isActive()) {
+                powerupMeter->setVisible(false);
                 gameState.enterMode(GameState::TimeMode::Normal);
+            } else {
+                powerupMeter->setScaleX(gameState.powerup().remainingTime() / 0.8f);
             }
         },
-        "TimerSchedule");
+        "PowerupTimer");
+}
+
+void GameScene::playSpeedupAnimation() {
+    player->stopAllActions();
+    const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseEnded);
+    touchEffect->setAutoRemoveOnFinish(true);
+    touchEffect->setPosition(player->getPosition());
+    this->addChild(touchEffect);
+}
+
+void GameScene::playSlowdownAnimation() {
+    const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
+    player->runAction(autoreleased<FollowedBy>(touchEffect));
 }
 
 bool GameScene::isObstacleCollision(const cocos2d::PhysicsContact& contact) const {

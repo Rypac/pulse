@@ -29,24 +29,28 @@ class GameScene : public PhysicsScene {
 
     void addMenuOptions();
     void addScoreLabel();
+    void addPowerupMeter();
     void addPlayer();
     void addGameStateListeners();
     void updateListeners(bool isGameRunning);
     void scheduleObstacleGeneration();
 
     cocos2d::EventListener* timeScaleTouchListener();
-    cocos2d::EventListener* playerTouchListener();
     cocos2d::EventListener* playerMovementListener();
     cocos2d::EventListener* collisionListener();
 
     Obstacle* generateObstacle();
     void startPowerupTimer();
 
+    void playSlowdownAnimation();
+    void playSpeedupAnimation();
+
     bool isObstacleCollision(const cocos2d::PhysicsContact& contact) const;
     bool isPathCollision(const cocos2d::PhysicsContact& contact) const;
 
     Player* player;
     Score* score;
+    cocos2d::Sprite* powerupMeter;
     std::list<Obstacle*> obstacles;
     GameState gameState;
     std::vector<cocos2d::EventListener*> gameListeners;

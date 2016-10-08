@@ -19,6 +19,10 @@ bool Powerup::isActive() const {
     return timer > 0;
 }
 
+float Powerup::remainingTime() const {
+    return timer;
+}
+
 GameState::GameState(const GameOptions& options)
 : options_{options}
 , normalTimeScale_{1.0, 1.0, 1.0}
