@@ -5,12 +5,21 @@
 
 namespace pulse {
 
-struct Powerup {
+class Powerup {
+  public:
+    Powerup();
+
+    void add(float ms);
+    void elapse(float ms);
+    bool isActive() const;
+
+  private:
     float timer;
     float rate;
 };
 
-struct GameState {
+class GameState {
+  public:
     enum class TimeMode {
         Normal,
         SlowMotion,

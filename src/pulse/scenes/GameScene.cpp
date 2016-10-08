@@ -80,22 +80,6 @@ void GameScene::updateListeners(bool isGameRunning) {
     }
 }
 
-void GameScene::schedulePowerupTimer() {
-    schedule(
-        [this](auto dt) {
-            gameState.powerup().timer -= dt;
-            if (gameState.powerup().timer <= 0) {
-                gameState.enterMode(GameState::TimeMode::Normal);
-                this->unschedulePowerupTimer();
-            }
-        },
-        "TimerSchedule");
-}
-
-void GameScene::unschedulePowerupTimer() {
-    unschedule("TimerSchedule");
-}
-
 void GameScene::addMenuOptions() {
     const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
@@ -155,16 +139,14 @@ cocos2d::EventListener* GameScene::timeScaleTouchListener() {
     const auto timeScaleListener = EventListenerTouchOneByOne::create();
     timeScaleListener->retain();
     timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
-        if (gameState.powerup().timer <= 0) {
+        if (not gameState.powerup().isActive()) {
             return false;
         }
         gameState.enterMode(GameState::TimeMode::SlowMotion);
-        this->schedulePowerupTimer();
         return true;
     };
     timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::Normal);
-        this->unschedulePowerupTimer();
     };
     return timeScaleListener;
 }
@@ -173,7 +155,7 @@ cocos2d::EventListener* GameScene::playerTouchListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->retain();
     touchListener->onTouchBegan = [this](auto touch, auto event) {
-        if (gameState.powerup().timer <= 0) {
+        if (not gameState.powerup().isActive()) {
             return false;
         }
         const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
@@ -252,7 +234,23 @@ void GameScene::addGameStateListeners() {
     };
     gameState.onTimeModeChanged = [this](auto mode) {
         this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
+        if (mode == GameState::TimeMode::SlowMotion) {
+            this->startPowerupTimer();
+        } else {
+            this->unschedule("TimerSchedule");
+        }
     };
+}
+
+void GameScene::startPowerupTimer() {
+    schedule(
+        [this](auto dt) {
+            gameState.powerup().elapse(dt);
+            if (not gameState.powerup().isActive()) {
+                gameState.enterMode(GameState::TimeMode::Normal);
+            }
+        },
+        "TimerSchedule");
 }
 
 bool GameScene::isObstacleCollision(const cocos2d::PhysicsContact& contact) const {

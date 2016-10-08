@@ -3,12 +3,28 @@
 
 using namespace pulse;
 
+Powerup::Powerup()
+: timer{0.8}
+, rate{1.0} {}
+
+void Powerup::add(float ms) {
+    timer += ms;
+}
+
+void Powerup::elapse(float ms) {
+    timer -= ms;
+}
+
+bool Powerup::isActive() const {
+    return timer > 0;
+}
+
 GameState::GameState(const GameOptions& options)
 : options_{options}
 , normalTimeScale_{1.0, 1.0, 1.0}
 , score_{0}
 , timeMode_{TimeMode::Normal}
-, powerup_{0.8, 1.0}
+, powerup_{}
 , accelerometer_{30} {}
 
 int GameState::currentScore() const {
