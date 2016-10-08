@@ -226,6 +226,7 @@ void GameScene::addGameStateListeners() {
     };
     gameState.onTimeModeChanged = [this](auto mode) {
         this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
+        this->updatePowerupMeter();
         if (mode == GameState::TimeMode::SlowMotion) {
             this->startPowerupTimer();
         } else {
@@ -238,14 +239,17 @@ void GameScene::startPowerupTimer() {
     schedule(
         [this](auto dt) {
             gameState.powerup().elapse(dt);
+            this->updatePowerupMeter();
             if (not gameState.powerup().isActive()) {
-                powerupMeter->setVisible(false);
                 gameState.enterMode(GameState::TimeMode::Normal);
-            } else {
-                powerupMeter->setScaleX(gameState.powerup().remainingTime() / 0.8f);
             }
         },
         "PowerupTimer");
+}
+
+void GameScene::updatePowerupMeter() {
+    powerupMeter->setScaleX(gameState.powerup().remainingTime() / 0.8f);
+    powerupMeter->setVisible(gameState.powerup().isActive());
 }
 
 void GameScene::playSpeedupAnimation() {

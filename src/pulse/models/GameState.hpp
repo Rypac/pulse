@@ -11,6 +11,7 @@ class Powerup {
 
     void add(float ms);
     void elapse(float ms);
+    void reset();
     bool isActive() const;
     float remainingTime() const;
 

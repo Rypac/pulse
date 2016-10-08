@@ -15,6 +15,10 @@ void Powerup::elapse(float ms) {
     timer -= ms;
 }
 
+void Powerup::reset() {
+    timer = 0.8;
+}
+
 bool Powerup::isActive() const {
     return timer > 0;
 }
@@ -101,7 +105,8 @@ float GameState::obstacleFrequency() const {
 void GameState::reset() {
     setScore(0);
     enterMode(TimeMode::Normal);
-    accelerometer_.reset();
+    accelerometer().reset();
+    powerup().reset();
 }
 
 const pulse::TimeScale& GameState::timeScale() const {

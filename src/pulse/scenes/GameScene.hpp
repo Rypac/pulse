@@ -32,6 +32,7 @@ class GameScene : public PhysicsScene {
     void addPowerupMeter();
     void addPlayer();
     void addGameStateListeners();
+    void updatePowerupMeter();
     void updateListeners(bool isGameRunning);
     void scheduleObstacleGeneration();
 
