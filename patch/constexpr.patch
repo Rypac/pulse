@@ -1,0 +1,3415 @@
+From c73164af729646aad9c4a4732db192bd6c31e20c Mon Sep 17 00:00:00 2001
+From: Ryan Davis <void@rdavis.xyz>
+Date: Sat, 8 Oct 2016 15:24:50 +1100
+Subject: [PATCH] Make small math classes constexpr friendly
+
+---
+ build/cocos2d_libs.xcodeproj/project.pbxproj |   2 -
+ cocos/math/CCGeometry.cpp                    | 139 +----------
+ cocos/math/CCGeometry.h                      | 144 +++++++++---
+ cocos/math/Mat4.cpp                          |   4 -
+ cocos/math/Mat4.h                            |   5 -
+ cocos/math/MathUtil.cpp                      |   5 -
+ cocos/math/MathUtil.h                        |   7 +-
+ cocos/math/Quaternion.cpp                    |   4 -
+ cocos/math/Quaternion.h                      |   5 -
+ cocos/math/Vec2.cpp                          |  66 ++----
+ cocos/math/Vec2.h                            | 332 ++++++++++++++++++---------
+ cocos/math/Vec2.inl                          | 234 -------------------
+ cocos/math/Vec3.cpp                          |  69 +-----
+ cocos/math/Vec3.h                            | 217 ++++++++++++-----
+ cocos/math/Vec3.inl                          | 190 ---------------
+ cocos/math/Vec4.cpp                          | 137 -----------
+ cocos/math/Vec4.h                            | 266 +++++++++++++++------
+ cocos/math/Vec4.inl                          | 114 ---------
+ 18 files changed, 737 insertions(+), 1203 deletions(-)
+ delete mode 100644 cocos/math/Vec2.inl
+ delete mode 100644 cocos/math/Vec3.inl
+ delete mode 100644 cocos/math/Vec4.inl
+
+diff --git a/build/cocos2d_libs.xcodeproj/project.pbxproj b/build/cocos2d_libs.xcodeproj/project.pbxproj
+index 1d9417b..7f4a23e 100644
+--- a/build/cocos2d_libs.xcodeproj/project.pbxproj
++++ b/build/cocos2d_libs.xcodeproj/project.pbxproj
+@@ -6670,7 +6670,6 @@
+ 		50ABBD2E1925AB0000A911A9 /* TransformUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransformUtils.h; sourceTree = "<group>"; };
+ 		50ABBD2F1925AB0000A911A9 /* Vec2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec2.cpp; sourceTree = "<group>"; };
+ 		50ABBD301925AB0000A911A9 /* Vec2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec2.h; sourceTree = "<group>"; };
+-		50ABBD311925AB0000A911A9 /* Vec2.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec2.inl; sourceTree = "<group>"; };
+ 		50ABBD321925AB0000A911A9 /* Vec3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vec3.cpp; sourceTree = "<group>"; };
+ 		50ABBD331925AB0000A911A9 /* Vec3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vec3.h; sourceTree = "<group>"; };
+ 		50ABBD341925AB0000A911A9 /* Vec3.inl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Vec3.inl; sourceTree = "<group>"; };
+@@ -9684,7 +9683,6 @@
+ 				50ABBD2E1925AB0000A911A9 /* TransformUtils.h */,
+ 				50ABBD2F1925AB0000A911A9 /* Vec2.cpp */,
+ 				50ABBD301925AB0000A911A9 /* Vec2.h */,
+-				50ABBD311925AB0000A911A9 /* Vec2.inl */,
+ 				50ABBD321925AB0000A911A9 /* Vec3.cpp */,
+ 				50ABBD331925AB0000A911A9 /* Vec3.h */,
+ 				50ABBD341925AB0000A911A9 /* Vec3.inl */,
+diff --git a/cocos/math/CCGeometry.cpp b/cocos/math/CCGeometry.cpp
+index e760c49..0fd749e 100644
+--- a/cocos/math/CCGeometry.cpp
++++ b/cocos/math/CCGeometry.cpp
+@@ -29,149 +29,12 @@ THE SOFTWARE.
+ #include <cmath>
+ #include "base/ccMacros.h"
+ 
+-// implementation of Vec2
+ NS_CC_BEGIN
+ 
+-// implementation of Size
+-
+-Size::Size(void) : width(0), height(0)
+-{
+-}
+-
+-Size::Size(float w, float h) : width(w), height(h)
+-{
+-}
+-
+-Size::Size(const Size& other) : width(other.width), height(other.height)
+-{
+-}
+-
+-Size::Size(const Vec2& point) : width(point.x), height(point.y)
+-{
+-}
+-
+-Size& Size::operator= (const Size& other)
+-{
+-    setSize(other.width, other.height);
+-    return *this;
+-}
+-
+-Size& Size::operator= (const Vec2& point)
+-{
+-    setSize(point.x, point.y);
+-    return *this;
+-}
+-
+-Size Size::operator+(const Size& right) const
+-{
+-    return Size(this->width + right.width, this->height + right.height);
+-}
+-
+-Size Size::operator-(const Size& right) const
+-{
+-    return Size(this->width - right.width, this->height - right.height);
+-}
+-
+-Size Size::operator*(float a) const
+-{
+-    return Size(this->width * a, this->height * a);
+-}
+-
+-Size Size::operator/(float a) const
+-{
+-	CCASSERT(a!=0, "CCSize division by 0.");
+-    return Size(this->width / a, this->height / a);
+-}
+-
+-void Size::setSize(float w, float h)
+-{
+-    this->width = w;
+-    this->height = h;
+-}
+-
+-bool Size::equals(const Size& target) const
+-{
+-    return (std::abs(this->width  - target.width)  < FLT_EPSILON)
+-        && (std::abs(this->height - target.height) < FLT_EPSILON);
+-}
+-
+ const Size Size::ZERO = Size(0, 0);
+ 
+ // implementation of Rect
+ 
+-Rect::Rect(void)
+-{
+-    setRect(0.0f, 0.0f, 0.0f, 0.0f);
+-}
+-
+-Rect::Rect(float x, float y, float width, float height)
+-{
+-    setRect(x, y, width, height);
+-}
+-Rect::Rect(const Vec2& pos, const Size& dimension)
+-{
+-    setRect(pos.x, pos.y, dimension.width, dimension.height);
+-}
+-
+-Rect::Rect(const Rect& other)
+-{
+-    setRect(other.origin.x, other.origin.y, other.size.width, other.size.height);
+-}
+-
+-Rect& Rect::operator= (const Rect& other)
+-{
+-    setRect(other.origin.x, other.origin.y, other.size.width, other.size.height);
+-    return *this;
+-}
+-
+-void Rect::setRect(float x, float y, float width, float height)
+-{
+-    // CGRect can support width<0 or height<0
+-    // CCASSERT(width >= 0.0f && height >= 0.0f, "width and height of Rect must not less than 0.");
+-
+-    origin.x = x;
+-    origin.y = y;
+-
+-    size.width = width;
+-    size.height = height;
+-}
+-
+-bool Rect::equals(const Rect& rect) const
+-{
+-    return (origin.equals(rect.origin) && 
+-            size.equals(rect.size));
+-}
+-
+-float Rect::getMaxX() const
+-{
+-    return origin.x + size.width;
+-}
+-
+-float Rect::getMidX() const
+-{
+-    return origin.x + size.width / 2.0f;
+-}
+-
+-float Rect::getMinX() const
+-{
+-    return origin.x;
+-}
+-
+-float Rect::getMaxY() const
+-{
+-    return origin.y + size.height;
+-}
+-
+-float Rect::getMidY() const
+-{
+-    return origin.y + size.height / 2.0f;
+-}
+-
+-float Rect::getMinY() const
+-{
+-    return origin.y;
+-}
+-
+ bool Rect::containsPoint(const Vec2& point) const
+ {
+     bool bRet = false;
+@@ -273,7 +136,7 @@ Rect Rect::unionWithRect(const Rect & rect) const
+     float combinedTopY = std::max(thisTopY, otherTopY);
+     float combinedBottomY = std::min(thisBottomY, otherBottomY);
+     
+-    return Rect(combinedLeftX, combinedBottomY, combinedRightX - combinedLeftX, combinedTopY - combinedBottomY);
++    return Rect{combinedLeftX, combinedBottomY, combinedRightX - combinedLeftX, combinedTopY - combinedBottomY};
+ }
+ 
+ const Rect Rect::ZERO = Rect(0, 0, 0, 0);
+diff --git a/cocos/math/CCGeometry.h b/cocos/math/CCGeometry.h
+index 27984f2..f1b7149 100644
+--- a/cocos/math/CCGeometry.h
++++ b/cocos/math/CCGeometry.h
+@@ -46,9 +46,9 @@ public:
+     float height;
+ public:
+     /**Conversion from Vec2 to Size.*/
+-    operator Vec2() const
++    constexpr operator Vec2() const
+     {
+-        return Vec2(width, height);
++        return Vec2{width, height};
+     }
+ 
+ public:
+@@ -60,53 +60,91 @@ public:
+     @param other Copy constructor.
+     @param point Conversion from a point.
+      */
+-    Size();
+-    Size(float width, float height);
+-    Size(const Size& other);
+-    explicit Size(const Vec2& point);
++    constexpr Size(): width{0.0f}, height{0.0f} {}
++    constexpr Size(float w, float h): width{w}, height{h} {}
++    constexpr Size(const Size& other): width{other.width}, height{other.height} {}
++    constexpr explicit Size(const Vec2& point): width{point.x}, height{point.y} {}
+     /**@}*/
+ 
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Size& operator= (const Size& other);
++    Size& operator=(const Size& other)
++    {
++        width = other.width;
++        height = other.height;
++        return *this;
++    }
++
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Size& operator= (const Vec2& point);
++    Size& operator=(const Vec2& point)
++    {
++        width = point.x;
++        height = point.y;
++        return *this;
++    }
++
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Size operator+(const Size& right) const;
++    constexpr Size operator+(const Size& right) const
++    {
++        return Size{width + right.width, height + right.height};
++    }
++
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Size operator-(const Size& right) const;
++    constexpr Size operator-(const Size& right) const
++    {
++        return Size{width - right.width, height - right.height};
++    }
++
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Size operator*(float a) const;
++    constexpr Size operator*(float a) const
++    {
++        return Size{width * a, height * a};
++    }
++
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Size operator/(float a) const;
++    constexpr Size operator/(float a) const
++    {
++        return Size{width / a, height / a};
++    }
++
+     /**
+     Set the width and height of Size.
+      * @js NA
+      * @lua NA
+      */
+-    void setSize(float width, float height);
++    void setSize(float w, float h)
++    {
++        width = w;
++        height = h;
++    }
++
+     /**
+     Check if two size is the same.
+      * @js NA
+      */
+-    bool equals(const Size& target) const;
++    bool equals(const Size& target) const
++    {
++        return (std::abs(width  - target.width)  < FLT_EPSILON)
++            && (std::abs(height - target.height) < FLT_EPSILON);
++    }
++
+     /**Size(0,0).*/
+     static const Size ZERO;
+ };
+@@ -118,99 +156,149 @@ public:
+     /**Low left point of rect.*/
+     Vec2 origin;
+     /**Width and height of the rect.*/
+-    Size  size;
++    Size size;
+ 
+ public:
+     /**
+     Constructor an empty Rect.
+      * @js NA
+      */
+-    Rect();
++    constexpr Rect(): origin{}, size{} {}
++
+     /**
+     Constructor a rect.
+      * @js NA
+      */
+-    Rect(float x, float y, float width, float height);
++    constexpr Rect(float x, float y, float width, float height): origin{x, y}, size{width, height} {}
++
+     /**
+      Constructor a rect.
+      * @js NA
+      */
+-    Rect(const Vec2& pos, const Size& dimension);
++    constexpr Rect(const Vec2& pos, const Size& dimension): origin{pos}, size{dimension} {}
++
+     /**
+     Copy constructor.
+      * @js NA
+      * @lua NA
+      */
+-    Rect(const Rect& other);
++    constexpr Rect(const Rect& other): origin{other.origin}, size{other.size} {}
++
+     /**
+      * @js NA
+      * @lua NA
+      */
+-    Rect& operator= (const Rect& other);
++    Rect& operator=(const Rect& other)
++    {
++        origin = other.origin;
++        size = other.size;
++        return *this;
++    }
++
+     /**
+     Set the x, y, width and height of Rect.
+      * @js NA
+      * @lua NA
+      */
+-    void setRect(float x, float y, float width, float height);
++    void setRect(float x, float y, float width, float height)
++    {
++        origin.x = x;
++        origin.y = y;
++        size.width = width;
++        size.height = height;
++    }
++
+     /**
+     Get the left of the rect.
+      * @js NA
+      */
+-    float getMinX() const; /// return the leftmost x-value of current rect
++    constexpr float getMinX() const /// return the leftmost x-value of current rect
++    {
++        return origin.x;
++    }
++
+     /**
+     Get the X coordinate of center point.
+      * @js NA
+      */
+-    float getMidX() const; /// return the midpoint x-value of current rect
++    constexpr float getMidX() const /// return the midpoint x-value of current rect
++    {
++        return origin.x + size.width / 2.0f;
++    }
++
+     /**
+     Get the right of rect.
+      * @js NA
+      */
+-    float getMaxX() const; /// return the rightmost x-value of current rect
++    constexpr float getMaxX() const /// return the rightmost x-value of current rect
++    {
++        return origin.x + size.width;
++    }
++
+     /**
+     Get the bottom of rect.
+      * @js NA
+      */
+-    float getMinY() const; /// return the bottommost y-value of current rect
++    constexpr float getMinY() const /// return the bottommost y-value of current rect
++    {
++        return origin.y;
++    }
++
+     /**
+     Get the Y coordinate of center point.
+      * @js NA
+      */
+-    float getMidY() const; /// return the midpoint y-value of current rect
++    constexpr float getMidY() const /// return the midpoint y-value of current rect
++    {
++        return origin.y + size.height / 2.0f;
++    }
++
+     /**
+     Get top of rect.
+      * @js NA
+      */
+-    float getMaxY() const; /// return the topmost y-value of current rect
++    constexpr float getMaxY() const /// return the topmost y-value of current rect
++    {
++        return origin.y + size.height;
++    }
++
+     /**
+     Compare two rects.
+      * @js NA
+      */
+-    bool equals(const Rect& rect) const;
++    bool equals(const Rect& rect) const
++    {
++        return origin.equals(rect.origin) && size.equals(rect.size);
++    }
++
+     /**
+     Check if the points is contained in the rect.
+      * @js NA
+      */
+     bool containsPoint(const Vec2& point) const;
++
+     /**
+     Check the intersect status of two rects.
+      * @js NA
+      */
+     bool intersectsRect(const Rect& rect) const;
++
+     /**
+     Check the intersect status of the rect and a circle.
+      * @js NA
+      */
+     bool intersectsCircle(const Vec2& center, float radius) const;
++
+     /**
+     Get the min rect which can contain this and rect.
+      * @js NA
+      * @lua NA
+      */
+     Rect unionWithRect(const Rect & rect) const;
++
+     /**Compute the min rect which can contain this and rect, assign it to this.*/
+     void merge(const Rect& rect);
++
+     /**An empty Rect.*/
+     static const Rect ZERO;
+ };
+diff --git a/cocos/math/Mat4.cpp b/cocos/math/Mat4.cpp
+index 974f086..7ef3d35 100644
+--- a/cocos/math/Mat4.cpp
++++ b/cocos/math/Mat4.cpp
+@@ -48,10 +48,6 @@ Mat4::Mat4(const Mat4& copy)
+     memcpy(m, copy.m, MATRIX_SIZE);
+ }
+ 
+-Mat4::~Mat4()
+-{
+-}
+-
+ void Mat4::createLookAt(const Vec3& eyePosition, const Vec3& targetPosition, const Vec3& up, Mat4* dst)
+ {
+     createLookAt(eyePosition.x, eyePosition.y, eyePosition.z, targetPosition.x, targetPosition.y, targetPosition.z,
+diff --git a/cocos/math/Mat4.h b/cocos/math/Mat4.h
+index 7eecc94..1ba5fae 100644
+--- a/cocos/math/Mat4.h
++++ b/cocos/math/Mat4.h
+@@ -154,11 +154,6 @@ public:
+     Mat4(const Mat4& copy);
+ 
+     /**
+-     * Destructor.
+-     */
+-    ~Mat4();
+-
+-    /**
+      * Creates a view matrix based on the specified input parameters.
+      *
+      * @param eyePosition The eye position.
+diff --git a/cocos/math/MathUtil.cpp b/cocos/math/MathUtil.cpp
+index ceaa218..a1f965d 100644
+--- a/cocos/math/MathUtil.cpp
++++ b/cocos/math/MathUtil.cpp
+@@ -95,11 +95,6 @@ void MathUtil::smooth(float* x, float target, float elapsedTime, float riseTime,
+     }
+ }
+ 
+-float MathUtil::lerp(float from, float to, float alpha)
+-{
+-    return from * (1.0f - alpha) + to * alpha;
+-}
+-
+ bool MathUtil::isNeon32Enabled()
+ {
+ #ifdef USE_NEON32
+diff --git a/cocos/math/MathUtil.h b/cocos/math/MathUtil.h
+index d7db8d9..85c1ddb 100644
+--- a/cocos/math/MathUtil.h
++++ b/cocos/math/MathUtil.h
+@@ -86,7 +86,11 @@ public:
+      *
+      * @return interpolated float value
+      */
+-    static float lerp(float from, float to, float alpha);
++    static constexpr float lerp(float from, float to, float alpha)
++    {
++        return from * (1.0f - alpha) + to * alpha;
++    }
++
+ private:
+     //Indicates that if neon is enabled
+     static bool isNeon32Enabled();
+@@ -128,7 +132,6 @@ private:
+     static void transformVec4(const float* m, const float* v, float* dst);
+ 
+     static void crossVec3(const float* v1, const float* v2, float* dst);
+-
+ };
+ 
+ NS_CC_MATH_END
+diff --git a/cocos/math/Quaternion.cpp b/cocos/math/Quaternion.cpp
+index 6a4279b..9390ca7 100644
+--- a/cocos/math/Quaternion.cpp
++++ b/cocos/math/Quaternion.cpp
+@@ -57,10 +57,6 @@ Quaternion::Quaternion(const Quaternion& copy)
+     set(copy);
+ }
+ 
+-Quaternion::~Quaternion()
+-{
+-}
+-
+ const Quaternion& Quaternion::identity()
+ {
+     static Quaternion value(0.0f, 0.0f, 0.0f, 1.0f);
+diff --git a/cocos/math/Quaternion.h b/cocos/math/Quaternion.h
+index 6581499..cee74bc 100644
+--- a/cocos/math/Quaternion.h
++++ b/cocos/math/Quaternion.h
+@@ -132,11 +132,6 @@ public:
+     Quaternion(const Quaternion& copy);
+ 
+     /**
+-     * Destructor.
+-     */
+-    ~Quaternion();
+-
+-    /**
+      * Returns the identity quaternion.
+      *
+      * @return The identity quaternion.
+diff --git a/cocos/math/Vec2.cpp b/cocos/math/Vec2.cpp
+index d075d4f..a5c5b44 100644
+--- a/cocos/math/Vec2.cpp
++++ b/cocos/math/Vec2.cpp
+@@ -31,7 +31,7 @@ bool isOneDimensionSegmentOverlap(float A, float B, float C, float D, float *S,
+     float ABmax = std::max(A, B);
+     float CDmin = std::min(C, D);
+     float CDmax = std::max(C, D);
+-    
++
+     if (ABmax < CDmin || CDmax < ABmin)
+     {
+         // ABmin->ABmax->CDmin->CDmax or CDmin->CDmax->ABmin->ABmax
+@@ -118,36 +118,18 @@ void Vec2::clamp(const Vec2& v, const Vec2& min, const Vec2& max, Vec2* dst)
+         dst->y = max.y;
+ }
+ 
+-float Vec2::distance(const Vec2& v) const
+-{
+-    float dx = v.x - x;
+-    float dy = v.y - y;
+-
+-    return std::sqrt(dx * dx + dy * dy);
+-}
+-
+-float Vec2::dot(const Vec2& v1, const Vec2& v2)
+-{
+-    return (v1.x * v2.x + v1.y * v2.y);
+-}
+-
+-float Vec2::length() const
+-{
+-    return std::sqrt(x * x + y * y);
+-}
+-
+ void Vec2::normalize()
+ {
+     float n = x * x + y * y;
+     // Already normalized.
+     if (n == 1.0f)
+         return;
+-    
++
+     n = std::sqrt(n);
+     // Too close to zero.
+     if (n < MATH_TOLERANCE)
+         return;
+-    
++
+     n = 1.0f / n;
+     x *= n;
+     y *= n;
+@@ -200,7 +182,7 @@ void Vec2::subtract(const Vec2& v1, const Vec2& v2, Vec2* dst)
+ bool Vec2::equals(const Vec2& target) const
+ {
+     return (std::abs(this->x - target.x) < FLT_EPSILON)
+-        && (std::abs(this->y - target.y) < FLT_EPSILON);
++    && (std::abs(this->y - target.y) < FLT_EPSILON);
+ }
+ 
+ bool Vec2::fuzzyEquals(const Vec2& b, float var) const
+@@ -226,38 +208,38 @@ Vec2 Vec2::rotateByAngle(const Vec2& pivot, float angle) const
+ }
+ 
+ bool Vec2::isLineIntersect(const Vec2& A, const Vec2& B,
+-                            const Vec2& C, const Vec2& D,
+-                            float *S, float *T)
++                           const Vec2& C, const Vec2& D,
++                           float *S, float *T)
+ {
+     // FAIL: Line undefined
+     if ( (A.x==B.x && A.y==B.y) || (C.x==D.x && C.y==D.y) )
+     {
+         return false;
+     }
+-    
++
+     const float denom = crossProduct2Vector(A, B, C, D);
+-    
++
+     if (denom == 0)
+     {
+         // Lines parallel or overlap
+         return false;
+     }
+-    
++
+     if (S != nullptr) *S = crossProduct2Vector(C, D, C, A) / denom;
+     if (T != nullptr) *T = crossProduct2Vector(A, B, C, A) / denom;
+-    
++
+     return true;
+ }
+ 
+ bool Vec2::isLineParallel(const Vec2& A, const Vec2& B,
+-                           const Vec2& C, const Vec2& D)
++                          const Vec2& C, const Vec2& D)
+ {
+     // FAIL: Line undefined
+     if ( (A.x==B.x && A.y==B.y) || (C.x==D.x && C.y==D.y) )
+     {
+         return false;
+     }
+-    
++
+     if (crossProduct2Vector(A, B, C, D) == 0)
+     {
+         // line overlap
+@@ -265,60 +247,60 @@ bool Vec2::isLineParallel(const Vec2& A, const Vec2& B,
+         {
+             return false;
+         }
+-        
++
+         return true;
+     }
+-    
++
+     return false;
+ }
+ 
+ bool Vec2::isLineOverlap(const Vec2& A, const Vec2& B,
+-                            const Vec2& C, const Vec2& D)
++                         const Vec2& C, const Vec2& D)
+ {
+     // FAIL: Line undefined
+     if ( (A.x==B.x && A.y==B.y) || (C.x==D.x && C.y==D.y) )
+     {
+         return false;
+     }
+-    
++
+     if (crossProduct2Vector(A, B, C, D) == 0 &&
+         (crossProduct2Vector(C, D, C, A) == 0 || crossProduct2Vector(A, B, C, A) == 0))
+     {
+         return true;
+     }
+-    
++
+     return false;
+ }
+ 
+ bool Vec2::isSegmentOverlap(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D, Vec2* S, Vec2* E)
+ {
+-    
++
+     if (isLineOverlap(A, B, C, D))
+     {
+         return isOneDimensionSegmentOverlap(A.x, B.x, C.x, D.x, &S->x, &E->x) &&
+         isOneDimensionSegmentOverlap(A.y, B.y, C.y, D.y, &S->y, &E->y);
+-    }  
+-    
++    }
++
+     return false;
+ }
+ 
+ bool Vec2::isSegmentIntersect(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D)
+ {
+     float S, T;
+-    
++
+     if (isLineIntersect(A, B, C, D, &S, &T )&&
+         (S >= 0.0f && S <= 1.0f && T >= 0.0f && T <= 1.0f))
+     {
+         return true;
+     }
+-    
++
+     return false;
+ }
+ 
+ Vec2 Vec2::getIntersectPoint(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D)
+ {
+     float S, T;
+-    
++
+     if (isLineIntersect(A, B, C, D, &S, &T))
+     {
+         // Vec2 of intersection
+@@ -327,7 +309,7 @@ Vec2 Vec2::getIntersectPoint(const Vec2& A, const Vec2& B, const Vec2& C, const
+         P.y = A.y + S * (B.y - A.y);
+         return P;
+     }
+-    
++
+     return Vec2::ZERO;
+ }
+ 
+diff --git a/cocos/math/Vec2.h b/cocos/math/Vec2.h
+index 39ad5cc..7f95390 100644
+--- a/cocos/math/Vec2.h
++++ b/cocos/math/Vec2.h
+@@ -67,7 +67,7 @@ public:
+     /**
+      * Constructs a new vector initialized to all zeros.
+      */
+-    Vec2();
++    constexpr Vec2(): x{0.0f}, y{0.0f} {}
+ 
+     /**
+      * Constructs a new vector initialized to the specified values.
+@@ -75,14 +75,17 @@ public:
+      * @param xx The x coordinate.
+      * @param yy The y coordinate.
+      */
+-    Vec2(float xx, float yy);
++    constexpr Vec2(float xx, float yy): x{xx}, y{yy} {}
+ 
+     /**
+      * Constructs a new vector from the values in the specified array.
+      *
+      * @param array An array containing the elements of the vector in the order x, y.
+      */
+-    Vec2(const float* array);
++    Vec2(const float* array)
++    {
++        set(array);
++    }
+ 
+     /**
+      * Constructs a vector that describes the direction between the specified points.
+@@ -90,33 +93,34 @@ public:
+      * @param p1 The first point.
+      * @param p2 The second point.
+      */
+-    Vec2(const Vec2& p1, const Vec2& p2);
++    constexpr Vec2(const Vec2& p1, const Vec2& p2): x{p2.x - p1.x}, y{p2.y - p1.y} {}
+ 
+     /**
+      * Constructs a new vector that is a copy of the specified vector.
+      *
+      * @param copy The vector to copy.
+      */
+-    Vec2(const Vec2& copy);
+-
+-    /**
+-     * Destructor.
+-     */
+-    ~Vec2();
++    constexpr Vec2(const Vec2& copy): x{copy.x}, y{copy.y} {}
+ 
+     /**
+      * Indicates whether this vector contains all zeros.
+      *
+      * @return true if this vector contains all zeros, false otherwise.
+      */
+-    inline bool isZero() const;
++    constexpr bool isZero() const
++    {
++        return x == 0.0f && y == 0.0f;
++    }
+ 
+     /**
+      * Indicates whether this vector contains all ones.
+      *
+      * @return true if this vector contains all ones, false otherwise.
+      */
+-    inline bool isOne() const;
++    constexpr bool isOne() const
++    {
++        return x == 1.0f && y == 1.0f;
++    }
+ 
+     /**
+      * Returns the angle (in radians) between the specified vectors.
+@@ -133,7 +137,11 @@ public:
+      *
+      * @param v The vector to add.
+      */
+-    inline void add(const Vec2& v);
++    void add(const Vec2& v)
++    {
++        x += v.x;
++        y += v.y;
++    }
+ 
+     /**
+      * Adds the specified vectors and stores the result in dst.
+@@ -171,7 +179,12 @@ public:
+      * 
+      * @see distanceSquared
+      */
+-    float distance(const Vec2& v) const;
++    float distance(const Vec2& v) const
++    {
++        float dx = v.x - x;
++        float dy = v.y - y;
++        return std::sqrt(dx * dx + dy * dy);
++    }
+ 
+     /**
+      * Returns the squared distance between this vector and v.
+@@ -187,7 +200,12 @@ public:
+      * 
+      * @see distance
+      */
+-    inline float distanceSquared(const Vec2& v) const;
++    float distanceSquared(const Vec2& v) const
++    {
++        float dx = v.x - x;
++        float dy = v.y - y;
++        return dx * dx + dy * dy;
++    }
+ 
+     /**
+      * Returns the dot product of this vector and the specified vector.
+@@ -196,7 +214,10 @@ public:
+      * 
+      * @return The dot product.
+      */
+-    inline float dot(const Vec2& v) const;
++    constexpr float dot(const Vec2& v) const
++    {
++        return x * v.x + y * v.y;
++    }
+ 
+     /**
+      * Returns the dot product between the specified vectors.
+@@ -206,7 +227,10 @@ public:
+      * 
+      * @return The dot product between the vectors.
+      */
+-    static float dot(const Vec2& v1, const Vec2& v2);
++    static constexpr float dot(const Vec2& v1, const Vec2& v2)
++    {
++        return v1.x * v2.x + v1.y * v2.y;
++    }
+ 
+     /**
+      * Computes the length of this vector.
+@@ -215,7 +239,10 @@ public:
+      * 
+      * @see lengthSquared
+      */
+-    float length() const;
++    float length() const
++    {
++        return std::sqrt(x * x + y * y);
++    }
+ 
+     /**
+      * Returns the squared length of this vector.
+@@ -229,12 +256,19 @@ public:
+      * 
+      * @see length
+      */
+-    inline float lengthSquared() const;
++    constexpr float lengthSquared() const
++    {
++        return x * x + y * y;
++    }
+ 
+     /**
+      * Negates this vector.
+      */
+-    inline void negate();
++    void negate()
++    {
++        x = -x;
++        y = -y;
++    }
+ 
+     /**
+      * Normalizes this vector.
+@@ -259,14 +293,22 @@ public:
+      *
+      * @param scalar The scalar value.
+      */
+-    inline void scale(float scalar);
++    void scale(float scalar)
++    {
++        x *= scalar;
++        y *= scalar;
++    }
+ 
+     /**
+      * Scales each element of this vector by the matching component of scale.
+      *
+      * @param scale The vector to scale by.
+      */
+-    inline void scale(const Vec2& scale);
++    void scale(const Vec2& scale)
++    {
++        x *= scale.x;
++        y *= scale.y;
++    }
+ 
+     /**
+      * Rotates this vector by angle (specified in radians) around the given point.
+@@ -282,7 +324,11 @@ public:
+      * @param xx The new x coordinate.
+      * @param yy The new y coordinate.
+      */
+-    inline void set(float xx, float yy);
++    void set(float xx, float yy)
++    {
++        x = xx;
++        y = yy;
++    }
+ 
+     /**
+      * Sets the elements of this vector from the values in the specified array.
+@@ -296,7 +342,11 @@ public:
+      *
+      * @param v The vector to copy.
+      */
+-    inline void set(const Vec2& v);
++    void set(const Vec2& v)
++    {
++        x = v.x;
++        y = v.y;
++    }
+ 
+     /**
+      * Sets this vector to the directional vector between the specified points.
+@@ -304,12 +354,19 @@ public:
+      * @param p1 The first point.
+      * @param p2 The second point.
+      */
+-    inline void set(const Vec2& p1, const Vec2& p2);
++    void set(const Vec2& p1, const Vec2& p2)
++    {
++        x = p2.x - p1.x;
++        y = p2.y - p1.y;
++    }
+ 
+     /**
+     * Sets the elements of this vector to zero.
+     */
+-    inline void setZero();
++    void setZero()
++    {
++        x = y = 0.0f;
++    }
+ 
+     /**
+      * Subtracts this vector and the specified vector as (this - v)
+@@ -317,7 +374,11 @@ public:
+      *
+      * @param v The vector to subtract.
+      */
+-    inline void subtract(const Vec2& v);
++    void subtract(const Vec2& v)
++    {
++        x -= v.x;
++        y -= v.y;
++    }
+ 
+     /**
+      * Subtracts the specified vectors and stores the result in dst.
+@@ -340,7 +401,13 @@ public:
+      * @param elapsedTime elapsed time between calls.
+      * @param responseTime response time (in the same units as elapsedTime).
+      */
+-    inline void smooth(const Vec2& target, float elapsedTime, float responseTime);
++    void smooth(const Vec2& target, float elapsedTime, float responseTime)
++    {
++        if (elapsedTime > 0)
++        {
++            *this += (target - *this) * (elapsedTime / (elapsedTime + responseTime));
++        }
++    }
+ 
+     /**
+      * Calculates the sum of this vector with the given vector.
+@@ -350,7 +417,10 @@ public:
+      * @param v The vector to add.
+      * @return The vector sum.
+      */
+-    inline const Vec2 operator+(const Vec2& v) const;
++    constexpr const Vec2 operator+(const Vec2& v) const
++    {
++        return Vec2{x + v.x, y + v.y};
++    }
+ 
+     /**
+      * Adds the given vector to this vector.
+@@ -358,7 +428,11 @@ public:
+      * @param v The vector to add.
+      * @return This vector, after the addition occurs.
+      */
+-    inline Vec2& operator+=(const Vec2& v);
++    Vec2& operator+=(const Vec2& v)
++    {
++        add(v);
++        return *this;
++    }
+ 
+     /**
+      * Calculates the sum of this vector with the given vector.
+@@ -368,7 +442,10 @@ public:
+      * @param v The vector to add.
+      * @return The vector sum.
+      */
+-    inline const Vec2 operator-(const Vec2& v) const;
++    constexpr const Vec2 operator-(const Vec2& v) const
++    {
++        return Vec2{x - v.x, y - v.y};
++    }
+ 
+     /**
+      * Subtracts the given vector from this vector.
+@@ -376,7 +453,11 @@ public:
+      * @param v The vector to subtract.
+      * @return This vector, after the subtraction occurs.
+      */
+-    inline Vec2& operator-=(const Vec2& v);
++    Vec2& operator-=(const Vec2& v)
++    {
++        subtract(v);
++        return *this;
++    }
+ 
+     /**
+      * Calculates the negation of this vector.
+@@ -385,7 +466,10 @@ public:
+      * 
+      * @return The negation of this vector.
+      */
+-    inline const Vec2 operator-() const;
++    constexpr const Vec2 operator-() const
++    {
++        return Vec2{-x, -y};
++    }
+ 
+     /**
+      * Calculates the scalar product of this vector with the given value.
+@@ -395,7 +479,10 @@ public:
+      * @param s The value to scale by.
+      * @return The scaled vector.
+      */
+-    inline const Vec2 operator*(float s) const;
++    constexpr const Vec2 operator*(float s) const
++    {
++        return Vec2{x * s, y * s};
++    }
+ 
+     /**
+      * Scales this vector by the given value.
+@@ -403,8 +490,12 @@ public:
+      * @param s The value to scale by.
+      * @return This vector, after the scale occurs.
+      */
+-    inline Vec2& operator*=(float s);
+-    
++    Vec2& operator*=(float s)
++    {
++        scale(s);
++        return *this;
++    }
++
+     /**
+      * Returns the components of this vector divided by the given constant
+      *
+@@ -413,7 +504,10 @@ public:
+      * @param s the constant to divide this vector with
+      * @return a smaller vector
+      */
+-    inline const Vec2 operator/(float s) const;
++    constexpr const Vec2 operator/(float s) const
++    {
++        return Vec2{x / s, y / s};
++    }
+ 
+     /**
+      * Determines if this vector is less than the given vector.
+@@ -422,8 +516,11 @@ public:
+      * 
+      * @return True if this vector is less than the given vector, false otherwise.
+      */
+-    inline bool operator<(const Vec2& v) const;
+-    
++    constexpr bool operator<(const Vec2& v) const
++    {
++        return x == v.x ? y < v.y : x < v.x;
++    }
++
+     /**
+      * Determines if this vector is greater than the given vector.
+      *
+@@ -431,7 +528,10 @@ public:
+      *
+      * @return True if this vector is greater than the given vector, false otherwise.
+      */
+-    inline bool operator>(const Vec2& v) const;
++    constexpr bool operator>(const Vec2& v) const
++    {
++        return x == v.x ? y > v.y : x > v.x;
++    }
+ 
+     /**
+      * Determines if this vector is equal to the given vector.
+@@ -440,7 +540,10 @@ public:
+      * 
+      * @return True if this vector is equal to the given vector, false otherwise.
+      */
+-    inline bool operator==(const Vec2& v) const;
++    constexpr bool operator==(const Vec2& v) const
++    {
++        return x == v.x && y == v.y;
++    }
+ 
+     /**
+      * Determines if this vector is not equal to the given vector.
+@@ -449,7 +552,10 @@ public:
+      * 
+      * @return True if this vector is not equal to the given vector, false otherwise.
+      */
+-    inline bool operator!=(const Vec2& v) const;
++    constexpr bool operator!=(const Vec2& v) const
++    {
++        return x != v.x || y != v.y;
++    }
+ 
+     //code added compatible for Point
+ public:
+@@ -457,12 +563,17 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline void setPoint(float xx, float yy);
++    void setPoint(float xx, float yy)
++    {
++        x = xx;
++        y = yy;
++    }
++
+     /**
+      * @js NA
+      */
+     bool equals(const Vec2& target) const;
+-    
++
+     /** @returns if points have fuzzy equality which means equal with some degree of variance.
+      @since v2.1.4
+      * @js NA
+@@ -476,9 +587,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline float getLength() const {
+-        return sqrtf(x*x + y*y);
+-    };
++    float getLength() const
++    {
++        return sqrtf(x * x + y * y);
++    }
+ 
+     /** Calculates the square length of a Vec2 (not calling sqrt() )
+      @return float
+@@ -486,9 +598,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline float getLengthSq() const {
++    constexpr float getLengthSq() const
++    {
+         return dot(*this); //x*x + y*y;
+-    };
++    }
+ 
+     /** Calculates the square distance between two points (not calling sqrt() )
+      @return float
+@@ -496,9 +609,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline float getDistanceSq(const Vec2& other) const {
++    float getDistanceSq(const Vec2& other) const
++    {
+         return (*this - other).getLengthSq();
+-    };
++    }
+ 
+     /** Calculates the distance between two points
+      @return float
+@@ -506,18 +620,20 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline float getDistance(const Vec2& other) const {
++    float getDistance(const Vec2& other) const
++    {
+         return (*this - other).getLength();
+-    };
++    }
+ 
+     /** @returns the angle in radians between this vector and the x axis
+      @since v2.1.4
+      * @js NA
+      * @lua NA
+      */
+-    inline float getAngle() const {
++    float getAngle() const
++    {
+         return atan2f(y, x);
+-    };
++    }
+ 
+     /** @returns the angle in radians between two vector directions
+      @since v2.1.4
+@@ -532,9 +648,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline float cross(const Vec2& other) const {
+-        return x*other.y - y*other.x;
+-    };
++    constexpr float cross(const Vec2& other) const
++    {
++        return x * other.y - y * other.x;
++    }
+ 
+     /** Calculates perpendicular of v, rotated 90 degrees counter-clockwise -- cross(v, perp(v)) >= 0
+      @return Vec2
+@@ -542,31 +659,32 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 getPerp() const {
+-        return Vec2(-y, x);
+-    };
+-    
++    constexpr Vec2 getPerp() const
++    {
++        return Vec2{-y, x};
++    }
++
+     /** Calculates midpoint between two points.
+      @return Vec2
+      @since v3.0
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 getMidpoint(const Vec2& other) const
++    constexpr Vec2 getMidpoint(const Vec2& other) const
+     {
+-        return Vec2((x + other.x) / 2.0f, (y + other.y) / 2.0f);
++        return Vec2{(x + other.x) / 2.0f, (y + other.y) / 2.0f};
+     }
+-    
++
+     /** Clamp a point between from and to.
+      @since v3.0
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 getClampPoint(const Vec2& min_inclusive, const Vec2& max_inclusive) const
++    Vec2 getClampPoint(const Vec2& min_inclusive, const Vec2& max_inclusive) const
+     {
+-        return Vec2(clampf(x,min_inclusive.x,max_inclusive.x), clampf(y, min_inclusive.y, max_inclusive.y));
++        return Vec2{clampf(x,min_inclusive.x,max_inclusive.x), clampf(y, min_inclusive.y, max_inclusive.y)};
+     }
+-    
++
+     /** Run a math operation function on each point component
+      * absf, floorf, ceilf, roundf
+      * any function that has the signature: float func(float);
+@@ -576,9 +694,9 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 compOp(std::function<float(float)> function) const
++    Vec2 compOp(std::function<float(float)> function) const
+     {
+-        return Vec2(function(x), function(y));
++        return Vec2{function(x), function(y)};
+     }
+ 
+     /** Calculates perpendicular of v, rotated 90 degrees clockwise -- cross(v, rperp(v)) <= 0
+@@ -587,9 +705,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 getRPerp() const {
+-        return Vec2(y, -x);
+-    };
++    constexpr Vec2 getRPerp() const
++    {
++        return Vec2{y, -x};
++    }
+ 
+     /** Calculates the projection of this over other.
+      @return Vec2
+@@ -597,9 +716,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 project(const Vec2& other) const {
+-        return other * (dot(other)/other.dot(other));
+-    };
++    constexpr Vec2 project(const Vec2& other) const
++    {
++        return other * (dot(other) / other.dot(other));
++    }
+ 
+     /** Complex multiplication of two points ("rotates" two points).
+      @return Vec2 vector with an angle of this.getAngle() + other.getAngle(),
+@@ -608,9 +728,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 rotate(const Vec2& other) const {
+-        return Vec2(x*other.x - y*other.y, x*other.y + y*other.x);
+-    };
++    constexpr Vec2 rotate(const Vec2& other) const
++    {
++        return Vec2{x * other.x - y * other.y, x * other.y + y * other.x};
++    }
+ 
+     /** Unrotates two points.
+      @return Vec2 vector with an angle of this.getAngle() - other.getAngle(),
+@@ -619,9 +740,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 unrotate(const Vec2& other) const {
+-        return Vec2(x*other.x + y*other.y, y*other.x - x*other.y);
+-    };
++    constexpr Vec2 unrotate(const Vec2& other) const
++    {
++        return Vec2{x * other.x + y * other.y, y * other.x - x * other.y};
++    }
+ 
+     /** Linear Interpolation between two points a and b
+      @returns
+@@ -632,9 +754,10 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    inline Vec2 lerp(const Vec2& other, float alpha) const {
++    constexpr Vec2 lerp(const Vec2& other, float alpha) const
++    {
+         return *this * (1.f - alpha) + other * alpha;
+-    };
++    }
+ 
+     /** Rotates a point counter clockwise by the angle around a pivot
+      @param pivot is the pivot, naturally
+@@ -650,11 +773,11 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    static inline Vec2 forAngle(const float a)
++    static Vec2 forAngle(const float a)
+     {
+-        return Vec2(cosf(a), sinf(a));
++        return Vec2{cosf(a), sinf(a)};
+     }
+-    
++
+     /** A general line-line intersection test
+      @param A   the startpoint for the first line L1 = (A - B)
+      @param B   the endpoint for the first line L1 = (A - B)
+@@ -672,38 +795,34 @@ public:
+      * @js NA
+      * @lua NA
+      */
+-    static bool isLineIntersect(const Vec2& A, const Vec2& B,
+-                                 const Vec2& C, const Vec2& D,
+-                                 float *S = nullptr, float *T = nullptr);
+-    
++    static bool isLineIntersect(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D,
++                                float *S = nullptr, float *T = nullptr);
++
+     /**
+      returns true if Line A-B overlap with segment C-D
+      @since v3.0
+      * @js NA
+      * @lua NA
+      */
+-    static bool isLineOverlap(const Vec2& A, const Vec2& B,
+-                                const Vec2& C, const Vec2& D);
+-    
++    static bool isLineOverlap(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D);
++
+     /**
+      returns true if Line A-B parallel with segment C-D
+      @since v3.0
+      * @js NA
+      * @lua NA
+      */
+-    static bool isLineParallel(const Vec2& A, const Vec2& B,
+-                   const Vec2& C, const Vec2& D);
+-    
++    static bool isLineParallel(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D);
++
+     /**
+      returns true if Segment A-B overlap with segment C-D
+      @since v3.0
+      * @js NA
+      * @lua NA
+      */
+-    static bool isSegmentOverlap(const Vec2& A, const Vec2& B,
+-                                 const Vec2& C, const Vec2& D,
++    static bool isSegmentOverlap(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D,
+                                  Vec2* S = nullptr, Vec2* E = nullptr);
+-    
++
+     /**
+      returns true if Segment A-B intersects with segment C-D
+      @since v3.0
+@@ -711,7 +830,7 @@ public:
+      * @lua NA
+      */
+     static bool isSegmentIntersect(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D);
+-    
++
+     /**
+      returns the intersection point of line A-B, C-D
+      @since v3.0
+@@ -719,7 +838,7 @@ public:
+      * @lua NA
+      */
+     static Vec2 getIntersectPoint(const Vec2& A, const Vec2& B, const Vec2& C, const Vec2& D);
+-    
++
+     /** equals to Vec2(0,0) */
+     static const Vec2 ZERO;
+     /** equals to Vec2(1,1) */
+@@ -755,9 +874,12 @@ public:
+  * @param v The vector to scale.
+  * @return The scaled vector.
+  */
+-inline const Vec2 operator*(float x, const Vec2& v);
++constexpr const Vec2 operator*(float s, const Vec2& v)
++{
++    return Vec2{v.x * s, v.y * s};
++}
+ 
+-typedef Vec2 Point;
++using Point = Vec2;
+ 
+ NS_CC_MATH_END
+ 
+@@ -766,6 +888,4 @@ NS_CC_MATH_END
+  @}
+  */
+ 
+-#include "math/Vec2.inl"
+-
+ #endif // MATH_VEC2_H
+diff --git a/cocos/math/Vec2.inl b/cocos/math/Vec2.inl
+deleted file mode 100644
+index d6e71fc..0000000
+--- a/cocos/math/Vec2.inl
++++ /dev/null
+@@ -1,234 +0,0 @@
+-/**
+- Copyright 2013 BlackBerry Inc.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-
+- Original file from GamePlay3D: http://gameplay3d.org
+-
+- This file was modified to fit the cocos2d-x project
+- */
+-
+-#include "math/Vec2.h"
+-
+-NS_CC_MATH_BEGIN
+-
+-inline Vec2::Vec2()
+-: x(0.0f), y(0.0f)
+-{
+-}
+-
+-inline Vec2::Vec2(float xx, float yy)
+-: x(xx), y(yy)
+-{
+-}
+-
+-inline Vec2::Vec2(const float* array)
+-{
+-    set(array);
+-}
+-
+-inline Vec2::Vec2(const Vec2& p1, const Vec2& p2)
+-{
+-    set(p1, p2);
+-}
+-
+-inline Vec2::Vec2(const Vec2& copy)
+-{
+-    set(copy);
+-}
+-
+-inline Vec2::~Vec2()
+-{
+-}
+-
+-inline bool Vec2::isZero() const
+-{
+-    return x == 0.0f && y == 0.0f;
+-}
+-
+-bool Vec2::isOne() const
+-{
+-    return x == 1.0f && y == 1.0f;
+-}
+-
+-inline void Vec2::add(const Vec2& v)
+-{
+-    x += v.x;
+-    y += v.y;
+-}
+-
+-inline float Vec2::distanceSquared(const Vec2& v) const
+-{
+-    float dx = v.x - x;
+-    float dy = v.y - y;
+-    return (dx * dx + dy * dy);
+-}
+-
+-inline float Vec2::dot(const Vec2& v) const
+-{
+-    return (x * v.x + y * v.y);
+-}
+-
+-inline float Vec2::lengthSquared() const
+-{
+-    return (x * x + y * y);
+-}
+-
+-inline void Vec2::negate()
+-{
+-    x = -x;
+-    y = -y;
+-}
+-
+-inline void Vec2::scale(float scalar)
+-{
+-    x *= scalar;
+-    y *= scalar;
+-}
+-
+-inline void Vec2::scale(const Vec2& scale)
+-{
+-    x *= scale.x;
+-    y *= scale.y;
+-}
+-
+-inline void Vec2::set(float xx, float yy)
+-{
+-    this->x = xx;
+-    this->y = yy;
+-}
+-
+-inline void Vec2::set(const Vec2& v)
+-{
+-    this->x = v.x;
+-    this->y = v.y;
+-}
+-
+-inline void Vec2::set(const Vec2& p1, const Vec2& p2)
+-{
+-    x = p2.x - p1.x;
+-    y = p2.y - p1.y;
+-}
+-
+-void Vec2::setZero()
+-{
+-    x = y = 0.0f;
+-}
+-
+-inline void Vec2::subtract(const Vec2& v)
+-{
+-    x -= v.x;
+-    y -= v.y;
+-}
+-
+-inline void Vec2::smooth(const Vec2& target, float elapsedTime, float responseTime)
+-{
+-    if (elapsedTime > 0)
+-    {
+-        *this += (target - *this) * (elapsedTime / (elapsedTime + responseTime));
+-    }
+-}
+-
+-inline const Vec2 Vec2::operator+(const Vec2& v) const
+-{
+-    Vec2 result(*this);
+-    result.add(v);
+-    return result;
+-}
+-
+-inline Vec2& Vec2::operator+=(const Vec2& v)
+-{
+-    add(v);
+-    return *this;
+-}
+-
+-inline const Vec2 Vec2::operator-(const Vec2& v) const
+-{
+-    Vec2 result(*this);
+-    result.subtract(v);
+-    return result;
+-}
+-
+-inline Vec2& Vec2::operator-=(const Vec2& v)
+-{
+-    subtract(v);
+-    return *this;
+-}
+-
+-inline const Vec2 Vec2::operator-() const
+-{
+-    Vec2 result(*this);
+-    result.negate();
+-    return result;
+-}
+-
+-inline const Vec2 Vec2::operator*(float s) const
+-{
+-    Vec2 result(*this);
+-    result.scale(s);
+-    return result;
+-}
+-
+-inline Vec2& Vec2::operator*=(float s)
+-{
+-    scale(s);
+-    return *this;
+-}
+-
+-inline const Vec2 Vec2::operator/(const float s) const
+-{
+-    return Vec2(this->x / s, this->y / s);
+-}
+-
+-inline bool Vec2::operator<(const Vec2& v) const
+-{
+-    if (x == v.x)
+-    {
+-        return y < v.y;
+-    }
+-    return x < v.x;
+-}
+-
+-inline bool Vec2::operator>(const Vec2& v) const
+-{
+-    if (x == v.x)
+-    {
+-        return y > v.y;
+-    }
+-    return x > v.x;
+-}
+-
+-inline bool Vec2::operator==(const Vec2& v) const
+-{
+-    return x==v.x && y==v.y;
+-}
+-
+-inline bool Vec2::operator!=(const Vec2& v) const
+-{
+-    return x!=v.x || y!=v.y;
+-}
+-
+-inline const Vec2 operator*(float x, const Vec2& v)
+-{
+-    Vec2 result(v);
+-    result.scale(x);
+-    return result;
+-}
+-
+-void Vec2::setPoint(float xx, float yy)
+-{
+-    this->x = xx;
+-    this->y = yy;
+-}
+-
+-NS_CC_MATH_END
+diff --git a/cocos/math/Vec3.cpp b/cocos/math/Vec3.cpp
+index 6a4ab8f..92e17d1 100644
+--- a/cocos/math/Vec3.cpp
++++ b/cocos/math/Vec3.cpp
+@@ -24,31 +24,6 @@
+ 
+ NS_CC_MATH_BEGIN
+ 
+-Vec3::Vec3()
+-    : x(0.0f), y(0.0f), z(0.0f)
+-{
+-}
+-
+-Vec3::Vec3(float xx, float yy, float zz)
+-    : x(xx), y(yy), z(zz)
+-{
+-}
+-
+-Vec3::Vec3(const float* array)
+-{
+-    set(array);
+-}
+-
+-Vec3::Vec3(const Vec3& p1, const Vec3& p2)
+-{
+-    set(p1, p2);
+-}
+-
+-Vec3::Vec3(const Vec3& copy)
+-{
+-    set(copy);
+-}
+-
+ Vec3 Vec3::fromColor(unsigned int color)
+ {
+     float components[3];
+@@ -64,8 +39,13 @@ Vec3 Vec3::fromColor(unsigned int color)
+     return value;
+ }
+ 
+-Vec3::~Vec3()
++void Vec3::set(const float* array)
+ {
++    GP_ASSERT(array);
++
++    x = array[0];
++    y = array[1];
++    z = array[2];
+ }
+ 
+ float Vec3::angle(const Vec3& v1, const Vec3& v2)
+@@ -73,7 +53,6 @@ float Vec3::angle(const Vec3& v1, const Vec3& v2)
+     float dx = v1.y * v2.z - v1.z * v2.y;
+     float dy = v1.z * v2.x - v1.x * v2.z;
+     float dz = v1.x * v2.y - v1.y * v2.x;
+-
+     return std::atan2(std::sqrt(dx * dx + dy * dy + dz * dz) + MATH_FLOAT_SMALL, dot(v1, v2));
+ }
+ 
+@@ -151,34 +130,6 @@ void Vec3::cross(const Vec3& v1, const Vec3& v2, Vec3* dst)
+     MathUtil::crossVec3(&v1.x, &v2.x, &dst->x);
+ }
+ 
+-float Vec3::distance(const Vec3& v) const
+-{
+-    float dx = v.x - x;
+-    float dy = v.y - y;
+-    float dz = v.z - z;
+-
+-    return std::sqrt(dx * dx + dy * dy + dz * dz);
+-}
+-
+-float Vec3::distanceSquared(const Vec3& v) const
+-{
+-    float dx = v.x - x;
+-    float dy = v.y - y;
+-    float dz = v.z - z;
+-
+-    return (dx * dx + dy * dy + dz * dz);
+-}
+-
+-float Vec3::dot(const Vec3& v) const
+-{
+-    return (x * v.x + y * v.y + z * v.z);
+-}
+-
+-float Vec3::dot(const Vec3& v1, const Vec3& v2)
+-{
+-    return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
+-}
+-
+ void Vec3::normalize()
+ {
+     float n = x * x + y * y + z * z;
+@@ -213,14 +164,6 @@ void Vec3::subtract(const Vec3& v1, const Vec3& v2, Vec3* dst)
+     dst->z = v1.z - v2.z;
+ }
+ 
+-void Vec3::smooth(const Vec3& target, float elapsedTime, float responseTime)
+-{
+-    if (elapsedTime > 0)
+-    {
+-        *this += (target - *this) * (elapsedTime / (elapsedTime + responseTime));
+-    }
+-}
+-
+ const Vec3 Vec3::ZERO(0.0f, 0.0f, 0.0f);
+ const Vec3 Vec3::ONE(1.0f, 1.0f, 1.0f);
+ const Vec3 Vec3::UNIT_X(1.0f, 0.0f, 0.0f);
+diff --git a/cocos/math/Vec3.h b/cocos/math/Vec3.h
+index 7365df4..cd6c276 100644
+--- a/cocos/math/Vec3.h
++++ b/cocos/math/Vec3.h
+@@ -66,7 +66,7 @@ public:
+     /**
+      * Constructs a new vector initialized to all zeros.
+      */
+-    Vec3();
++    constexpr Vec3(): x{0.0f}, y{0.0f}, z{0.0f} {}
+ 
+     /**
+      * Constructs a new vector initialized to the specified values.
+@@ -75,14 +75,17 @@ public:
+      * @param yy The y coordinate.
+      * @param zz The z coordinate.
+      */
+-    Vec3(float xx, float yy, float zz);
++    constexpr Vec3(float xx, float yy, float zz): x{xx}, y{yy}, z{zz} {}
+ 
+     /**
+      * Constructs a new vector from the values in the specified array.
+      *
+      * @param array An array containing the elements of the vector in the order x, y, z.
+      */
+-    Vec3(const float* array);
++    Vec3(const float* array)
++    {
++        set(array);
++    }
+ 
+     /**
+      * Constructs a vector that describes the direction between the specified points.
+@@ -90,14 +93,14 @@ public:
+      * @param p1 The first point.
+      * @param p2 The second point.
+      */
+-    Vec3(const Vec3& p1, const Vec3& p2);
++    constexpr Vec3(const Vec3& p1, const Vec3& p2): x{p2.x - p1.x}, y{p2.y - p1.y}, z{p2.z - p1.z} {}
+ 
+     /**
+      * Constructs a new vector that is a copy of the specified vector.
+      *
+      * @param copy The vector to copy.
+      */
+-    Vec3(const Vec3& copy);
++    constexpr Vec3(const Vec3& copy): x{copy.x}, y{copy.y}, z{copy.z} {}
+ 
+     /**
+      * Creates a new vector from an integer interpreted as an RGB value.
+@@ -110,23 +113,24 @@ public:
+     static Vec3 fromColor(unsigned int color);
+ 
+     /**
+-     * Destructor.
+-     */
+-    ~Vec3();
+-
+-    /**
+      * Indicates whether this vector contains all zeros.
+      *
+      * @return true if this vector contains all zeros, false otherwise.
+      */
+-    inline bool isZero() const;
++    constexpr bool isZero() const
++    {
++        return x == 0.0f && y == 0.0f && z == 0.0f;
++    }
+ 
+     /**
+      * Indicates whether this vector contains all ones.
+      *
+      * @return true if this vector contains all ones, false otherwise.
+      */
+-    inline bool isOne() const;
++    constexpr bool isOne() const
++    {
++        return x == 1.0f && y == 1.0f && z == 1.0f;
++    }
+ 
+     /**
+      * Returns the angle (in radians) between the specified vectors.
+@@ -138,14 +142,17 @@ public:
+      */
+     static float angle(const Vec3& v1, const Vec3& v2);
+ 
+-
+     /**
+      * Adds the elements of the specified vector to this one.
+      *
+      * @param v The vector to add.
+      */
+-    inline void add(const Vec3& v);
+-
++    void add(const Vec3& v)
++    {
++        x += v.x;
++        y += v.y;
++        z += v.z;
++    }
+ 
+     /**
+     * Adds the elements of this vector to the specified values.
+@@ -154,7 +161,12 @@ public:
+     * @param yy The add y coordinate.
+     * @param zz The add z coordinate.
+     */
+-    inline void add(float xx, float yy, float zz);
++    void add(float xx, float yy, float zz)
++    {
++        x += xx;
++        y += yy;
++        z += zz;
++    }
+ 
+     /**
+      * Adds the specified vectors and stores the result in dst.
+@@ -208,7 +220,13 @@ public:
+      * 
+      * @see distanceSquared
+      */
+-    float distance(const Vec3& v) const;
++    float distance(const Vec3& v) const
++    {
++        float dx = v.x - x;
++        float dy = v.y - y;
++        float dz = v.z - z;
++        return std::sqrt(dx * dx + dy * dy + dz * dz);
++    }
+ 
+     /**
+      * Returns the squared distance between this vector and v.
+@@ -224,7 +242,13 @@ public:
+      * 
+      * @see distance
+      */
+-    float distanceSquared(const Vec3& v) const;
++    float distanceSquared(const Vec3& v) const
++    {
++        float dx = v.x - x;
++        float dy = v.y - y;
++        float dz = v.z - z;
++        return dx * dx + dy * dy + dz * dz;
++    }
+ 
+     /**
+      * Returns the dot product of this vector and the specified vector.
+@@ -233,7 +257,10 @@ public:
+      * 
+      * @return The dot product.
+      */
+-    float dot(const Vec3& v) const;
++    constexpr float dot(const Vec3& v) const
++    {
++        return x * v.x + y * v.y + z * v.z;
++    }
+ 
+     /**
+      * Returns the dot product between the specified vectors.
+@@ -243,7 +270,10 @@ public:
+      * 
+      * @return The dot product between the vectors.
+      */
+-    static float dot(const Vec3& v1, const Vec3& v2);
++    static constexpr float dot(const Vec3& v1, const Vec3& v2)
++    {
++        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
++    }
+ 
+     /**
+      * Computes the length of this vector.
+@@ -252,7 +282,10 @@ public:
+      * 
+      * @see lengthSquared
+      */
+-    inline float length() const;
++    float length() const
++    {
++        return std::sqrt(x * x + y * y + z * z);
++    }
+ 
+     /**
+      * Returns the squared length of this vector.
+@@ -266,12 +299,20 @@ public:
+      * 
+      * @see length
+      */
+-    inline float lengthSquared() const;
++    constexpr float lengthSquared() const
++    {
++        return x * x + y * y + z * z;
++    }
+ 
+     /**
+      * Negates this vector.
+      */
+-    inline void negate();
++    inline void negate()
++    {
++        x = -x;
++        y = -y;
++        z = -z;
++    }
+ 
+     /**
+      * Normalizes this vector.
+@@ -296,7 +337,12 @@ public:
+      *
+      * @param scalar The scalar value.
+      */
+-    inline void scale(float scalar);
++    void scale(float scalar)
++    {
++        x *= scalar;
++        y *= scalar;
++        z *= scalar;
++    }
+ 
+     /**
+      * Sets the elements of this vector to the specified values.
+@@ -305,31 +351,49 @@ public:
+      * @param yy The new y coordinate.
+      * @param zz The new z coordinate.
+      */
+-    inline void set(float xx, float yy, float zz);
++    void set(float xx, float yy, float zz)
++    {
++        x = xx;
++        y = yy;
++        z = zz;
++    }
+ 
+     /**
+      * Sets the elements of this vector from the values in the specified array.
+      *
+      * @param array An array containing the elements of the vector in the order x, y, z.
+      */
+-    inline void set(const float* array);
++    void set(const float* array);
+ 
+     /**
+      * Sets the elements of this vector to those in the specified vector.
+      *
+      * @param v The vector to copy.
+      */
+-    inline void set(const Vec3& v);
++    void set(const Vec3& v)
++    {
++        x = v.x;
++        y = v.y;
++        z = v.z;
++    }
+ 
+     /**
+      * Sets this vector to the directional vector between the specified points.
+      */
+-    inline void set(const Vec3& p1, const Vec3& p2);
++    void set(const Vec3& p1, const Vec3& p2)
++    {
++        x = p2.x - p1.x;
++        y = p2.y - p1.y;
++        z = p2.z - p1.z;
++    }
+ 
+     /**
+     * Sets the elements of this vector to zero.
+     */
+-    inline void setZero();
++    void setZero()
++    {
++        x = y = z = 0.0f;
++    }
+ 
+     /**
+      * Subtracts this vector and the specified vector as (this - v)
+@@ -337,7 +401,12 @@ public:
+      *
+      * @param v The vector to subtract.
+      */
+-    inline void subtract(const Vec3& v);
++    void subtract(const Vec3& v)
++    {
++        x -= v.x;
++        y -= v.y;
++        z -= v.z;
++    }
+ 
+     /**
+      * Subtracts the specified vectors and stores the result in dst.
+@@ -360,13 +429,22 @@ public:
+      * @param elapsedTime elapsed time between calls.
+      * @param responseTime response time (in the same units as elapsedTime).
+      */
+-    void smooth(const Vec3& target, float elapsedTime, float responseTime);
++    void smooth(const Vec3& target, float elapsedTime, float responseTime)
++    {
++        if (elapsedTime > 0)
++        {
++            *this += (target - *this) * (elapsedTime / (elapsedTime + responseTime));
++        }
++    }
+ 
+     /**
+      * Linear interpolation between two vectors A and B by alpha which
+      * is in the range [0,1]
+      */
+-    inline Vec3 lerp(const Vec3& target, float alpha) const;
++    constexpr Vec3 lerp(const Vec3& target, float alpha) const
++    {
++        return *this * (1.f - alpha) + target * alpha;
++    }
+ 
+     /**
+      * Calculates the sum of this vector with the given vector.
+@@ -376,7 +454,10 @@ public:
+      * @param v The vector to add.
+      * @return The vector sum.
+      */
+-    inline const Vec3 operator+(const Vec3& v) const;
++    constexpr const Vec3 operator+(const Vec3& v) const
++    {
++        return Vec3{x + v.x, y + v.y, z + v.z};
++    }
+ 
+     /**
+      * Adds the given vector to this vector.
+@@ -384,7 +465,11 @@ public:
+      * @param v The vector to add.
+      * @return This vector, after the addition occurs.
+      */
+-    inline Vec3& operator+=(const Vec3& v);
++    Vec3& operator+=(const Vec3& v)
++    {
++        add(v);
++        return *this;
++    }
+ 
+     /**
+      * Calculates the difference of this vector with the given vector.
+@@ -394,7 +479,10 @@ public:
+      * @param v The vector to subtract.
+      * @return The vector difference.
+      */
+-    inline const Vec3 operator-(const Vec3& v) const;
++    constexpr const Vec3 operator-(const Vec3& v) const
++    {
++        return Vec3{x - v.x, y - v.y, z - v.z};
++    }
+ 
+     /**
+      * Subtracts the given vector from this vector.
+@@ -402,7 +490,11 @@ public:
+      * @param v The vector to subtract.
+      * @return This vector, after the subtraction occurs.
+      */
+-    inline Vec3& operator-=(const Vec3& v);
++    Vec3& operator-=(const Vec3& v)
++    {
++        subtract(v);
++        return *this;
++    }
+ 
+     /**
+      * Calculates the negation of this vector.
+@@ -411,7 +503,10 @@ public:
+      * 
+      * @return The negation of this vector.
+      */
+-    inline const Vec3 operator-() const;
++    constexpr const Vec3 operator-() const
++    {
++        return Vec3{-x, -y, -z};
++    }
+ 
+     /**
+      * Calculates the scalar product of this vector with the given value.
+@@ -421,7 +516,10 @@ public:
+      * @param s The value to scale by.
+      * @return The scaled vector.
+      */
+-    inline const Vec3 operator*(float s) const;
++    constexpr const Vec3 operator*(float s) const
++    {
++        return Vec3{x * s, y * s, z * s};
++    }
+ 
+     /**
+      * Scales this vector by the given value.
+@@ -429,8 +527,12 @@ public:
+      * @param s The value to scale by.
+      * @return This vector, after the scale occurs.
+      */
+-    inline Vec3& operator*=(float s);
+-    
++    Vec3& operator*=(float s)
++    {
++        scale(s);
++        return *this;
++    }
++
+     /**
+      * Returns the components of this vector divided by the given constant
+      *
+@@ -439,26 +541,25 @@ public:
+      * @param s the constant to divide this vector with
+      * @return a smaller vector
+      */
+-    inline const Vec3 operator/(float s) const;
++    constexpr const Vec3 operator/(float s) const
++    {
++        return Vec3{x / s, y / s, z / s};
++    }
+ 
+     /** Returns true if the vector's scalar components are all greater
+      that the ones of the vector it is compared against.
+      */
+-    inline bool operator < (const Vec3& rhs) const
++    constexpr bool operator<(const Vec3& rhs) const
+     {
+-        if (x < rhs.x && y < rhs.y && z < rhs.z)
+-            return true;
+-        return false;
++        return x < rhs.x && y < rhs.y && z < rhs.z;
+     }
+ 
+     /** Returns true if the vector's scalar components are all smaller
+      that the ones of the vector it is compared against.
+      */
+-    inline bool operator >(const Vec3& rhs) const
++    constexpr bool operator>(const Vec3& rhs) const
+     {
+-        if (x > rhs.x && y > rhs.y && z > rhs.z)
+-            return true;
+-        return false;
++        return x > rhs.x && y > rhs.y && z > rhs.z;
+     }
+ 
+     /**
+@@ -468,7 +569,10 @@ public:
+      * 
+      * @return True if this vector is equal to the given vector, false otherwise.
+      */
+-    inline bool operator==(const Vec3& v) const;
++    constexpr bool operator==(const Vec3& v) const
++    {
++        return x == v.x && y == v.y && z == v.z;
++    }
+ 
+     /**
+      * Determines if this vector is not equal to the given vector.
+@@ -477,8 +581,11 @@ public:
+      * 
+      * @return True if this vector is not equal to the given vector, false otherwise.
+      */
+-    inline bool operator!=(const Vec3& v) const;
+-    
++    constexpr bool operator!=(const Vec3& v) const
++    {
++        return x != v.x || y != v.y || z != v.z;
++    }
++
+     /** equals to Vec3(0,0,0) */
+     static const Vec3 ZERO;
+     /** equals to Vec3(1,1,1) */
+@@ -498,7 +605,10 @@ public:
+  * @param v The vector to scale.
+  * @return The scaled vector.
+  */
+-inline const Vec3 operator*(float x, const Vec3& v);
++constexpr const Vec3 operator*(float s, const Vec3& v)
++{
++    return Vec3{v.x * s, v.y * s, v.z * s};
++}
+ 
+ //typedef Vec3 Point3;
+ 
+@@ -507,6 +617,5 @@ NS_CC_MATH_END
+  end of base group
+  @}
+  */
+-#include "math/Vec3.inl"
+ 
+ #endif // MATH_VEC3_H
+diff --git a/cocos/math/Vec3.inl b/cocos/math/Vec3.inl
+deleted file mode 100644
+index 4e8af7f..0000000
+--- a/cocos/math/Vec3.inl
++++ /dev/null
+@@ -1,190 +0,0 @@
+-/**
+- Copyright 2013 BlackBerry Inc.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-
+- Original file from GamePlay3D: http://gameplay3d.org
+-
+- This file was modified to fit the cocos2d-x project
+- */
+-
+-#include "math/Vec3.h"
+-#include "math/Mat4.h"
+-
+-NS_CC_MATH_BEGIN
+-
+-
+-inline bool Vec3::isZero() const
+-{
+-    return x == 0.0f && y == 0.0f && z == 0.0f;
+-}
+-
+-inline bool Vec3::isOne() const
+-{
+-    return x == 1.0f && y == 1.0f && z == 1.0f;
+-}
+-
+-inline void Vec3::add(const Vec3& v)
+-{
+-    x += v.x;
+-    y += v.y;
+-    z += v.z;
+-}
+-
+-inline void Vec3::add(float xx, float yy, float zz)
+-{
+-    x += xx;
+-    y += yy;
+-    z += zz;
+-}
+-
+-inline float Vec3::length() const
+-{
+-    return std::sqrt(x * x + y * y + z * z);
+-}
+-
+-inline float Vec3::lengthSquared() const
+-{
+-    return (x * x + y * y + z * z);
+-}
+-
+-inline void Vec3::negate()
+-{
+-    x = -x;
+-    y = -y;
+-    z = -z;
+-}
+-
+-inline void Vec3::scale(float scalar)
+-{
+-    x *= scalar;
+-    y *= scalar;
+-    z *= scalar;
+-}
+-
+-inline Vec3 Vec3::lerp(const Vec3 &target, float alpha) const
+-{
+-    return *this * (1.f - alpha) + target * alpha;
+-}
+-
+-inline void Vec3::set(float xx, float yy, float zz)
+-{
+-    this->x = xx;
+-    this->y = yy;
+-    this->z = zz;
+-}
+-
+-inline void Vec3::set(const float* array)
+-{
+-    GP_ASSERT(array);
+-
+-    x = array[0];
+-    y = array[1];
+-    z = array[2];
+-}
+-
+-inline void Vec3::set(const Vec3& v)
+-{
+-    this->x = v.x;
+-    this->y = v.y;
+-    this->z = v.z;
+-}
+-
+-inline void Vec3::set(const Vec3& p1, const Vec3& p2)
+-{
+-    x = p2.x - p1.x;
+-    y = p2.y - p1.y;
+-    z = p2.z - p1.z;
+-}
+-
+-inline void Vec3::setZero()
+-{
+-    x = y = z = 0.0f;
+-}
+-
+-inline void Vec3::subtract(const Vec3& v)
+-{
+-    x -= v.x;
+-    y -= v.y;
+-    z -= v.z;
+-}
+-
+-inline const Vec3 Vec3::operator+(const Vec3& v) const
+-{
+-    Vec3 result(*this);
+-    result.add(v);
+-    return result;
+-}
+-
+-inline Vec3& Vec3::operator+=(const Vec3& v)
+-{
+-    add(v);
+-    return *this;
+-}
+-
+-inline const Vec3 Vec3::operator-(const Vec3& v) const
+-{
+-    Vec3 result(*this);
+-    result.subtract(v);
+-    return result;
+-}
+-
+-inline Vec3& Vec3::operator-=(const Vec3& v)
+-{
+-    subtract(v);
+-    return *this;
+-}
+-
+-inline const Vec3 Vec3::operator-() const
+-{
+-    Vec3 result(*this);
+-    result.negate();
+-    return result;
+-}
+-
+-inline const Vec3 Vec3::operator*(float s) const
+-{
+-    Vec3 result(*this);
+-    result.scale(s);
+-    return result;
+-}
+-
+-inline Vec3& Vec3::operator*=(float s)
+-{
+-    scale(s);
+-    return *this;
+-}
+-
+-inline const Vec3 Vec3::operator/(const float s) const
+-{
+-    return Vec3(this->x / s, this->y / s, this->z / s);
+-}
+-
+-inline bool Vec3::operator==(const Vec3& v) const
+-{
+-    return x==v.x && y==v.y && z==v.z;
+-}
+-
+-inline bool Vec3::operator!=(const Vec3& v) const
+-{
+-    return x!=v.x || y!=v.y || z!=v.z;
+-}
+-
+-inline const Vec3 operator*(float x, const Vec3& v)
+-{
+-    Vec3 result(v);
+-    result.scale(x);
+-    return result;
+-}
+-
+-NS_CC_MATH_END
+diff --git a/cocos/math/Vec4.cpp b/cocos/math/Vec4.cpp
+index f2659d7..05e5abb 100644
+--- a/cocos/math/Vec4.cpp
++++ b/cocos/math/Vec4.cpp
+@@ -20,37 +20,11 @@
+ 
+ #include "math/Vec4.h"
+ 
+-#include <cmath>
+ #include "math/MathUtil.h"
+ #include "base/ccMacros.h"
+ 
+ NS_CC_MATH_BEGIN
+ 
+-Vec4::Vec4()
+-    : x(0.0f), y(0.0f), z(0.0f), w(0.0f)
+-{
+-}
+-
+-Vec4::Vec4(float xx, float yy, float zz, float ww)
+-    : x(xx), y(yy), z(zz), w(ww)
+-{
+-}
+-
+-Vec4::Vec4(const float* src)
+-{
+-    set(src);
+-}
+-
+-Vec4::Vec4(const Vec4& p1, const Vec4& p2)
+-{
+-    set(p1, p2);
+-}
+-
+-Vec4::Vec4(const Vec4& copy)
+-{
+-    set(copy);
+-}
+-
+ Vec4 Vec4::fromColor(unsigned int color)
+ {
+     float components[4];
+@@ -66,20 +40,6 @@ Vec4 Vec4::fromColor(unsigned int color)
+     return value;
+ }
+ 
+-Vec4::~Vec4()
+-{
+-}
+-
+-bool Vec4::isZero() const
+-{
+-    return x == 0.0f && y == 0.0f && z == 0.0f && w == 0.0f;
+-}
+-
+-bool Vec4::isOne() const
+-{
+-    return x == 1.0f && y == 1.0f && z == 1.0f && w == 1.0f;
+-}
+-
+ float Vec4::angle(const Vec4& v1, const Vec4& v2)
+ {
+     float dx = v1.w * v2.x - v1.x * v2.w - v1.y * v2.z + v1.z * v2.y;
+@@ -89,14 +49,6 @@ float Vec4::angle(const Vec4& v1, const Vec4& v2)
+     return std::atan2(std::sqrt(dx * dx + dy * dy + dz * dz) + MATH_FLOAT_SMALL, dot(v1, v2));
+ }
+ 
+-void Vec4::add(const Vec4& v)
+-{
+-    x += v.x;
+-    y += v.y;
+-    z += v.z;
+-    w += v.w;
+-}
+-
+ void Vec4::add(const Vec4& v1, const Vec4& v2, Vec4* dst)
+ {
+     GP_ASSERT(dst);
+@@ -170,55 +122,6 @@ void Vec4::clamp(const Vec4& v, const Vec4& min, const Vec4& max, Vec4* dst)
+         dst->w = max.w;
+ }
+ 
+-float Vec4::distance(const Vec4& v) const
+-{
+-    float dx = v.x - x;
+-    float dy = v.y - y;
+-    float dz = v.z - z;
+-    float dw = v.w - w;
+-
+-    return std::sqrt(dx * dx + dy * dy + dz * dz + dw * dw);
+-}
+-
+-float Vec4::distanceSquared(const Vec4& v) const
+-{
+-    float dx = v.x - x;
+-    float dy = v.y - y;
+-    float dz = v.z - z;
+-    float dw = v.w - w;
+-
+-    return (dx * dx + dy * dy + dz * dz + dw * dw);
+-}
+-
+-float Vec4::dot(const Vec4& v) const
+-{
+-    return (x * v.x + y * v.y + z * v.z + w * v.w);
+-}
+-
+-float Vec4::dot(const Vec4& v1, const Vec4& v2)
+-{
+-    return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w);
+-}
+-
+-float Vec4::length() const
+-{
+-    return std::sqrt(x * x + y * y + z * z + w * w);
+-}
+-
+-
+-float Vec4::lengthSquared() const
+-{
+-    return (x * x + y * y + z * z + w * w);
+-}
+-
+-void Vec4::negate()
+-{
+-    x = -x;
+-    y = -y;
+-    z = -z;
+-    w = -w;
+-}
+-
+ void Vec4::normalize()
+ {
+     float n = x * x + y * y + z * z + w * w;
+@@ -245,22 +148,6 @@ Vec4 Vec4::getNormalized() const
+     return v;
+ }
+ 
+-void Vec4::scale(float scalar)
+-{
+-    x *= scalar;
+-    y *= scalar;
+-    z *= scalar;
+-    w *= scalar;
+-}
+-
+-void Vec4::set(float xx, float yy, float zz, float ww)
+-{
+-    this->x = xx;
+-    this->y = yy;
+-    this->z = zz;
+-    this->w = ww;
+-}
+-
+ void Vec4::set(const float* array)
+ {
+     GP_ASSERT(array);
+@@ -271,30 +158,6 @@ void Vec4::set(const float* array)
+     w = array[3];
+ }
+ 
+-void Vec4::set(const Vec4& v)
+-{
+-    this->x = v.x;
+-    this->y = v.y;
+-    this->z = v.z;
+-    this->w = v.w;
+-}
+-
+-void Vec4::set(const Vec4& p1, const Vec4& p2)
+-{
+-    x = p2.x - p1.x;
+-    y = p2.y - p1.y;
+-    z = p2.z - p1.z;
+-    w = p2.w - p1.w;
+-}
+-
+-void Vec4::subtract(const Vec4& v)
+-{
+-    x -= v.x;
+-    y -= v.y;
+-    z -= v.z;
+-    w -= v.w;
+-}
+-
+ void Vec4::subtract(const Vec4& v1, const Vec4& v2, Vec4* dst)
+ {
+     GP_ASSERT(dst);
+diff --git a/cocos/math/Vec4.h b/cocos/math/Vec4.h
+index df00f38..0db2040 100644
+--- a/cocos/math/Vec4.h
++++ b/cocos/math/Vec4.h
+@@ -1,7 +1,7 @@
+ /**
+  Copyright 2013 BlackBerry Inc.
+  Copyright (c) 2014-2015 Chukong Technologies
+- 
++
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+@@ -26,6 +26,7 @@
+ #include <xmmintrin.h>
+ #endif
+ 
++#include <cmath>
+ #include "math/CCMathBase.h"
+ 
+ /**
+@@ -77,7 +78,7 @@ public:
+     /**
+      * Constructs a new vector initialized to all zeros.
+      */
+-    Vec4();
++    constexpr Vec4(): x{0.0f}, y{0.0f}, z{0.0f}, w{0.0f} {}
+ 
+     /**
+      * Constructs a new vector initialized to the specified values.
+@@ -87,14 +88,17 @@ public:
+      * @param zz The z coordinate.
+      * @param ww The w coordinate.
+      */
+-    Vec4(float xx, float yy, float zz, float ww);
++    constexpr Vec4(float xx, float yy, float zz, float ww): x{xx}, y{yy}, z{zz}, w{ww} {}
+ 
+     /**
+      * Constructs a new vector from the values in the specified array.
+      *
+      * @param array An array containing the elements of the vector in the order x, y, z, w.
+      */
+-    Vec4(const float* array);
++    Vec4(const float* array)
++    {
++        set(array);
++    }
+ 
+     /**
+      * Constructs a vector that describes the direction between the specified points.
+@@ -102,7 +106,7 @@ public:
+      * @param p1 The first point.
+      * @param p2 The second point.
+      */
+-    Vec4(const Vec4& p1, const Vec4& p2);
++    constexpr Vec4(const Vec4& p1, const Vec4& p2): x{p2.x - p1.x}, y{p2.y - p1.y}, z{p2.z - p1.z}, w{p2.w - p1.w} {}
+ 
+     /**
+      * Constructor.
+@@ -111,7 +115,7 @@ public:
+      *
+      * @param copy The vector to copy.
+      */
+-    Vec4(const Vec4& copy);
++    constexpr Vec4(const Vec4& copy): x{copy.x}, y{copy.y}, z{copy.z}, w{copy.w} {}
+ 
+     /**
+      * Creates a new vector from an integer interpreted as an RGBA value.
+@@ -124,30 +128,31 @@ public:
+     static Vec4 fromColor(unsigned int color);
+ 
+     /**
+-     * Destructor.
+-     */
+-    ~Vec4();
+-
+-    /**
+      * Indicates whether this vector contains all zeros.
+      *
+      * @return true if this vector contains all zeros, false otherwise.
+      */
+-    bool isZero() const;
++    constexpr bool isZero() const
++    {
++        return x == 0.0f && y == 0.0f && z == 0.0f && w == 0.0f;
++    }
+ 
+     /**
+      * Indicates whether this vector contains all ones.
+      *
+      * @return true if this vector contains all ones, false otherwise.
+      */
+-    bool isOne() const;
++    constexpr bool isOne() const
++    {
++        return x == 1.0f && y == 1.0f && z == 1.0f && w == 1.0f;
++    }
+ 
+     /**
+      * Returns the angle (in radians) between the specified vectors.
+      *
+      * @param v1 The first vector.
+      * @param v2 The second vector.
+-     * 
++     *
+      * @return The angle between the two vectors (in radians).
+      */
+     static float angle(const Vec4& v1, const Vec4& v2);
+@@ -157,7 +162,13 @@ public:
+      *
+      * @param v The vector to add.
+      */
+-    void add(const Vec4& v);
++    void add(const Vec4& v)
++    {
++        x += v.x;
++        y += v.y;
++        z += v.z;
++        w += v.w;
++    }
+ 
+     /**
+      * Adds the specified vectors and stores the result in dst.
+@@ -190,12 +201,19 @@ public:
+      * Returns the distance between this vector and v.
+      *
+      * @param v The other vector.
+-     * 
++     *
+      * @return The distance between this vector and v.
+-     * 
++     *
+      * @see distanceSquared
+      */
+-    float distance(const Vec4& v) const;
++    float distance(const Vec4& v) const
++    {
++        float dx = v.x - x;
++        float dy = v.y - y;
++        float dz = v.z - z;
++        float dw = v.w - w;
++        return std::sqrt(dx * dx + dy * dy + dz * dz + dw * dw);
++    }
+ 
+     /**
+      * Returns the squared distance between this vector and v.
+@@ -206,40 +224,56 @@ public:
+      * this method instead of distance.
+      *
+      * @param v The other vector.
+-     * 
++     *
+      * @return The squared distance between this vector and v.
+-     * 
++     *
+      * @see distance
+      */
+-    float distanceSquared(const Vec4& v) const;
++    float distanceSquared(const Vec4& v) const
++    {
++        float dx = v.x - x;
++        float dy = v.y - y;
++        float dz = v.z - z;
++        float dw = v.w - w;
++        return dx * dx + dy * dy + dz * dz + dw * dw;
++    }
+ 
+     /**
+      * Returns the dot product of this vector and the specified vector.
+      *
+      * @param v The vector to compute the dot product with.
+-     * 
++     *
+      * @return The dot product.
+      */
+-    float dot(const Vec4& v) const;
++    constexpr float dot(const Vec4& v) const
++    {
++        return x * v.x + y * v.y + z * v.z + w * v.w;
++    }
+ 
+     /**
+      * Returns the dot product between the specified vectors.
+      *
+      * @param v1 The first vector.
+      * @param v2 The second vector.
+-     * 
++     *
+      * @return The dot product between the vectors.
+      */
+-    static float dot(const Vec4& v1, const Vec4& v2);
++    static constexpr float dot(const Vec4& v1, const Vec4& v2)
++    {
++        return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
++    }
+ 
+     /**
+      * Computes the length of this vector.
+      *
+      * @return The length of the vector.
+-     * 
++     *
+      * @see lengthSquared
+      */
+-    float length() const;
++    float length() const
++    {
++        return std::sqrt(x * x + y * y + z * z + w * w);
++    }
+ 
+     /**
+      * Returns the squared length of this vector.
+@@ -250,15 +284,24 @@ public:
+      * instead of length.
+      *
+      * @return The squared length of the vector.
+-     * 
++     *
+      * @see length
+      */
+-    float lengthSquared() const;
++    constexpr float lengthSquared() const
++    {
++        return x * x + y * y + z * z + w * w;
++    }
+ 
+     /**
+      * Negates this vector.
+      */
+-    void negate();
++    void negate()
++    {
++        x = -x;
++        y = -y;
++        z = -z;
++        w = -w;
++    }
+ 
+     /**
+      * Normalizes this vector.
+@@ -268,7 +311,7 @@ public:
+      * after calling this method will be 1.0f). If the vector
+      * already has unit length or if the length of the vector
+      * is zero, this method does nothing.
+-     * 
++     *
+      * @return This vector, after the normalization occurs.
+      */
+     void normalize();
+@@ -283,7 +326,13 @@ public:
+      *
+      * @param scalar The scalar value.
+      */
+-    void scale(float scalar);
++    void scale(float scalar)
++    {
++        x *= scalar;
++        y *= scalar;
++        z *= scalar;
++        w *= scalar;
++    }
+ 
+     /**
+      * Sets the elements of this vector to the specified values.
+@@ -293,7 +342,13 @@ public:
+      * @param zz The new z coordinate.
+      * @param ww The new w coordinate.
+      */
+-    void set(float xx, float yy, float zz, float ww);
++    void set(float xx, float yy, float zz, float ww)
++    {
++        x = xx;
++        y = yy;
++        z = zz;
++        w = ww;
++    }
+ 
+     /**
+      * Sets the elements of this vector from the values in the specified array.
+@@ -307,15 +362,27 @@ public:
+      *
+      * @param v The vector to copy.
+      */
+-    void set(const Vec4& v);
++    void set(const Vec4& v)
++    {
++        x = v.x;
++        y = v.y;
++        z = v.z;
++        w = v.w;
++    }
+ 
+     /**
+      * Sets this vector to the directional vector between the specified points.
+-     * 
++     *
+      * @param p1 The first point.
+      * @param p2 The second point.
+      */
+-    void set(const Vec4& p1, const Vec4& p2);
++    void set(const Vec4& p1, const Vec4& p2)
++    {
++        x = p2.x - p1.x;
++        y = p2.y - p1.y;
++        z = p2.z - p1.z;
++        w = p2.w - p1.w;
++    }
+ 
+     /**
+      * Subtracts this vector and the specified vector as (this - v)
+@@ -323,7 +390,13 @@ public:
+      *
+      * @param v The vector to subtract.
+      */
+-    void subtract(const Vec4& v);
++    void subtract(const Vec4& v)
++    {
++        x -= v.x;
++        y -= v.y;
++        z -= v.z;
++        w -= v.w;
++    }
+ 
+     /**
+      * Subtracts the specified vectors and stores the result in dst.
+@@ -337,67 +410,91 @@ public:
+ 
+     /**
+      * Calculates the sum of this vector with the given vector.
+-     * 
++     *
+      * Note: this does not modify this vector.
+-     * 
++     *
+      * @param v The vector to add.
+      * @return The vector sum.
+      */
+-    inline const Vec4 operator+(const Vec4& v) const;
++    constexpr const Vec4 operator+(const Vec4& v) const
++    {
++        return Vec4{x + v.x, y + v.y, z + v.z, w + v.w};
++    }
+ 
+     /**
+      * Adds the given vector to this vector.
+-     * 
++     *
+      * @param v The vector to add.
+      * @return This vector, after the addition occurs.
+      */
+-    inline Vec4& operator+=(const Vec4& v);
++    Vec4& operator+=(const Vec4& v)
++    {
++        add(v);
++        return *this;
++    }
+ 
+     /**
+      * Calculates the sum of this vector with the given vector.
+-     * 
++     *
+      * Note: this does not modify this vector.
+-     * 
++     *
+      * @param v The vector to add.
+      * @return The vector sum.
+      */
+-    inline const Vec4 operator-(const Vec4& v) const;
++    constexpr const Vec4 operator-(const Vec4& v) const
++    {
++        return Vec4{x - v.x, y - v.y, z - v.z, w - v.w};
++    }
+ 
+     /**
+      * Subtracts the given vector from this vector.
+-     * 
++     *
+      * @param v The vector to subtract.
+      * @return This vector, after the subtraction occurs.
+      */
+-    inline Vec4& operator-=(const Vec4& v);
++    inline Vec4& operator-=(const Vec4& v)
++    {
++        subtract(v);
++        return *this;
++    }
+ 
+     /**
+      * Calculates the negation of this vector.
+-     * 
++     *
+      * Note: this does not modify this vector.
+-     * 
++     *
+      * @return The negation of this vector.
+      */
+-    inline const Vec4 operator-() const;
++    constexpr const Vec4 operator-() const
++    {
++        return Vec4{-x, -y, -z, -w};
++    }
+ 
+     /**
+      * Calculates the scalar product of this vector with the given value.
+-     * 
++     *
+      * Note: this does not modify this vector.
+-     * 
++     *
+      * @param s The value to scale by.
+      * @return The scaled vector.
+      */
+-    inline const Vec4 operator*(float s) const;
++    constexpr const Vec4 operator*(float s) const
++    {
++        return Vec4{x * s, y * s, z * s, w * s};
++    }
+ 
+     /**
+      * Scales this vector by the given value.
+-     * 
++     *
+      * @param s The value to scale by.
+      * @return This vector, after the scale occurs.
+      */
+-    inline Vec4& operator*=(float s);
+-    
++    Vec4& operator*=(float s)
++    {
++        scale(s);
++        return *this;
++    }
++
+     /**
+      * Returns the components of this vector divided by the given constant
+      *
+@@ -406,35 +503,62 @@ public:
+      * @param s the constant to divide this vector with
+      * @return a smaller vector
+      */
+-    inline const Vec4 operator/(float s) const;
++    constexpr const Vec4 operator/(float s) const
++    {
++        return Vec4{x / s, y / s, z / s, w / s};
++    }
+ 
+     /**
+      * Determines if this vector is less than the given vector.
+-     * 
++     *
+      * @param v The vector to compare against.
+-     * 
++     *
+      * @return True if this vector is less than the given vector, false otherwise.
+      */
+-    inline bool operator<(const Vec4& v) const;
++    bool operator<(const Vec4& v) const
++    {
++        if (x == v.x)
++        {
++            if (y == v.y)
++            {
++                if (z < v.z)
++                {
++                    if (w < v.w)
++                    {
++                        return w < v.w;
++                    }
++                }
++                return z < v.z;
++            }
++            return y < v.y;
++        }
++        return x < v.x;
++    }
+ 
+     /**
+      * Determines if this vector is equal to the given vector.
+-     * 
++     *
+      * @param v The vector to compare against.
+-     * 
++     *
+      * @return True if this vector is equal to the given vector, false otherwise.
+      */
+-    inline bool operator==(const Vec4& v) const;
++    constexpr bool operator==(const Vec4& v) const
++    {
++        return x == v.x && y == v.y && z == v.z && w == v.w;
++    }
+ 
+     /**
+      * Determines if this vector is not equal to the given vector.
+-     * 
++     *
+      * @param v The vector to compare against.
+-     * 
++     *
+      * @return True if this vector is not equal to the given vector, false otherwise.
+      */
+-    inline bool operator!=(const Vec4& v) const;
+-    
++    constexpr bool operator!=(const Vec4& v) const
++    {
++        return x != v.x || y != v.y || z != v.z || w != v.w;
++    }
++
+     /** equals to Vec4(0,0,0,0) */
+     static const Vec4 ZERO;
+     /** equals to Vec4(1,1,1,1) */
+@@ -451,18 +575,20 @@ public:
+ 
+ /**
+  * Calculates the scalar product of the given vector with the given value.
+- * 
++ *
+  * @param x The value to scale by.
+  * @param v The vector to scale.
+  * @return The scaled vector.
+  */
+-inline const Vec4 operator*(float x, const Vec4& v);
++constexpr const Vec4 operator*(float s, const Vec4& v)
++{
++    return Vec4{v.x * s, v.y * s, v.z * s, v.w * s};
++}
+ 
+ NS_CC_MATH_END
+ /**
+  end of base group
+  @}
+  */
+-#include "math/Vec4.inl"
+ 
+ #endif // MATH_VEC4_H
+diff --git a/cocos/math/Vec4.inl b/cocos/math/Vec4.inl
+deleted file mode 100644
+index d69aee1..0000000
+--- a/cocos/math/Vec4.inl
++++ /dev/null
+@@ -1,114 +0,0 @@
+-/**
+- Copyright 2013 BlackBerry Inc.
+-
+- Licensed under the Apache License, Version 2.0 (the "License");
+- you may not use this file except in compliance with the License.
+- You may obtain a copy of the License at
+-
+- http://www.apache.org/licenses/LICENSE-2.0
+-
+- Unless required by applicable law or agreed to in writing, software
+- distributed under the License is distributed on an "AS IS" BASIS,
+- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- See the License for the specific language governing permissions and
+- limitations under the License.
+-
+- Original file from GamePlay3D: http://gameplay3d.org
+-
+- This file was modified to fit the cocos2d-x project
+- */
+-
+-#include "math/Mat4.h"
+-#include "math/Vec4.h"
+-
+-NS_CC_MATH_BEGIN
+-
+-inline const Vec4 Vec4::operator+(const Vec4& v) const
+-{
+-    Vec4 result(*this);
+-    result.add(v);
+-    return result;
+-}
+-
+-inline Vec4& Vec4::operator+=(const Vec4& v)
+-{
+-    add(v);
+-    return *this;
+-}
+-
+-inline const Vec4 Vec4::operator-(const Vec4& v) const
+-{
+-    Vec4 result(*this);
+-    result.subtract(v);
+-    return result;
+-}
+-
+-inline Vec4& Vec4::operator-=(const Vec4& v)
+-{
+-    subtract(v);
+-    return *this;
+-}
+-
+-inline const Vec4 Vec4::operator-() const
+-{
+-    Vec4 result(*this);
+-    result.negate();
+-    return result;
+-}
+-
+-inline const Vec4 Vec4::operator*(float s) const
+-{
+-    Vec4 result(*this);
+-    result.scale(s);
+-    return result;
+-}
+-
+-inline Vec4& Vec4::operator*=(float s)
+-{
+-    scale(s);
+-    return *this;
+-}
+-
+-inline const Vec4 Vec4::operator/(const float s) const
+-{
+-    return Vec4(this->x / s, this->y / s, this->z / s, this->w / s);
+-}
+-
+-inline bool Vec4::operator<(const Vec4& v) const
+-{
+-    if (x == v.x)
+-    {
+-        if (y == v.y)
+-        {
+-            if (z < v.z)
+-            {
+-                if (w < v.w)
+-                {
+-                    return w < v.w;
+-                }
+-            }
+-            return z < v.z;
+-        }
+-        return y < v.y;
+-    }
+-    return x < v.x;
+-}
+-
+-inline bool Vec4::operator==(const Vec4& v) const
+-{
+-    return x==v.x && y==v.y && z==v.z && w==v.w;
+-}
+-
+-inline bool Vec4::operator!=(const Vec4& v) const
+-{
+-    return x!=v.x || y!=v.y || z!=v.z || w!=v.w;
+-}
+-
+-inline const Vec4 operator*(float x, const Vec4& v)
+-{
+-    Vec4 result(v);
+-    result.scale(x);
+-    return result;
+-}
+-
+-NS_CC_MATH_END
+-- 
+2.10.1
+
