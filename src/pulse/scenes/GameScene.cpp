@@ -45,6 +45,8 @@ GameScene::~GameScene() {
         getEventDispatcher()->removeEventListener(listener);
         CC_SAFE_RELEASE(listener);
     }
+    CC_SAFE_RELEASE(powerupMeter);
+    CC_SAFE_RELEASE(score);
     CC_SAFE_RELEASE(player);
 }
 
@@ -53,6 +55,7 @@ void GameScene::startNewGame() {
 }
 
 void GameScene::startScene() {
+    updatePowerupMeter();
     updateListeners(true);
     scheduleUpdate();
     scheduleObstacleGeneration();
@@ -92,6 +95,7 @@ void GameScene::addMenuOptions() {
 
 void GameScene::addPowerupMeter() {
     powerupMeter = Sprite::create();
+    powerupMeter->retain();
     powerupMeter->setColor(Colour::Blue);
     const auto origin = Vec2{sceneFrame().getMidX(), sceneFrame().getMaxY() - 45};
     const auto size = Size{sceneFrame().size.width * 0.75f, 20};
@@ -105,6 +109,7 @@ void GameScene::addPowerupMeter() {
 
 void GameScene::addScoreLabel() {
     score = Score::create(0);
+    score->retain();
     score->setCascadeOpacityEnabled(true);
     score->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     score->setScale(0.2);
@@ -226,7 +231,6 @@ void GameScene::addGameStateListeners() {
     };
     gameState.onTimeModeChanged = [this](auto mode) {
         this->getScheduler()->setTimeScale(gameState.environmentTimeScale());
-        this->updatePowerupMeter();
         if (mode == GameState::TimeMode::SlowMotion) {
             this->startPowerupTimer();
         } else {
