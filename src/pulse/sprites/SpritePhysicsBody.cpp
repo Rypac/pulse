@@ -12,7 +12,8 @@ enum class SpriteTag : int {
     None = 0,
     Hero = (1 << 0),
     Obstacle = (1 << 1),
-    Path = (1 << 2)
+    Path = (1 << 2),
+    UI = (1 << 3),
 };
 
 static inline int asBitmask(SpriteTag tag) {
@@ -36,7 +37,10 @@ static PhysicsBody* create(SpriteTag tag, const Size& size) {
 PhysicsBody* createHero(const Size& size) {
     const auto body = create(SpriteTag::Hero, size);
     body->setCollisionBitmask(asBitmask(SpriteTag::Obstacle));
-    body->setContactTestBitmask(asBitmask(SpriteTag::Obstacle) | asBitmask(SpriteTag::Path));
+    body->setContactTestBitmask(
+        asBitmask(SpriteTag::Obstacle) |
+        asBitmask(SpriteTag::Path) |
+        asBitmask(SpriteTag::UI));
     return body;
 }
 
@@ -49,6 +53,12 @@ PhysicsBody* createObstacle(const Size& size) {
 
 PhysicsBody* createPath(const Size& size) {
     const auto body = create(SpriteTag::Path, size);
+    body->setContactTestBitmask(asBitmask(SpriteTag::Hero));
+    return body;
+}
+
+PhysicsBody* createUI(const Size& size) {
+    const auto body = create(SpriteTag::UI, size);
     body->setContactTestBitmask(asBitmask(SpriteTag::Hero));
     return body;
 }
@@ -75,6 +85,10 @@ bool isPath(const PhysicsBody& body) {
     return isSprite(body, SpriteTag::Path);
 }
 
+bool isUI(const PhysicsBody& body) {
+    return isSprite(body, SpriteTag::UI);
+}
+
 void stopCollisions(PhysicsBody* body) {
     body->setCollisionBitmask(asBitmask(SpriteTag::None));
     body->setContactTestBitmask(asBitmask(SpriteTag::None));
@@ -94,19 +108,21 @@ std::optional<Node*> nodeInContact(const PhysicsContact& contact, const NodePred
 namespace collision {
 
 bool heroAndObstacle(const PhysicsContact& contact) {
-    return heroAndObstacle(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody());
-}
-
-bool heroAndObstacle(const PhysicsBody& body1, const PhysicsBody& body2) {
-    return isHero(body1) or isHero(body2) ? isObstacle(body1) or isObstacle(body2) : false;
+    const auto& body1 = *contact.getShapeA()->getBody();
+    const auto& body2 = *contact.getShapeB()->getBody();
+    return (isHero(body1) or isHero(body2)) and (isObstacle(body1) or isObstacle(body2));
 }
 
 bool heroAndPath(const PhysicsContact& contact) {
-    return heroAndPath(*contact.getShapeA()->getBody(), *contact.getShapeB()->getBody());
+    const auto& body1 = *contact.getShapeA()->getBody();
+    const auto& body2 = *contact.getShapeB()->getBody();
+    return (isHero(body1) or isHero(body2)) and (isPath(body1) or isPath(body2));
 }
 
-bool heroAndPath(const PhysicsBody& body1, const PhysicsBody& body2) {
-    return isHero(body1) or isHero(body2) ? isPath(body1) or isPath(body2) : false;
+bool withUI(const PhysicsContact& contact) {
+    const auto& body1 = *contact.getShapeA()->getBody();
+    const auto& body2 = *contact.getShapeB()->getBody();
+    return isUI(body1) or isUI(body2);
 }
 
 }  // collision
