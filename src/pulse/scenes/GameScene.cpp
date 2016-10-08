@@ -84,6 +84,7 @@ void GameScene::addMenuOptions() {
     const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
     menuButton->setPosition(sceneFrame().getMaxX() - 50, sceneFrame().getMaxY() - 50);
+    menuButton->setPhysicsBody(physics_body::createUI(menuButton->getBoundingBox().size));
     menuButton->onTouchEnded = [this](auto ref) {
         safe_callback(onEnterMenu, this);
     };
@@ -93,9 +94,11 @@ void GameScene::addMenuOptions() {
 void GameScene::addScoreLabel() {
     score = Score::create(0);
     score->retain();
+    score->setCascadeOpacityEnabled(true);
     score->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
     score->setScale(0.2);
     score->setPosition(sceneFrame().getMinX() + 10, sceneFrame().getMaxY() - 10);
+    score->setPhysicsBody(physics_body::createUI(score->getBoundingBox().size));
     addChild(score, 3);
 }
 
@@ -179,6 +182,10 @@ cocos2d::EventListener* GameScene::collisionListener() {
         if (this->isObstacleCollision(contact)) {
             gameState.gameOver();
         }
+        if (physics_body::collision::withUI(contact)) {
+            const auto ui = *physics_body::nodeInContact(contact, physics_body::isUI);
+            ui->setOpacity(160);
+        }
         return not physics_body::collision::heroAndPath(contact);
     };
     contactListener->onContactPreSolve = [this](auto& contact, auto& solve) {
@@ -194,6 +201,10 @@ cocos2d::EventListener* GameScene::collisionListener() {
             obstacle->getPhysicsBody()->defeat();
             obstacle->runDefeatedActions();
             gameState.incrementScore();
+        }
+        if (physics_body::collision::withUI(contact)) {
+            const auto ui = *physics_body::nodeInContact(contact, physics_body::isUI);
+            ui->setOpacity(255);
         }
     };
     return contactListener;
