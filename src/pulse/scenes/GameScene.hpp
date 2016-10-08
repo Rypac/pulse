@@ -40,6 +40,8 @@ class GameScene : public PhysicsScene {
     cocos2d::EventListener* collisionListener();
 
     Obstacle* generateObstacle();
+    void schedulePowerupTimer();
+    void unschedulePowerupTimer();
 
     bool isObstacleCollision(const cocos2d::PhysicsContact& contact) const;
     bool isPathCollision(const cocos2d::PhysicsContact& contact) const;

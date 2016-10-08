@@ -8,6 +8,7 @@ GameState::GameState(const GameOptions& options)
 , normalTimeScale_{1.0, 1.0, 1.0}
 , score_{0}
 , timeMode_{TimeMode::Normal}
+, powerup_{0.8, 1.0}
 , accelerometer_{30} {}
 
 int GameState::currentScore() const {
@@ -30,6 +31,10 @@ void GameState::newGame() {
 
 void GameState::gameOver() {
     safe_callback(onGameOver);
+}
+
+Powerup& GameState::powerup() {
+    return powerup_;
 }
 
 Accelerometer& GameState::accelerometer() {

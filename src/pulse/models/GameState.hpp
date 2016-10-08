@@ -5,6 +5,11 @@
 
 namespace pulse {
 
+struct Powerup {
+    float timer;
+    float rate;
+};
+
 struct GameState {
     enum class TimeMode {
         Normal,
@@ -36,6 +41,8 @@ struct GameState {
     float obstacleSpeed() const;
     float obstacleFrequency() const;
 
+    Powerup& powerup();
+
     Accelerometer& accelerometer();
 
     void reset();
@@ -48,6 +55,7 @@ struct GameState {
     const TimeScale normalTimeScale_;
     int score_;
     TimeMode timeMode_;
+    Powerup powerup_;
     Accelerometer accelerometer_;
 };
 

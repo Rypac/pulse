@@ -80,6 +80,22 @@ void GameScene::updateListeners(bool isGameRunning) {
     }
 }
 
+void GameScene::schedulePowerupTimer() {
+    schedule(
+        [this](auto dt) {
+            gameState.powerup().timer -= dt;
+            if (gameState.powerup().timer <= 0) {
+                gameState.enterMode(GameState::TimeMode::Normal);
+                this->unschedulePowerupTimer();
+            }
+        },
+        "TimerSchedule");
+}
+
+void GameScene::unschedulePowerupTimer() {
+    unschedule("TimerSchedule");
+}
+
 void GameScene::addMenuOptions() {
     const auto menuButton = ui::Button::create(Resources::Buttons::Pause);
     menuButton->setScale(0.6);
@@ -139,11 +155,16 @@ cocos2d::EventListener* GameScene::timeScaleTouchListener() {
     const auto timeScaleListener = EventListenerTouchOneByOne::create();
     timeScaleListener->retain();
     timeScaleListener->onTouchBegan = [this](auto touch, auto event) {
+        if (gameState.powerup().timer <= 0) {
+            return false;
+        }
         gameState.enterMode(GameState::TimeMode::SlowMotion);
+        this->schedulePowerupTimer();
         return true;
     };
     timeScaleListener->onTouchEnded = [this](auto touch, auto event) {
         gameState.enterMode(GameState::TimeMode::Normal);
+        this->unschedulePowerupTimer();
     };
     return timeScaleListener;
 }
@@ -152,6 +173,9 @@ cocos2d::EventListener* GameScene::playerTouchListener() {
     const auto touchListener = EventListenerTouchOneByOne::create();
     touchListener->retain();
     touchListener->onTouchBegan = [this](auto touch, auto event) {
+        if (gameState.powerup().timer <= 0) {
+            return false;
+        }
         const auto touchEffect = ParticleSystemQuad::create(Resources::Particles::PulseBegan);
         player->runAction(autoreleased<FollowedBy>(touchEffect));
         return true;
